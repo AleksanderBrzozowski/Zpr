@@ -6,6 +6,8 @@
 #define ZPR_POINT_H
 
 
+#include <ostream>
+
 class Point {
 
 private:
@@ -24,6 +26,8 @@ public:
     bool operator==(const Point &rhs) const;
 
     bool operator!=(const Point &rhs) const;
+
+    friend std::ostream &operator<<(std::ostream &os, const Point &point);
 };
 
 
