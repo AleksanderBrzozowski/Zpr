@@ -8,7 +8,6 @@
 Route::Route(std::vector<Point*> &points) : points(points) {
     for (int i = 1; i < points.size(); i++)
         RouteVector(*points[i - 1], *points[i]);
-    this->points = points;
 }
 
 RouteVector Route::getVector(const Point &point) const {
