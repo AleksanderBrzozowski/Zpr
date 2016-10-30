@@ -20,6 +20,10 @@ public:
     bool operator==(const RouteVector &rhs) const;
 
     bool operator!=(const RouteVector &rhs) const;
+
+    int getX() const;
+
+    int getY() const;
 };
 
 

@@ -24,3 +24,11 @@ bool RouteVector::operator==(const RouteVector &rhs) const {
 bool RouteVector::operator!=(const RouteVector &rhs) const {
     return !(rhs == *this);
 }
+
+int RouteVector::getX() const {
+    return x;
+}
+
+int RouteVector::getY() const {
+    return y;
+}
