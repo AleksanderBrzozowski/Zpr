@@ -63,7 +63,7 @@ void MapArea::snapToGrid(Point &point) {
 
 void MapArea::mouseReleaseEvent(QMouseEvent *event) {
     static bool isSecond = false;
-    static Point firstPoint(0, 0);
+    static Point firstPoint;
     switch (curOption) {
         case optionSetRoad:
             if(!isSecond) {

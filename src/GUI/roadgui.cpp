@@ -1,27 +1,33 @@
 #include "roadgui.h"
 
-RoadGUI::RoadGUI(unsigned int layer, Point begin, Point end) : Drawable(layer) {
-    int diffX = begin.getX() - end.getX();
-    int diffY = begin.getY() - end.getY();
+RoadGUI::RoadGUI(unsigned int layer, Point first, Point second) : Drawable(layer) {
+    int diffX = first.getX() - second.getX();
+    int diffY = first.getY() - second.getY();
 
+    if (abs(diffX) < abs(diffY)) {
+        if (diffX >= 0) {
+            start = first;
+            end = Point(first.getX(), second.getY());
+        } else {
+            start = Point(first.getX(), second.getY());
+            end = first;
+        }
+    } else {
+        if (diffY >= 0) {
+            start = first;
+            end = Point(second.getX(), first.getY());
+        } else {
+            start = Point(second.getX(), first.getY());
+            end = first;
+        }
+    }
     int sgnDiffX = diffX >= 0 ? 1 : -1;
     int sgnDiffY = diffY >= 0 ? 1 : -1;
 
-    if (abs(diffX) > abs(diffY)) {
-        roadRect = QRect(
-                    QPoint(begin.getX() + sgnDiffX * GUI::GRID_SIZE/2,
-                           begin.getY() + sgnDiffX * GUI::GRID_SIZE/2),
-                    QPoint(end.getX() - sgnDiffX * GUI::GRID_SIZE/2,
-                           begin.getY() - sgnDiffX * GUI::GRID_SIZE/2));
-    }
-    else {
-        roadRect = QRect(
-                    QPoint(begin.getX() + sgnDiffY * GUI::GRID_SIZE/2,
-                           begin.getY() + sgnDiffY * GUI::GRID_SIZE/2),
-                    QPoint(begin.getX() - sgnDiffY * GUI::GRID_SIZE/2,
-                           end.getY() - sgnDiffY * GUI::GRID_SIZE/2));
-    }
-
+    roadRect = QRect(
+                QPoint(start.getX() - GUI::GRID_SIZE/2, start.getY() + GUI::GRID_SIZE/2),
+                QPoint(end.getX() + GUI::GRID_SIZE/2, end.getY() - GUI::GRID_SIZE/2)
+                );
 
 }
 

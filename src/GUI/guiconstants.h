@@ -41,20 +41,24 @@ namespace GUI {
     const QBrush PPL_BRUSH(PPL_BRUSH_COLOR, PPL_BRUSH_STYLE);
 
     /*********ROAD**********/
-    const int ROAD_PEN_WIDTH = 1;
+    const int ROAD_PEN_WIDTH = 0;
     const Qt::PenStyle ROAD_PEN_STYLE = Qt::SolidLine;
     const Qt::PenCapStyle ROAD_PEN_CAP = Qt::SquareCap;
     const Qt::PenJoinStyle ROAD_PEN_JOIN = Qt::RoundJoin;
-    const QColor ROAD_PEN_COLOR = Qt::darkGray;
+    const QColor ROAD_PEN_COLOR = QColor(100, 100, 100);
 
     const QPen ROAD_PEN(ROAD_PEN_COLOR, ROAD_PEN_WIDTH, ROAD_PEN_STYLE,
                         ROAD_PEN_CAP, ROAD_PEN_JOIN);
 
 
     const Qt::BrushStyle ROAD_BRUSH_STYLE = Qt::SolidPattern;
-    const QColor ROAD_BRUSH_COLOR = Qt::darkGray;
+    const QColor ROAD_BRUSH_COLOR = QColor(100, 100, 100);
+
+    const QColor ROAD_BRUSH_GHOST_COLOR = QColor(100, 100, 100, 127);
+    const QColor ROAD_PEN_GHOST_COLOR = QColor(100, 100, 100, 127);
 
     const QBrush ROAD_BRUSH(ROAD_BRUSH_COLOR, ROAD_BRUSH_STYLE);
+    const QBrush ROAD_GHOST_BRUSH(ROAD_BRUSH_COLOR, ROAD_BRUSH_STYLE);
 
     /*********GRID**********/
     const QPen GRID_PEN(QColor(Qt::black));

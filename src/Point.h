@@ -14,6 +14,7 @@ private:
     int x,y;
 public:
     Point(int x, int y);
+    Point();
 
     int getX() const;
 

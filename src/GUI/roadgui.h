@@ -17,6 +17,8 @@ public:
 
 private:
     QRect roadRect;
+    Point start;
+    Point end;
 };
 
 #endif // ROADGUI_H
