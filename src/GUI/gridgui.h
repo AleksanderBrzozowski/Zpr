@@ -2,7 +2,6 @@
 #define GRIDGUI_H
 
 #include "drawable.h"
-#include "guiconstants.h"
 
 class GridGUI : public Drawable {
 public:
@@ -11,6 +10,9 @@ public:
     void draw(QPainter &painter) override;
     void setTo(int x, int y) override;
 
+    /**PROPERTIES**/
+    static const QPen PEN;
+    static const int SIZE;
 private:
     unsigned int height;
     unsigned int width;

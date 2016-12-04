@@ -27,13 +27,17 @@ QMenu* MainWindow::initMenu() {
     toolsMenu->addAction(toggleGrid);
 
     QAction *createRoad = new QAction("Create road", toolsMenu);
-    connect(createRoad, &QAction::triggered, [=]() {mapArea->setCurOption(MapArea::optionSetRoad);
-                                                         statusLabel->setText("Current option: Create road");});
+    connect(createRoad,
+            &QAction::triggered, [=]() {mapArea->setCurrentOption(EventInterpreter::Option::optionSetRoad);
+                                        statusLabel->setText("Current option: Create road");}
+            );
     toolsMenu->addAction(createRoad);
 
     QAction *spawnCar = new QAction("Spawn car", toolsMenu);
-    connect(spawnCar, &QAction::triggered, [=]() {mapArea->setCurOption(MapArea::optionSetCar);
-                                                        statusLabel->setText("Current option: Spawn Car");});
+    connect(spawnCar,
+            &QAction::triggered, [=]() {mapArea->setCurrentOption(EventInterpreter::Option::optionSetCar);
+                                        statusLabel->setText("Current option: Spawn Car");}
+            );
     toolsMenu->addAction(spawnCar);
 
     return toolsMenu;

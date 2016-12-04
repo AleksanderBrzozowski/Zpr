@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.6)
 
-set(SOURCE_FILES guiconstants.h mainwindow.h mainwindow.cpp maparea.h maparea.cpp drawable.cpp drawable.h
-        gridgui.cpp gridgui.h pplgui.cpp pplgui.h roadgui.cpp roadgui.h cargui.cpp cargui.h ../Point.h ../Point.cpp ui_mainwindow.h)
+set(SOURCE_FILES cargui.cpp eventinterpreter.cpp mainwindow.h pplgui.h cargui.h
+    eventinterpreter.h mainwindow.ui roadgui.cpp gridgui.cpp maparea.cpp roadgui.h
+    drawable.cpp gridgui.h maparea.h ui_mainwindow.h drawable.h mainwindow.cpp pplgui.cpp
+    ../Point.h ../Point.cpp)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 

@@ -1,9 +1,12 @@
 #include "maparea.h"
 
-MapArea::MapArea(QWidget *parent) :
-    QWidget(parent), curOption(optionSetRoad), maxID(0), displayGrid(false) {
+MapArea::MapArea(QWidget *parent) : QWidget(parent), roadID(0), displayGrid(false) {
+
+    connect(&eventInterpreter, &EventInterpreter::drawableCreated, this, &MapArea::registerDrawable);
+    connect(&eventInterpreter, &EventInterpreter::roadCreated, this, &MapArea::registerRoad);
 
     QPalette pal(palette());
+    setMouseTracking(true);
     pal.setColor(QPalette::Background, Qt::gray);
     setAutoFillBackground(true);
     setPalette(pal);
@@ -12,6 +15,9 @@ MapArea::MapArea(QWidget *parent) :
 MapArea::~MapArea() {
     for (const auto &drawable : objectMap)
         delete drawable.second;
+
+    for (const auto &road : roadMap)
+        delete road.second;
 }
 
 void MapArea::setCar(int id, int x, int y) {
@@ -20,7 +26,6 @@ void MapArea::setCar(int id, int x, int y) {
     } else {
         objectMap[id]->setTo(x, y);
     }
-    setMaxID(id);
     update();
 }
 
@@ -30,7 +35,6 @@ void MapArea::setPpl(int id, int x, int y) {
     } else {
         objectMap[id]->setTo(x, y);
     }
-    setMaxID(id);
     update();
 }
 
@@ -39,71 +43,65 @@ void MapArea::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
 
-    for (const auto &drawable : objectMap) {
-        if(drawable.second->getLayer() == 3)
+    for (const auto &drawable : roadMap) {
             drawable.second->draw(painter);
     }
     for (const auto &drawable : objectMap) {
-        if(drawable.second->getLayer() == 2)
             drawable.second->draw(painter);
     }
+
+    if(ghost != nullptr)
+        ghost->draw(painter);
 
     if(displayGrid)
         GridGUI(1, width(), height()).draw(painter);
 
-    QWidget::paintEvent(event);
+  //  QWidget::paintEvent(event);
 }
 
 void MapArea::snapToGrid(Point &point) {
-    int x = point.getX() / GUI::GRID_SIZE;
-    int y = point.getY() / GUI::GRID_SIZE;
-    point.setX(x * GUI::GRID_SIZE + GUI::GRID_SIZE/2);
-    point.setY(y * GUI::GRID_SIZE + GUI::GRID_SIZE/2);
+    int x = point.getX() / GridGUI::SIZE;
+    int y = point.getY() / GridGUI::SIZE;
+    point.setX(x * GridGUI::SIZE + GridGUI::SIZE/2);
+    point.setY(y * GridGUI::SIZE + GridGUI::SIZE/2);
 }
 
+
+
 void MapArea::mouseReleaseEvent(QMouseEvent *event) {
-    static bool isSecond = false;
-    static Point firstPoint;
-    switch (curOption) {
-        case optionSetRoad:
-            if(!isSecond) {
-                firstPoint = Point(event->x(), event->y());
-                snapToGrid(firstPoint);
-                isSecond = true;
-            } else {
-                Point secondPoint(event->x(), event->y());
-                snapToGrid(secondPoint);
-                createRoad(firstPoint, secondPoint);
-                isSecond = false;
-            }
-            break;
-        case optionSetCar:
-            setCar(100, event->x(), event->y());
-            isSecond = false;
-            break;
-        default:
-            isSecond = false;
-            break;
-    }
+    eventInterpreter.mouseClicked(event->x(), event->y());
     event->accept();
 }
 
-void MapArea::createRoad(Point end1, Point end2) {
-    objectMap[++maxID] = new RoadGUI(3, end1, end2);
+void MapArea::mouseMoveEvent(QMouseEvent *event) {
+    eventInterpreter.mouseMoved(event->x(), event->y());
+    event->accept();
     update();
 }
 
-void MapArea::setMaxID(int id) {
-    if (id > maxID)
-        maxID = id;
+void MapArea::createRoad(Point end1, Point end2) {
+    roadMap[++roadID] = new RoadGUI(3, end1, end2);
+    update();
 }
+
 
 void MapArea::toggleGrid() {
     displayGrid = !displayGrid;
     update();
 }
 
-void MapArea::setCurOption(Option option) {
-    curOption = option;
+void MapArea::setCurrentOption(EventInterpreter::Option option) {
+    ghost = eventInterpreter.setCurrentOption(option);
+}
+
+void MapArea::registerRoad(RoadGUI *road) {
+    roadMap[++roadID] = road;
+    update();
+}
+
+void MapArea::registerDrawable(Drawable *drawable) {
+    int id = 80; //TEMPRARILY
+    objectMap[id] = drawable;
+    update();
 }
 

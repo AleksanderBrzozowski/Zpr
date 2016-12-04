@@ -13,36 +13,43 @@
 #include "gridgui.h"
 #include "roadgui.h"
 #include "../Point.h"
+#include <memory>
+#include "eventinterpreter.h"
 
 class MapArea : public QWidget
 {
     Q_OBJECT
 public:
-    enum Option {optionSetRoad, optionSetCar};
+
     explicit MapArea(QWidget *parent = 0);
     ~MapArea();
-
-    void paintEvent(QPaintEvent *event);
 
     void setCar(int id, int x, int y);
     void setPpl(int id, int x, int y);
     void createRoad(Point end1, Point end2);
 
+
     void snapToGrid(Point &point);
-    void setMaxID(int id);
-    void setCurOption(Option option);
+    void setCurrentOption(EventInterpreter::Option option);
 
     void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+
 signals:
 
 public slots:
     void toggleGrid();
+    void registerRoad(RoadGUI*);
+    void registerDrawable(Drawable*);
 
 private:
-    int maxID;
+    int roadID;
     std::map<int, Drawable*> objectMap;
-    Option curOption;
+    std::map<int, RoadGUI*> roadMap;
     bool displayGrid;
+    EventInterpreter eventInterpreter;
+    std::shared_ptr<Drawable> ghost;
 
 
 

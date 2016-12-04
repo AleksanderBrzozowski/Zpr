@@ -33,6 +33,30 @@ bool Point::operator!=(const Point &rhs) const {
     return !(rhs == *this);
 }
 
+Point& Point::operator-=(const Point &rhs) {
+    this->x -= rhs.x;
+    this->y -= rhs.y;
+    return *this;
+}
+
+Point& Point::operator+=(const Point &rhs) {
+    this->x += rhs.x;
+    this->y += rhs.y;
+    return *this;
+}
+
+const Point Point::operator-(const Point &rhs) const {
+    Point result = *this;
+    result -= rhs;
+    return result;
+}
+
+const Point Point::operator+(const Point &rhs) const {
+    Point result = *this;
+    result += rhs;
+    return result;
+}
+
 std::ostream &operator<<(std::ostream &os, const Point &point) {
     os << "x: " << point.x << " y: " << point.y;
     return os;
