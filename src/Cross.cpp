@@ -28,5 +28,5 @@ unsigned int Cross::getId() const {return id;}
 Point* Cross::getPosition() const {return position;}
 
 void Cross::createNeighbourhood(const std::vector<std::pair<Cross *, Point *>> & neigh) {
-    neighbours=neigh;
+    neighbours = neigh;
 }

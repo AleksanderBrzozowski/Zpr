@@ -27,7 +27,8 @@ void TrafficControl::findRoute(const unsigned int & src, const unsigned int & ds
     foundRoute.push(crosses[src]->getNotVisitedNeighbours());
     while(foundRoute.top()->first->getId() != crosses[dst]->getId()){
 
-        if(!foundRoute.top()->first->getNotVisitedNeighbours())foundRoute.pop();
+        if(!foundRoute.top()->first->getNotVisitedNeighbours())
+            foundRoute.pop();
         else{
             foundRoute.push(foundRoute.top()->first->getNotVisitedNeighbours());
             foundRoute.top()->first->setVisited(true);
