@@ -10,20 +10,24 @@
 #include "Cross.h"
 #include <algorithm>
 #include <stack>
+#include <list>
 #include "Point.h"
+#include "CrossFactory.h"
 
 class TrafficControl {
 
 private:
     std::vector<Cross*> crosses;
-    std::vector<Movable*> movables;
+    std::list<Movable*> movables;
+
+    int findCrossByPoint(Point*);
+    void prepareFinding();
+    void findRoute(Point*, Point*, std::vector<Point*>&);
 
 
 public:
-    void createNewMovable(const unsigned int&, const unsigned int&, const int&);
-
-    void prepareFinding();
-    void findRoute(const unsigned int&, const unsigned int& , std::vector<Point*>&);
+    bool createNewMovable(Point*, Point*, const int&);
+    void createRoute(Point*, Point*);
 
     TrafficControl();
 
