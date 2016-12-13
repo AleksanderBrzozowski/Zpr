@@ -11,14 +11,14 @@
 class Cross {
 
     const unsigned int id;
-    std::vector<std::pair<Cross*, Point*> >neighbours;
+    std::vector<Cross*>neighbours;
     bool visited;
     Point* position;
 
 public:
     Cross(const unsigned int&, Point*);
-    std::pair<Cross*, Point*>* getNotVisitedNeighbours();
-    void createNeighbourhood(const std::vector<std::pair<Cross*, Point*>>&);
+    Cross* getNotVisitedNeighbours();
+    void addNeighbour(Cross*);
     bool setVisited(const bool&);
     bool getVisited() const;
     unsigned int getId() const;

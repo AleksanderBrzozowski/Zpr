@@ -15,10 +15,10 @@ bool Cross::setVisited(const bool& wasVisited) {
 
 bool Cross::getVisited() const {return visited;}
 
-std::pair<Cross*, Point*>* Cross::getNotVisitedNeighbours() {
+Cross* Cross::getNotVisitedNeighbours() {
     for(int i=0;i<(int)neighbours.size();++i){
-        if(!neighbours[i].first->getVisited())
-            return  &neighbours[i];
+        if(!neighbours[i]->getVisited())
+            return  neighbours[i];
     }
     return nullptr;
 }
@@ -27,6 +27,6 @@ unsigned int Cross::getId() const {return id;}
 
 Point* Cross::getPosition() const {return position;}
 
-void Cross::createNeighbourhood(const std::vector<std::pair<Cross *, Point *>> & neigh) {
-    neighbours = neigh;
+void Cross::addNeighbour(Cross* cr) {
+        neighbours.push_back(cr);
 }
