@@ -25,6 +25,7 @@ void CrossFactory::createRoute(Point * begin, Point * end,  std::vector<Cross*>&
         crosses[tempCross2Index]->addNeighbour(newCross);
         crosses[tempCross1Index]->addNeighbour(crosses[tempCross2Index]);
         crosses.push_back(newCross);
+        delete end;
     }
 
 
@@ -33,6 +34,7 @@ void CrossFactory::createRoute(Point * begin, Point * end,  std::vector<Cross*>&
         crosses[tempCross1Index]->addNeighbour(newCross);
         crosses[tempCross2Index]->addNeighbour(crosses[tempCross1Index]);
         crosses.push_back(newCross);
+        delete begin;
     }
 }
 
