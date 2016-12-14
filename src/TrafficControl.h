@@ -16,16 +16,20 @@
 
 class TrafficControl {
 
+    //TODO: shared_point instead of Point*
+
 private:
     std::vector<Cross*> crosses;
     std::list<Movable*> movables;
+
+public:
 
     int findCrossByPoint(Point*);
     void prepareFinding();
     void findRoute(Point*, Point*, std::vector<Point*>&);
 
 
-public:
+
     bool createNewMovable(Point*, Point*, const int&);
     void createRoute(Point*, Point*);
 

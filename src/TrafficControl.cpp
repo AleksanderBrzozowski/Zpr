@@ -8,7 +8,7 @@
 TrafficControl::TrafficControl() {}
 
 TrafficControl::~TrafficControl() {
-    for(std::list<Movable*>::iterator iter; iter!=movables.end();++iter)
+    for(std::list<Movable*>::iterator iter=movables.begin(); iter!=movables.end();++iter)
         delete *iter;
     for(int i =0; i< (int)crosses.size();++i)
         delete crosses[i];
@@ -18,8 +18,14 @@ bool TrafficControl::createNewMovable(Point* src, Point* dst, const int& speed){
     std::vector<Point*>route;
 
     findRoute(src, dst, route);
-    Movable* tempMovable = new Movable( *src ,  speed,   route);
+    int src_index = findCrossByPoint(src);
+    delete src;
+    delete dst;
+    if(src_index<0 || route.empty() || speed<=0)
+        return false;
+    Movable* tempMovable = new Movable( *(crosses[src_index]->getPosition()), speed, route);
     movables.push_back(tempMovable);
+
     return true;
 }
 
@@ -30,7 +36,7 @@ void TrafficControl::createRoute(Point * src, Point * dst) {
 int TrafficControl::findCrossByPoint(Point* point) {
 
     for(int i =0;i<(int)crosses.size();++i)
-        if(crosses[i]->getPosition() == point)
+        if(*(crosses[i]->getPosition()) == *(point))
             return i;
     return -1;
 }
@@ -44,17 +50,25 @@ void TrafficControl::findRoute(Point* src, Point* dst, std::vector<Point*>&ready
     int src_index=findCrossByPoint(src);
     if(src_index<0)
         return;
-    foundRoute.push(crosses[src_index]->getNotVisitedNeighbours());
+    crosses[src_index]->setVisited(true);
+    foundRoute.push(crosses[src_index]);
 
-    while(foundRoute.top()->getPosition() != dst){
+    Point* currentPoint = foundRoute.top()->getPosition();
 
-        if(!foundRoute.top()->getNotVisitedNeighbours())
-            foundRoute.pop();
+    while(*currentPoint != *dst){
+
+        Cross* currentCross = foundRoute.top()->getNotVisitedNeighbours();
+        if(!currentCross){
+            if(!foundRoute.empty())
+                foundRoute.pop();
+        }
+
         else{
-            foundRoute.push(foundRoute.top()->getNotVisitedNeighbours());
-            foundRoute.top()->setVisited(true);
+            foundRoute.push(currentCross);
+            currentCross->setVisited(true);
         }
         if(foundRoute.empty()) break;
+        currentPoint = foundRoute.top()->getPosition();
     }
 
     while(!foundRoute.empty()){

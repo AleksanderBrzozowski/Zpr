@@ -23,7 +23,7 @@ void CrossFactory::createRoute(Point * begin, Point * end,  std::vector<Cross*>&
     else if(tempCross1Index<0 && tempCross2Index>=0){
         Cross* newCross = new Cross((int)crosses.size(), begin);
         crosses[tempCross2Index]->addNeighbour(newCross);
-        crosses[tempCross1Index]->addNeighbour(crosses[tempCross2Index]);
+        newCross->addNeighbour(crosses[tempCross2Index]);
         crosses.push_back(newCross);
         delete end;
     }
@@ -32,16 +32,22 @@ void CrossFactory::createRoute(Point * begin, Point * end,  std::vector<Cross*>&
     else if(tempCross2Index<0 && tempCross1Index>=0) {
         Cross *newCross = new Cross((int) crosses.size(), end);
         crosses[tempCross1Index]->addNeighbour(newCross);
-        crosses[tempCross2Index]->addNeighbour(crosses[tempCross1Index]);
+        newCross->addNeighbour(crosses[tempCross1Index]);
         crosses.push_back(newCross);
         delete begin;
+    }
+    else{
+        crosses[tempCross2Index]->addNeighbour(crosses[tempCross1Index]);
+        crosses[tempCross1Index]->addNeighbour(crosses[tempCross2Index]);
+        delete begin;
+        delete end;
     }
 }
 
 int CrossFactory::findCrossIndex(Point * point, const std::vector<Cross*>& crosses) {
 
     for(int i =0;i<(int)crosses.size();++i){
-        if(crosses[i]->getPosition() == point){
+        if(*(crosses[i]->getPosition()) == *point){
             return i;
         }
     }
