@@ -13,21 +13,16 @@ class Movable {
 private:
     Point actualPoint;
     const int maxSpeed;
-    Route* route;
-
+    Route *route;
     RouteVector routeVector;
-    int actualSpeed;
-    bool riding;
 
-    void setSpeedAndRiding();
-    void move();
 public:
     Movable(Point actualPoint, const int speed, std::vector<Point *> &route);
     virtual ~Movable();
-    void nextTurn();
 
+    bool move();
     const Point &getActualPoint() const;
-    bool isRiding() const;
+
 };
 
 
