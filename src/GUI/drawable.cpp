@@ -1,6 +1,6 @@
 #include "drawable.h"
 
-Drawable::Drawable(unsigned int layer, bool ghost) {
+Drawable::Drawable(unsigned int layer, bool ghost = false) {
     this->layer = layer;
     this->ghost = ghost;
 }

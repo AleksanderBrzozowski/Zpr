@@ -6,10 +6,11 @@ MapArea::MapArea(QWidget *parent) : QWidget(parent), roadID(0), displayGrid(fals
     connect(&eventInterpreter, &EventInterpreter::roadCreated, this, &MapArea::registerRoad);
 
     QPalette pal(palette());
-    setMouseTracking(true);
     pal.setColor(QPalette::Background, Qt::gray);
     setAutoFillBackground(true);
     setPalette(pal);
+
+    setMouseTracking(true);
 }
 
 MapArea::~MapArea() {
