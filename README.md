@@ -62,10 +62,10 @@ Systemy z rodziny Linux
 -----------------------
 
 W terminalu:
-mkdir build && cd build  # stworzenie i przejście do katalogu build
-cmake ../  # uruchomienie CMake
-make  # kompilacja i konsolidacja projektu
-./Zpr_run  # uruchomienie programu
+*mkdir build && cd build  # stworzenie i przejście do katalogu build
+*cmake ../  # uruchomienie CMake
+*make  # kompilacja i konsolidacja projektu
+*./Zpr_run  # uruchomienie programu
 
 Systemy Windows
 ---------------------------------------
@@ -76,8 +76,8 @@ niezgodna z architekturą biblioteki Qt. Przykładową wartością w to miejsce
 może być "Visual Studio 14 2015 Win64".
 
 W środowisku Power Shell:
-mkdir build # stworzenie katalogu build
-cd build # przejście do katalogu build
-cmake -G "$GENERATOR" ../ # uruchomienie CMake
-cmake --build . # wywołanie kompilatora za pośrednictwem CMake
+*mkdir build # stworzenie katalogu build
+*cd build # przejście do katalogu build
+*cmake -G "$GENERATOR" ../ # uruchomienie CMake
+*cmake --build . # wywołanie kompilatora za pośrednictwem CMake
 
