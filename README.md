@@ -53,10 +53,10 @@ odpowiednim kompilatorem.
 4. INSTALACJA KROK PO KROKU
 ===========================
 
-*************************************************
+/************************************************
 * Zakłada się spełnienie warunków z punktu 1.   *
 * oraz że znajdujemy się w katalogu z projektem *
-*************************************************
+************************************************/
 
 Systemy z rodziny Linux
 -----------------------
