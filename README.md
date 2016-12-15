@@ -27,9 +27,12 @@ wystarczy zainstalować paczkę "qt5base-dev".
 - W przypadku pozostałych systemów należy zainstalować Qt pobierając
 go wpierw ze strony projektu - https://www.qt.io/download-open-source/
 - W przypadku gdy CMake nie znajdzie automatycznie ścieżki do bibliotek
-Qt, należy w pliku src/GUI/CMakeLists.txt odkomentować linijkę:
-"set (CMAKE_PREFIX_PATH "C:\\Qt\\5.7\\msvc2015_64")", oraz wstawić
-odpowiednią ścieżkę do biblioteki.
+Qt, należy podać ścieżkę ich instalacji (miejsce gdzie znajduje się folder lib)
+ przy wywołaniu CMake:
+-D CMAKE_PREFIX_PATH={ŚCIEŻKA}
+
+np.
+-D CMAKE_PREFIX_PATH=C:/Qt/5.7/mingw53_32
 
 Instalacja CMake:
 --------------------
