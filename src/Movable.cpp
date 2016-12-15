@@ -4,9 +4,9 @@
 
 #include "Movable.h"
 
-Movable::Movable(Point actualPoint, const int speed, std::vector<Point *> &route)
+Movable::Movable(Point actualPoint, const int speed, std::vector<Point *> &route, const unsigned int id)
         : actualPoint(actualPoint), maxSpeed(speed), route(new Route(route)),
-          routeVector(this->route->getVector(actualPoint)){
+          routeVector(this->route->getVector(actualPoint)), id(id) {
     if(speed < 1)
         throw std::invalid_argument("Car speed must be positive value higher than 0");
 }
@@ -38,6 +38,10 @@ bool Movable::move() {
         actualPoint.setY(distanceToGo * routeVector.getY() + actualPoint.getY());
         return true;
     }
+}
+
+const unsigned int Movable::getId() const {
+    return id;
 }
 
 

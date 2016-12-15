@@ -13,16 +13,17 @@ class Movable {
 private:
     Point actualPoint;
     const int maxSpeed;
+    const unsigned int id;
     Route *route;
     RouteVector routeVector;
 
 public:
-    Movable(Point actualPoint, const int speed, std::vector<Point *> &route);
+    Movable(Point actualPoint, const int speed, std::vector<Point *> &route, const unsigned int id);
     virtual ~Movable();
 
     bool move();
     const Point &getActualPoint() const;
-
+    const unsigned int getId() const;
 };
 
 

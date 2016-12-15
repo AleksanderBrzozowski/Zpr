@@ -25,18 +25,18 @@ public:
 
 TEST_F(MovableTest, constructorOk) {
     std::vector<Point*> route{new Point(10, 10)};
-    Movable (Point(10, 10), 10, route);
+    Movable(Point(10, 10), 10, route, 0);
 }
 
 TEST_F(MovableTest, sampleRoute) {
-    Movable movable(Point(20, 10), 5, points);
+    Movable movable(Point(20, 10), 5, points, 0);
     while (movable.move()) ;
 
     EXPECT_EQ(*lastPoint, movable.getActualPoint());
 }
 
 TEST_F(MovableTest, anotherRoute) {
-    Movable movable(Point(-100, 10), 9, points);
+    Movable movable(Point(-100, 10), 9, points, 0);
     while (movable.move()) ;
 
     EXPECT_EQ(*lastPoint, movable.getActualPoint());
