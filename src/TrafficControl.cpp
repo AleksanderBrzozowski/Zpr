@@ -23,7 +23,7 @@ bool TrafficControl::createNewMovable(Point* src, Point* dst, const int& speed){
     delete dst;
     if(src_index<0 || route.empty() || speed<=0)
         return false;
-    Movable* tempMovable = new Movable( *(crosses[src_index]->getPosition()), speed, route);
+    Movable* tempMovable = new Movable(*(crosses[src_index]->getPosition()), speed, route, 0);
     movables.push_back(tempMovable);
 
     return true;
