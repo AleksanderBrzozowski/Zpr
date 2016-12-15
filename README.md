@@ -43,7 +43,7 @@ oraz zainstalować go zgodnie z załączoną doń instrukcją.
 Instalacja polega na wywołaniu programu CMake podając jako
 argument ścieżkę do folderu w którym znajduje się projekt.
 
-W przypadku systemu z rodziny Linux lub Windows korzystając ze środowiska 
+W przypadku systemu z rodziny Linux, lub Windows korzystającego ze środowiska 
 MinGW, polecenie to wygeneruje plik Makefile. Wywołanie komendy 'make' 
 skompiluje projekt i wygeneruje plik wykonywalny 'Zpr_run'.
 
