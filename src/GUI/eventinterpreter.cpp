@@ -1,6 +1,6 @@
 #include "eventinterpreter.h"
 
-EventInterpreter::EventInterpreter() {
+EventInterpreter::EventInterpreter() : currentOption(Option::optionDoNothing) {
 
 }
 
