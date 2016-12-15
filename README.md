@@ -1,4 +1,5 @@
 Projekt na przedmiot ZPR
+========================
 
 Przedmiotem projektu jest symulator systemu kamer w ruchu drogowym.
 
@@ -18,7 +19,7 @@ Do skompilowania projektu niezbędne są:
 2. PRZYGOTOWANIE
 ================
 
-a. Instalacja biblioteki Qt5:
+Instalacja biblioteki Qt5:
 ------------------------------
 
 - W systemach korzystających z repozytoriów Debiana (m.in. Ubuntu)
@@ -30,7 +31,7 @@ Qt, należy w pliku src/GUI/CMakeLists.txt odkomentować linijkę:
 "set (CMAKE_PREFIX_PATH "C:\\Qt\\5.7\\msvc2015_64")", oraz wstawić
 odpowiednią ścieżkę do biblioteki.
 
-b. Instalacja CMake:
+Instalacja CMake:
 --------------------
 
 - Należy pobrać CMake ze strony projektu https://cmake.org/download/
@@ -62,10 +63,10 @@ Systemy z rodziny Linux
 -----------------------
 
 W terminalu:
-*mkdir build && cd build  # stworzenie i przejście do katalogu build
-*cmake ../  # uruchomienie CMake
-*make  # kompilacja i konsolidacja projektu
-*./Zpr_run  # uruchomienie programu
+* mkdir build && cd build  # stworzenie i przejście do katalogu build
+* cmake ../  # uruchomienie CMake
+* make  # kompilacja i konsolidacja projektu
+* ./Zpr_run  # uruchomienie programu
 
 Systemy Windows
 ---------------------------------------
@@ -76,8 +77,8 @@ niezgodna z architekturą biblioteki Qt. Przykładową wartością w to miejsce
 może być "Visual Studio 14 2015 Win64".
 
 W środowisku Power Shell:
-*mkdir build # stworzenie katalogu build
-*cd build # przejście do katalogu build
-*cmake -G "$GENERATOR" ../ # uruchomienie CMake
-*cmake --build . # wywołanie kompilatora za pośrednictwem CMake
+* mkdir build # stworzenie katalogu build
+* cd build # przejście do katalogu build
+* cmake -G "$GENERATOR" ../ # uruchomienie CMake
+* cmake --build . # wywołanie kompilatora za pośrednictwem CMake
 
