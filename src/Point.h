@@ -24,6 +24,8 @@ public:
 
     void setY(int y);
 
+    int absDistance(const Point &point) const;
+
     bool operator==(const Point &rhs) const;
 
     bool operator!=(const Point &rhs) const;

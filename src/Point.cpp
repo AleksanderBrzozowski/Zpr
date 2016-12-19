@@ -2,6 +2,7 @@
 // Created by Aleksander on 29.10.2016.
 //
 
+#include <cstdlib>
 #include "Point.h"
 
 Point::Point(int x, int y) : x(x), y(y) {}
@@ -22,6 +23,14 @@ int Point::getY() const {
 
 void Point::setY(int y) {
     Point::y = y;
+}
+
+int Point::absDistance(const Point &point) const{
+    return abs(
+            x == point.x ?
+            x - point.x :
+            y - point.y
+    );
 }
 
 bool Point::operator==(const Point &rhs) const {
