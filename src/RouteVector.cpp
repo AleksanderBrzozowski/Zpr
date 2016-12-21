@@ -16,6 +16,8 @@ RouteVector::RouteVector(const Point &begin, const Point &end) {
 }
 
 
+RouteVector::RouteVector() : x(0), y(0) {}
+
 bool RouteVector::operator==(const RouteVector &rhs) const {
     return x == rhs.x &&
            y == rhs.y;
