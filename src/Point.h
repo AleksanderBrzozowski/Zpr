@@ -15,6 +15,7 @@ private:
 public:
     Point(int x, int y);
     Point();
+    Point(const Point &point);
 
     int getX() const;
 
@@ -34,7 +35,6 @@ public:
     Point& operator+=(const Point &rhs);
     const Point operator-(const Point &rhs) const;
     const Point operator+(const Point &rhs) const;
-
     friend std::ostream &operator<<(std::ostream &os, const Point &point);
 };
 
