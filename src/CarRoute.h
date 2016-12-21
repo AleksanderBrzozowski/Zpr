@@ -11,16 +11,17 @@
 #include <cstdlib>
 #include <vector>
 #include "Route2.h"
+#include "Types.h"
 
 class CarRoute : public Route2 {
 public:
-    CarRoute(const std::stack<std::shared_ptr<const Point>> &points);
+    CarRoute(const std::vector<PtrToConstPoint> &points);
     virtual ~CarRoute();
 
     bool nextPoint() override;
     bool isEnd() override;
 private:
-    std::stack<std::shared_ptr<Point const>> points;
+    std::stack<PtrToConstPoint> points;
 
     const Point &getActualPoint() const override;
 };

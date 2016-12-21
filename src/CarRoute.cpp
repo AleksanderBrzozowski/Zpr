@@ -4,9 +4,9 @@
 
 #include "CarRoute.h"
 
-CarRoute::CarRoute(const std::stack<std::shared_ptr<const Point>> &points) : points(points) {
-    if(points.empty())
-        throw std::runtime_error("points cannot be empty!");
+CarRoute::CarRoute(const std::vector<PtrToConstPoint> &points) {
+    this->points = std::stack<PtrToConstPoint>
+            (std::deque<PtrToConstPoint>(points.crbegin(), points.crend()));
 }
 
 CarRoute::~CarRoute() {}
