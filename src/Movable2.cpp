@@ -5,8 +5,7 @@
 #include "Movable2.h"
 
 Movable2::Movable2(Route2 &route, Point actualPoint, const int speed)
-        : route(route), actualPoint(actualPoint), speed(speed),
-          routeVector(route.getRouteVector(actualPoint)) {}
+        : route(route), actualPoint(actualPoint), speed(speed){}
 
 bool Movable2::move() {
     if(route.isLastPoint(actualPoint))
@@ -36,6 +35,6 @@ bool Movable2::isEnd() const {
     return route.isLastPoint(actualPoint);
 }
 
-const Point &Movable2::getActualPoint() const {
+Point Movable2::getActualPoint() const {
     return actualPoint;
 }

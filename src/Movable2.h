@@ -15,10 +15,10 @@ public:
     bool move();
     bool isEnd() const;
 
-    const Point &getActualPoint() const;
+    Point getActualPoint() const;
 private:
     Route2& route;
-    Point& actualPoint;
+    Point actualPoint;
     const int speed;
     RouteVector routeVector;
 };
