@@ -5,7 +5,7 @@
 #include "Route2.h"
 
 RouteVector Route2::getRouteVector(const Point &point) const {
-    return RouteVector(getActualPoint(), point);
+    return RouteVector(point, getActualPoint());
 }
 
 int Route2::getDistance(const Point &point) const {
