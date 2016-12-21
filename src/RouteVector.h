@@ -17,6 +17,7 @@ private:
 public:
     RouteVector(const Point& begin, const Point& end);
     RouteVector();
+    RouteVector(int x, int y);
 
     bool operator==(const RouteVector &rhs) const;
 
