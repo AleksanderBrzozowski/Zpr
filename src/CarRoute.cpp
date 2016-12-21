@@ -24,6 +24,6 @@ const Point &CarRoute::getActualPoint() const {
     return *points.top();
 }
 
-bool CarRoute::isLastPoint(const Point &point) {
-    return getActualPoint() == point;
+bool CarRoute::isEnd() {
+    return points.empty();
 }

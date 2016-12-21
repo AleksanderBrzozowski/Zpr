@@ -18,7 +18,7 @@ public:
     virtual ~HumanRoute();
 
     bool nextPoint() override;
-    bool isLastPoint(const Point &point) override;
+    bool isEnd() override;
 private:
     std::vector<std::shared_ptr<Point const>> points;
     std::vector<std::shared_ptr<Point const>>::const_iterator pointsIterator;

@@ -18,7 +18,7 @@ public:
     virtual ~CarRoute();
 
     bool nextPoint() override;
-    bool isLastPoint(const Point &point) override;
+    bool isEnd() override;
 private:
     std::stack<std::shared_ptr<Point const>> points;
 

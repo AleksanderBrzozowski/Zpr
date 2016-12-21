@@ -13,7 +13,6 @@ public:
     Movable2(Route2 &route, Point actualPoint, const int speed);
 
     bool move();
-    bool isEnd() const;
 
     Point getActualPoint() const;
 private:

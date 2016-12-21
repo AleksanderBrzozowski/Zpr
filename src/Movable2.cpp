@@ -8,13 +8,13 @@ Movable2::Movable2(Route2 &route, Point actualPoint, const int speed)
         : route(route), actualPoint(actualPoint), speed(speed){}
 
 bool Movable2::move() {
-    if(route.isLastPoint(actualPoint))
+    if(route.isEnd())
         return false;
     else{
         int distance = route.getDistance(actualPoint);
         if(distance == 0){
             route.nextPoint(); // switch to next point
-            if(route.isLastPoint(actualPoint))
+            if(route.isEnd())
                 return false;
             else{
                 routeVector = route.getRouteVector(actualPoint);
@@ -29,10 +29,6 @@ bool Movable2::move() {
         );
         return true;
     }
-}
-
-bool Movable2::isEnd() const {
-    return route.isLastPoint(actualPoint);
 }
 
 Point Movable2::getActualPoint() const {

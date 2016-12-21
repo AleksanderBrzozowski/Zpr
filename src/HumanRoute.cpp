@@ -21,7 +21,7 @@ const Point &HumanRoute::getActualPoint() const {
     return *(*pointsIterator).get();
 }
 
-bool HumanRoute::isLastPoint(const Point &point) {
+bool HumanRoute::isEnd() {
     return false;
 }
 
