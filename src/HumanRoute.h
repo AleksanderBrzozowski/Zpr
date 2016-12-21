@@ -20,7 +20,7 @@ public:
     bool nextPoint() override;
     bool isEnd() override;
 private:
-    std::vector<std::shared_ptr<Point const>> points;
+    const std::vector<std::shared_ptr<Point const>>& points;
     std::vector<std::shared_ptr<Point const>>::const_iterator pointsIterator;
 
     const Point &getActualPoint() const override;

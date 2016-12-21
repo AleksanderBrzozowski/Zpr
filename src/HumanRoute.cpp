@@ -13,7 +13,20 @@ HumanRoute::HumanRoute(const std::vector<std::shared_ptr<Point const>> &points)
 HumanRoute::~HumanRoute() {}
 
 bool HumanRoute::nextPoint() {
-    pointsIterator != points.end() ? ++pointsIterator : pointsIterator = points.begin();
+    static bool forward = true;
+    if (forward) {
+        if(pointsIterator != (points.end() - 1))
+            ++pointsIterator;
+        else{
+            forward = false;
+            --pointsIterator;
+        }
+    } else {
+        if(pointsIterator != points.begin())
+            --pointsIterator;
+        else
+            forward = true;
+    }
     return true;
 }
 
