@@ -2,6 +2,7 @@
 // Created by Aleksander on 12.12.2016.
 //
 
+#include <cstdlib>
 #include "Route.h"
 
 RouteVector Route::getRouteVector(const Point &point) const {
@@ -9,5 +10,11 @@ RouteVector Route::getRouteVector(const Point &point) const {
 }
 
 int Route::getDistance(const Point &point) const {
-    return getActualPoint().absDistance(point);
+    Point actualPoint = getActualPoint();
+    return abs(
+            actualPoint.getX() == point.getX() ?
+            actualPoint.getY() - point.getY() :
+            actualPoint.getX() - point.getX()
+    );
+    ;
 }
