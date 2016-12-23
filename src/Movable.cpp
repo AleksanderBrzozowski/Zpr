@@ -45,3 +45,13 @@ Car::Car(Route &route, const Point &actualPoint, const int speed, unsigned int i
 
 Human::Human(Route &route, const Point &actualPoint, const int speed, unsigned int id)
         : Movable(route, actualPoint, speed, id) {}
+
+Human *createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed, unsigned int id) {
+    HumanRoute route(points);
+    return new Human(route, startPoint, speed, id);
+}
+
+Car *createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed, unsigned int id) {
+    CarRoute route(points);
+    return new Car(route, startPoint, speed, id);
+}

@@ -25,7 +25,6 @@ private:
     unsigned int id;
 };
 
-
 class Car : public Movable{
 public:
     Car(Route &route, const Point &actualPoint, const int speed, unsigned int id);
@@ -35,5 +34,9 @@ class Human : public Movable{
 public:
     Human(Route &route, const Point &actualPoint, const int speed, unsigned int id);
 };
+
+Human *createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed, unsigned int id);
+
+Car *createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed, unsigned int id);
 
 #endif //ZPR_MOVABLE2_H
