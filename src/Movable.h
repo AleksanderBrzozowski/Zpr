@@ -1,30 +1,37 @@
 //
-// Created by Aleksander on 30.10.2016.
+// Created by Aleksander on 12.12.2016.
 //
 
-#ifndef ZPR_MOVABLE_H
-#define ZPR_MOVABLE_H
+#ifndef ZPR_MOVABLE2_H
+#define ZPR_MOVABLE2_H
 
 
-#include "Point.h"
 #include "Route.h"
+#include "CarRoute.h"
+#include "HumanRoute.h"
 
 class Movable {
-private:
-    Point actualPoint;
-    const int maxSpeed;
-    const unsigned int id;
-    Route *route;
-    RouteVector routeVector;
-
 public:
-    Movable(Point actualPoint, const int speed, std::vector<Point *> &route, const unsigned int id);
-    virtual ~Movable();
+    Movable(Route &route, Point actualPoint, const int speed);
 
     bool move();
-    const Point &getActualPoint() const;
-    const unsigned int getId() const;
+    Point getActualPoint() const;
+private:
+    Route& route;
+    Point actualPoint;
+    const int speed;
+    RouteVector routeVector;
 };
 
 
-#endif //ZPR_MOVABLE_H
+class Car : public Movable{
+public:
+    Car(CarRoute &route, const Point &actualPoint, const int speed);
+};
+
+class Human : public Movable{
+public:
+    Human(HumanRoute &route, const Point &actualPoint, const int speed);
+};
+
+#endif //ZPR_MOVABLE2_H

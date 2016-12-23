@@ -5,7 +5,7 @@
 #include<gtest/gtest.h>
 #include <Types.h>
 #include <CarRoute.h>
-#include <Movable2.h>
+#include <Movable.h>
 
 TEST(CarTest, SampleRoute) {
     std::vector<PtrToConstPoint> points = {

@@ -10,10 +10,10 @@
 #include <memory>
 #include <cstdlib>
 #include <vector>
-#include "Route2.h"
+#include "Route.h"
 #include "Types.h"
 
-class CarRoute : public Route2 {
+class CarRoute : public Route {
 public:
     CarRoute(const std::vector<PtrToConstPoint> &points);
     virtual ~CarRoute();

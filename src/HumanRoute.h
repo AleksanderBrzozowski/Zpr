@@ -8,11 +8,11 @@
 
 #include <memory>
 #include <vector>
-#include "Route2.h"
+#include "Route.h"
 #include "exception"
 #include <cstdlib>
 
-class HumanRoute : public Route2{
+class HumanRoute : public Route{
 public:
     HumanRoute(const std::vector<std::shared_ptr<Point const>> &points);
     virtual ~HumanRoute();
