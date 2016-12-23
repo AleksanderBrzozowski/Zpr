@@ -4,10 +4,8 @@
 
 #include "HumanRoute.h"
 
-HumanRoute::HumanRoute(const std::vector<std::shared_ptr<Point const>> &points)
+HumanRoute::HumanRoute(const std::vector<PtrToConstPoint> &points)
         : points(points), pointsIterator(points.begin()) {
-    if(points.empty())
-        throw std::runtime_error("points cannot be empty!");
 }
 
 HumanRoute::~HumanRoute() {}
