@@ -6,22 +6,20 @@
 #define ZPR_HUMANROUTE_H
 
 
-#include <memory>
 #include <vector>
 #include "Route.h"
-#include "exception"
-#include <cstdlib>
+#include "Types.h"
 
 class HumanRoute : public Route{
 public:
-    HumanRoute(const std::vector<std::shared_ptr<Point const>> &points);
+    HumanRoute(const std::vector<PtrToConstPoint> &points);
     virtual ~HumanRoute();
 
     bool nextPoint() override;
     bool isEnd() override;
 private:
-    const std::vector<std::shared_ptr<Point const>>& points;
-    std::vector<std::shared_ptr<Point const>>::const_iterator pointsIterator;
+    const std::vector<PtrToConstPoint>& points;
+    std::vector<PtrToConstPoint>::const_iterator pointsIterator;
 
     const Point &getActualPoint() const override;
 };

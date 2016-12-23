@@ -4,7 +4,7 @@
 
 #include "Movable.h"
 
-Movable::Movable(Route &route, const Point &actualPoint, const int speed, unsigned int id)
+Movable::Movable(Route &route, const Point &actualPoint, const int speed, const unsigned int id)
         : route(route), actualPoint(actualPoint), speed(speed), id(id) {}
 
 bool Movable::move() {
@@ -40,8 +40,20 @@ unsigned int Movable::getId() const {
 }
 
 
-Car::Car(Route &route, const Point &actualPoint, const int speed, unsigned int id)
+Car::Car(Route &route, const Point &actualPoint, const int speed, const unsigned int id)
         : Movable(route, actualPoint, speed, id) {}
 
-Human::Human(Route &route, const Point &actualPoint, const int speed, unsigned int id)
+Human::Human(Route &route, const Point &actualPoint, const int speed, const unsigned int id)
         : Movable(route, actualPoint, speed, id) {}
+
+Human *createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+                   const unsigned int id) {
+    HumanRoute route(points);
+    return new Human(route, startPoint, speed, id);
+}
+
+Car *createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+               const unsigned int id) {
+    CarRoute route(points);
+    return new Car(route, startPoint, speed, id);
+}
