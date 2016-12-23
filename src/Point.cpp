@@ -30,8 +30,8 @@ void Point::setY(int y) {
 int Point::absDistance(const Point &point) const{
     return abs(
             x == point.x ?
-            x - point.x :
-            y - point.y
+            y - point.y :
+            x - point.x
     );
 }
 
