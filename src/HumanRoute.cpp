@@ -24,8 +24,10 @@ bool HumanRoute::nextPoint() {
     } else {
         if(pointsIterator != points.begin())
             --pointsIterator;
-        else
+        else{
             forward = true;
+            ++pointsIterator;
+        }
     }
     return true;
 }

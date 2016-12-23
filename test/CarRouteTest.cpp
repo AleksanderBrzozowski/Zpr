@@ -53,3 +53,14 @@ TEST(CarRouteTest, RouteVectorOk) {
     ASSERT_EQ(RouteVector(0, -1), carRoute.getRouteVector(Point(10, 20)));
     ASSERT_EQ(RouteVector(0, 1), carRoute.getRouteVector(Point(10, -20)));
 }
+
+
+TEST(CarRouteTest, distanceOk) {
+    std::vector<PtrToConstPoint> points = {
+            PtrToConstPoint(new Point(1, 1))
+    };
+    CarRoute carRoute(points);
+    ASSERT_EQ(10, carRoute.getDistance(Point(11, 1)));
+    ASSERT_EQ(0, carRoute.getDistance(Point(1, 1)));
+    ASSERT_EQ(4, carRoute.getDistance(Point(1, 5)));
+}

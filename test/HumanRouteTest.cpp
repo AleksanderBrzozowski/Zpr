@@ -19,12 +19,14 @@ TEST(HumanRouteTest, sampleRoute) {
     };
     HumanRoute humanRoute(points);
 
-    for (int i = 0; i < 2; ++i) {
-        forwardWay(humanRoute, points);
-        humanRoute.nextPoint(); // reverse way
-        reverseWay(humanRoute, points);
-        humanRoute.nextPoint(); // forward way
-    }
+    forwardWay(humanRoute, points);
+    humanRoute.nextPoint(); // reverse way now
+    reverseWay(humanRoute, points);
+
+    //back to beginning now. Check same route
+    forwardWay(humanRoute, points);
+    humanRoute.nextPoint(); // reverse way now
+    reverseWay(humanRoute, points);
 }
 
 
@@ -38,7 +40,16 @@ TEST(HumanRouteTest, routeVectorOk) {
     ASSERT_EQ(RouteVector(0, 1), humanRoute.getRouteVector(Point(5, -10)));
     ASSERT_EQ(RouteVector(0, -1), humanRoute.getRouteVector(Point(5, 10)));
     ASSERT_EQ(RouteVector(0, 0), humanRoute.getRouteVector(*points[0]));
+}
 
+TEST(HumanRouteTest, distanceOk){
+    std::vector<PtrToConstPoint> points = {
+            PtrToConstPoint(new Point(1, 1))
+    };
+    HumanRoute humanRoute(points);
+    ASSERT_EQ(10, humanRoute.getDistance(Point(11, 1)));
+    ASSERT_EQ(0, humanRoute.getDistance(Point(1, 1)));
+    ASSERT_EQ(4, humanRoute.getDistance(Point(1, 5)));
 }
 
 void forwardWay(HumanRoute &humanRoute, const std::vector<PtrToConstPoint> &points) {
