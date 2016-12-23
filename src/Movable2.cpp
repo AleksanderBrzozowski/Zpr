@@ -34,3 +34,7 @@ bool Movable2::move() {
 Point Movable2::getActualPoint() const {
     return actualPoint;
 }
+
+Car::Car(CarRoute &route, const Point &actualPoint, const int speed) : Movable2(route, actualPoint, speed) {}
+
+Human::Human(HumanRoute &route, const Point &actualPoint, const int speed) : Movable2(route, actualPoint, speed) {}
