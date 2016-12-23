@@ -4,8 +4,8 @@
 
 #include "Movable.h"
 
-Movable::Movable(Route &route, Point actualPoint, const int speed)
-        : route(route), actualPoint(actualPoint), speed(speed){}
+Movable::Movable(Route &route, const Point &actualPoint, const int speed, unsigned int id)
+        : route(route), actualPoint(actualPoint), speed(speed), id(id) {}
 
 bool Movable::move() {
     if(route.isEnd())
@@ -35,6 +35,13 @@ Point Movable::getActualPoint() const {
     return actualPoint;
 }
 
-Car::Car(CarRoute &route, const Point &actualPoint, const int speed) : Movable(route, actualPoint, speed) {}
+unsigned int Movable::getId() const {
+    return id;
+}
 
-Human::Human(HumanRoute &route, const Point &actualPoint, const int speed) : Movable(route, actualPoint, speed) {}
+
+Car::Car(Route &route, const Point &actualPoint, const int speed, unsigned int id)
+        : Movable(route, actualPoint, speed, id) {}
+
+Human::Human(Route &route, const Point &actualPoint, const int speed, unsigned int id)
+        : Movable(route, actualPoint, speed, id) {}

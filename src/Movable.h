@@ -12,26 +12,28 @@
 
 class Movable {
 public:
-    Movable(Route &route, Point actualPoint, const int speed);
+    Movable(Route &route, const Point &actualPoint, const int speed, unsigned int id);
 
     bool move();
     Point getActualPoint() const;
+    unsigned int getId() const;
 private:
     Route& route;
     Point actualPoint;
     const int speed;
     RouteVector routeVector;
+    unsigned int id;
 };
 
 
 class Car : public Movable{
 public:
-    Car(CarRoute &route, const Point &actualPoint, const int speed);
+    Car(Route &route, const Point &actualPoint, const int speed, unsigned int id);
 };
 
 class Human : public Movable{
 public:
-    Human(HumanRoute &route, const Point &actualPoint, const int speed);
+    Human(Route &route, const Point &actualPoint, const int speed, unsigned int id);
 };
 
 #endif //ZPR_MOVABLE2_H
