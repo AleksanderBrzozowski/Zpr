@@ -10,7 +10,7 @@
 
 class Camera {
 public:
-    Camera(const Point &startPoint, const Point &endPoint, const double angle, const int accuracy);
+    Camera(const Point startPoint, const Point endPoint, const double angle, const int accuracy);
 
     bool isInRange(const Point &point);
 
@@ -19,8 +19,8 @@ public:
     int distanceSquare(const Point &point, const Point &point1);
 
 private:
-    const Point &startPoint;
-    const Point &endPoint;
+    const Point startPoint;
+    const Point endPoint;
     const int accuracy;
     int raySquare;
     double upperAngle;

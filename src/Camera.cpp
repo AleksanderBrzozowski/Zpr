@@ -6,7 +6,7 @@
 #include <cmath>
 #include "Camera.h"
 
-Camera::Camera(const Point &startPoint, const Point &endPoint, const double angle, const int accuracy) :
+Camera::Camera(const Point startPoint, const Point endPoint, const double angle, const int accuracy) :
         startPoint(startPoint), endPoint(endPoint), accuracy(accuracy){
     double mainAngle = atan2(endPoint.getY() - startPoint.getY(), endPoint.getX() - startPoint.getX());
     double halfAngle = M_PI * angle / 360;
