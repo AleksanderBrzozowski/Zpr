@@ -27,14 +27,6 @@ void Point::setY(int y) {
     Point::y = y;
 }
 
-int Point::absDistance(const Point &point) const{
-    return abs(
-            x == point.x ?
-            y - point.y :
-            x - point.x
-    );
-}
-
 bool Point::operator==(const Point &rhs) const {
     return x == rhs.x &&
            y == rhs.y;
