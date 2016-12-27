@@ -22,7 +22,7 @@ private:
     const Point &startPoint;
     const Point &endPoint;
     const int accuracy;
-    const int raySquare;
+    int raySquare;
     double upperAngle;
     double lowerAngle;
 };

@@ -7,12 +7,13 @@
 #include "Camera.h"
 
 Camera::Camera(const Point &startPoint, const Point &endPoint, const double angle, const int accuracy) :
-        startPoint(startPoint), endPoint(endPoint), accuracy(accuracy),
-        raySquare(distanceSquare(startPoint, endPoint)) {
+        startPoint(startPoint), endPoint(endPoint), accuracy(accuracy){
     double mainAngle = atan2(endPoint.getY() - startPoint.getY(), endPoint.getX() - startPoint.getX());
     double halfAngle = M_PI * angle / 360;
     upperAngle = mainAngle + halfAngle;
     lowerAngle = mainAngle - halfAngle;
+    raySquare = distanceSquare(startPoint, endPoint);
+
 }
 
 bool Camera::isInRange(const Point &point) {
