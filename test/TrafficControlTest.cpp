@@ -16,13 +16,13 @@ public:
     TrafficControl* trafficControl;
 
     void createCrosses(){
-        trafficControl->createRoute(new Point(-10,-10), new Point(-10,0));
-        trafficControl->createRoute(new Point(0,-10), new Point(0,0));
-        trafficControl->createRoute(new Point(0,0), new Point(-10,0));
-        trafficControl->createRoute(new Point(0,0), new Point(10,0));
-        trafficControl->createRoute(new Point(10,10), new Point(10,0));
-        trafficControl->createRoute(new Point(0,10), new Point(0,0));
-        trafficControl->createRoute(new Point(0,10), new Point(10,10));
+        trafficControl->createRoute(std::make_shared<Point>(-10,-10), std::make_shared<Point>(-10,0));
+        trafficControl->createRoute(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0));
+        trafficControl->createRoute(std::make_shared<Point>(0,0), std::make_shared<Point>(-10,0));
+        trafficControl->createRoute(std::make_shared<Point>(0,0), std::make_shared<Point>(10,0));
+        trafficControl->createRoute(std::make_shared<Point>(10,10), std::make_shared<Point>(10,0));
+        trafficControl->createRoute(std::make_shared<Point>(0,10), std::make_shared<Point>(0,0));
+        trafficControl->createRoute(std::make_shared<Point>(0,10), std::make_shared<Point>(10,10));
     }
 
     ~TrafficControlTest(){
@@ -33,9 +33,9 @@ public:
 
 TEST_F(TrafficControlTest, checkLongRouteFindingBegin){
     createCrosses();
-    std::vector<Point*>route;
-    Point* point1 = new Point(-10,0);
-    Point* point2 = new Point(10,15);
+    std::vector<PtrToConstPoint>route;
+    PtrToConstPoint point1 = std::make_shared<Point>(-10,0);
+    PtrToConstPoint point2 = std::make_shared<Point>(10,15);
     trafficControl->findRoute(point1, point2, route);
     EXPECT_TRUE(route.empty());
 }
@@ -43,56 +43,56 @@ TEST_F(TrafficControlTest, checkLongRouteFindingBegin){
 
 TEST_F(TrafficControlTest, creatingMovableWithoutCrosses){
 
-    trafficControl->createNewMovable(new Point(0,-10), new Point(0,0), 10);
+    trafficControl->createNewMovable(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0), 10);
 }
 
 TEST_F(TrafficControlTest, creatingMovableShortRoute){
     createCrosses();
-    trafficControl->createNewMovable(new Point(0,-10), new Point(0,0), 10);
+    trafficControl->createNewMovable(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0), 10);
 }
 
 TEST_F(TrafficControlTest, creatingMovableMidRoute){
     createCrosses();
-    trafficControl->createNewMovable(new Point(0,-10), new Point(0,20), 10);
+    trafficControl->createNewMovable(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,20), 10);
 }
 
 TEST_F(TrafficControlTest, creatingMovableLongRoute){
     createCrosses();
-    trafficControl->createNewMovable(new Point(-10,0), new Point(10,15), 10);
+    trafficControl->createNewMovable(std::make_shared<Point>(-10,0), std::make_shared<Point>(10,15), 10);
 }
 
 TEST_F(TrafficControlTest, checkRouteFindingBegin){
     createCrosses();
-    std::vector<Point*>route;
-    Point* point1 = new Point(0,-10);
-    Point* point2 = new Point(-10,-10);
+    std::vector<PtrToConstPoint>route;
+    PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
+    PtrToConstPoint point2 = std::make_shared<Point>(-10,-10);
     trafficControl->findRoute(point1, point2, route);
     EXPECT_TRUE(*route[0] == *point1);
 }
 
 TEST_F(TrafficControlTest, checkRouteFindingEnd){
     createCrosses();
-    std::vector<Point*>route;
-    Point* point1 = new Point(0,-10);
-    Point* point2 = new Point(-10,-10);
+    std::vector<PtrToConstPoint>route;
+    PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
+    PtrToConstPoint point2 = std::make_shared<Point>(-10,-10);
     trafficControl->findRoute(point1, point2, route);
     EXPECT_TRUE(*route[3] == *point2);
 }
 
 TEST_F(TrafficControlTest, checkRouteFinding4Points){
     createCrosses();
-    std::vector<Point*>route;
-    Point* point1 = new Point(0,-10);
-    Point* point2 = new Point(-10,-10);
+    std::vector<PtrToConstPoint>route;
+    PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
+    PtrToConstPoint point2 = std::make_shared<Point>(-10,-10);
     trafficControl->findRoute(point1, point2, route);
     EXPECT_EQ(route.size(), 4);
 }
 
 TEST_F(TrafficControlTest, checkRouteFinding5Points){
     createCrosses();
-    std::vector<Point*>route;
-    Point* point1 = new Point(0,-10);
-    Point* point2 = new Point(10,10);
+    std::vector<PtrToConstPoint>route;
+    PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
+    PtrToConstPoint point2 = std::make_shared<Point>(10,10);
     trafficControl->findRoute(point1, point2, route);
     EXPECT_EQ(route.size(), 4);
 }
