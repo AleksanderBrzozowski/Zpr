@@ -14,13 +14,16 @@
 #include "Point.h"
 #include "CrossFactory.h"
 #include "Types.h"
+#include <thread>
+#include <chrono>
 
 class TrafficControl {
 
 private:
 
     std::vector<PtrCross> crosses;
-    std::list<PtrMovable> movables;
+    std::list<PtrCar> cars;
+    std::list<PtrHuman> humans;
 
 public:
 
@@ -29,8 +32,7 @@ public:
     void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&);
 
 
-
-    bool createNewMovable(PtrToConstPoint, PtrToConstPoint, const int&);
+    bool createNewCar(PtrToConstPoint, PtrToConstPoint, const int&);
     void createRoute(PtrToConstPoint, PtrToConstPoint);
 
     TrafficControl();

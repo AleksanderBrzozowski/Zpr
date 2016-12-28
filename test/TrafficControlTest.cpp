@@ -43,22 +43,22 @@ TEST_F(TrafficControlTest, checkLongRouteFindingBegin){
 
 TEST_F(TrafficControlTest, creatingMovableWithoutCrosses){
 
-    trafficControl->createNewMovable(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0), 10);
+    trafficControl->createNewCar(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0), 10);
 }
 
 TEST_F(TrafficControlTest, creatingMovableShortRoute){
     createCrosses();
-    trafficControl->createNewMovable(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0), 10);
+    trafficControl->createNewCar(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0), 10);
 }
 
 TEST_F(TrafficControlTest, creatingMovableMidRoute){
     createCrosses();
-    trafficControl->createNewMovable(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,20), 10);
+    trafficControl->createNewCar(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,20), 10);
 }
 
 TEST_F(TrafficControlTest, creatingMovableLongRoute){
     createCrosses();
-    trafficControl->createNewMovable(std::make_shared<Point>(-10,0), std::make_shared<Point>(10,15), 10);
+    trafficControl->createNewCar(std::make_shared<Point>(-10,0), std::make_shared<Point>(10,15), 10);
 }
 
 TEST_F(TrafficControlTest, checkRouteFindingBegin){
@@ -76,7 +76,7 @@ TEST_F(TrafficControlTest, checkRouteFindingEnd){
     PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
     PtrToConstPoint point2 = std::make_shared<Point>(-10,-10);
     trafficControl->findRoute(point1, point2, route);
-    EXPECT_FALSE(*route[3] == *point2);
+    EXPECT_TRUE(*route[3] == *point2);
 }
 
 TEST_F(TrafficControlTest, checkRouteFinding4Points){

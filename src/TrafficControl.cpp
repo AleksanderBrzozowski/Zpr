@@ -9,7 +9,8 @@ TrafficControl::TrafficControl() {}
 
 TrafficControl::~TrafficControl() {}
 
-bool TrafficControl::createNewMovable(PtrToConstPoint src, PtrToConstPoint dst, const int& speed){
+
+bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, const int& speed){
     std::vector<PtrToConstPoint>route;
 
     findRoute(src, dst, route);
@@ -17,8 +18,8 @@ bool TrafficControl::createNewMovable(PtrToConstPoint src, PtrToConstPoint dst, 
 
     if(src_index>=crosses.size() || route.empty() || speed<=0)
         return false;
-    //Movable* tempMovable = new Movable(*(crosses[src_index]->getPosition()), speed, route, 0);
-   // movables.push_back(tempMovable);
+
+    cars.push_back( createCar(*(crosses[src_index]->getPosition()), route, speed, 0) );
 
     return true;
 }
