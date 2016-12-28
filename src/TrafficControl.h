@@ -13,25 +13,25 @@
 #include <list>
 #include "Point.h"
 #include "CrossFactory.h"
+#include "Types.h"
 
 class TrafficControl {
 
-    //TODO: shared_point instead of Point*
-
 private:
-    std::vector<Cross*> crosses;
-    std::list<Movable*> movables;
+
+    std::vector<PtrCross> crosses;
+    std::list<PtrMovable> movables;
 
 public:
 
-    int findCrossByPoint(Point*);
+    std::vector<PtrCross>::size_type findCrossByPoint(PtrToConstPoint);
     void prepareFinding();
-    void findRoute(Point*, Point*, std::vector<Point*>&);
+    void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&);
 
 
 
-    bool createNewMovable(Point*, Point*, const int&);
-    void createRoute(Point*, Point*);
+    bool createNewMovable(PtrToConstPoint, PtrToConstPoint, const int&);
+    void createRoute(PtrToConstPoint, PtrToConstPoint);
 
     TrafficControl();
 

@@ -8,13 +8,16 @@
 
 #include "Point.h"
 #include "Cross.h"
+#include "Types.h"
 
 class CrossFactory {
+
 private:
-    static int findCrossIndex(Point*, const std::vector<Cross*>&);
+    static std::vector<PtrCross>::size_type findCrossIndex(PtrToConstPoint, const std::vector<PtrCross>&);
 
 public:
-    static void createRoute(Point*, Point*, std::vector<Cross*>&);
+    static void createRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrCross>&);
+
 };
 
 
