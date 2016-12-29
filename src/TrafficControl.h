@@ -16,6 +16,7 @@
 #include "Types.h"
 #include <thread>
 #include <chrono>
+#include <GUI/mainwindow.h>
 
 class TrafficControl {
 
@@ -25,7 +26,14 @@ private:
     std::list<PtrCar> cars;
     std::list<PtrHuman> humans;
 
+    MainWindow& mainWindow;
+
+    bool movableAllowedToMove;
+
+
 public:
+
+    void run();
 
     std::vector<PtrCross>::size_type findCrossByPoint(PtrToConstPoint);
     void prepareFinding();
@@ -35,8 +43,9 @@ public:
     bool createNewCar(PtrToConstPoint, PtrToConstPoint, const int&);
     void createRoute(PtrToConstPoint, PtrToConstPoint);
 
-    TrafficControl();
+    void setMovableAllowedToMove(const bool&);
 
+    TrafficControl(MainWindow&);
     ~TrafficControl();
 
 

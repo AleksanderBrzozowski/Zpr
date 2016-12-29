@@ -11,7 +11,7 @@ class TrafficControlTest : public ::testing::Test{
 public:
 
     TrafficControlTest(){
-        trafficControl=new TrafficControl();
+        trafficControl=new TrafficControl(MainWindow::getInstance());
     };
     TrafficControl* trafficControl;
 

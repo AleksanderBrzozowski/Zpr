@@ -5,10 +5,28 @@
 #include "TrafficControl.h"
 
 
-TrafficControl::TrafficControl() {}
+TrafficControl::TrafficControl(MainWindow& window) : mainWindow(window), movableAllowedToMove(false) {}
+
 
 TrafficControl::~TrafficControl() {}
 
+void TrafficControl::setMovableAllowedToMove(const bool& decision){
+    movableAllowedToMove = decision;
+}
+
+void TrafficControl::run() {
+
+    while(movableAllowedToMove){
+        for(std::list<PtrCar>::iterator iter = cars.begin(); iter!=cars.end(); ++iter){
+            if(!(*iter)->move()){
+                //delete car
+            }
+
+        }
+
+        std::this_thread::sleep_for (std::chrono::seconds(500));
+    }
+}
 
 bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, const int& speed){
     std::vector<PtrToConstPoint>route;
