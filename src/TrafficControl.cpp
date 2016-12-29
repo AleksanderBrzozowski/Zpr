@@ -21,7 +21,7 @@ void TrafficControl::run() {
             if(!(*iter)->move()){
                 //delete car
             }
-
+            mainWindow.setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
         }
 
         std::this_thread::sleep_for (std::chrono::seconds(500));
