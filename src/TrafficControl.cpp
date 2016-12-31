@@ -14,12 +14,24 @@ void TrafficControl::setMovableAllowedToMove(const bool& decision){
     movableAllowedToMove = decision;
 }
 
+unsigned int TrafficControl::getNextCarId() {
+    static unsigned int id=0;
+    return id++;
+}
+
+unsigned int TrafficControl::getNextHumanId() {
+    static unsigned int id=0;
+    return id++;
+}
+
+
 void TrafficControl::run() {
 
     while(movableAllowedToMove){
         for(std::list<PtrCar>::iterator iter = cars.begin(); iter!=cars.end(); ++iter){
             if(!(*iter)->move()){
-                //delete car
+                iter = cars.erase(iter);
+                --iter;
             }
             mainWindow.setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
         }
@@ -37,10 +49,12 @@ bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, cons
     if(src_index>=crosses.size() || route.empty() || speed<=0)
         return false;
 
-    cars.push_back( createCar(*(crosses[src_index]->getPosition()), route, speed, 0) );
+    cars.push_back( createCar(*(crosses[src_index]->getPosition()), route, speed, getNextCarId()) );
 
     return true;
 }
+
+
 
 void TrafficControl::createRoute(PtrToConstPoint src, PtrToConstPoint dst) {
     CrossFactory::createRoute(src, dst, crosses);

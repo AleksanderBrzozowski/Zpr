@@ -28,6 +28,8 @@ private:
 
     MainWindow& mainWindow;
 
+
+
     bool movableAllowedToMove;
 
 
@@ -39,6 +41,8 @@ public:
     void prepareFinding();
     void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&);
 
+    unsigned int getNextCarId();
+    unsigned int getNextHumanId();
 
     bool createNewCar(PtrToConstPoint, PtrToConstPoint, const int&);
     void createRoute(PtrToConstPoint, PtrToConstPoint);
