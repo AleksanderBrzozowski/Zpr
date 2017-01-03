@@ -25,6 +25,7 @@ public:
     bool getVisited() const;
     PtrToConstPoint getPosition() const ;
 
+    bool operator==(const Cross &rhs) const;
 
 };
 

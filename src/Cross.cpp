@@ -28,3 +28,7 @@ PtrToConstPoint Cross::getPosition() const {return position;}
 void Cross::addNeighbour(PtrCross cr) {
         neighbours.push_back(cr);
 }
+
+bool Cross::operator==(const Cross &rhs) const{
+    return *this->position.get() == *rhs.position.get();
+}
