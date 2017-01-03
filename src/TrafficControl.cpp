@@ -5,7 +5,7 @@
 #include "TrafficControl.h"
 
 
-TrafficControl::TrafficControl(MainWindow& window) : mainWindow(window), movableAllowedToMove(false) {}
+TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
 
 
 TrafficControl::~TrafficControl() {}
@@ -33,7 +33,7 @@ void TrafficControl::run() {
                 iter = cars.erase(iter);
                 --iter;
             }
-            mainWindow.setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
+            MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
         }
 
         std::this_thread::sleep_for (std::chrono::seconds(500));

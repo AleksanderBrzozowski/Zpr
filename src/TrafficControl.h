@@ -26,10 +26,6 @@ private:
     std::list<PtrCar> cars;
     std::list<PtrHuman> humans;
 
-    MainWindow& mainWindow;
-
-
-
     bool movableAllowedToMove;
 
 
@@ -49,7 +45,7 @@ public:
 
     void setMovableAllowedToMove(const bool&);
 
-    TrafficControl(MainWindow&);
+    TrafficControl();
     ~TrafficControl();
 
 
