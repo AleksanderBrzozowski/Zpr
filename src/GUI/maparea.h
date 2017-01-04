@@ -15,6 +15,9 @@
 #include "../Point.h"
 #include <memory>
 #include "eventinterpreter.h"
+#include "../TrafficControl.h"
+
+
 
 class MapArea : public QWidget
 {
@@ -31,6 +34,7 @@ public:
 
     void snapToGrid(Point &point);
     void setCurrentOption(EventInterpreter::Option option);
+    void setTrafficControl(std::shared_ptr<TrafficControl> tc);
 
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;

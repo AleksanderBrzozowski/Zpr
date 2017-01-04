@@ -16,7 +16,8 @@
 #include "Types.h"
 #include <thread>
 #include <chrono>
-#include <GUI/mainwindow.h>
+
+
 
 class TrafficControl {
 

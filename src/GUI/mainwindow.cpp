@@ -43,8 +43,14 @@ QMenu* MainWindow::initMenu() {
     return toolsMenu;
 }
 
+
+
 MainWindow::~MainWindow() {
 
+}
+
+void MainWindow::setTrafficControl(std::shared_ptr<TrafficControl> tc) {
+    mapArea->setTrafficControl(tc);
 }
 
 

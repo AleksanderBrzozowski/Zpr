@@ -3,6 +3,7 @@
 //
 
 #include "TrafficControl.h"
+#include <GUI/mainwindow.h>
 
 
 TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
