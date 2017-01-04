@@ -8,12 +8,10 @@ int main(int argc, char *argv[])
     MainWindow& w = MainWindow::getInstance();
 
     TrafficControl trafficControl;
-    std::thread trafficThread(&TrafficControl::run, &trafficControl);
 
     w.show();
 
+    int returningCode = a.exec();
     trafficControl.setMovableAllowedToMove(false);
-    trafficThread.join();
-
-    return a.exec();
+    return returningCode;
 }

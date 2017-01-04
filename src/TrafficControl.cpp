@@ -12,6 +12,12 @@ TrafficControl::~TrafficControl() {}
 
 void TrafficControl::setMovableAllowedToMove(const bool& decision){
     movableAllowedToMove = decision;
+    if(decision)
+        runningSimulation = std::thread(&TrafficControl::run, this);
+    else{
+        runningSimulation.join();
+    }
+
 }
 
 unsigned int TrafficControl::getNextCarId() {
@@ -36,7 +42,7 @@ void TrafficControl::run() {
             MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
         }
 
-        std::this_thread::sleep_for (std::chrono::seconds(500));
+        std::this_thread::sleep_for (std::chrono::milliseconds(50));
     }
 }
 
