@@ -82,7 +82,7 @@ void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
     prepareFinding();   //setting crosses as not visited
 
     std::vector<PtrToConstPoint>::size_type src_index=findCrossByPoint(src);
-    if(!src_index)
+    if(src_index>=crosses.size() || crosses.empty())
         return;
     crosses[src_index]->setVisited(true);
     foundRoute.push(crosses[src_index]);
