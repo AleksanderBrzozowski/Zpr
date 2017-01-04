@@ -11,6 +11,7 @@ TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
 TrafficControl::~TrafficControl() {}
 
 void TrafficControl::setMovableAllowedToMove(const bool& decision){
+    if(movableAllowedToMove==decision)return;
     movableAllowedToMove = decision;
     if(decision)
         runningSimulation = std::thread(&TrafficControl::run, this);
