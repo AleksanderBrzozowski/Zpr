@@ -7,22 +7,27 @@
 
 #include <vector>
 #include "Point.h"
+#include "Types.h"
 
 class Cross {
 
-    const unsigned int id;
-    std::vector<Cross*>neighbours;
+private:
+    std::vector<PtrCross>neighbours;
     bool visited;
-    Point* position;
+    PtrToConstPoint position;
 
 public:
-    Cross(const unsigned int&, Point*);
-    Cross* getNotVisitedNeighbours();
-    void addNeighbour(Cross*);
+
+    Cross(PtrToConstPoint);
+    PtrCross getNotVisitedNeighbours();
+    void addNeighbour(PtrCross);
     bool setVisited(const bool&);
     bool getVisited() const;
-    unsigned int getId() const;
-    Point* getPosition() const ;
+    PtrToConstPoint getPosition() const ;
+
+    bool operator==(const Cross &rhs) const;
+    bool operator!=(const Cross &rhs) const;
+
 };
 
 

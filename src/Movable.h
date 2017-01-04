@@ -35,10 +35,10 @@ public:
     Human(Route &route, const Point &actualPoint, const int speed, const unsigned int id);
 };
 
-Human *createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+PtrHuman createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
                    const unsigned int id);
 
-Car *createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+PtrCar createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
                const unsigned int id);
 
 #endif //ZPR_MOVABLE2_H

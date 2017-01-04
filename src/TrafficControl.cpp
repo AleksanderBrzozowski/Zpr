@@ -5,59 +5,86 @@
 #include "TrafficControl.h"
 
 
-TrafficControl::TrafficControl() {}
+TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
 
-TrafficControl::~TrafficControl() {
-    for(std::list<Movable*>::iterator iter=movables.begin(); iter!=movables.end();++iter)
-        delete *iter;
-    for(int i =0; i< (int)crosses.size();++i)
-        delete crosses[i];
+
+TrafficControl::~TrafficControl() {}
+
+void TrafficControl::setMovableAllowedToMove(const bool& decision){
+    movableAllowedToMove = decision;
 }
 
-bool TrafficControl::createNewMovable(Point* src, Point* dst, const int& speed){
-    std::vector<Point*>route;
+unsigned int TrafficControl::getNextCarId() {
+    static unsigned int id=0;
+    return id++;
+}
+
+unsigned int TrafficControl::getNextHumanId() {
+    static unsigned int id=0;
+    return id++;
+}
+
+
+void TrafficControl::run() {
+
+    while(movableAllowedToMove){
+        for(std::list<PtrCar>::iterator iter = cars.begin(); iter!=cars.end(); ++iter){
+            if(!(*iter)->move()){
+                iter = cars.erase(iter);
+                --iter;
+            }
+            MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
+        }
+
+        std::this_thread::sleep_for (std::chrono::seconds(500));
+    }
+}
+
+bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, const int& speed){
+    std::vector<PtrToConstPoint>route;
 
     findRoute(src, dst, route);
-    int src_index = findCrossByPoint(src);
-    delete src;
-    delete dst;
-    if(src_index<0 || route.empty() || speed<=0)
+    std::vector<PtrToConstPoint>::size_type src_index = findCrossByPoint(src);
+
+    if(src_index>=crosses.size() || route.empty() || speed<=0)
         return false;
-    //Movable* tempMovable = new Movable(*(crosses[src_index]->getPosition()), speed, route, 0);
-   // movables.push_back(tempMovable);
+
+    cars.push_back( createCar(*(crosses[src_index]->getPosition()), route, speed, getNextCarId()) );
 
     return true;
 }
 
-void TrafficControl::createRoute(Point * src, Point * dst) {
+
+
+void TrafficControl::createRoute(PtrToConstPoint src, PtrToConstPoint dst) {
     CrossFactory::createRoute(src, dst, crosses);
 }
 
-int TrafficControl::findCrossByPoint(Point* point) {
+std::vector<PtrCross>::size_type TrafficControl::findCrossByPoint(PtrToConstPoint point) {
 
-    for(int i =0;i<(int)crosses.size();++i)
+    for(std::vector<PtrCross>::size_type i =0; i<crosses.size(); ++i)
         if(*(crosses[i]->getPosition()) == *(point))
             return i;
-    return -1;
+    return crosses.size();
 }
 
 
-void TrafficControl::findRoute(Point* src, Point* dst, std::vector<Point*>&readyRoute) {
+void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute) {
 
-    std::stack<Cross*>foundRoute;
+    std::stack<PtrCross>foundRoute;
     prepareFinding();   //setting crosses as not visited
 
-    int src_index=findCrossByPoint(src);
-    if(src_index<0)
+    std::vector<PtrToConstPoint>::size_type src_index=findCrossByPoint(src);
+    if(!src_index)
         return;
     crosses[src_index]->setVisited(true);
     foundRoute.push(crosses[src_index]);
 
-    Point* currentPoint = foundRoute.top()->getPosition();
+    PtrToConstPoint currentPoint = foundRoute.top()->getPosition();
 
     while(*currentPoint != *dst){
 
-        Cross* currentCross = foundRoute.top()->getNotVisitedNeighbours();
+        PtrCross currentCross = foundRoute.top()->getNotVisitedNeighbours();
         if(!currentCross){
             if(!foundRoute.empty())
                 foundRoute.pop();
@@ -80,7 +107,7 @@ void TrafficControl::findRoute(Point* src, Point* dst, std::vector<Point*>&ready
 }
 
 void TrafficControl::prepareFinding() {
-    for(int i =0; i<(int)crosses.size();++i){
+    for (std::vector<PtrCross>::size_type i=0; i<crosses.size(); ++i){
         crosses[i]->setVisited(false);
     }
 }

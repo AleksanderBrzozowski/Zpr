@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include "Cross.h"
 
-Cross::Cross(const unsigned int& crossId, Point* pos): id(crossId), position(pos) {}
+Cross::Cross(PtrToConstPoint pos): position(pos) {}
 
 
 bool Cross::setVisited(const bool& wasVisited) {
@@ -15,18 +15,24 @@ bool Cross::setVisited(const bool& wasVisited) {
 
 bool Cross::getVisited() const {return visited;}
 
-Cross* Cross::getNotVisitedNeighbours() {
-    for(int i=0;i<(int)neighbours.size();++i){
+PtrCross Cross::getNotVisitedNeighbours() {
+    for(std::vector<PtrCross>::size_type i=0;i<neighbours.size();++i){
         if(!neighbours[i]->getVisited())
             return  neighbours[i];
     }
     return nullptr;
 }
 
-unsigned int Cross::getId() const {return id;}
+PtrToConstPoint Cross::getPosition() const {return position;}
 
-Point* Cross::getPosition() const {return position;}
-
-void Cross::addNeighbour(Cross* cr) {
+void Cross::addNeighbour(PtrCross cr) {
         neighbours.push_back(cr);
+}
+
+bool Cross::operator==(const Cross &rhs) const{
+    return *this->position.get() == *rhs.position.get();
+}
+
+bool Cross::operator!=(const Cross &rhs) const{
+    return !(*this->position.get() == *rhs.position.get());
 }
