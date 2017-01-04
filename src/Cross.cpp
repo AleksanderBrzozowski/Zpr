@@ -32,3 +32,7 @@ void Cross::addNeighbour(PtrCross cr) {
 bool Cross::operator==(const Cross &rhs) const{
     return *this->position.get() == *rhs.position.get();
 }
+
+bool Cross::operator!=(const Cross &rhs) const{
+    return !(*this->position.get() == *rhs.position.get());
+}

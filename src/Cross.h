@@ -26,6 +26,7 @@ public:
     PtrToConstPoint getPosition() const ;
 
     bool operator==(const Cross &rhs) const;
+    bool operator!=(const Cross &rhs) const;
 
 };
 
