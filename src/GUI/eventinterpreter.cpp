@@ -44,6 +44,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
                 anchor = point;
                 hasAnchor = true;
             } else {
+                RoadGUI::adjustPoints(anchor, point);
                 PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
                 PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
                 trafficControl->createRoute(srcPtr, dstPtr);

@@ -26,7 +26,7 @@ private:
     std::vector<PtrCross> crosses;
     std::list<PtrCar> cars;
     std::list<PtrHuman> humans;
-
+    std::thread runningSimulation;
     bool movableAllowedToMove;
 
 

@@ -53,3 +53,11 @@ TEST_F(CrossTest, checkCrossEqualsCross){
     EXPECT_TRUE(cr1 == cr2);
 }
 
+TEST_F(CrossTest, checkCrossNotEqualsCross){
+    PtrToConstPoint point1 = std::make_shared<Point>(10,-10);
+    PtrToConstPoint point2 = std::make_shared<Point>(10,10);
+    Cross cr1(point1);
+    Cross cr2(point2);
+    EXPECT_TRUE(cr1 != cr2);
+}
+
