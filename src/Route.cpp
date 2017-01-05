@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include "Route.h"
 
+Route::~Route() {}
+
 RouteVector Route::getRouteVector(const Point &point) const {
     return RouteVector(point, getActualPoint());
 }
