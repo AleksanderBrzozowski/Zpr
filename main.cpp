@@ -9,6 +9,7 @@ int main(int argc, char *argv[])
 
     TrafficControl trafficControl;
     w.setTrafficControl(std::shared_ptr<TrafficControl>(&trafficControl));
+    trafficControl.setMovableAllowedToMove(true);
     w.show();
 
     int returningCode = a.exec();

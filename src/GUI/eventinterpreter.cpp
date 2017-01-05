@@ -60,7 +60,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
                 //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
                 PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
                 PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-                trafficControl->createNewCar(srcPtr, dstPtr, 1);
+                trafficControl->createNewCar(srcPtr, dstPtr, 3);
                 hasAnchor = false;
             }
             break;
