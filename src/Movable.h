@@ -12,13 +12,13 @@
 
 class Movable {
 public:
-    Movable(Route &route, const Point &actualPoint, const int speed, const unsigned int id);
+    Movable(Route *route, const Point &actualPoint, const int speed, const unsigned int id);
 
     bool move();
     Point getActualPoint() const;
     unsigned int getId() const;
 private:
-    Route& route;
+    std::unique_ptr<Route> route;
     Point actualPoint;
     const int speed;
     RouteVector routeVector;
@@ -27,12 +27,14 @@ private:
 
 class Car : public Movable{
 public:
-    Car(Route &route, const Point &actualPoint, const int speed, const unsigned int id);
+    Car(CarRoute *route, const Point &actualPoint, const int speed, const unsigned int id);
+
 };
 
 class Human : public Movable{
 public:
-    Human(Route &route, const Point &actualPoint, const int speed, const unsigned int id);
+    Human(HumanRoute *route, const Point &actualPoint, const int speed, const unsigned int id);
+
 };
 
 PtrHuman createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,

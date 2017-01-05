@@ -5,7 +5,11 @@ EventInterpreter::EventInterpreter() : currentOption(Option::optionDoNothing) {
 }
 
 std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
-    currentOption = option;
+    if (trafficControl == nullptr)
+        currentOption = Option::optionDoNothing;
+    else
+        currentOption = option;
+
     switch(option) {
         case Option::optionSetRoad:
             ghostRoad = std::shared_ptr<RoadGUI>(new RoadGUI(0, Point(0, 0)));
@@ -27,23 +31,38 @@ std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
     }
 }
 
+EventInterpreter::Option EventInterpreter::getCurrentOption() {
+    return currentOption;
+}
+
 void EventInterpreter::mouseClicked(int x, int y) {
+    Point point(x, y);
+    snapToGrid(point);
     switch(currentOption) {
         case Option::optionSetRoad:
             if (!hasAnchor) {
-                anchor = Point(x, y);
-                snapToGrid(anchor);
+                anchor = point;
                 hasAnchor = true;
             } else {
-                Point end(x, y);
-                snapToGrid(end);
-                emit roadCreated(new RoadGUI(3, anchor, end));
+                RoadGUI::adjustPoints(anchor, point);
+                PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
+                PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
+                trafficControl->createRoute(srcPtr, dstPtr);
+                emit roadCreated(new RoadGUI(3, anchor, point));
                 hasAnchor = false;
             }
             break;
         case Option::optionSetCar:
-            emit drawableCreated(new CarGUI(2, x, y));
-            hasAnchor = false;
+            if (!hasAnchor) {
+                anchor = point;
+                hasAnchor = true;
+            } else {
+                //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
+                PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
+                PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
+                trafficControl->createNewCar(srcPtr, dstPtr, 3);
+                hasAnchor = false;
+            }
             break;
         case Option::optionDoNothing:
         default:
@@ -61,9 +80,9 @@ void EventInterpreter::snapToGrid(Point &point) {
 
 void EventInterpreter::mouseMoved(int x, int y) {
     Point point(x, y);
+    snapToGrid(point);
     switch(currentOption) {
         case Option::optionSetRoad:
-            snapToGrid(point);
             if (!hasAnchor) {
                 ghostRoad->setRectangle(point);
             } else {
@@ -72,10 +91,19 @@ void EventInterpreter::mouseMoved(int x, int y) {
             break;
         case Option::optionSetCar:
             ghostObject->setTo(x, y);
+            if (!hasAnchor) {
+                ghostObject->setTo(point.getX(), point.getY());
+            } else {
+                ghostObject->setTo(anchor.getX(), anchor.getY());
+            }
             break;
         case Option::optionDoNothing:
         default:
             break;
     }
 
+}
+
+void EventInterpreter::setTrafficControl(std::shared_ptr<TrafficControl> tc) {
+    trafficControl = tc;
 }

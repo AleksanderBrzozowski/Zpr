@@ -65,6 +65,18 @@ void RoadGUI::setRectangle(Point first, Point second) {
                 );
 }
 
+void RoadGUI::adjustPoints(Point& first, Point& second) {
+    int diffX = second.getX() - first.getX();
+    int diffY = second.getY() - first.getY();
+
+    if (abs(diffX) < abs(diffY)) {
+        second.setX(first.getX());
+    } else {
+        second.setY(first.getY());
+    }
+
+}
+
 void RoadGUI::setRectangle(Point point) {
     if (!isGhost()) {
         throw std::exception();

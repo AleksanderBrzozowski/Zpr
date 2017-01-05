@@ -11,6 +11,8 @@
 
 class Route {
 public:
+    virtual ~Route();
+
     RouteVector getRouteVector(const Point& point) const;
     int getDistance(const Point& point) const;
     virtual bool nextPoint() = 0;

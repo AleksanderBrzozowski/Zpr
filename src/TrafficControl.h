@@ -16,7 +16,8 @@
 #include "Types.h"
 #include <thread>
 #include <chrono>
-#include <GUI/mainwindow.h>
+
+
 
 class TrafficControl {
 
@@ -25,7 +26,7 @@ private:
     std::vector<PtrCross> crosses;
     std::list<PtrCar> cars;
     std::list<PtrHuman> humans;
-
+    std::thread runningSimulation;
     bool movableAllowedToMove;
 
 

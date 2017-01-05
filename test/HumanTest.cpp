@@ -4,7 +4,6 @@
 
 #include<gtest/gtest.h>
 #include <Types.h>
-#include <HumanRoute.h>
 #include <Movable.h>
 
 TEST(HumanTest, SampleRoute) {
@@ -13,8 +12,7 @@ TEST(HumanTest, SampleRoute) {
             PtrToConstPoint(new Point(-10, 1)),
             PtrToConstPoint(new Point(-10, 11))
     };
-    HumanRoute humanRoute(points);
-    Human human(humanRoute, *points[0], 7, 0);
+    PtrHuman human = createHuman(*points[0], points, 7, 0);
     std::vector<PtrToConstPoint> pointsToFallow = {
             PtrToConstPoint(new Point(1, 1)),
             PtrToConstPoint(new Point(-6, 1)),
@@ -27,15 +25,15 @@ TEST(HumanTest, SampleRoute) {
     };
 
     for (PtrToConstPoint &point : pointsToFallow) {
-        ASSERT_EQ(*point, human.getActualPoint());
-        ASSERT_TRUE(human.move());
+        ASSERT_EQ(*point, human->getActualPoint());
+        ASSERT_TRUE(human->move());
     }
-    ASSERT_EQ(*points[0], human.getActualPoint());
+    ASSERT_EQ(*points[0], human->getActualPoint());
 
     // once again, human never stops
     for (PtrToConstPoint &point : pointsToFallow) {
-        ASSERT_EQ(*point, human.getActualPoint());
-        ASSERT_TRUE(human.move());
+        ASSERT_EQ(*point, human->getActualPoint());
+        ASSERT_TRUE(human->move());
     }
-    ASSERT_EQ(*points[0], human.getActualPoint());
+    ASSERT_EQ(*points[0], human->getActualPoint());
 }

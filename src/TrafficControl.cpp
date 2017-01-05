@@ -3,6 +3,7 @@
 //
 
 #include "TrafficControl.h"
+#include <GUI/mainwindow.h>
 
 
 TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
@@ -11,7 +12,14 @@ TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
 TrafficControl::~TrafficControl() {}
 
 void TrafficControl::setMovableAllowedToMove(const bool& decision){
+    if(movableAllowedToMove==decision)return;
     movableAllowedToMove = decision;
+    if(decision)
+        runningSimulation = std::thread(&TrafficControl::run, this);
+    else{
+        runningSimulation.join();
+    }
+
 }
 
 unsigned int TrafficControl::getNextCarId() {
@@ -36,7 +44,7 @@ void TrafficControl::run() {
             MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
         }
 
-        std::this_thread::sleep_for (std::chrono::seconds(500));
+        std::this_thread::sleep_for (std::chrono::milliseconds(50));
     }
 }
 
@@ -75,7 +83,7 @@ void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
     prepareFinding();   //setting crosses as not visited
 
     std::vector<PtrToConstPoint>::size_type src_index=findCrossByPoint(src);
-    if(!src_index)
+    if(src_index>=crosses.size() || crosses.empty())
         return;
     crosses[src_index]->setVisited(true);
     foundRoute.push(crosses[src_index]);

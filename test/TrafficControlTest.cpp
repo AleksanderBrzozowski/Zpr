@@ -96,3 +96,12 @@ TEST_F(TrafficControlTest, checkRouteFinding5Points){
     trafficControl->findRoute(point1, point2, route);
     EXPECT_EQ(route.size(), 4);
 }
+
+TEST_F(TrafficControlTest, checkRouteFinding2Points){
+    trafficControl->createRoute(std::make_shared<Point>(91,221), std::make_shared<Point>(663,221));
+    std::vector<PtrToConstPoint>route;
+    PtrToConstPoint point1 = std::make_shared<Point>(91,221);
+    PtrToConstPoint point2 = std::make_shared<Point>(663,221);
+    trafficControl->findRoute(point2, point1, route);
+    EXPECT_EQ(route.size(), 2);
+}

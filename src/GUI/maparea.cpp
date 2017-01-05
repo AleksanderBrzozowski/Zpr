@@ -106,3 +106,6 @@ void MapArea::registerDrawable(Drawable *drawable) {
     update();
 }
 
+void MapArea::setTrafficControl(std::shared_ptr<TrafficControl> tc) {
+    eventInterpreter.setTrafficControl(tc);
+}
