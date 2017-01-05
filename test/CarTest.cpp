@@ -13,8 +13,7 @@ TEST(CarTest, SampleRoute) {
             PtrToConstPoint(new Point(31, 20)),
             PtrToConstPoint(new Point(31, -2))
     };
-    CarRoute carRoute(points);
-    Car car(carRoute, *points[0], 3, 0);
+    PtrCar car = createCar(*points[0], points, 3, 0);
     std::vector<PtrToConstPoint> pointsToFallow = {
             PtrToConstPoint(new Point(20, 20)),
             PtrToConstPoint(new Point(23, 20)),
@@ -33,12 +32,12 @@ TEST(CarTest, SampleRoute) {
 
 
     for (PtrToConstPoint &point : pointsToFallow) {
-        ASSERT_EQ(*point, car.getActualPoint());
-        ASSERT_TRUE(car.move());
+        ASSERT_EQ(*point, car->getActualPoint());
+        ASSERT_TRUE(car->move());
     }
 
     // check last point
-    ASSERT_EQ(*points[2], car.getActualPoint());
+    ASSERT_EQ(*points[2], car->getActualPoint());
     // check is end
-    ASSERT_FALSE(car.move());
+    ASSERT_FALSE(car->move());
 }
