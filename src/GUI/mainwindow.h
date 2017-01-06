@@ -23,9 +23,11 @@ public:
 
     ~MainWindow();
 
-    void setCar(const unsigned int id, const unsigned int x, const unsigned int y);
+    void setCar(const unsigned int id, const unsigned int x, const unsigned int y,
+                const bool fast);
     void setPpl(const unsigned int id, const unsigned int x, const unsigned int y);
     void removeObject(const unsigned int id);
+    void refresh();
 
 private:
     explicit MainWindow(QWidget *parent = 0);

@@ -21,13 +21,13 @@ MapArea::~MapArea() {
         delete road.second;
 }
 
-void MapArea::setCar(const unsigned int id, const unsigned int x, const unsigned int y) {
+void MapArea::setCar(const unsigned int id, const unsigned int x, const unsigned int y,
+                     const bool fast) {
     if (objectMap[id] == nullptr) {
-        objectMap[id] = new CarGUI(2, x, y);
+        objectMap[id] = new CarGUI(2, x, y, fast);
     } else {
         objectMap[id]->setTo(x, y);
     }
-    update();
 }
 
 void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {
@@ -36,7 +36,6 @@ void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned
     } else {
         objectMap[id]->setTo(x, y);
     }
-    update();
 }
 
 void MapArea::removeObject(const unsigned int id) {

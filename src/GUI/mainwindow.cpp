@@ -63,8 +63,9 @@ void MainWindow::setTrafficControl(std::shared_ptr<TrafficControl> tc) {
 }
 
 
-void MainWindow::setCar(const unsigned int id, const unsigned int x, const unsigned int y) {
-    mapArea->setCar(id, x, y);
+void MainWindow::setCar(const unsigned int id, const unsigned int x, const unsigned int y,
+                        const bool fast) {
+    mapArea->setCar(id, x, y, fast);
 }
 
 void MainWindow::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {
@@ -75,4 +76,6 @@ void MainWindow::removeObject(const unsigned int id) {
     mapArea->removeObject(id);
 }
 
-
+void MainWindow::refresh() {
+    mapArea->update();
+}

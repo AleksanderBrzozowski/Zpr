@@ -27,7 +27,7 @@ public:
     explicit MapArea(QWidget *parent = 0);
     ~MapArea();
 
-    void setCar(const unsigned int id, const unsigned int x, const unsigned int y);
+    void setCar(const unsigned int id, const unsigned int x, const unsigned int y, const bool fast);
     void setPpl(const unsigned int id, const unsigned int x, const unsigned int y);
     void removeObject(const unsigned int id);
     void createRoad(Point end1, Point end2);
