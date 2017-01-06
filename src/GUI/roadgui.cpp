@@ -7,7 +7,7 @@ const Qt::PenCapStyle RoadGUI::PEN_CAP = Qt::SquareCap;
 const Qt::PenJoinStyle RoadGUI::PEN_JOIN = Qt::RoundJoin;
 
 const QColor RoadGUI::PEN_COLOR = QColor(100, 100, 100, 0);
-const QColor RoadGUI::GHOST_PEN_COLOR = QColor(100, 100, 100, 127);
+const QColor RoadGUI::GHOST_PEN_COLOR = QColor(100, 100, 100, 0);
 
 const QPen RoadGUI::PEN(PEN_COLOR, PEN_WIDTH, PEN_STYLE, PEN_CAP, PEN_JOIN);
 const QPen RoadGUI::GHOST_PEN(GHOST_PEN_COLOR, PEN_WIDTH, PEN_STYLE, PEN_CAP, PEN_JOIN);
@@ -21,6 +21,9 @@ const QColor RoadGUI::GHOST_BRUSH_COLOR = QColor(100, 100, 100, 127);
 const QBrush RoadGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 const QBrush RoadGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);
 
+const unsigned int RoadGUI::SIDEWALK_WIDTH = 8;
+const QColor RoadGUI::SIDEWALK_BRUSH_COLOR = QColor(198, 199, 140);
+const QBrush RoadGUI::SIDEWALK_BRUSH(SIDEWALK_BRUSH_COLOR, BRUSH_STYLE);
 
 RoadGUI::RoadGUI(unsigned int layer, Point firstPoint, Point secondPoint, bool ghost):
     Drawable(layer, ghost) {
@@ -60,8 +63,16 @@ void RoadGUI::setRectangle(Point first, Point second) {
     }
 
     roadRect = QRect(
-                QPoint(start.getX() - GridGUI::SIZE/2, start.getY() + GridGUI::SIZE/2),
-                QPoint(end.getX() + GridGUI::SIZE/2, end.getY() - GridGUI::SIZE/2)
+                QPoint(start.getX() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH),
+                                       start.getY() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH)),
+                QPoint(end.getX() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH),
+                                     end.getY() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH))
+                );
+    sidewalkRect = QRect(
+                QPoint(start.getX() - GridGUI::SIZE/2,
+                                       start.getY() + GridGUI::SIZE/2),
+                QPoint(end.getX() + GridGUI::SIZE/2,
+                                     end.getY() - GridGUI::SIZE/2)
                 );
 }
 
@@ -81,12 +92,20 @@ void RoadGUI::setRectangle(Point point) {
     if (!isGhost()) {
         throw std::exception();
     }
-    roadRect = QRect(QPoint(point.getX() - GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2),
-                     QPoint(point.getX() + GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2)
+    roadRect = QRect(QPoint(point.getX() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH),
+                            point.getY() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH)),
+                     QPoint(point.getX() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH),
+                            point.getY() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH))
                      );
 }
 
-void RoadGUI::draw(QPainter &painter) {
+void RoadGUI::drawSidewalk(QPainter &painter) const {
+    painter.setPen(PEN);
+    painter.setBrush(SIDEWALK_BRUSH);
+    painter.drawRect(sidewalkRect);
+}
+
+void RoadGUI::draw(QPainter &painter) const {
     if(!isGhost()) {
         painter.setPen(PEN);
         painter.setBrush(BRUSH);
@@ -97,7 +116,7 @@ void RoadGUI::draw(QPainter &painter) {
     painter.drawRect(roadRect);
 }
 
-void RoadGUI::setTo(int x, int y) {
+void RoadGUI::setTo(unsigned int x, unsigned int y) {
     /* DOES NOTHING ON PURPOSE */
     /* THEN DELETE IT */
 }
@@ -108,4 +127,8 @@ bool RoadGUI::isVertical() const {
 
 std::tuple<Point, Point> RoadGUI::getEnds() const {
     return std::make_tuple(start, end);
+}
+
+bool RoadGUI::intersects(QRect &rectangle) const {
+    return roadRect.intersects(rectangle);
 }

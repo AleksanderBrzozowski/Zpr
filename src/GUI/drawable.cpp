@@ -9,11 +9,11 @@ Drawable::~Drawable() {
 
 }
 
-bool Drawable::isGhost() {
+bool Drawable::isGhost() const {
     return ghost;
 }
 
-int Drawable::getLayer() {
+int Drawable::getLayer() const {
     return layer;
 }
 

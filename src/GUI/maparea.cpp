@@ -21,7 +21,7 @@ MapArea::~MapArea() {
         delete road.second;
 }
 
-void MapArea::setCar(int id, int x, int y) {
+void MapArea::setCar(const unsigned int id, const unsigned int x, const unsigned int y) {
     if (objectMap[id] == nullptr) {
         objectMap[id] = new CarGUI(2, x, y);
     } else {
@@ -30,7 +30,7 @@ void MapArea::setCar(int id, int x, int y) {
     update();
 }
 
-void MapArea::setPpl(int id, int x, int y) {
+void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {
     if (objectMap[id] == nullptr) {
         objectMap[id] = new PplGUI(2, x, y);
     } else {
@@ -39,10 +39,20 @@ void MapArea::setPpl(int id, int x, int y) {
     update();
 }
 
+void MapArea::removeObject(const unsigned int id) {
+    if (objectMap[id] != nullptr) {
+        delete objectMap[id];
+        objectMap.erase(id);
+    }
+}
 
 void MapArea::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
+
+    for (const auto &road : roadMap) {
+        road.second->drawSidewalk(painter);
+    }
 
     for (const auto &drawable : roadMap) {
             drawable.second->draw(painter);

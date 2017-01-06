@@ -23,9 +23,9 @@ public:
 
     ~MainWindow();
 
-public slots:
-    void setCar(int id, int x, int y);
-    void setPpl(int id, int x, int y);
+    void setCar(const unsigned int id, const unsigned int x, const unsigned int y);
+    void setPpl(const unsigned int id, const unsigned int x, const unsigned int y);
+    void removeObject(const unsigned int id);
 
 private:
     explicit MainWindow(QWidget *parent = 0);

@@ -1,22 +1,23 @@
-#ifndef CARGUI_H
-#define CARGUI_H
+#ifndef BUILDINGGUI_H
+#define BUILDINGGUI_H
 
 #include "drawable.h"
+#include "gridgui.h"
 
-
-class CarGUI : public Drawable {
+class BuildingGUI : public Drawable
+{
 public:
-    CarGUI(unsigned int layer, QRect carRect, bool fast = false, bool ghost = false);
-    CarGUI(unsigned int layer, unsigned int x, unsigned int y, bool fast = false, bool ghost = false);
-    ~CarGUI();
+    BuildingGUI(unsigned int layer, QRect buildingRect,  bool ghost = false);
+    BuildingGUI(unsigned int layer, unsigned int x, unsigned int y,
+                unsigned int width = GridGUI::SIZE, unsigned int height = GridGUI::SIZE,
+                bool ghost = false);
+    ~BuildingGUI();
     void draw(QPainter &painter) const override;
     void setTo(unsigned int x, unsigned int y) override;
     bool intersects(QRect &rectangle) const override;
 
-    /**PROPERTIES**/
-    static const int WIDTH;
-    static const int HEIGHT;
 
+    /**PROPERTIES**/
     static const int PEN_WIDTH;
     static const Qt::PenStyle PEN_STYLE;
     static const Qt::PenCapStyle PEN_CAP;
@@ -28,22 +29,17 @@ public:
     static const QPen PEN;
     static const QPen GHOST_PEN;
 
+
     static const Qt::BrushStyle BRUSH_STYLE;
     static const QColor BRUSH_COLOR;
-    static const QColor FAST_BRUSH_COLOR;
+
     static const QColor GHOST_BRUSH_COLOR;
-    static const QColor FAST_GHOST_BRUSH_COLOR;
 
     static const QBrush BRUSH;
-    static const QBrush FAST_BRUSH;
     static const QBrush GHOST_BRUSH;
-    static const QBrush FAST_GHOST_BRUSH;
 
-    static const unsigned int CAR_SPEED;
-    static const unsigned int FAST_CAR_SPEED;
 private:
-    QRect carRect;
-    bool fast;
+    QRect buildingRect;
 };
 
-#endif // CARGUI_H
+#endif // BUILDINGGUI_H

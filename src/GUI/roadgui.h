@@ -15,10 +15,12 @@ public:
     RoadGUI(unsigned int layer, Point begin, Point end, bool ghost = false);
     RoadGUI(unsigned int layer, Point point);
     ~RoadGUI();
-    void draw(QPainter &) override;
-    void setTo(int x, int y) override;
+    void draw(QPainter &) const override;
+    void setTo(unsigned int x, unsigned int y) override;
+    bool intersects(QRect& rectangle) const override;
     void setRectangle(Point first, Point second);
     void setRectangle(Point point);
+    void drawSidewalk(QPainter&) const;
 
     bool isVertical() const;
     std::tuple<Point, Point> getEnds() const;
@@ -48,8 +50,13 @@ public:
     static const QBrush BRUSH;
     static const QBrush GHOST_BRUSH;
 
+    static const QColor SIDEWALK_BRUSH_COLOR;
+    static const QBrush SIDEWALK_BRUSH;
+    static const unsigned int SIDEWALK_WIDTH;
+
 private:
     QRect roadRect;
+    QRect sidewalkRect;
     Point start;
     Point end;
     bool vertical;
