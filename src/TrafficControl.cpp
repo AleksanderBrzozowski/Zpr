@@ -6,10 +6,14 @@
 #include <GUI/mainwindow.h>
 
 
-TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
+TrafficControl::TrafficControl() : movableAllowedToMove(false) {
+    crossFactory = new CrossFactory(crosses);
+}
 
 
-TrafficControl::~TrafficControl() {}
+TrafficControl::~TrafficControl() {
+    delete crossFactory;
+}
 
 void TrafficControl::setMovableAllowedToMove(const bool& decision){
     if(movableAllowedToMove==decision)return;
@@ -65,7 +69,7 @@ bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, cons
 
 
 void TrafficControl::createRoute(PtrToConstPoint src, PtrToConstPoint dst) {
-    CrossFactory::createRoute(src, dst, crosses);
+    crossFactory->createRoad(src, dst);
 }
 
 std::vector<PtrCross>::size_type TrafficControl::findCrossByPoint(PtrToConstPoint point) {

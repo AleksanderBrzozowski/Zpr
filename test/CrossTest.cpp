@@ -10,10 +10,10 @@ class CrossTest : public ::testing::Test{
 public:
     CrossTest(){
         cross1 = new Cross(std::make_shared<Point>(0,0));
-        cross2 = new Cross(std::make_shared<Point>(0,0));
-        cross3 = new Cross(std::make_shared<Point>(0,0));
-        cross4 = new Cross(std::make_shared<Point>(0,0));
-        cross5 = new Cross(std::make_shared<Point>(0,0));
+        cross2 = new Cross(std::make_shared<Point>(10,0));
+        cross3 = new Cross(std::make_shared<Point>(-10,0));
+        cross4 = new Cross(std::make_shared<Point>(0,10));
+        cross5 = new Cross(std::make_shared<Point>(0,-10));
     }
     ~CrossTest(){
         delete cross1;
@@ -61,3 +61,18 @@ TEST_F(CrossTest, checkCrossNotEqualsCross){
     EXPECT_TRUE(cr1 != cr2);
 }
 
+TEST_F(CrossTest, checkCrossIsLowerThanCross){
+    PtrToConstPoint point1 = std::make_shared<Point>(10,-10);
+    PtrToConstPoint point2 = std::make_shared<Point>(10,10);
+    Cross cr1(point1);
+    Cross cr2(point2);
+    EXPECT_TRUE(cr1 < cr2);
+}
+
+TEST_F(CrossTest, checkCrossIsHigherThanCross){
+    PtrToConstPoint point1 = std::make_shared<Point>(10,-10);
+    PtrToConstPoint point2 = std::make_shared<Point>(10,10);
+    Cross cr1(point1);
+    Cross cr2(point2);
+    EXPECT_FALSE(cr1 > cr2);
+}

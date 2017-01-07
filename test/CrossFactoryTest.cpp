@@ -9,10 +9,13 @@
 class CrossFactoryTest : public ::testing::Test{
 public:
     std::vector<PtrCross> crosses;
-    CrossFactoryTest(){};
+    CrossFactory* crossFactory;
+    CrossFactoryTest(){
+        crossFactory = new CrossFactory(crosses);
+    };
 
     void createRoute(PtrToConstPoint src, PtrToConstPoint dst){
-        CrossFactory::createRoute(src, dst, crosses);
+        crossFactory->createRoad(src, dst);
     }
 
     void createCrosses(){
@@ -21,13 +24,13 @@ public:
          *   |_|
         */
         ;
-        CrossFactory::createRoute(std::make_shared<Point>(-10,-10), std::make_shared<Point>(-10,0), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,0), std::make_shared<Point>(-10,0), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,0), std::make_shared<Point>(10,0), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(10,10), std::make_shared<Point>(10,0), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,10), std::make_shared<Point>(0,0), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,10), std::make_shared<Point>(10,10), crosses);
+        crossFactory->createRoad(std::make_shared<Point>(-10,-10), std::make_shared<Point>(-10,0));
+        crossFactory->createRoad(std::make_shared<Point>(0,-10), std::make_shared<Point>(0,0));
+        crossFactory->createRoad(std::make_shared<Point>(0,0), std::make_shared<Point>(-10,0));
+        crossFactory->createRoad(std::make_shared<Point>(0,0), std::make_shared<Point>(10,0));
+        crossFactory->createRoad(std::make_shared<Point>(10,10), std::make_shared<Point>(10,0));
+        crossFactory->createRoad(std::make_shared<Point>(0,10), std::make_shared<Point>(0,0));
+        crossFactory->createRoad(std::make_shared<Point>(0,10), std::make_shared<Point>(10,10));
     }
 
     void createMoreCrosses(){
@@ -38,15 +41,15 @@ public:
          *      |_|
          *      |_|
          */
-        CrossFactory::createRoute(std::make_shared<Point>(-20,-10), std::make_shared<Point>(-10,-10), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(-20,-10), std::make_shared<Point>(-20,10), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,10), std::make_shared<Point>(-20,10), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,20), std::make_shared<Point>(10,20), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,20), std::make_shared<Point>(0,15), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,10), std::make_shared<Point>(0,15), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(10,10), std::make_shared<Point>(10,15), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(10,20), std::make_shared<Point>(10,15), crosses);
-        CrossFactory::createRoute(std::make_shared<Point>(0,15), std::make_shared<Point>(10,15), crosses);
+        crossFactory->createRoad(std::make_shared<Point>(-20,-10), std::make_shared<Point>(-10,-10));
+        crossFactory->createRoad(std::make_shared<Point>(-20,-10), std::make_shared<Point>(-20,10));
+        crossFactory->createRoad(std::make_shared<Point>(0,10), std::make_shared<Point>(-20,10));
+        crossFactory->createRoad(std::make_shared<Point>(0,20), std::make_shared<Point>(10,20));
+        crossFactory->createRoad(std::make_shared<Point>(0,20), std::make_shared<Point>(0,15));
+        crossFactory->createRoad(std::make_shared<Point>(0,10), std::make_shared<Point>(0,15));
+        crossFactory->createRoad(std::make_shared<Point>(10,10), std::make_shared<Point>(10,15));
+        crossFactory->createRoad(std::make_shared<Point>(10,20), std::make_shared<Point>(10,15));
+        crossFactory->createRoad(std::make_shared<Point>(0,15), std::make_shared<Point>(10,15));
     }
 
     ~CrossFactoryTest(){}
