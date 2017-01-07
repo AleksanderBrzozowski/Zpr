@@ -1,10 +1,15 @@
 #include "cameragui.h"
+#include "gridgui.h"
 
-const unsigned int CameraGUI::CAM_RADIUS = 4;
-const unsigned int CameraGUI::MAX_RANGE = 100;
-const unsigned int CameraGUI::MIN_RANGE = 10;
+const unsigned int CameraGUI::CAM_RADIUS = 8;
+const unsigned int CameraGUI::MAX_RANGE = 5 * GridGUI::SIZE;
+const unsigned int CameraGUI::MIN_RANGE = 100;
 const unsigned int CameraGUI::MAX_SPAN = 180;
 const unsigned int CameraGUI::MIN_SPAN = 10;
+
+const unsigned int CameraGUI::DEFAULT_SPAN = 60;
+const unsigned int CameraGUI::DEFAULT_ANGLE = -DEFAULT_SPAN/2;
+const unsigned int CameraGUI::DEFAULT_RANGE = 200;
 
 const int CameraGUI::CAM_PEN_WIDTH = 2;
 const Qt::PenStyle CameraGUI::CAM_PEN_STYLE = Qt::SolidLine;
@@ -48,7 +53,7 @@ const QBrush CameraGUI::GHOST_RNG_BRUSH(GHOST_RNG_BRUSH_COLOR, RNG_BRUSH_STYLE);
 
 CameraGUI::CameraGUI(unsigned int layer, unsigned int x, unsigned int y,
                      unsigned int span, int angle, unsigned int range,
-                     bool ghost) : Drawable(layer, ghost), span(span), angle(angle),
+                     bool ghost) : Drawable(layer, ghost), span(16*span), angle(16*angle),
                      camRect(x - CAM_RADIUS/2, y - CAM_RADIUS/2, CAM_RADIUS, CAM_RADIUS),
                      rngRect(x - range, y - range, 2*range, 2*range) {
 
@@ -74,12 +79,12 @@ void CameraGUI::draw(QPainter &painter) const {
         painter.setPen(GHOST_CAM_PEN);
         painter.setBrush(GHOST_CAM_BRUSH);
     }
-    painter.drawRect(camRect);
+    painter.drawEllipse(camRect);
 }
 
 void CameraGUI::setTo(unsigned int x, unsigned int y) {
     camRect.moveTo(x - CAM_RADIUS/2, y - CAM_RADIUS/2);
-    rngRect.moveTo(x - rngRect.width(), y - rngRect.height());
+    rngRect.moveTo(x - rngRect.width()/2, y - rngRect.height()/2);
 }
 
 bool CameraGUI::intersects(QRect &rectangle) const {
@@ -87,13 +92,25 @@ bool CameraGUI::intersects(QRect &rectangle) const {
 }
 
 void CameraGUI::decRange() {
-    if (rngRect.width() > MIN_RANGE)
-        rngRect.adjust(-1, -1, -1, -1);
+	if (rngRect.width() > 2 * MIN_RANGE) {
+		int x1;
+		int y1;
+		int x2;
+		int y2;
+		rngRect.getCoords(&x1, &y1, &x2, &y2);
+		rngRect.setCoords(x1 + 10, y1 + 10, x2 - 10, y2 - 10);
+	}
 }
 
 void CameraGUI::incRange() {
-    if (rngRect.width() < MAX_RANGE)
-        rngRect.adjust(1, 1, 1, 1);
+	if (rngRect.width() < 2 * MAX_RANGE) {
+		int x1;
+		int y1;
+		int x2;
+		int y2;
+		rngRect.getCoords(&x1, &y1, &x2, &y2);
+		rngRect.setCoords(x1 - 10, y1 - 10, x2 + 10, y2 + 10);
+	}
 }
 
 void CameraGUI::rotClockwise() {
@@ -109,14 +126,16 @@ void CameraGUI::rotCounterclockwise() {
 }
 
 void CameraGUI::incSpan() {
-    span += 16;
-    if (span > 16*MAX_SPAN)
-        span = 16*MAX_SPAN;
+	if (span < 16 * MAX_SPAN) {
+		span += 16;
+		angle -= 8;
+	}
 }
 
 void CameraGUI::decSpan() {
-    span -= 16;
-    if (span < 16*MIN_SPAN)
-        span = 16*MIN_SPAN;
+	if (span > 16 * MIN_SPAN) {
+		span -= 16;
+		angle += 8;
+	}
 }
 

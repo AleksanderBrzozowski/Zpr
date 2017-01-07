@@ -53,7 +53,11 @@ QMenu* MainWindow::initMenu() {
                                                      statusLabel->setText("Current option: Set building");}
             );
     toolsMenu->addAction(setBuilding);
-
+    QAction *setCamera = new QAction("Set camera", toolsMenu);
+    connect(setCamera, &QAction::triggered, [=]() {mapArea->setCurrentOption(EventInterpreter::Option::setCamera);
+                                                   statusLabel->setText("Current option: Set camera");}
+            );
+    toolsMenu->addAction(setCamera);
 
     return toolsMenu;
 }

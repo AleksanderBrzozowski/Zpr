@@ -1,5 +1,6 @@
 #include "eventinterpreter.h"
 #include "mainwindow.h"
+#include <cmath>
 
 EventInterpreter::EventInterpreter() : currentOption(Option::doNothing), anchorValid(false) {
 
@@ -11,34 +12,37 @@ std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
     else
         currentOption = option;
 
+    anchorValid = false;
     switch(option) {
     case Option::setRoad:
         ghostRoad = std::shared_ptr<RoadGUI>(new RoadGUI(0, Point(0, 0)));
-        anchorValid = false;
         return ghostRoad;
         break;
     case Option::setCar:
         ghostObject = std::shared_ptr<Drawable>(new CarGUI(0, 0, 0, false, true));
-        anchorValid = false;
         return ghostObject;
         break;
     case Option::setFastCar:
         ghostObject = std::shared_ptr<Drawable>(new CarGUI(0, 0, 0, true, true));
-        anchorValid = false;
         return ghostObject;
         break;
     case Option::setBuilding:
         ghostObject = std::shared_ptr<Drawable>(new BuildingGUI(0, 0, 0, GridGUI::SIZE,
                                                                GridGUI::SIZE, true));
-        anchorValid = false;
         return ghostObject;
+        break;
+    case Option::setCamera:
+        ghostCamera = std::shared_ptr<CameraGUI>(new CameraGUI(0, 0, 0, CameraGUI::DEFAULT_SPAN,
+                                                              CameraGUI::DEFAULT_ANGLE,
+                                                              CameraGUI::DEFAULT_RANGE, true));
+        return ghostCamera;
         break;
     case Option::doNothing:
     default:
         ghostObject.reset();
         ghostRoad.reset();
+        ghostCamera.reset();
         MainWindow::getInstance().resetLabel();
-        anchorValid = false;
         return std::shared_ptr<Drawable>(nullptr);
         break;
     }
@@ -50,7 +54,7 @@ EventInterpreter::Option EventInterpreter::getCurrentOption() {
 
 void EventInterpreter::mouseClicked(int x, int y) {
     Point point(x, y);
-    snapToGrid(point);
+    snapToGridCenter(point);
     switch(currentOption) {
     case Option::setRoad:
         if (!anchorValid) {
@@ -99,18 +103,47 @@ void EventInterpreter::mouseClicked(int x, int y) {
     }
 }
 
-void EventInterpreter::snapToGrid(Point &point) {
+void EventInterpreter::steerCamera(int keyCode) {
+    if (currentOption != Option::setCamera)
+        return;
+
+    switch (keyCode) {
+    case Qt::Key_Left:
+		ghostCamera->decSpan();
+        break;
+    case Qt::Key_Right:
+		ghostCamera->incSpan();
+        break;
+    case Qt::Key_Down:
+        ghostCamera->decRange();
+        break;
+    case Qt::Key_Up:
+        ghostCamera->incRange();
+    default:
+        break;
+    }
+}
+
+
+void EventInterpreter::snapToGridCenter(Point &point) const {
     int x = point.getX() / GridGUI::SIZE;
     int y = point.getY() / GridGUI::SIZE;
     point.setX(x * GridGUI::SIZE + GridGUI::SIZE/2);
     point.setY(y * GridGUI::SIZE + GridGUI::SIZE/2);
 }
 
+void EventInterpreter::snapToGridIntersect(Point &point) const {
+    double x = static_cast<double>(point.getX()) / static_cast<double>(GridGUI::SIZE);
+    double y = static_cast<double>(point.getY()) / static_cast<double>(GridGUI::SIZE);
+    point.setX(round(x) * GridGUI::SIZE);
+    point.setY(round(y) * GridGUI::SIZE);
+}
+
 void EventInterpreter::mouseMoved(int x, int y) {
     Point point(x, y);
-    snapToGrid(point);
     switch(currentOption) {
     case Option::setRoad:
+        snapToGridCenter(point);
         if (!anchorValid) {
             ghostRoad->setRectangle(point);
         } else {
@@ -119,6 +152,7 @@ void EventInterpreter::mouseMoved(int x, int y) {
         break;
     case Option::setFastCar:
     case Option::setCar:
+        snapToGridCenter(point);
         ghostObject->setTo(x, y);
         if (!anchorValid) {
             ghostObject->setTo(point.getX(), point.getY());
@@ -126,7 +160,12 @@ void EventInterpreter::mouseMoved(int x, int y) {
             ghostObject->setTo(anchor.getX(), anchor.getY());
         }
         break;
+    case Option::setCamera:
+        snapToGridIntersect(point);
+        ghostCamera->setTo(point.getX(), point.getY());
+        break;
     case Option::setBuilding:
+        snapToGridCenter(point);
         ghostObject->setTo(point.getX(), point.getY());
         break;
     case Option::doNothing:

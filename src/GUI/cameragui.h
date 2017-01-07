@@ -28,6 +28,10 @@ public:
     static const unsigned int MAX_SPAN;
     static const unsigned int MIN_SPAN;
 
+    static const unsigned int DEFAULT_SPAN;
+    static const unsigned int DEFAULT_ANGLE;
+    static const unsigned int DEFAULT_RANGE;
+
     static const int CAM_PEN_WIDTH;
     static const Qt::PenStyle CAM_PEN_STYLE;
     static const Qt::PenCapStyle CAM_PEN_CAP;

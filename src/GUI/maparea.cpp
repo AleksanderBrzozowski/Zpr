@@ -95,10 +95,17 @@ void MapArea::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void MapArea::keyPressEvent(QKeyEvent *event) {
-    if (event->key() != Qt::Key_Escape)
-        QWidget::keyPressEvent(event);
-    else
+    int key = event->key();
+    if (key == Qt::Key_Escape)
         setCurrentOption(EventInterpreter::Option::doNothing);
+    else if (key == Qt::Key_Up || key == Qt::Key_Down ||
+             key == Qt::Key_Left || key == Qt::Key_Right)
+        eventInterpreter.steerCamera(key);
+    else
+        QWidget::keyPressEvent(event);
+	update();
+    event->accept();
+
 }
 
 void MapArea::createRoad(Point end1, Point end2) {

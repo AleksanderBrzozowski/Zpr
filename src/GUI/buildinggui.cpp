@@ -14,9 +14,9 @@ const QPen BuildingGUI::GHOST_PEN(GHOST_PEN_COLOR, PEN_WIDTH, PEN_STYLE, PEN_CAP
 
 
 const Qt::BrushStyle BuildingGUI::BRUSH_STYLE = Qt::SolidPattern;
-const QColor BuildingGUI::BRUSH_COLOR = QColor(131, 105, 83);
+const QColor BuildingGUI::BRUSH_COLOR = QColor(255, 179, 71);
 
-const QColor BuildingGUI::GHOST_BRUSH_COLOR = QColor(131, 105, 83, 127);
+const QColor BuildingGUI::GHOST_BRUSH_COLOR = QColor(255, 179, 71, 127);
 
 const QBrush BuildingGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 const QBrush BuildingGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);

@@ -14,15 +14,15 @@ const QPen RoadGUI::GHOST_PEN(GHOST_PEN_COLOR, PEN_WIDTH, PEN_STYLE, PEN_CAP, PE
 
 
 const Qt::BrushStyle RoadGUI::BRUSH_STYLE = Qt::SolidPattern;
-const QColor RoadGUI::BRUSH_COLOR = QColor(170, 152, 169);
+const QColor RoadGUI::BRUSH_COLOR = QColor(72, 72, 59);
 
-const QColor RoadGUI::GHOST_BRUSH_COLOR = QColor(170, 152, 169, 127);
+const QColor RoadGUI::GHOST_BRUSH_COLOR = QColor(72, 72, 59, 127);
 
 const QBrush RoadGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 const QBrush RoadGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);
 
 const unsigned int RoadGUI::SIDEWALK_WIDTH = 8;
-const QColor RoadGUI::SIDEWALK_BRUSH_COLOR = QColor(208, 203, 195);
+const QColor RoadGUI::SIDEWALK_BRUSH_COLOR = QColor(155, 155, 132);
 const QBrush RoadGUI::SIDEWALK_BRUSH(SIDEWALK_BRUSH_COLOR, BRUSH_STYLE);
 
 RoadGUI::RoadGUI(unsigned int layer, Point firstPoint, Point secondPoint, bool ghost):
