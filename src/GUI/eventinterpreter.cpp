@@ -1,6 +1,7 @@
 #include "eventinterpreter.h"
+#include "mainwindow.h"
 
-EventInterpreter::EventInterpreter() : currentOption(Option::doNothing) {
+EventInterpreter::EventInterpreter() : currentOption(Option::doNothing), anchorValid(false) {
 
 }
 
@@ -13,30 +14,31 @@ std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
     switch(option) {
     case Option::setRoad:
         ghostRoad = std::shared_ptr<RoadGUI>(new RoadGUI(0, Point(0, 0)));
-        hasAnchor = false;
+        anchorValid = false;
         return ghostRoad;
         break;
     case Option::setCar:
         ghostObject = std::shared_ptr<Drawable>(new CarGUI(0, 0, 0, false, true));
-        hasAnchor = false;
+        anchorValid = false;
         return ghostObject;
         break;
     case Option::setFastCar:
         ghostObject = std::shared_ptr<Drawable>(new CarGUI(0, 0, 0, true, true));
-        hasAnchor = false;
+        anchorValid = false;
         return ghostObject;
         break;
     case Option::setBuilding:
         ghostObject = std::shared_ptr<Drawable>(new BuildingGUI(0, 0, 0, GridGUI::SIZE,
                                                                GridGUI::SIZE, true));
-        hasAnchor = false;
+        anchorValid = false;
         return ghostObject;
         break;
     case Option::doNothing:
     default:
         ghostObject.reset();
         ghostRoad.reset();
-        hasAnchor = false;
+        MainWindow::getInstance().resetLabel();
+        anchorValid = false;
         return std::shared_ptr<Drawable>(nullptr);
         break;
     }
@@ -51,40 +53,40 @@ void EventInterpreter::mouseClicked(int x, int y) {
     snapToGrid(point);
     switch(currentOption) {
     case Option::setRoad:
-        if (!hasAnchor) {
+        if (!anchorValid) {
             anchor = point;
-            hasAnchor = true;
+            anchorValid = true;
         } else {
             RoadGUI::adjustPoints(anchor, point);
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             trafficControl->createRoute(srcPtr, dstPtr);
             emit roadCreated(new RoadGUI(3, anchor, point));
-            hasAnchor = false;
+            anchorValid = false;
         }
         break;
     case Option::setCar:
-        if (!hasAnchor) {
+        if (!anchorValid) {
             anchor = point;
-            hasAnchor = true;
+            anchorValid = true;
         } else {
             //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             trafficControl->createNewCar(srcPtr, dstPtr, CarGUI::CAR_SPEED);
-            hasAnchor = false;
+            anchorValid = false;
         }
         break;
     case Option::setFastCar:
-        if (!hasAnchor) {
+        if (!anchorValid) {
             anchor = point;
-            hasAnchor = true;
+            anchorValid = true;
         } else {
             //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             trafficControl->createNewCar(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
-            hasAnchor = false;
+            anchorValid = false;
         }
         break;
     case Option::setBuilding:
@@ -92,7 +94,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
         break;
     case Option::doNothing:
     default:
-        hasAnchor = false;
+        anchorValid = false;
         break;
     }
 }
@@ -109,7 +111,7 @@ void EventInterpreter::mouseMoved(int x, int y) {
     snapToGrid(point);
     switch(currentOption) {
     case Option::setRoad:
-        if (!hasAnchor) {
+        if (!anchorValid) {
             ghostRoad->setRectangle(point);
         } else {
             ghostRoad->setRectangle(anchor, point);
@@ -118,7 +120,7 @@ void EventInterpreter::mouseMoved(int x, int y) {
     case Option::setFastCar:
     case Option::setCar:
         ghostObject->setTo(x, y);
-        if (!hasAnchor) {
+        if (!anchorValid) {
             ghostObject->setTo(point.getX(), point.getY());
         } else {
             ghostObject->setTo(anchor.getX(), anchor.getY());

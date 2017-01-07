@@ -6,11 +6,12 @@ MapArea::MapArea(QWidget *parent) : QWidget(parent), roadID(0), displayGrid(fals
     connect(&eventInterpreter, &EventInterpreter::roadCreated, this, &MapArea::registerRoad);
 
     QPalette pal(palette());
-    pal.setColor(QPalette::Background, Qt::gray);
+    pal.setColor(QPalette::Background, QColor(196, 195, 208));
     setAutoFillBackground(true);
     setPalette(pal);
 
     setMouseTracking(true);
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 MapArea::~MapArea() {
@@ -28,6 +29,7 @@ void MapArea::setCar(const unsigned int id, const unsigned int x, const unsigned
     } else {
         objectMap[id]->setTo(x, y);
     }
+    update();
 }
 
 void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {
@@ -36,6 +38,7 @@ void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned
     } else {
         objectMap[id]->setTo(x, y);
     }
+    update();
 }
 
 void MapArea::removeObject(const unsigned int id) {
@@ -79,14 +82,23 @@ void MapArea::snapToGrid(Point &point) {
 
 
 void MapArea::mouseReleaseEvent(QMouseEvent *event) {
-    eventInterpreter.mouseClicked(event->x(), event->y());
-    event->accept();
+    if (event->button() == Qt::LeftButton) {
+        eventInterpreter.mouseClicked(event->x(), event->y());
+        event->accept();
+    }
 }
 
 void MapArea::mouseMoveEvent(QMouseEvent *event) {
     eventInterpreter.mouseMoved(event->x(), event->y());
     event->accept();
     update();
+}
+
+void MapArea::keyPressEvent(QKeyEvent *event) {
+    if (event->key() != Qt::Key_Escape)
+        QWidget::keyPressEvent(event);
+    else
+        setCurrentOption(EventInterpreter::Option::doNothing);
 }
 
 void MapArea::createRoad(Point end1, Point end2) {

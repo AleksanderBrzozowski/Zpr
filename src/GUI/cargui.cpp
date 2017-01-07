@@ -19,10 +19,10 @@ const QPen CarGUI::GHOST_PEN(GHOST_PEN_COLOR, PEN_WIDTH,
                            PEN_STYLE, PEN_CAP, PEN_JOIN);
 
 const Qt::BrushStyle CarGUI::BRUSH_STYLE = Qt::SolidPattern;
-const QColor CarGUI::BRUSH_COLOR = QColor(0, 0, 200);
-const QColor CarGUI::FAST_BRUSH_COLOR = QColor(0, 200, 0);
-const QColor CarGUI::GHOST_BRUSH_COLOR = QColor(0, 0, 200, 127);
-const QColor CarGUI::FAST_GHOST_BRUSH_COLOR = QColor(0, 200, 0, 127);
+const QColor CarGUI::BRUSH_COLOR = QColor(27,133,184);
+const QColor CarGUI::FAST_BRUSH_COLOR = QColor(119, 221, 119);
+const QColor CarGUI::GHOST_BRUSH_COLOR = QColor(27,133,184, 127);
+const QColor CarGUI::FAST_GHOST_BRUSH_COLOR = QColor(119, 221, 119, 127);
 
 const QBrush CarGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 const QBrush CarGUI::FAST_BRUSH(FAST_BRUSH_COLOR, BRUSH_STYLE);

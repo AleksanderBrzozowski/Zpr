@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->menuBar->addMenu(initMenu());
     ui->statusBar->addWidget(statusLabel);
 
+    resetLabel();
 }
 
 QMenu* MainWindow::initMenu() {
@@ -57,7 +58,9 @@ QMenu* MainWindow::initMenu() {
     return toolsMenu;
 }
 
-
+void MainWindow::resetLabel() {
+    statusLabel->setText("Current option: None. Select tool from menu.");
+}
 
 MainWindow::~MainWindow() {
 

@@ -27,9 +27,10 @@ signals:
     void roadCreated(RoadGUI*);
     void drawableCreated(Drawable*);
 private:
+    enum class buildingSize {small, big, high, wide};
     Option currentOption;
     Point anchor;
-    bool hasAnchor;
+    bool anchorValid;
     std::shared_ptr<Drawable> ghostObject;
     std::shared_ptr<RoadGUI> ghostRoad;
     std::shared_ptr<TrafficControl> trafficControl;

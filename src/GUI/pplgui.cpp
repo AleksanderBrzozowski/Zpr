@@ -13,7 +13,7 @@ const QPen PplGUI::PEN(PEN_COLOR, PEN_WIDTH, PEN_STYLE,
                    PEN_CAP, PEN_JOIN);
 
 const Qt::BrushStyle PplGUI::BRUSH_STYLE = Qt::SolidPattern;
-const QColor PplGUI::BRUSH_COLOR = Qt::green;
+const QColor PplGUI::BRUSH_COLOR = QColor(255, 105, 97);
 
 const QBrush PplGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 
