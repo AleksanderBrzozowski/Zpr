@@ -6,10 +6,14 @@
 #include <GUI/mainwindow.h>
 
 
-TrafficControl::TrafficControl() : movableAllowedToMove(false) {}
+TrafficControl::TrafficControl() : movableAllowedToMove(false) {
+    crossFactory = new CrossFactory(crosses);
+}
 
 
-TrafficControl::~TrafficControl() {}
+TrafficControl::~TrafficControl() {
+    delete crossFactory;
+}
 
 void TrafficControl::setMovableAllowedToMove(const bool& decision){
     if(movableAllowedToMove==decision)return;
@@ -36,12 +40,15 @@ unsigned int TrafficControl::getNextHumanId() {
 void TrafficControl::run() {
 
     while(movableAllowedToMove){
-        for(std::list<PtrCar>::iterator iter = cars.begin(); iter!=cars.end(); ++iter){
-            if(!(*iter)->move()){
+
+        std::list<PtrCar>::iterator iter = cars.begin();
+        while(iter!=cars.end()){
+            if(!(*iter)->move())
                 iter = cars.erase(iter);
-                --iter;
+            else {
+                MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
+                ++iter;
             }
-            MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
         }
 
         std::this_thread::sleep_for (std::chrono::milliseconds(50));
@@ -65,7 +72,7 @@ bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, cons
 
 
 void TrafficControl::createRoute(PtrToConstPoint src, PtrToConstPoint dst) {
-    CrossFactory::createRoute(src, dst, crosses);
+    crossFactory->createRoad(src, dst);
 }
 
 std::vector<PtrCross>::size_type TrafficControl::findCrossByPoint(PtrToConstPoint point) {

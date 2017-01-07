@@ -28,7 +28,7 @@ private:
     std::list<PtrHuman> humans;
     std::thread runningSimulation;
     bool movableAllowedToMove;
-
+    CrossFactory* crossFactory;
 
 public:
 

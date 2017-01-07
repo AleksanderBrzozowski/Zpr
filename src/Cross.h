@@ -12,21 +12,33 @@
 class Cross {
 
 private:
-    std::vector<PtrCross>neighbours;
+
+    PtrCross northNeighbour;
+    PtrCross westNeighbour;
+    PtrCross eastNeighbour;
+    PtrCross southNeighbour;
     bool visited;
     PtrToConstPoint position;
 
 public:
 
     Cross(PtrToConstPoint);
-    PtrCross getNotVisitedNeighbours();
+    PtrCross getNotVisitedNeighbours() const;
     void addNeighbour(PtrCross);
     bool setVisited(const bool&);
     bool getVisited() const;
     PtrToConstPoint getPosition() const ;
 
+    PtrCross getNorthNeighbour() const;
+    PtrCross getSouthNeighbour() const;
+    PtrCross getEastNeighbour() const;
+    PtrCross getWestNeighbour() const;
+
+
     bool operator==(const Cross &rhs) const;
     bool operator!=(const Cross &rhs) const;
+    bool operator< (const Cross &rhs) const;
+    bool operator> (const Cross &rhs) const;
 
 };
 

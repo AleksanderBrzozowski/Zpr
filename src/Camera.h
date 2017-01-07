@@ -16,8 +16,6 @@ public:
 
     bool isInAngle(const Point &point);
 
-    int distanceSquare(const Point &point, const Point &point1);
-
 private:
     const Point startPoint;
     const Point endPoint;
@@ -25,6 +23,8 @@ private:
     int raySquare;
     double upperAngle;
     double lowerAngle;
+
+    int distanceSquare(const Point &point, const Point &point1);
 };
 
 #endif //ZPR_CAMERA_H
