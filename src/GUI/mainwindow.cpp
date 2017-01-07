@@ -47,6 +47,11 @@ QMenu* MainWindow::initMenu() {
                                         statusLabel->setText("Current option: Spawn fast Car");}
             );
     toolsMenu->addAction(spawnFastCar);
+    QAction *setBuilding = new QAction("Set building", toolsMenu);
+    connect(setBuilding, &QAction::triggered, [=]() {mapArea->setCurrentOption(EventInterpreter::Option::setBuilding);
+                                                     statusLabel->setText("Current option: Set building");}
+            );
+    toolsMenu->addAction(setBuilding);
 
 
     return toolsMenu;

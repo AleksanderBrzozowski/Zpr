@@ -6,12 +6,13 @@
 #include "drawable.h"
 #include "cargui.h"
 #include "roadgui.h"
+#include "buildinggui.h"
 #include "../TrafficControl.h"
 
 class EventInterpreter: public QObject {
     Q_OBJECT
 public:
-    enum class Option {setRoad, setCar, setFastCar, doNothing};
+    enum class Option {setRoad, setCar, setFastCar, setBuilding, doNothing};
 
     EventInterpreter();
 

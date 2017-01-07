@@ -26,6 +26,12 @@ std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
         hasAnchor = false;
         return ghostObject;
         break;
+    case Option::setBuilding:
+        ghostObject = std::shared_ptr<Drawable>(new BuildingGUI(0, 0, 0, GridGUI::SIZE,
+                                                               GridGUI::SIZE, true));
+        hasAnchor = false;
+        return ghostObject;
+        break;
     case Option::doNothing:
     default:
         ghostObject.reset();
@@ -81,6 +87,9 @@ void EventInterpreter::mouseClicked(int x, int y) {
             hasAnchor = false;
         }
         break;
+    case Option::setBuilding:
+
+        break;
     case Option::doNothing:
     default:
         hasAnchor = false;
@@ -114,6 +123,9 @@ void EventInterpreter::mouseMoved(int x, int y) {
         } else {
             ghostObject->setTo(anchor.getX(), anchor.getY());
         }
+        break;
+    case Option::setBuilding:
+        ghostObject->setTo(point.getX(), point.getY());
         break;
     case Option::doNothing:
     default:
