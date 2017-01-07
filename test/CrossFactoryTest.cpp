@@ -72,5 +72,35 @@ TEST_F(CrossFactoryTest, creatingMoreRoutes){
 }
 
 
+TEST_F(CrossFactoryTest, twoRoadsCrossed){
+    crossFactory->createRoad(std::make_shared<Point>(0,0), std::make_shared<Point>(0,10));
+    crossFactory->createRoad(std::make_shared<Point>(-5,5), std::make_shared<Point>(5,5));
+    EXPECT_EQ(crosses.size(), 5);
 
+    crossFactory->createRoad(std::make_shared<Point>(0,0), std::make_shared<Point>(0,10));
+    crossFactory->createRoad(std::make_shared<Point>(5,5), std::make_shared<Point>(-5,5));
+    EXPECT_EQ(crosses.size(), 5);
 
+    crossFactory->createRoad(std::make_shared<Point>(0,0), std::make_shared<Point>(0,0));
+    crossFactory->createRoad(std::make_shared<Point>(-5,5), std::make_shared<Point>(5,5));
+    EXPECT_EQ(crosses.size(), 5);
+}
+
+TEST_F(CrossFactoryTest, threeRoadsCrossed){
+    crossFactory->createRoad(std::make_shared<Point>(0,0), std::make_shared<Point>(0,10));
+    crossFactory->createRoad(std::make_shared<Point>(-5,5), std::make_shared<Point>(5,5));
+    crossFactory->createRoad(std::make_shared<Point>(3,0), std::make_shared<Point>(3,10));
+
+    EXPECT_EQ(crosses.size(), 8);
+}
+
+TEST_F(CrossFactoryTest, fourRoadsCrossed){
+    crossFactory->createRoad(std::make_shared<Point>(0,0), std::make_shared<Point>(0,10));
+    crossFactory->createRoad(std::make_shared<Point>(-5,5), std::make_shared<Point>(5,5));
+    crossFactory->createRoad(std::make_shared<Point>(3,0), std::make_shared<Point>(3,10));
+    crossFactory->createRoad(std::make_shared<Point>(-5,7), std::make_shared<Point>(5,7));
+    crossFactory->createRoad(std::make_shared<Point>(-5,3), std::make_shared<Point>(5,3));
+    crossFactory->createRoad(std::make_shared<Point>(-3,0), std::make_shared<Point>(-3,10));
+
+    EXPECT_EQ(crosses.size(), 21);
+}

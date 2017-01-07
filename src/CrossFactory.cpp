@@ -2,13 +2,20 @@
 // Created by kuco on 13.12.16.
 //
 
+#include <iostream>
 #include "CrossFactory.h"
 
 
 bool CrossFactory::cmpCrossX(const PtrCross &cr1, const PtrCross &cr2){
+
+    if(cr1->getPosition()->getX() == cr2->getPosition()->getX())
+        return cr1->getPosition()->getY()<cr2->getPosition()->getY();
+
     return cr1->getPosition()->getX()<cr2->getPosition()->getX();
 }
 bool CrossFactory::cmpCrossY(const PtrCross &cr1, const PtrCross &cr2){
+    if(cr1->getPosition()->getY() == cr2->getPosition()->getY())
+        return cr1->getPosition()->getX()<cr2->getPosition()->getX();
     return cr1->getPosition()->getY()<cr2->getPosition()->getY();
 }
 
@@ -38,7 +45,6 @@ PtrCross CrossFactory::createNewCross(const PtrToConstPoint &point) {
 void CrossFactory::verticalRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
 
     std::sort(crosses.begin(), crosses.end(), cmpCrossX);
-
     PtrCross currentNorth = createNewCross(begin);
 
     std::vector<PtrCross>::size_type nbCrosses = crosses.size();
@@ -51,7 +57,7 @@ void CrossFactory::verticalRoad(const PtrToConstPoint &begin, const PtrToConstPo
         if(right == nullptr) continue;
 
         //if new road crosses with the other that already exists
-        if( left->getPosition()->getX() < currentNorth->getPosition()->getX() && currentNorth->getPosition()->getX() < right->getPosition()->getX()
+        if( left->getPosition()->getX() <= currentNorth->getPosition()->getX() && currentNorth->getPosition()->getX() <= right->getPosition()->getX()
             && currentNorth->getPosition()->getY() <= left->getPosition()->getY() && left->getPosition()->getY() <= end->getY()){
 
                 PtrCross newCross = createNewCross( std::make_shared<Point>(currentNorth->getPosition()->getX(), left->getPosition()->getY()) );
@@ -89,14 +95,8 @@ void CrossFactory::horizontalRoad(const PtrToConstPoint &begin, const PtrToConst
         if(bottom == nullptr) continue;
 
         //if new road crosses with the other that already exists
-        if( top->getPosition()->getY() < currentWest->getPosition()->getY() && currentWest->getPosition()->getY() < bottom->getPosition()->getY()
+        if( top->getPosition()->getY() <= currentWest->getPosition()->getY() && currentWest->getPosition()->getY() <= bottom->getPosition()->getY()
             && currentWest->getPosition()->getX() <= top->getPosition()->getX() && top->getPosition()->getX() <= end->getX()){
-
-            Point tp = *(top->getPosition());
-            Point bot = *(bottom->getPosition());
-            Point cw = *(currentWest->getPosition());
-            Point b = *(begin.get());
-            Point e = *(end.get());
 
             PtrCross newCross = createNewCross( std::make_shared<Point>(top->getPosition()->getX(), currentWest->getPosition()->getY() ));
             top->addNeighbour(newCross);
