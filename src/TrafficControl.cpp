@@ -40,12 +40,15 @@ unsigned int TrafficControl::getNextHumanId() {
 void TrafficControl::run() {
 
     while(movableAllowedToMove){
-        for(std::list<PtrCar>::iterator iter = cars.begin(); iter!=cars.end(); ++iter){
-            if(!(*iter)->move()){
+
+        std::list<PtrCar>::iterator iter = cars.begin();
+        while(iter!=cars.end()){
+            if(!(*iter)->move())
                 iter = cars.erase(iter);
-                --iter;
+            else {
+                MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
+                ++iter;
             }
-            MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
         }
 
         std::this_thread::sleep_for (std::chrono::milliseconds(50));
