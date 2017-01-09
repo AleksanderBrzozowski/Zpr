@@ -10,7 +10,7 @@
 
 class Camera {
 public:
-    Camera(const Point startPoint, const Point endPoint, const double angle, const int accuracy);
+    Camera(const Point &startPoint, const Point &endPoint, double angle, int accuracy);
 
     bool isInRange(const Point &point);
 
