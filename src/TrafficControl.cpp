@@ -10,7 +10,6 @@ TrafficControl::TrafficControl() : movableAllowedToMove(false) {
     crossFactory = new CrossFactory(crosses);
 }
 
-
 TrafficControl::~TrafficControl() {
     delete crossFactory;
 }
@@ -59,12 +58,13 @@ bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, cons
     std::vector<PtrToConstPoint>route;
 
     findRoute(src, dst, route);
-    std::vector<PtrToConstPoint>::size_type src_index = findCrossByPoint(src);
 
-    if(src_index>=crosses.size() || route.empty() || speed<=0)
+    if(route.empty() || speed<=0)
         return false;
 
-    cars.push_back( createCar(*(crosses[src_index]->getPosition()), route, speed, getNextCarId()) );
+    //PtrToConstPoint beginPoint = route[0];
+    //route.erase(route.begin());
+    cars.push_back( createCar(*route[0], route, speed, getNextCarId()) );
 
     return true;
 }
@@ -84,24 +84,21 @@ std::vector<PtrCross>::size_type TrafficControl::findCrossByPoint(PtrToConstPoin
 }
 
 
+
 void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute) {
 
     std::stack<PtrCross>foundRoute;
-    prepareFinding();   //setting crosses as not visited
-
-    std::vector<PtrToConstPoint>::size_type src_index=findCrossByPoint(src);
-    if(src_index>=crosses.size() || crosses.empty())
+    PtrCross currentCross = findNearestCross(src);
+    if(currentCross == nullptr)
         return;
-    crosses[src_index]->setVisited(true);
-    foundRoute.push(crosses[src_index]);
+    prepareFinding();
+    currentCross->setVisited(true);
+    foundRoute.push(currentCross);
 
-    PtrToConstPoint currentPoint = foundRoute.top()->getPosition();
+    while(!checkPointMeetsCross(dst, foundRoute.top())){
 
-    while(*currentPoint != *dst){
-
-        PtrCross currentCross = foundRoute.top()->getNotVisitedNeighbours();
+        currentCross = foundRoute.top()->getNotVisitedNeighbours();
         if(!currentCross){
-            if(!foundRoute.empty())
                 foundRoute.pop();
         }
 
@@ -109,20 +106,118 @@ void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
             foundRoute.push(currentCross);
             currentCross->setVisited(true);
         }
-        if(foundRoute.empty()) break;
-        currentPoint = foundRoute.top()->getPosition();
+        if(foundRoute.empty()) return;
     }
 
-    while(!foundRoute.empty()){
-        readyRoute.push_back(foundRoute.top()->getPosition());
-        foundRoute.pop();
+
+
+    if(*(foundRoute.top()->getPosition()) != *dst){
+        readyRoute.push_back(dst);
+    }
+    if(!checkPointMeetsCross(src, foundRoute.top())){
+        while(!foundRoute.empty()){
+            readyRoute.push_back(foundRoute.top()->getPosition());
+            if(checkPointMeetsCross(src, foundRoute.top()))break;
+            foundRoute.pop();
+        }
     }
 
+    if(*readyRoute.back() != *src)
+        readyRoute.push_back(src);
     std::reverse(readyRoute.begin(), readyRoute.end());
 }
 
 void TrafficControl::prepareFinding() {
+
     for (std::vector<PtrCross>::size_type i=0; i<crosses.size(); ++i){
         crosses[i]->setVisited(false);
     }
+}
+
+bool TrafficControl::checkPointMeetsCross(const PtrToConstPoint &point, const PtrCross &cross) const{
+
+    if(*cross->getPosition() == *point)
+        return true;
+
+    else if(cross->getPosition()->getX() == point->getX()){
+        if(cross->getPosition()->getY() > point->getY() && cross->getNorthNeighbour() != nullptr){
+            if(point->getY() > cross->getNorthNeighbour()->getPosition()->getY())
+                return true;
+        }
+
+        else if(cross->getPosition()->getY() < point->getY() && cross->getSouthNeighbour() != nullptr){
+            if(point->getY() < cross->getSouthNeighbour()->getPosition()->getY())
+                return true;
+        }
+    }
+
+    else if(cross->getPosition()->getY() == point->getY()){
+        if(cross->getPosition()->getX() > point->getX() && cross->getWestNeighbour() != nullptr){
+            if(point->getX() > cross->getWestNeighbour()->getPosition()->getX())
+                return true;
+        }
+
+        else if(cross->getPosition()->getX() < point->getX() && cross->getEastNeighbour() != nullptr){
+            if(point->getX() < cross->getEastNeighbour()->getPosition()->getX())
+                return true;
+        }
+    }
+    return false;
+}
+
+PtrCross TrafficControl::findNearestCross(const PtrToConstPoint &point) const{
+    for(std::vector<PtrCross>::size_type i = 0; i<crosses.size(); ++i){
+
+        if(*crosses[i]->getPosition() == *point)
+            return crosses[i];
+
+        else if(crosses[i]->getPosition()->getX() == point->getX()){
+            if(crosses[i]->getPosition()->getY() > point->getY() && crosses[i]->getNorthNeighbour() != nullptr){
+                if(point->getY() > crosses[i]->getNorthNeighbour()->getPosition()->getY())
+                    return crosses[i];
+            }
+
+            else if(crosses[i]->getPosition()->getY() < point->getY() && crosses[i]->getSouthNeighbour() != nullptr){
+                if(point->getY() < crosses[i]->getSouthNeighbour()->getPosition()->getY())
+                    return crosses[i];
+            }
+        }
+
+        else if(crosses[i]->getPosition()->getY() == point->getY()){
+            if(crosses[i]->getPosition()->getX() > point->getX() && crosses[i]->getWestNeighbour() != nullptr){
+                if(point->getX() > crosses[i]->getWestNeighbour()->getPosition()->getX())
+                    return crosses[i];
+            }
+
+            else if(crosses[i]->getPosition()->getX() < point->getX() && crosses[i]->getEastNeighbour() != nullptr){
+                if(point->getX() < crosses[i]->getEastNeighbour()->getPosition()->getX())
+                    return crosses[i];
+            }
+        }
+
+        /*else if(crosses[i]->getEastNeighbour() != nullptr){
+            if(crosses[i]->getPosition()->getX() <= point->getX() && point->getX() <=crosses[i]->getEastNeighbour()->getPosition()->getX()
+               && point->getY()  == crosses[i]->getPosition()->getY())
+                return crosses[i];
+        }
+
+        else if (crosses[i]->getNorthNeighbour() != nullptr){
+            if(crosses[i]->getPosition()->getY() <= point->getY() && point->getY() <=crosses[i]->getSouthNeighbour()->getPosition()->getY()
+               && point->getX()  == crosses[i]->getPosition()->getX())
+                return crosses[i];
+        }
+
+        else if (crosses[i]->getSouthNeighbour() != nullptr){
+            if(crosses[i]->getPosition()->getY() <= point->getY() && point->getY() <=crosses[i]->getNorthNeighbour()->getPosition()->getY()
+               && point->getX()  == crosses[i]->getPosition()->getX())
+                return crosses[i];
+        }
+
+        else if (crosses[i]->getSouthNeighbour() != nullptr){
+            if(crosses[i]->getPosition()->getY() <= point->getY() && point->getY() <=crosses[i]->getSouthNeighbour()->getPosition()->getY()
+               && point->getX()  == crosses[i]->getPosition()->getX())
+                return crosses[i];
+        }*/
+    }
+    return nullptr;
 }

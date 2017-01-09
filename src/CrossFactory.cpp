@@ -2,7 +2,6 @@
 // Created by kuco on 13.12.16.
 //
 
-#include <iostream>
 #include "CrossFactory.h"
 
 

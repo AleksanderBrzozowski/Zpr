@@ -38,8 +38,12 @@ public:
     void prepareFinding();
     void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&);
 
+    bool checkPointMeetsCross(const PtrToConstPoint&, const PtrCross&) const;
+
     unsigned int getNextCarId();
     unsigned int getNextHumanId();
+
+    PtrCross findNearestCross(const PtrToConstPoint&)const;
 
     bool createNewCar(PtrToConstPoint, PtrToConstPoint, const int&);
     void createRoute(PtrToConstPoint, PtrToConstPoint);
