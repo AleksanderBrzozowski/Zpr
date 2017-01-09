@@ -6,16 +6,22 @@
 #define ZPR_TYPES_H
 
 #include <memory>
-#include "Point.h"
 
+class Point;
+class Camera;
+class Building;
 class Cross;
 class Car;
 class Human;
+class Movable;
 
 typedef std::shared_ptr<const Point> PtrToConstPoint;
 typedef std::shared_ptr<Cross> PtrCross;
 typedef std::shared_ptr<Car> PtrCar;
 typedef std::shared_ptr<Human> PtrHuman;
+typedef std::shared_ptr<Building> PtrBuilding;
+typedef std::shared_ptr<Camera> PtrCamera;
+typedef std::shared_ptr<const Movable> PtrConstMovable;
 
 #endif //ZPR_TYPES_H
 
