@@ -35,3 +35,12 @@ bool Camera::isInAngle(const Point &point) {
         return angle >= lowerAngle && angle <= upperAngle;
     }
 }
+
+void Camera::addSeenMovable(PtrConstMovable movable) {
+    seenMovables.push_back(movable);
+}
+
+const std::vector<PtrConstMovable> &Camera::getSeenMovables() const {
+    return seenMovables;
+}
+

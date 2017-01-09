@@ -7,15 +7,18 @@
 
 
 #include "Point.h"
+#include "Types.h"
+#include <vector>
 
 class Camera {
 public:
     Camera(const Point &startPoint, const Point &endPoint, double angle, int accuracy);
 
     bool isInRange(const Point &point);
-
     bool isInAngle(const Point &point);
 
+    void addSeenMovable(PtrConstMovable movable);
+    const std::vector<PtrConstMovable> &getSeenMovables() const;
 private:
     const Point startPoint;
     const Point endPoint;
@@ -23,6 +26,8 @@ private:
     int raySquare;
     double upperAngle;
     double lowerAngle;
+
+    std::vector<PtrConstMovable> seenMovables;
 
     int distanceSquare(const Point &point, const Point &point1);
 };

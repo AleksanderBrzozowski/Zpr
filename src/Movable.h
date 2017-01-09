@@ -9,6 +9,7 @@
 #include "Route.h"
 #include "CarRoute.h"
 #include "HumanRoute.h"
+#include "Types.h"
 
 class Movable {
 public:

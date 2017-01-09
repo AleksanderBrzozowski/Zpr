@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include <Camera.h>
+#include <Movable.h>
 
 TEST(CameraTest, range) {
     Camera camera(Point(1, 1), Point(3, 3), 30, 1);
@@ -60,4 +61,23 @@ TEST(CameraTest, angle90_3_140_3_degrees){
     ASSERT_FALSE(camera.isInAngle(Point(10, -10)));
     ASSERT_FALSE(camera.isInAngle(Point(-1, -11)));
 
+}
+
+
+TEST(CameraTest, putMovables) {
+    Camera camera(Point(-1, 1), Point(-10, 1), 50, 1);
+
+    PtrConstMovable movable = createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 1);
+    PtrConstMovable movable1 = createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
+    PtrConstMovable movable2 = createHuman(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
+
+    camera.addSeenMovable(movable);
+    camera.addSeenMovable(movable1);
+    camera.addSeenMovable(movable2);
+
+    std::vector<PtrConstMovable> movables = camera.getSeenMovables();
+
+    ASSERT_EQ(movable, movables[0]);
+    ASSERT_EQ(movable1, movables[1]);
+    ASSERT_EQ(movable2, movables[2]);
 }
