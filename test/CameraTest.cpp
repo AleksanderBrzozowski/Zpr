@@ -12,10 +12,10 @@ TEST(CameraTest, range) {
     ASSERT_TRUE(camera.isInRange(Point(2, 2)));
     ASSERT_TRUE(camera.isInRange(Point(1, 1)));
     ASSERT_TRUE(camera.isInRange(Point(0, 0)));
-    ASSERT_FALSE(camera.isInRange(Point(-1, -1)));
+    ASSERT_TRUE(camera.isInRange(Point(-1, -1)));
+
     ASSERT_FALSE(camera.isInRange(Point(4, 3)));
     ASSERT_FALSE(camera.isInRange(Point(4, 4)));
-    ASSERT_FALSE(camera.isInRange(Point(-1, -1)));
     ASSERT_FALSE(camera.isInRange(Point(-3, -3)));
 };
 

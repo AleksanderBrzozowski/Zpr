@@ -19,6 +19,8 @@ public:
 
     void addSeenMovable(PtrConstMovable movable);
     const std::vector<PtrConstMovable> &getSeenMovables() const;
+
+    const Point &getStartPoint() const;
 private:
     const Point startPoint;
     const Point endPoint;

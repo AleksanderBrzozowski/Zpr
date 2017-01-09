@@ -18,7 +18,7 @@ Camera::Camera(const Point &startPoint, const Point &endPoint, double angle, int
 
 bool Camera::isInRange(const Point &point) {
     int pointDistanceSquare = distanceSquare(startPoint, point);
-    return pointDistanceSquare < raySquare;
+    return pointDistanceSquare <= raySquare;
 }
 
 int Camera::distanceSquare(const Point &point, const Point &point1) {
@@ -42,5 +42,9 @@ void Camera::addSeenMovable(PtrConstMovable movable) {
 
 const std::vector<PtrConstMovable> &Camera::getSeenMovables() const {
     return seenMovables;
+}
+
+const Point &Camera::getStartPoint() const {
+    return startPoint;
 }
 
