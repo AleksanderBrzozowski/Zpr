@@ -18,7 +18,7 @@ bool CrossFactory::cmpCrossY(const PtrCross &cr1, const PtrCross &cr2){
     return cr1->getPosition()->getY()<cr2->getPosition()->getY();
 }
 
-CrossFactory::CrossFactory(std::vector<PtrCross> & cr) : crosses(cr) {}
+CrossFactory::CrossFactory(std::vector<PtrCross> &cr) : crosses(cr) {}
 
 PtrCross CrossFactory::findCrossByPoint(const PtrToConstPoint &point) const {
 
@@ -40,8 +40,71 @@ PtrCross CrossFactory::createNewCross(const PtrToConstPoint &point) {
     return newCross;
 }
 
+void CrossFactory::twoVertRoads(const PtrToConstPoint &begin, const PtrToConstPoint &end) {
+    std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossX);
+    for(std::vector<PtrCross>::size_type i = 0; i<crosses.size(); ++i ){
+        if(crosses[i]->getPosition()->getX() == begin->getX()
+                && crosses[i]->getPosition()->getY() >= begin->getY()
+                && crosses[i]->getPosition()->getY() <= end->getY()){
+            PtrCross currentCross = crosses[i];
+            PtrCross newCross = createNewCross(begin);
+            while(currentCross->getNorthNeighbour()!= nullptr){
+                if(currentCross->getNorthNeighbour()->getPosition()->getY()<=begin->getY())
+                    break;
+                else
+                    currentCross=currentCross->getNorthNeighbour();
+            }
+            newCross->addNeighbour(currentCross);
+            currentCross->addNeighbour(newCross);
+            currentCross=newCross;
+            newCross = createNewCross(end);
+            while(currentCross->getSouthNeighbour()!= nullptr){
+                if(currentCross->getSouthNeighbour()->getPosition()->getY()>=end->getY())
+                    break;
+                else
+                    currentCross=currentCross->getSouthNeighbour();
+            }
+            newCross->addNeighbour(currentCross);
+            currentCross->addNeighbour(newCross);
 
-void CrossFactory::verticalRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
+            break;
+        }
+    }
+}
+
+void CrossFactory::twoHorizRoads(const PtrToConstPoint &begin, const PtrToConstPoint &end) {
+    std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossY);
+    for(std::vector<PtrCross>::size_type i = 0; i<crosses.size(); ++i ){
+        if(crosses[i]->getPosition()->getY() == begin->getY()
+           && crosses[i]->getPosition()->getX() >= begin->getX()
+           && crosses[i]->getPosition()->getX() <= end->getX()){
+            PtrCross currentCross = crosses[i];
+            PtrCross newCross = createNewCross(begin);
+            while(currentCross->getWestNeighbour()!= nullptr){
+                if(currentCross->getWestNeighbour()->getPosition()->getX()<=begin->getX())
+                    break;
+                else
+                    currentCross=currentCross->getWestNeighbour();
+            }
+            newCross->addNeighbour(currentCross);
+            currentCross->addNeighbour(newCross);
+            currentCross=newCross;
+            newCross = createNewCross(end);
+            while(currentCross->getEastNeighbour()!= nullptr){
+                if(currentCross->getEastNeighbour()->getPosition()->getX()>=end->getX())
+                    break;
+                else
+                    currentCross=currentCross->getEastNeighbour();
+            }
+            newCross->addNeighbour(currentCross);
+            currentCross->addNeighbour(newCross);
+
+            break;
+        }
+    }
+}
+
+void CrossFactory::vertCrossedRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
 
     std::sort(crosses.begin(), crosses.end(), cmpCrossX);
     PtrCross currentNorth = createNewCross(begin);
@@ -78,7 +141,7 @@ void CrossFactory::verticalRoad(const PtrToConstPoint &begin, const PtrToConstPo
     }
 }
 
-void CrossFactory::horizontalRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
+void CrossFactory::horizCrossedRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
 
     std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossY);
 
@@ -119,16 +182,25 @@ void CrossFactory::horizontalRoad(const PtrToConstPoint &begin, const PtrToConst
 void CrossFactory::createRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end) {
     //deciding if new road is horizontal of vertical, begin must nearer top left corner
     if(begin->getX() == end->getX()){
-        if(begin->getY() > end->getY())
-            verticalRoad(end, begin);
-        else if(begin->getY() < end->getY())
-            verticalRoad(begin, end);
+        if(begin->getY() > end->getY()){
+            vertCrossedRoad(end, begin);
+            twoVertRoads(end,begin);
+        }
+        else if(begin->getY() < end->getY()){
+            vertCrossedRoad(begin, end);
+            twoVertRoads(begin,end);
+        }
     }
     else if(begin->getY() == end->getY()){
-        if(begin->getX() > end->getX())
-            horizontalRoad(end, begin);
-        else if(begin->getX() < end->getX())
-            horizontalRoad(begin, end);
+        if(begin->getX() > end->getX()){
+            horizCrossedRoad(end, begin);
+            twoHorizRoads(end, begin);
+        }
+
+        else if(begin->getX() < end->getX()){
+            horizCrossedRoad(begin, end);
+            twoHorizRoads(begin, end);
+        }
     }
 }
 
