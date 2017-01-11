@@ -62,8 +62,6 @@ bool TrafficControl::createNewCar(PtrToConstPoint src, PtrToConstPoint dst, cons
     if(route.empty() || speed<=0)
         return false;
 
-    //PtrToConstPoint beginPoint = route[0];
-    //route.erase(route.begin());
     cars.push_back( createCar(*route[0], route, speed, getNextCarId()) );
 
     return true;
@@ -75,27 +73,17 @@ void TrafficControl::createRoute(PtrToConstPoint src, PtrToConstPoint dst) {
     crossFactory->createRoad(src, dst);
 }
 
-std::vector<PtrCross>::size_type TrafficControl::findCrossByPoint(PtrToConstPoint point) {
-
-    for(std::vector<PtrCross>::size_type i =0; i<crosses.size(); ++i)
-        if(*(crosses[i]->getPosition()) == *(point))
-            return i;
-    return crosses.size();
-}
-
-bool TrafficControl::checkTwoPointsOneRoute(const PtrToConstPoint &p1, const PtrToConstPoint &p2) const{
-    return p1->getX() == p2->getX() || p1->getY() == p2->getY();
-}
-
 void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute) {
 
     std::stack<PtrCross>foundRoute;
     PtrCross currentCross = findNearestCross(src);
     if(currentCross == nullptr)
         return;
+
     prepareFinding();
     currentCross->setVisited(true);
     foundRoute.push(currentCross);
+
 
     while(!checkPointMeetsCross(dst, foundRoute.top())){
 
@@ -191,30 +179,6 @@ PtrCross TrafficControl::findNearestCross(const PtrToConstPoint &point) const{
                     return crosses[i];
             }
         }
-
-        /*else if(crosses[i]->getEastNeighbour() != nullptr){
-            if(crosses[i]->getPosition()->getX() <= point->getX() && point->getX() <=crosses[i]->getEastNeighbour()->getPosition()->getX()
-               && point->getY()  == crosses[i]->getPosition()->getY())
-                return crosses[i];
-        }
-
-        else if (crosses[i]->getNorthNeighbour() != nullptr){
-            if(crosses[i]->getPosition()->getY() <= point->getY() && point->getY() <=crosses[i]->getSouthNeighbour()->getPosition()->getY()
-               && point->getX()  == crosses[i]->getPosition()->getX())
-                return crosses[i];
-        }
-
-        else if (crosses[i]->getSouthNeighbour() != nullptr){
-            if(crosses[i]->getPosition()->getY() <= point->getY() && point->getY() <=crosses[i]->getNorthNeighbour()->getPosition()->getY()
-               && point->getX()  == crosses[i]->getPosition()->getX())
-                return crosses[i];
-        }
-
-        else if (crosses[i]->getSouthNeighbour() != nullptr){
-            if(crosses[i]->getPosition()->getY() <= point->getY() && point->getY() <=crosses[i]->getSouthNeighbour()->getPosition()->getY()
-               && point->getX()  == crosses[i]->getPosition()->getX())
-                return crosses[i];
-        }*/
     }
     return nullptr;
 }

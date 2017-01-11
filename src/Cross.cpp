@@ -64,16 +64,3 @@ bool Cross::operator==(const Cross &rhs) const{
 bool Cross::operator!=(const Cross &rhs) const{
     return !(*this->position.get() == *rhs.position.get());
 }
-
-bool Cross::operator< (const Cross &rhs) const{
-    if(this->position.get()->getX() == rhs.position.get()->getX()){
-        return this->position.get()->getY() < rhs.position.get()->getY();
-    }
-    return this->position.get()->getX() < rhs.position.get()->getX();
-}
-bool Cross::operator> (const Cross &rhs) const{
-    if(this->position.get()->getX() == rhs.position.get()->getX()){
-        return this->position.get()->getY() > rhs.position.get()->getY();
-    }
-    return this->position.get()->getX() > rhs.position.get()->getX();
-}

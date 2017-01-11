@@ -76,7 +76,8 @@ TEST_F(TrafficControlTest, checkRouteFindingEnd){
     PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
     PtrToConstPoint point2 = std::make_shared<Point>(-10,-10);
     trafficControl->findRoute(point1, point2, route);
-    EXPECT_TRUE(*route[3] == *point2);
+    EXPECT_TRUE(*route[route.size()-1] == *point2);
+    EXPECT_TRUE(*route[0] == *point1);
 }
 
 TEST_F(TrafficControlTest, checkRouteFinding4Points){
@@ -85,7 +86,8 @@ TEST_F(TrafficControlTest, checkRouteFinding4Points){
     PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
     PtrToConstPoint point2 = std::make_shared<Point>(-10,-10);
     trafficControl->findRoute(point1, point2, route);
-    EXPECT_EQ(route.size(), 4);
+    EXPECT_TRUE(*route[route.size()-1] == *point2);
+    EXPECT_TRUE(*route[0] == *point1);
 }
 
 TEST_F(TrafficControlTest, checkRouteFinding5Points){
@@ -94,7 +96,8 @@ TEST_F(TrafficControlTest, checkRouteFinding5Points){
     PtrToConstPoint point1 = std::make_shared<Point>(0,-10);
     PtrToConstPoint point2 = std::make_shared<Point>(10,10);
     trafficControl->findRoute(point1, point2, route);
-    EXPECT_EQ(route.size(), 4);
+    EXPECT_TRUE(*route[route.size()-1] == *point2);
+    EXPECT_TRUE(*route[0] == *point1);
 }
 
 TEST_F(TrafficControlTest, checkRouteFinding2Points){
