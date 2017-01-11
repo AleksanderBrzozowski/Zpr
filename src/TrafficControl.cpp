@@ -83,7 +83,9 @@ std::vector<PtrCross>::size_type TrafficControl::findCrossByPoint(PtrToConstPoin
     return crosses.size();
 }
 
-
+bool TrafficControl::checkTwoPointsOneRoute(const PtrToConstPoint &p1, const PtrToConstPoint &p2) const{
+    return p1->getX() == p2->getX() || p1->getY() == p2->getY();
+}
 
 void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute) {
 
@@ -109,22 +111,17 @@ void TrafficControl::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
         if(foundRoute.empty()) return;
     }
 
-
-
-    if(*(foundRoute.top()->getPosition()) != *dst){
-        readyRoute.push_back(dst);
-    }
-    if(!checkPointMeetsCross(src, foundRoute.top())){
-        while(!foundRoute.empty()){
-            readyRoute.push_back(foundRoute.top()->getPosition());
-            if(checkPointMeetsCross(src, foundRoute.top()))break;
-            foundRoute.pop();
-        }
+    while(!foundRoute.empty()){
+        readyRoute.push_back(foundRoute.top()->getPosition());
+        if(checkPointMeetsCross(src, foundRoute.top()))break;
+        foundRoute.pop();
     }
 
-    if(*readyRoute.back() != *src)
+    if(readyRoute.empty() || *readyRoute.back() != *src)
         readyRoute.push_back(src);
     std::reverse(readyRoute.begin(), readyRoute.end());
+    if(*readyRoute.back() != *dst);
+        readyRoute.push_back(dst);
 }
 
 void TrafficControl::prepareFinding() {
@@ -140,25 +137,25 @@ bool TrafficControl::checkPointMeetsCross(const PtrToConstPoint &point, const Pt
         return true;
 
     else if(cross->getPosition()->getX() == point->getX()){
-        if(cross->getPosition()->getY() > point->getY() && cross->getNorthNeighbour() != nullptr){
-            if(point->getY() > cross->getNorthNeighbour()->getPosition()->getY())
+        if(cross->getPosition()->getY() >= point->getY() && cross->getNorthNeighbour() != nullptr){
+            if(point->getY() >= cross->getNorthNeighbour()->getPosition()->getY())
                 return true;
         }
 
-        else if(cross->getPosition()->getY() < point->getY() && cross->getSouthNeighbour() != nullptr){
-            if(point->getY() < cross->getSouthNeighbour()->getPosition()->getY())
+        else if(cross->getPosition()->getY() <= point->getY() && cross->getSouthNeighbour() != nullptr){
+            if(point->getY() <= cross->getSouthNeighbour()->getPosition()->getY())
                 return true;
         }
     }
 
     else if(cross->getPosition()->getY() == point->getY()){
-        if(cross->getPosition()->getX() > point->getX() && cross->getWestNeighbour() != nullptr){
-            if(point->getX() > cross->getWestNeighbour()->getPosition()->getX())
+        if(cross->getPosition()->getX() >= point->getX() && cross->getWestNeighbour() != nullptr){
+            if(point->getX() >= cross->getWestNeighbour()->getPosition()->getX())
                 return true;
         }
 
-        else if(cross->getPosition()->getX() < point->getX() && cross->getEastNeighbour() != nullptr){
-            if(point->getX() < cross->getEastNeighbour()->getPosition()->getX())
+        else if(cross->getPosition()->getX() <= point->getX() && cross->getEastNeighbour() != nullptr){
+            if(point->getX() <= cross->getEastNeighbour()->getPosition()->getX())
                 return true;
         }
     }

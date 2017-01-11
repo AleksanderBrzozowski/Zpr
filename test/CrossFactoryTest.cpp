@@ -104,3 +104,4 @@ TEST_F(CrossFactoryTest, fourRoadsCrossed){
 
     EXPECT_EQ(crosses.size(), 21);
 }
+

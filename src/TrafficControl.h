@@ -39,6 +39,7 @@ public:
     void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&);
 
     bool checkPointMeetsCross(const PtrToConstPoint&, const PtrCross&) const;
+    bool checkTwoPointsOneRoute(const PtrToConstPoint&, const PtrToConstPoint&) const;
 
     unsigned int getNextCarId();
     unsigned int getNextHumanId();

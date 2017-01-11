@@ -134,9 +134,8 @@ TEST_F(TrafficControlTest, checkRouteFindingRandom2Points){
     PtrToConstPoint point1 = std::make_shared<Point>(500,221);
     PtrToConstPoint point2 = std::make_shared<Point>(600,221);
     trafficControl->findRoute(point1, point2, route);
-    EXPECT_EQ(route.size(), 2);
     EXPECT_EQ(route[0]->getX(), 500);
-    EXPECT_EQ(route[1]->getX(), 600);
+    EXPECT_EQ(route[route.size()-1]->getX(), 600);
 }
 
 TEST_F(TrafficControlTest, checkRouteFindingRandomPointsRectangle){
@@ -150,8 +149,8 @@ TEST_F(TrafficControlTest, checkRouteFindingRandomPointsRectangle){
     trafficControl->findRoute(point1, point2, route);
     EXPECT_EQ(route[0]->getX(), 5);
     EXPECT_EQ(route[0]->getY(), 10);
-    EXPECT_EQ(route[3]->getX(), 3);
-    EXPECT_EQ(route[3]->getY(), 0);
+    EXPECT_EQ(route[route.size()-1]->getX(), 3);
+    EXPECT_EQ(route[route.size()-1]->getY(), 0);
 }
 
 
