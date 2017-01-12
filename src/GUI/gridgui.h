@@ -7,8 +7,9 @@ class GridGUI : public Drawable {
 public:
     GridGUI(unsigned int layer, unsigned int width, unsigned int height);
     ~GridGUI();
-    void draw(QPainter &painter) override;
-    void setTo(int x, int y) override;
+    void draw(QPainter &painter) const override;
+    void setTo(unsigned int x, unsigned int y) override;
+    bool intersects(QRect &rectangle) const override;
 
     /**PROPERTIES**/
     static const QPen PEN;

@@ -2,6 +2,7 @@
 // Created by Aleksander on 23.12.2016.
 //
 
+#define _USE_MATH_DEFINES
 #include <cstdlib>
 #include <cmath>
 #include "Camera.h"

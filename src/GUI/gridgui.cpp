@@ -2,7 +2,7 @@
 
 /**INITIALIZE PROPERTIES**/
 const QPen GridGUI::PEN(QColor(255, 255, 255, 80));
-const int GridGUI::SIZE = 26;
+const int GridGUI::SIZE = 32;
 
 GridGUI::GridGUI(unsigned int layer, unsigned int width, unsigned int height) :
     Drawable(layer, false), height(height), width(width) {
@@ -12,7 +12,7 @@ GridGUI::~GridGUI() {
 
 }
 
-void GridGUI::draw(QPainter &painter) {
+void GridGUI::draw(QPainter &painter) const {
     painter.setPen(PEN);
     for (int x = 0; x < width; x += SIZE) {
         painter.drawLine(x, 0, x, height);
@@ -22,6 +22,10 @@ void GridGUI::draw(QPainter &painter) {
     }
 }
 
-void GridGUI::setTo(int x, int y) {
+void GridGUI::setTo(unsigned int x, unsigned int y) {
 
+}
+
+bool GridGUI::intersects(QRect &rectangle) const {
+    return false;
 }

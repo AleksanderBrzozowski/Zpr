@@ -6,11 +6,12 @@ MapArea::MapArea(QWidget *parent) : QWidget(parent), roadID(0), displayGrid(fals
     connect(&eventInterpreter, &EventInterpreter::roadCreated, this, &MapArea::registerRoad);
 
     QPalette pal(palette());
-    pal.setColor(QPalette::Background, Qt::gray);
+    pal.setColor(QPalette::Background, QColor(196, 195, 208));
     setAutoFillBackground(true);
     setPalette(pal);
 
     setMouseTracking(true);
+    setFocusPolicy(Qt::StrongFocus);
 }
 
 MapArea::~MapArea() {
@@ -21,16 +22,17 @@ MapArea::~MapArea() {
         delete road.second;
 }
 
-void MapArea::setCar(int id, int x, int y) {
+void MapArea::setCar(const unsigned int id, const unsigned int x, const unsigned int y,
+                     const bool fast) {
     if (objectMap[id] == nullptr) {
-        objectMap[id] = new CarGUI(2, x, y);
+        objectMap[id] = new CarGUI(2, x, y, fast);
     } else {
         objectMap[id]->setTo(x, y);
     }
     update();
 }
 
-void MapArea::setPpl(int id, int x, int y) {
+void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {
     if (objectMap[id] == nullptr) {
         objectMap[id] = new PplGUI(2, x, y);
     } else {
@@ -39,10 +41,20 @@ void MapArea::setPpl(int id, int x, int y) {
     update();
 }
 
+void MapArea::removeObject(const unsigned int id) {
+    if (objectMap[id] != nullptr) {
+        delete objectMap[id];
+        objectMap.erase(id);
+    }
+}
 
 void MapArea::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
+
+    for (const auto &road : roadMap) {
+        road.second->drawSidewalk(painter);
+    }
 
     for (const auto &drawable : roadMap) {
             drawable.second->draw(painter);
@@ -70,14 +82,30 @@ void MapArea::snapToGrid(Point &point) {
 
 
 void MapArea::mouseReleaseEvent(QMouseEvent *event) {
-    eventInterpreter.mouseClicked(event->x(), event->y());
-    event->accept();
+    if (event->button() == Qt::LeftButton) {
+        eventInterpreter.mouseClicked(event->x(), event->y());
+        event->accept();
+    }
 }
 
 void MapArea::mouseMoveEvent(QMouseEvent *event) {
     eventInterpreter.mouseMoved(event->x(), event->y());
     event->accept();
     update();
+}
+
+void MapArea::keyPressEvent(QKeyEvent *event) {
+    int key = event->key();
+    if (key == Qt::Key_Escape)
+        setCurrentOption(EventInterpreter::Option::doNothing);
+    else if (key == Qt::Key_Up || key == Qt::Key_Down ||
+             key == Qt::Key_Left || key == Qt::Key_Right)
+        eventInterpreter.steerCamera(key);
+    else
+        QWidget::keyPressEvent(event);
+	update();
+    event->accept();
+
 }
 
 void MapArea::createRoad(Point end1, Point end2) {
