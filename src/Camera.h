@@ -17,8 +17,8 @@ public:
     bool isInRange(const Point &point);
     bool isInAngle(const Point &point);
 
-    void addSeenMovable(PtrConstMovable movable);
-    const std::vector<PtrConstMovable> &getSeenMovables() const;
+    void addSeenMovable(PtrMovable movable);
+    const std::vector<PtrMovable> &getSeenMovables() const;
 
     const Point &getStartPoint() const;
 private:
@@ -29,7 +29,7 @@ private:
     double upperAngle;
     double lowerAngle;
 
-    std::vector<PtrConstMovable> seenMovables;
+    std::vector<PtrMovable> seenMovables;
 
     int distanceSquare(const Point &point, const Point &point1);
 };

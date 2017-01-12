@@ -26,8 +26,8 @@ TEST_F(FacilitiesTest, SeenMovable) {
 
     facilities.addCamera(Point(1, 1), Point(2, 5), 10, 10);
 
-    PtrConstMovable movable = createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
-    std::vector<PtrConstMovable> movables{movable};
+    PtrMovable movable = createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
+    std::vector<PtrMovable> movables{movable};
 
     facilities.scan(movables);
 
@@ -50,8 +50,8 @@ TEST_F(FacilitiesTest, NotSeenMovable) {
 
     facilities.addCamera(Point(1, 1), Point(2, 5), 10, 10);
 
-    PtrConstMovable movable = createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
-    std::vector<PtrConstMovable> movables{movable};
+    PtrMovable movable = createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
+    std::vector<PtrMovable> movables{movable};
 
     facilities.scan(movables);
 
