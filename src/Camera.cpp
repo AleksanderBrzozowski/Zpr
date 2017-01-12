@@ -6,7 +6,7 @@
 #include <cmath>
 #include "Camera.h"
 
-Camera::Camera(const Point startPoint, const Point endPoint, const double angle, const int accuracy) :
+Camera::Camera(const Point &startPoint, const Point &endPoint, double angle, int accuracy) :
         startPoint(startPoint), endPoint(endPoint), accuracy(accuracy){
     double mainAngle = atan2(endPoint.getY() - startPoint.getY(), endPoint.getX() - startPoint.getX());
     double halfAngle = M_PI * angle / 360;
@@ -18,7 +18,7 @@ Camera::Camera(const Point startPoint, const Point endPoint, const double angle,
 
 bool Camera::isInRange(const Point &point) {
     int pointDistanceSquare = distanceSquare(startPoint, point);
-    return pointDistanceSquare < raySquare;
+    return pointDistanceSquare <= raySquare;
 }
 
 int Camera::distanceSquare(const Point &point, const Point &point1) {
@@ -35,3 +35,16 @@ bool Camera::isInAngle(const Point &point) {
         return angle >= lowerAngle && angle <= upperAngle;
     }
 }
+
+void Camera::addSeenMovable(PtrConstMovable movable) {
+    seenMovables.push_back(movable);
+}
+
+const std::vector<PtrConstMovable> &Camera::getSeenMovables() const {
+    return seenMovables;
+}
+
+const Point &Camera::getStartPoint() const {
+    return startPoint;
+}
+
