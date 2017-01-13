@@ -12,7 +12,7 @@ TEST(HumanTest, SampleRoute) {
             PtrToConstPoint(new Point(-10, 1)),
             PtrToConstPoint(new Point(-10, 11))
     };
-    PtrHuman human = createHuman(*points[0], points, 7, 0);
+    PtrHuman human = Human::createHuman(*points[0], points, 7, 0);
     std::vector<PtrToConstPoint> pointsToFallow = {
             PtrToConstPoint(new Point(1, 1)),
             PtrToConstPoint(new Point(-6, 1)),

@@ -18,7 +18,11 @@ bool CrossFactory::cmpCrossY(const PtrCross &cr1, const PtrCross &cr2){
     return cr1->getPosition()->getY()<cr2->getPosition()->getY();
 }
 
-CrossFactory::CrossFactory(std::vector<PtrCross> &cr) : crosses(cr) {}
+
+std::vector<PtrCross>& CrossFactory::getCrosses(){
+    return crosses;
+}
+
 
 PtrCross CrossFactory::findCrossByPoint(const PtrToConstPoint &point) const {
 
@@ -203,125 +207,4 @@ void CrossFactory::createRoad(const PtrToConstPoint &begin, const PtrToConstPoin
         }
     }
 }
-
-/*
-PtrCross CrossFactory::createCross(PtrToConstPoint point, std::vector<PtrCross>& crosses){
-    std::vector<PtrCross>::size_type cross_index = findCrossIndex(point, crosses);
-    if( cross_index == crosses.size() ){
-        PtrCross  newCross = std::make_shared<Cross>(point->getX(), point->getY());
-        crosses.push_back(newCross);
-        return newCross;
-    }
-    return crosses[cross_index];
-}
-
-PtrCross CrossFactory::insertCrossVerticaly(PtrToConstPoint begin, PtrToConstPoint end, PtrCross cr1, PtrCross cr2, std::vector<PtrCross>&crosses) {
-
-    PtrCross tempNeighbour = std::make_shared<Cross>(begin->getX(), cr1->getPosition()->getY());
-    crosses.push_back(tempNeighbour);
-    cr1->addNeighbour(tempNeighbour);
-
-}
-
-
-void CrossFactory::findCrossedRoads(PtrToConstPoint begin, PtrToConstPoint end, std::vector<PtrCross>& crosses){
-
-    //if new road is vertical
-    if(begin->getY() == end->getY()){
-
-        PtrCross nearestNorthNeigh= createCross(begin, crosses);
-
-        for(std::vector<PtrCross>::size_type i = 0; i<crosses.size(); ++i ){
-
-            //checking only eastNeighbour
-            if(crosses[i]->getEastNeighbour() == nullptr) continue;
-
-            //if new road crosses with the other that already exists
-            if( crosses[i]->getPosition()->getX() <= begin->getX() <= crosses[i]->getEastNeighbour()->getPosition()->getX()
-                && begin->getY() <= crosses[i]->getPosition()->getY() <= end->getY()){
-
-            }
-        }
-    }
-
-    //else if new road is horizontal
-    else if(begin->getX() == end->getX()){
-        for(std::vector<PtrCross>::size_type i =0; i<crosses.size(); ++i){
-
-            //checking only southNeighbour
-            if(crosses[i]->getSouthNeighbour() == nullptr) continue;
-
-            //if new road crosses with the other that already exists
-            if( crosses[i]->getPosition()->getY() <= begin->getY() <= crosses[i]->getSouthNeighbour()->getPosition()->getY()
-                    && begin->getX() <= crosses[i]->getPosition()->getX() <= end->getX()){
-                //TODO
-            }
-        }
-    }
-}
-
-void CrossFactory::createCrossesFromSingleRoad( PtrToConstPoint begin, PtrToConstPoint end, std::vector<PtrCross>& crosses){
-
-    std::vector<PtrCross>::size_type tempCross1Index = findCrossIndex(begin, crosses);
-    std::vector<PtrCross>::size_type tempCross2Index = findCrossIndex(end  , crosses);
-
-    if(tempCross1Index>=crosses.size() && tempCross2Index>=crosses.size()){
-        PtrCross newCross1 = std::make_shared<Cross>(begin);
-        PtrCross newCross2 = std::make_shared<Cross>(end);
-        newCross1->addNeighbour(newCross2);
-        newCross2->addNeighbour(newCross1);
-        crosses.push_back(newCross1);
-        crosses.push_back(newCross2);
-    }
-
-    else if(tempCross1Index>=crosses.size() && tempCross2Index<crosses.size()){
-        PtrCross newCross = std::make_shared<Cross>(begin);
-        crosses[tempCross2Index]->addNeighbour(newCross);
-        newCross->addNeighbour(crosses[tempCross2Index]);
-        crosses.push_back(newCross);
-    }
-
-
-    else if(tempCross2Index>=crosses.size() && tempCross1Index<crosses.size()) {
-        PtrCross newCross = std::make_shared<Cross>(end);
-        crosses[tempCross1Index]->addNeighbour(newCross);
-        newCross->addNeighbour(crosses[tempCross1Index]);
-        crosses.push_back(newCross);
-    }
-    else{
-        crosses[tempCross2Index]->addNeighbour(crosses[tempCross1Index]);
-        crosses[tempCross1Index]->addNeighbour(crosses[tempCross2Index]);
-    }
-}
-
-void CrossFactory::createRoute(PtrToConstPoint begin, PtrToConstPoint end,  std::vector<PtrCross>&crosses) {
-
-    /*before calling next methods begin must be nearer top left corner than end, if not -> replace them
-     * while calling methods*/
-  /*  if((begin->getX() == end->getX() && begin->getY() > end->getY())
-            || begin->getY() == end->getY() && begin->getX() > end->getX()){
-
-        findCrossedRoads(end, begin, crosses);
-        createCrossesFromSingleRoad(end, begin, crosses);
-    }
-
-    else{
-        findCrossedRoads(begin, end, crosses);
-        createCrossesFromSingleRoad(begin, end, crosses);
-    }
-
-
-
-}
-
-std::vector<PtrCross>::size_type CrossFactory::findCrossIndex(PtrToConstPoint point, const std::vector<PtrCross>& crosses) {
-
-    for(std::vector<PtrCross>::size_type i = 0; i<crosses.size(); ++i ){
-        if(*(crosses[i]->getPosition()) == *point){
-            return i;
-        }
-    }
-    return crosses.size();
-}
-*/
 

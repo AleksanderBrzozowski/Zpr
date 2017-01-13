@@ -29,19 +29,18 @@ private:
 class Car : public Movable{
 public:
     Car(CarRoute *route, const Point &actualPoint, const int speed, const unsigned int id);
+    static PtrCar createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+                            const unsigned int id);
 
 };
 
 class Human : public Movable{
 public:
     Human(HumanRoute *route, const Point &actualPoint, const int speed, const unsigned int id);
-
+    static PtrHuman createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+                         const unsigned int id);
 };
 
-PtrHuman createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
-                   const unsigned int id);
 
-PtrCar createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
-               const unsigned int id);
 
 #endif //ZPR_MOVABLE2_H

@@ -21,7 +21,7 @@ typedef std::shared_ptr<Car> PtrCar;
 typedef std::shared_ptr<Human> PtrHuman;
 typedef std::shared_ptr<Building> PtrBuilding;
 typedef std::shared_ptr<Camera> PtrCamera;
-typedef std::shared_ptr<const Movable> PtrConstMovable;
+typedef std::shared_ptr<Movable> PtrMovable;
 
 #endif //ZPR_TYPES_H
 

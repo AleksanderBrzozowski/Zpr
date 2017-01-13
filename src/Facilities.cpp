@@ -10,9 +10,9 @@ const std::vector<PtrCamera> &Facilities::getCameras() const {
     return cameras;
 }
 
-void Facilities::scan(std::vector<PtrConstMovable> &movables) {
+void Facilities::scan(std::vector<PtrMovable> &movables) {
     for (PtrCamera &camera : cameras) {
-        for(PtrConstMovable &movable : movables) {
+        for(PtrMovable &movable : movables) {
             Point movablePoint = movable->getActualPoint();
             if (isMovableSeenByCamera(camera, movablePoint) &&
                     !isMovableHiddenByBuilding(camera, movable, movablePoint)) {
@@ -22,7 +22,7 @@ void Facilities::scan(std::vector<PtrConstMovable> &movables) {
     }
 }
 
-bool Facilities::isMovableHiddenByBuilding(PtrCamera &camera, const PtrConstMovable &movable, const Point &movablePoint) {
+bool Facilities::isMovableHiddenByBuilding(PtrCamera &camera, const PtrMovable &movable, const Point &movablePoint) {
     StraightLine straightLine(camera->getStartPoint(), movablePoint);
     for (PtrBuilding &building : buildings) {
         if (building->isCommonPointInsideBuilding(straightLine))
