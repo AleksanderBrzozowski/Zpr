@@ -6,7 +6,7 @@
 #include <GUI/mainwindow.h>
 
 
-TrafficControl::TrafficControl() : movableAllowedToMove(false) {
+TrafficControl::TrafficControl(CrossFactory* cf, std::vector<PtrCross>&cr) : crossFactory(cf),crosses(cr), movableAllowedToMove(false) {
     //crossFactory = new CrossFactory(crosses);
 }
 
