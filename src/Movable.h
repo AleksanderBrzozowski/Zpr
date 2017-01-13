@@ -13,11 +13,13 @@
 
 class Movable {
 public:
-    Movable(Route *route, const Point &actualPoint, const int speed, const unsigned int id);
-
     bool move();
     Point getActualPoint() const;
     unsigned int getId() const;
+
+protected:
+    Movable(Route *route, const Point &actualPoint, const int speed, const unsigned int id);
+
 private:
     std::unique_ptr<Route> route;
     Point actualPoint;
@@ -27,16 +29,19 @@ private:
 };
 
 class Car : public Movable{
-public:
+private:
     Car(CarRoute *route, const Point &actualPoint, const int speed, const unsigned int id);
+
+public:
     static PtrCar createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
                             const unsigned int id);
-
 };
 
 class Human : public Movable{
-public:
+private:
     Human(HumanRoute *route, const Point &actualPoint, const int speed, const unsigned int id);
+
+public:
     static PtrHuman createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
                          const unsigned int id);
 };
