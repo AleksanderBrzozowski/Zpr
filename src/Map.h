@@ -11,6 +11,9 @@
 #include <thread>
 #include <chrono>
 #include <GUI/mainwindow.h>
+#include "Types.h"
+#include "Building.h"
+#include "Facilities.h"
 
 class Map {
 
@@ -18,6 +21,7 @@ private:
 
     MovableFactory movableFactory;
     CrossFactory crossFactory;
+    Facilities facilities;
     std::thread runningMovables;
     std::thread camerasScanning;
     bool runningMovablePermission;
@@ -26,6 +30,7 @@ private:
 public:
     void createRoad(PtrToConstPoint, PtrToConstPoint);
     void createCar(PtrToConstPoint, PtrToConstPoint, int);
+    bool createBuilding(const Point &upperLeft, const Point &lowerRight);
     void setRunningMovablePermission(bool);
     void setCameraScanningPermission(bool);
     void runRunningMovables();
