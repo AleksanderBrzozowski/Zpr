@@ -1,13 +1,12 @@
 #include "eventinterpreter.h"
 #include "mainwindow.h"
-#include <cmath>
 
 EventInterpreter::EventInterpreter() : currentOption(Option::doNothing), anchorValid(false) {
 
 }
 
 std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
-    if (trafficControl == nullptr)
+    if (map == nullptr)
         currentOption = Option::doNothing;
     else
         currentOption = option;
@@ -64,7 +63,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
             RoadGUI::adjustPoints(anchor, point);
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-            trafficControl->createRoute(srcPtr, dstPtr);
+            map->createRoad(srcPtr, dstPtr);
             emit roadCreated(new RoadGUI(3, anchor, point));
             anchorValid = false;
         }
@@ -77,7 +76,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
             //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-            trafficControl->createNewCar(srcPtr, dstPtr, CarGUI::CAR_SPEED);
+            map->createCar(srcPtr, dstPtr, CarGUI::CAR_SPEED);
             anchorValid = false;
         }
         break;
@@ -89,7 +88,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
             //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-            trafficControl->createNewCar(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
+            map->createCar(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
             anchorValid = false;
         }
         break;
@@ -175,6 +174,6 @@ void EventInterpreter::mouseMoved(int x, int y) {
 
 }
 
-void EventInterpreter::setTrafficControl(std::shared_ptr<TrafficControl> tc) {
-    trafficControl = tc;
+void EventInterpreter::setMap(std::shared_ptr<Map> map) {
+    this->map = map;
 }

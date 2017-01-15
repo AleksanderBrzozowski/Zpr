@@ -3,6 +3,7 @@
 //
 
 #include "Map.h"
+#include <GUI/mainwindow.h>
 
 
 void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, int speed) {
@@ -46,9 +47,8 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
 }
 
 void Map::runRunningMovables(){
-    std::list<PtrMovable> movables = movableFactory.getMovables();
     while(runningMovablePermission){
-
+        std::list<PtrMovable> &movables = movableFactory.getMovables();
         std::list<PtrMovable>::iterator iter = movables.begin();
         while(iter!=movables.end()){
             if(!(*iter)->move())
@@ -61,4 +61,8 @@ void Map::runRunningMovables(){
 
         std::this_thread::sleep_for (std::chrono::milliseconds(50));
     }
+}
+
+void Map::runCamerasScanning() {
+
 }

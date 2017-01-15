@@ -7,7 +7,8 @@
 #include <QtWidgets/QGridLayout>
 #include <thread>
 #include <QtWidgets/QLabel>
-#include "../TrafficControl.h"
+#include "../Map.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +20,8 @@ class MainWindow : public QMainWindow
 
 public:
     static MainWindow& getInstance();
-    void setTrafficControl(std::shared_ptr<TrafficControl> tc);
+
+    void setMap(std::shared_ptr<Map> map);
 
     ~MainWindow();
 

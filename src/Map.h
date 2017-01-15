@@ -10,7 +10,6 @@
 #include "CrossFactory.h"
 #include <thread>
 #include <chrono>
-#include <GUI/mainwindow.h>
 #include "Types.h"
 #include "Building.h"
 #include "Facilities.h"
