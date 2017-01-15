@@ -23,7 +23,7 @@ class TrafficControl {
 
 private:
 
-    std::vector<PtrCross> crosses;
+    std::vector<PtrCross>& crosses;
     std::list<PtrCar> cars;
     std::list<PtrHuman> humans;
     std::thread runningSimulation;
@@ -49,7 +49,7 @@ public:
 
     void setMovableAllowedToMove(const bool&);
 
-    TrafficControl();
+    TrafficControl(CrossFactory*, std::vector<PtrCross>&);
     ~TrafficControl();
 
 

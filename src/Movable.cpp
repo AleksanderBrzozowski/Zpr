@@ -42,15 +42,17 @@ unsigned int Movable::getId() const {
 Car::Car(CarRoute *route, const Point &actualPoint, const int speed, const unsigned int id) :
         Movable(route, actualPoint, speed, id) {}
 
+PtrCar Car::createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+                      const unsigned int id) {
+    Car *car = new Car(new CarRoute(points), startPoint, speed, id);
+    return PtrCar(car);
+}
+
 Human::Human(HumanRoute *route, const Point &actualPoint, const int speed, const unsigned int id) :
         Movable(route, actualPoint, speed, id) {}
 
-PtrHuman createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
+PtrHuman Human::createHuman(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
                    const unsigned int id) {
-    return std::make_shared<Human>(new HumanRoute(points), startPoint, speed, id);
-}
-
-PtrCar createCar(const Point &startPoint, const std::vector<PtrToConstPoint> &points, const int speed,
-               const unsigned int id) {
-    return std::make_shared<Car>(new CarRoute(points), startPoint, speed, id);
+    Human *human = new Human(new HumanRoute(points), startPoint, speed, id);
+    return PtrHuman(human);
 }

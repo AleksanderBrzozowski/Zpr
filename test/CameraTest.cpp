@@ -67,9 +67,9 @@ TEST(CameraTest, angle90_3_140_3_degrees){
 TEST(CameraTest, putMovables) {
     Camera camera(Point(-1, 1), Point(-10, 1), 50, 1);
 
-    PtrMovable movable = createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 1);
-    PtrMovable movable1 = createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
-    PtrMovable movable2 = createHuman(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
+    PtrMovable movable = Car::createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 1);
+    PtrMovable movable1 = Car::createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
+    PtrMovable movable2 = Human::createHuman(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
 
     camera.addSeenMovable(movable);
     camera.addSeenMovable(movable1);

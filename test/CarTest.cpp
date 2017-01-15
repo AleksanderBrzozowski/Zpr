@@ -13,7 +13,7 @@ TEST(CarTest, SampleRoute) {
             PtrToConstPoint(new Point(31, 20)),
             PtrToConstPoint(new Point(31, -2))
     };
-    PtrCar car = createCar(*points[0], points, 3, 0);
+    PtrCar car = Car::createCar(*points[0], points, 3, 0);
     std::vector<PtrToConstPoint> pointsToFallow = {
             PtrToConstPoint(new Point(20, 20)),
             PtrToConstPoint(new Point(23, 20)),

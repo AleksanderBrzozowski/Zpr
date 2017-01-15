@@ -11,9 +11,11 @@ class TrafficControlTest : public ::testing::Test{
 public:
 
     TrafficControlTest(){
-        trafficControl=new TrafficControl();
+        cf = new CrossFactory();
+        trafficControl=new TrafficControl(cf, cf->getCrosses());
     };
     TrafficControl* trafficControl;
+    CrossFactory* cf;
 
     void createCrosses(){
         trafficControl->createRoute(std::make_shared<Point>(-10,-10), std::make_shared<Point>(-10,0));
@@ -35,7 +37,7 @@ TEST_F(TrafficControlTest, checkLongRouteFindingBegin){
     createCrosses();
     std::vector<PtrToConstPoint>route;
     PtrToConstPoint point1 = std::make_shared<Point>(-10,0);
-    PtrToConstPoint point2 = std::make_shared<Point>(10,15);
+    PtrToConstPoint point2 = std::make_shared<Point>(100,15);
     trafficControl->findRoute(point1, point2, route);
     EXPECT_TRUE(route.empty());
 }

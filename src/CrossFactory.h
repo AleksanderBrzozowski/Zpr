@@ -14,7 +14,7 @@
 class CrossFactory {
 
 private:
-    std::vector<PtrCross>&crosses;
+    std::vector<PtrCross>crosses;
 
 public:
     PtrCross findCrossByPoint(const PtrToConstPoint&) const;
@@ -26,20 +26,8 @@ public:
     static bool cmpCrossY(const PtrCross&, const PtrCross& );
     void twoHorizRoads(const PtrToConstPoint&, const PtrToConstPoint&);
     void twoVertRoads(const PtrToConstPoint&, const PtrToConstPoint&);
-    CrossFactory(std::vector<PtrCross>&);
+    std::vector<PtrCross>& getCrosses();
 
-
-    /*
-private:
-    static std::vector<PtrCross>::size_type findCrossIndex(PtrToConstPoint, const std::vector<PtrCross>&);
-    static void insertVerticalyRoad(PtrToConstPoint, PtrToConstPoint, PtrCross, PtrCross, std::vector<PtrCross>&);
-    static void findCrossedRoads(PtrToConstPoint, PtrToConstPoint, std::vector<PtrCross>&);
-    static void createCrossesFromSingleRoad( PtrToConstPoint, PtrToConstPoint, std::vector<PtrCross>&);
-    static void updateNeighbours(PtrCross, PtrCross, PtrCross);
-    static PtrCross createCross(PtrToConstPoint, std::vector<PtrCross>&);
-public:
-    static void createRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrCross>&);
-*/
 };
 
 
