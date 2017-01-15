@@ -4,7 +4,6 @@
 
 #include<gtest/gtest.h>
 #include <HumanRoute.h>
-#include <Types.h>
 
 void forwardWay(HumanRoute &humanRoute, const std::vector<PtrToConstPoint>& points);
 

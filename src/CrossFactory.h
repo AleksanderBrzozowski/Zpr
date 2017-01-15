@@ -20,10 +20,12 @@ public:
     PtrCross findCrossByPoint(const PtrToConstPoint&) const;
     PtrCross createNewCross(const PtrToConstPoint&);
     void createRoad(const PtrToConstPoint&, const PtrToConstPoint&);
-    void verticalRoad(const PtrToConstPoint&, const PtrToConstPoint&);
-    void horizontalRoad(const PtrToConstPoint&, const PtrToConstPoint&);
+    void vertCrossedRoad(const PtrToConstPoint&, const PtrToConstPoint&);
+    void horizCrossedRoad(const PtrToConstPoint&, const PtrToConstPoint&);
     static bool cmpCrossX(const PtrCross&, const PtrCross& );
     static bool cmpCrossY(const PtrCross&, const PtrCross& );
+    void twoHorizRoads(const PtrToConstPoint&, const PtrToConstPoint&);
+    void twoVertRoads(const PtrToConstPoint&, const PtrToConstPoint&);
     CrossFactory(std::vector<PtrCross>&);
 
 
