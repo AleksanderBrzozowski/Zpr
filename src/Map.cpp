@@ -48,14 +48,25 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
 
 void Map::runRunningMovables(){
     while(runningMovablePermission){
-        std::list<PtrMovable> &movables = movableFactory.getMovables();
-        std::list<PtrMovable>::iterator iter = movables.begin();
-        while(iter!=movables.end()){
-            if(!(*iter)->move())
-                iter = movables.erase(iter);
+        std::list<PtrCar> &cars = movableFactory.getCars();
+        std::list<PtrCar>::iterator cars_iter = cars.begin();
+        while(cars_iter!=cars.end()){
+            if(!(*cars_iter)->move())
+                cars_iter= cars.erase(cars_iter);
             else {
-                MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
-                ++iter;
+                MainWindow::getInstance().setCar((*cars_iter)->getId(),  (*cars_iter)->getActualPoint().getX(), (*cars_iter)->getActualPoint().getY());
+                ++cars_iter;
+            }
+        }
+
+        std::list<PtrHuman> &humans= movableFactory.getHumans();
+        std::list<PtrHuman>::iterator humans_iter = humans.begin();
+        while(humans_iter!=humans.end()){
+            if(!(*humans_iter)->move())
+                humans_iter = humans.erase(humans_iter);
+            else {
+                MainWindow::getInstance().setPpl((*humans_iter)->getId(),  (*humans_iter)->getActualPoint().getX(), (*humans_iter)->getActualPoint().getY());
+                ++humans_iter;
             }
         }
 
