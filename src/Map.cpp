@@ -44,3 +44,21 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
     facilities.addBuilding(upperLeft, lowerRight);
     return true;
 }
+
+void Map::runRunningMovables(){
+    std::list<PtrMovable> movables = movableFactory.getMovables();
+    while(runningMovablePermission){
+
+        std::list<PtrMovable>::iterator iter = movables.begin();
+        while(iter!=movables.end()){
+            if(!(*iter)->move())
+                iter = movables.erase(iter);
+            else {
+                MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
+                ++iter;
+            }
+        }
+
+        std::this_thread::sleep_for (std::chrono::milliseconds(50));
+    }
+}
