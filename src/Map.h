@@ -29,6 +29,7 @@ private:
 public:
     void createRoad(PtrToConstPoint, PtrToConstPoint);
     void createCar(PtrToConstPoint, PtrToConstPoint, int);
+    void createHuman(PtrToConstPoint, PtrToConstPoint, int);
     bool createBuilding(const Point &upperLeft, const Point &lowerRight);
     void setRunningMovablePermission(bool);
     void setCameraScanningPermission(bool);

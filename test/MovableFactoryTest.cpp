@@ -5,8 +5,8 @@
 
 #include<gtest/gtest.h>
 #include <Cross.h>
-#include <TrafficControl.h>
 #include <MovableFactory.h>
+#include <CrossFactory.h>
 
 class MovableFactoryTest : public ::testing::Test{
 
