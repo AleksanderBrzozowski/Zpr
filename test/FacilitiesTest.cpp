@@ -19,19 +19,22 @@ public:
  *   |*CAM[  ]
  * ---------x
  */
-TEST_F(FacilitiesTest, SeenMovable) {
+TEST_F(FacilitiesTest, SeenMovables) {
     facilities.addBuilding(Point(-2, 3), Point(1, 2));
     facilities.addBuilding(Point(3, 4), Point(4, 3));
     facilities.addBuilding(Point(2, 1), Point(5, 0));
 
     facilities.addCamera(Point(1, 1), Point(2, 5), 10, 10);
 
-    PtrMovable movable = Car::createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
-    std::vector<PtrMovable> movables{movable};
+    PtrConstCar car = Car::createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
+    PtrConstHuman human = Human::createHuman(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
+    std::vector<PtrConstCar> cars{car};
+    std::vector<PtrConstHuman> humans{human};
 
-    facilities.scan(movables);
+    facilities.scan(cars, humans);
 
-    ASSERT_EQ(movables[0], facilities.getCameras()[0]->getSeenMovables()[0]);
+    ASSERT_EQ(cars[0], facilities.getCameras()[0]->getSeenCars()[0]);
+    ASSERT_EQ(humans[0], facilities.getCameras()[0]->getSeenHumans()[0]);
 }
 
 
@@ -43,18 +46,21 @@ TEST_F(FacilitiesTest, SeenMovable) {
  *   |*CAM[  ]
  * ---------x
  */
-TEST_F(FacilitiesTest, NotSeenMovable) {
+TEST_F(FacilitiesTest, NotSeenCar) {
     facilities.addBuilding(Point(-2, 3), Point(2, 2));
     facilities.addBuilding(Point(3, 4), Point(4, 3));
     facilities.addBuilding(Point(2, 1), Point(5, 0));
 
     facilities.addCamera(Point(1, 1), Point(2, 5), 10, 10);
 
-    PtrMovable movable = Car::createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
-  
-    std::vector<PtrMovable> movables{movable};
+    PtrConstCar car = Car::createCar(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
+    PtrConstHuman human = Human::createHuman(Point(2, 5), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(2, 6))}, 10, 1);
 
-    facilities.scan(movables);
+    std::vector<PtrConstCar> cars{car};
+    std::vector<PtrConstHuman> humans{human};
 
-    ASSERT_TRUE(facilities.getCameras()[0]->getSeenMovables().empty());
+    facilities.scan(cars, humans);
+
+    ASSERT_TRUE(facilities.getCameras()[0]->getSeenCars().empty());
+    ASSERT_TRUE(facilities.getCameras()[0]->getSeenHumans().empty());
 }

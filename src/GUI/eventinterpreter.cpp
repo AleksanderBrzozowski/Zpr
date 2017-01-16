@@ -36,6 +36,10 @@ std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
                                                               CameraGUI::DEFAULT_RANGE, true));
         return ghostCamera;
         break;
+    case Option::setHuman:
+        ghostObject = std::shared_ptr<Drawable>(new PplGUI(0, 0, 0, true));
+        return ghostObject;
+        break;
     case Option::doNothing:
     default:
         ghostObject.reset();
@@ -63,8 +67,8 @@ void EventInterpreter::mouseClicked(int x, int y) {
             RoadGUI::adjustPoints(anchor, point);
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-            map->createRoad(srcPtr, dstPtr);
-            emit roadCreated(new RoadGUI(3, anchor, point));
+            if (map->createRoad(srcPtr, dstPtr))
+                emit roadCreated(new RoadGUI(3, anchor, point));
             anchorValid = false;
         }
         break;
@@ -93,10 +97,12 @@ void EventInterpreter::mouseClicked(int x, int y) {
         }
         break;
     case Option::setBuilding:
-        if (map->createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2),
-                            Point(point.getX() + GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2)))
+        if (map->createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2),
+                            Point(point.getX() + GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2)))
             emit drawableCreated(new BuildingGUI(1, point.getX(), point.getY()));
         anchorValid = false;
+        break;
+    case Option::setHuman:
         break;
     case Option::doNothing:
     default:
@@ -167,6 +173,10 @@ void EventInterpreter::mouseMoved(int x, int y) {
         ghostCamera->setTo(point.getX(), point.getY());
         break;
     case Option::setBuilding:
+        snapToGridCenter(point);
+        ghostObject->setTo(point.getX(), point.getY());
+        break;
+    case Option::setHuman:
         snapToGridCenter(point);
         ghostObject->setTo(point.getX(), point.getY());
         break;

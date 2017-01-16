@@ -31,6 +31,7 @@ public:
     void createCar(PtrToConstPoint, PtrToConstPoint, int);
     void createHuman(PtrToConstPoint, PtrToConstPoint, int);
     bool createBuilding(const Point &upperLeft, const Point &lowerRight);
+    void createCamera(const Point &startPoint, const Point &endPoint, double angle);
     void setRunningMovablePermission(bool);
     void setCameraScanningPermission(bool);
     void runRunningMovables();
