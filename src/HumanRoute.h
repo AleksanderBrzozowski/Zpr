@@ -18,7 +18,7 @@ public:
     bool nextPoint() override;
     bool isEnd() override;
 private:
-    const std::vector<PtrToConstPoint>& points;
+    const std::vector<PtrToConstPoint> points;
     std::vector<PtrToConstPoint>::const_iterator pointsIterator;
 
     const Point &getActualPoint() const override;

@@ -110,7 +110,7 @@ void CrossFactory::twoHorizRoads(const PtrToConstPoint &begin, const PtrToConstP
 
 void CrossFactory::vertCrossedRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
 
-    std::sort(crosses.begin(), crosses.end(), cmpCrossX);
+    std::sort(crosses.begin(), crosses.end(), cmpCrossY);
     PtrCross currentNorth = createNewCross(begin);
 
     std::vector<PtrCross>::size_type nbCrosses = crosses.size();
@@ -147,7 +147,7 @@ void CrossFactory::vertCrossedRoad(const PtrToConstPoint &begin, const PtrToCons
 
 void CrossFactory::horizCrossedRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
 
-    std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossY);
+    std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossX);
 
     PtrCross currentWest = createNewCross(begin);
 
