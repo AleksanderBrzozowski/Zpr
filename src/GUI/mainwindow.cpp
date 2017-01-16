@@ -70,10 +70,6 @@ MainWindow::~MainWindow() {
 
 }
 
-void MainWindow::setTrafficControl(std::shared_ptr<TrafficControl> tc) {
-    mapArea->setTrafficControl(tc);
-}
-
 
 void MainWindow::setCar(const unsigned int id, const unsigned int x, const unsigned int y,
                         const bool fast) {
@@ -90,4 +86,8 @@ void MainWindow::removeObject(const unsigned int id) {
 
 void MainWindow::refresh() {
     mapArea->update();
+}
+
+void MainWindow::setMap(std::shared_ptr<Map> map) {
+    mapArea->setMap(map);
 }

@@ -10,7 +10,6 @@
 #include "CrossFactory.h"
 #include <thread>
 #include <chrono>
-#include <GUI/mainwindow.h>
 #include "Types.h"
 #include "Building.h"
 #include "Facilities.h"
@@ -30,6 +29,7 @@ private:
 public:
     void createRoad(PtrToConstPoint, PtrToConstPoint);
     void createCar(PtrToConstPoint, PtrToConstPoint, int);
+    void createHuman(PtrToConstPoint, PtrToConstPoint, int);
     bool createBuilding(const Point &upperLeft, const Point &lowerRight);
     void setRunningMovablePermission(bool);
     void setCameraScanningPermission(bool);

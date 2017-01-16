@@ -15,7 +15,8 @@
 class MovableFactory {
 
 private:
-    std::list<PtrMovable>movables;
+    std::list<PtrHuman>humans;
+    std::list<PtrCar> cars;
 public:
 
     void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&, std::vector<PtrCross>&);
@@ -26,8 +27,11 @@ public:
     unsigned int getMovableId();
 
     bool createCar(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
+    bool createHuman(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
 
-    std::list<PtrMovable>& getMovables();
+
+    std::list<PtrCar>& getCars();
+    std::list<PtrHuman>& getHumans();
 };
 
 
