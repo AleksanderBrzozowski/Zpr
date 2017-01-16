@@ -54,7 +54,10 @@ void Map::runRunningMovables(){
             if(!(*cars_iter)->move())
                 cars_iter= cars.erase(cars_iter);
             else {
-                MainWindow::getInstance().setCar((*cars_iter)->getId(),  (*cars_iter)->getActualPoint().getX(), (*cars_iter)->getActualPoint().getY());
+                MainWindow::getInstance().setCar(
+                        (*cars_iter)->getId(),
+                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getX()),
+                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getY()));
                 ++cars_iter;
             }
         }
@@ -65,7 +68,10 @@ void Map::runRunningMovables(){
             if(!(*humans_iter)->move())
                 humans_iter = humans.erase(humans_iter);
             else {
-                MainWindow::getInstance().setPpl((*humans_iter)->getId(),  (*humans_iter)->getActualPoint().getX(), (*humans_iter)->getActualPoint().getY());
+                MainWindow::getInstance().setPpl(
+                        (*humans_iter)->getId(),
+                        static_cast<unsigned int>((*humans_iter)->getActualPoint().getX()),
+                        static_cast<unsigned int>((*humans_iter)->getActualPoint().getY()));
                 ++humans_iter;
             }
         }
