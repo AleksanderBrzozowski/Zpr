@@ -27,7 +27,7 @@ private:
     bool cameraScanningPermission;
 
 public:
-    void createRoad(PtrToConstPoint, PtrToConstPoint);
+    bool createRoad(PtrToConstPoint, PtrToConstPoint);
     void createCar(PtrToConstPoint, PtrToConstPoint, int);
     void createHuman(PtrToConstPoint, PtrToConstPoint, int);
     bool createBuilding(const Point &upperLeft, const Point &lowerRight);
