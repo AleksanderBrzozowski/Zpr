@@ -63,8 +63,8 @@ void EventInterpreter::mouseClicked(int x, int y) {
             RoadGUI::adjustPoints(anchor, point);
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-            map->createRoad(srcPtr, dstPtr);
-            emit roadCreated(new RoadGUI(3, anchor, point));
+            if (map->createRoad(srcPtr, dstPtr))
+                emit roadCreated(new RoadGUI(3, anchor, point));
             anchorValid = false;
         }
         break;
@@ -93,8 +93,8 @@ void EventInterpreter::mouseClicked(int x, int y) {
         }
         break;
     case Option::setBuilding:
-        if (map->createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2),
-                            Point(point.getX() + GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2)))
+        if (map->createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2),
+                            Point(point.getX() + GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2)))
             emit drawableCreated(new BuildingGUI(1, point.getX(), point.getY()));
         anchorValid = false;
         break;
