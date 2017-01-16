@@ -18,7 +18,7 @@ public:
 
     PtrBuilding addBuilding(const Point &upperLeft, const Point &lowerRight);
     PtrCamera addCamera(const Point &startPoint, const Point &endPoint, double angle, int accuracy);
-    void scan(std::vector<PtrMovable> &movables);
+    void scan(const std::vector<PtrConstCar> &cars, const std::vector<PtrConstHuman> &humans);
     const std::vector<PtrCamera> &getCameras() const;
 private:
     std::vector<PtrBuilding> buildings;
@@ -26,7 +26,9 @@ private:
 
     bool isMovableSeenByCamera(PtrCamera &camera, const Point &movablePoint) const;
 
-    bool isMovableHiddenByBuilding(PtrCamera &camera, const PtrMovable &movable, const Point &movablePoint);
+    bool isMovableHiddenByBuilding(PtrCamera &camera, const Point &movablePoint);
+
+    bool isMovableSeen(const Point &carPoint, PtrCamera &camera);
 };
 
 
