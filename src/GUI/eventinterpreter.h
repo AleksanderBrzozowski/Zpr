@@ -3,25 +3,26 @@
 
 #include "../Point.h"
 #include <memory>
+#include <Map.h>
 #include "drawable.h"
 #include "cargui.h"
 #include "roadgui.h"
 #include "buildinggui.h"
 #include "cameragui.h"
 #include "qevent.h"
-#include "../TrafficControl.h"
 
 class EventInterpreter: public QObject {
     Q_OBJECT
 public:
-    enum class Option {setRoad, setCar, setFastCar, setBuilding, setCamera, doNothing};
+    enum class Option {setRoad, setCar, setFastCar, setBuilding, setCamera,
+                       doNothing};
 
     EventInterpreter();
 
     void mouseMoved(int x, int y);
     void mouseClicked(int x, int y);
     void steerCamera(int keyCode);
-    void setTrafficControl(std::shared_ptr<TrafficControl> tc);
+    void setMap(std::shared_ptr<Map> map);
 
     void snapToGridCenter(Point& point) const;
     void snapToGridIntersect(Point& point) const;
@@ -38,7 +39,7 @@ private:
     std::shared_ptr<Drawable> ghostObject;
     std::shared_ptr<RoadGUI> ghostRoad;
     std::shared_ptr<CameraGUI> ghostCamera;
-    std::shared_ptr<TrafficControl> trafficControl;
+    std::shared_ptr<Map> map;
 };
 
 #endif // EVENTINTERPRETER_H

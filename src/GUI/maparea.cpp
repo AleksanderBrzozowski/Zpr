@@ -15,7 +15,7 @@ MapArea::MapArea(QWidget *parent) : QWidget(parent), roadID(0), displayGrid(fals
 }
 
 MapArea::~MapArea() {
-    for (const auto &drawable : objectMap)
+    for (const auto &drawable : movableMap)
         delete drawable.second;
 
     for (const auto &road : roadMap)
@@ -24,27 +24,27 @@ MapArea::~MapArea() {
 
 void MapArea::setCar(const unsigned int id, const unsigned int x, const unsigned int y,
                      const bool fast) {
-    if (objectMap[id] == nullptr) {
-        objectMap[id] = new CarGUI(2, x, y, fast);
+    if (movableMap[id] == nullptr) {
+        movableMap[id] = new CarGUI(2, x, y, fast);
     } else {
-        objectMap[id]->setTo(x, y);
+        movableMap[id]->setTo(x, y);
     }
     update();
 }
 
 void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {
-    if (objectMap[id] == nullptr) {
-        objectMap[id] = new PplGUI(2, x, y);
+    if (movableMap[id] == nullptr) {
+        movableMap[id] = new PplGUI(2, x, y);
     } else {
-        objectMap[id]->setTo(x, y);
+        movableMap[id]->setTo(x, y);
     }
     update();
 }
 
 void MapArea::removeObject(const unsigned int id) {
-    if (objectMap[id] != nullptr) {
-        delete objectMap[id];
-        objectMap.erase(id);
+    if (movableMap[id] != nullptr) {
+        delete movableMap[id];
+        movableMap.erase(id);
     }
 }
 
@@ -59,8 +59,11 @@ void MapArea::paintEvent(QPaintEvent *event) {
     for (const auto &drawable : roadMap) {
             drawable.second->draw(painter);
     }
-    for (const auto &drawable : objectMap) {
+    for (const auto &drawable : movableMap) {
             drawable.second->draw(painter);
+    }
+    for (const auto &drawable : objectMap) {
+        drawable->draw(painter);
     }
 
     if(ghost != nullptr)
@@ -129,11 +132,10 @@ void MapArea::registerRoad(RoadGUI *road) {
 }
 
 void MapArea::registerDrawable(Drawable *drawable) {
-    int id = 80; //TEMPRARILY
-    objectMap[id] = drawable;
+    objectMap.push_back(drawable);
     update();
 }
 
-void MapArea::setTrafficControl(std::shared_ptr<TrafficControl> tc) {
-    eventInterpreter.setTrafficControl(tc);
+void MapArea::setMap(std::shared_ptr<Map> map) {
+    eventInterpreter.setMap(map);
 }

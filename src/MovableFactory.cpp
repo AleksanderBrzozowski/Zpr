@@ -11,10 +11,13 @@ unsigned int MovableFactory::getMovableId() {
     return id++;
 }
 
-std::list<PtrMovable>& MovableFactory::getMovables(){
-    return movables;
+std::list<PtrCar>& MovableFactory::getCars(){
+    return cars;
 }
 
+std::list<PtrHuman>& MovableFactory::getHumans(){
+    return humans;
+}
 
 bool MovableFactory::createCar(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector<PtrCross> &crosses){
     std::vector<PtrToConstPoint>route;
@@ -24,9 +27,23 @@ bool MovableFactory::createCar(PtrToConstPoint src, PtrToConstPoint dst, int spe
     if(route.empty() || speed<=0)
         return false;
 
-    movables.push_back( Car::createCar(*route[0], route, speed, getMovableId()) );
+    cars.push_back( Car::createCar(*route[0], route, speed, getMovableId()) );
 
     return true;
+}
+
+bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector<PtrCross> &crosses) {
+    std::vector<PtrToConstPoint>route;
+
+    findRoute(src, dst, route, crosses);
+
+    if(route.empty() || speed<=0)
+        return false;
+
+    humans.push_back( Human::createHuman(*route[0], route, speed, getMovableId()) );
+
+    return true;
+
 }
 
 void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute, std::vector<PtrCross> &crosses) {

@@ -15,7 +15,7 @@
 #include "../Point.h"
 #include <memory>
 #include "eventinterpreter.h"
-#include "../TrafficControl.h"
+#include "../Map.h"
 
 
 
@@ -35,7 +35,8 @@ public:
 
     void snapToGrid(Point &point);
     void setCurrentOption(EventInterpreter::Option option);
-    void setTrafficControl(std::shared_ptr<TrafficControl> tc);
+
+    void setMap(std::shared_ptr<Map> map);
 
     void mouseReleaseEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -51,8 +52,9 @@ public slots:
 
 private:
     int roadID;
-    std::map<unsigned int, Drawable*> objectMap;
+    std::map<unsigned int, Drawable*> movableMap;
     std::map<unsigned int, RoadGUI*> roadMap;
+    std::vector<Drawable*> objectMap;
     bool displayGrid;
     EventInterpreter eventInterpreter;
     std::shared_ptr<Drawable> ghost;

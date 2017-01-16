@@ -3,14 +3,21 @@
 //
 
 #include "Map.h"
+#include <GUI/mainwindow.h>
 
 
 void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, int speed) {
     movableFactory.createCar(startingPoint, endingPoint, speed, crossFactory.getCrosses());
 }
 
-void Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
+bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
+    StraightLine straightLine(*begin, *end);
+    for (const PtrBuilding &building : facilities.getBuildings()) {
+        if(building->isCommonPointInsideBuilding(straightLine))
+            return false;
+    }
     crossFactory.createRoad(begin, end);
+    return true;
 }
 
 void Map::setRunningMovablePermission(bool permission) {
@@ -46,19 +53,43 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
 }
 
 void Map::runRunningMovables(){
-    std::list<PtrMovable> movables = movableFactory.getMovables();
     while(runningMovablePermission){
-
-        std::list<PtrMovable>::iterator iter = movables.begin();
-        while(iter!=movables.end()){
-            if(!(*iter)->move())
-                iter = movables.erase(iter);
+        std::list<PtrCar> &cars = movableFactory.getCars();
+        std::list<PtrCar>::iterator cars_iter = cars.begin();
+        while(cars_iter!=cars.end()){
+            if(!(*cars_iter)->move())
+                cars_iter= cars.erase(cars_iter);
             else {
-                MainWindow::getInstance().setCar((*iter)->getId(),  (*iter)->getActualPoint().getX(), (*iter)->getActualPoint().getY());
-                ++iter;
+                MainWindow::getInstance().setCar(
+                        (*cars_iter)->getId(),
+                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getX()),
+                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getY()));
+                ++cars_iter;
             }
         }
 
+        std::list<PtrHuman> &humans= movableFactory.getHumans();
+        std::list<PtrHuman>::iterator humans_iter = humans.begin();
+        while(humans_iter!=humans.end()){
+            if(!(*humans_iter)->move())
+                humans_iter = humans.erase(humans_iter);
+            else {
+                MainWindow::getInstance().setPpl(
+                        (*humans_iter)->getId(),
+                        static_cast<unsigned int>((*humans_iter)->getActualPoint().getX()),
+                        static_cast<unsigned int>((*humans_iter)->getActualPoint().getY()));
+                ++humans_iter;
+            }
+        }
+        MainWindow::getInstance().refresh();
         std::this_thread::sleep_for (std::chrono::milliseconds(50));
     }
+}
+
+void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
+    movableFactory.createHuman(src, dst, speed, crossFactory.getCrosses());
+}
+
+void Map::runCamerasScanning() {
+
 }
