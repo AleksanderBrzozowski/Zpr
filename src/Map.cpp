@@ -87,3 +87,7 @@ void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
 void Map::runCamerasScanning() {
 
 }
+
+void Map::createCamera(const Point &startPoint, const Point &endPoint, double angle) {
+    facilities.addCamera(startPoint, endPoint, angle, 1);
+}
