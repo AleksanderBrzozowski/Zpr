@@ -85,7 +85,11 @@ void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
 }
 
 void Map::runCamerasScanning() {
-
+    while (cameraScanningPermission) {
+        std::vector<PtrConstCar> cars(movableFactory.getCars().begin(), movableFactory.getCars().end());
+        std::vector<PtrConstHuman> humans(movableFactory.getHumans().begin(), movableFactory.getHumans().end());
+        facilities.scan(cars, humans);
+    }
 }
 
 void Map::createCamera(const Point &startPoint, const Point &endPoint, double angle) {

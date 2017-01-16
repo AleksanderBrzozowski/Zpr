@@ -57,3 +57,8 @@ const std::vector<PtrConstHuman> &Camera::getSeenHumans() const {
     return seenHumans;
 }
 
+void Camera::clearSeenMovables() {
+    seenHumans.clear();
+    seenCars.clear();
+}
+

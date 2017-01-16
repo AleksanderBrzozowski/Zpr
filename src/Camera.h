@@ -24,6 +24,7 @@ public:
     const std::vector<PtrConstHuman> &getSeenHumans() const;
 
     const Point &getStartPoint() const;
+    void clearSeenMovables();
 private:
     const Point startPoint;
     const Point endPoint;

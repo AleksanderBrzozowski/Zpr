@@ -12,6 +12,7 @@ const std::vector<PtrCamera> &Facilities::getCameras() const {
 
 void Facilities::scan(const std::vector<PtrConstCar> &cars, const std::vector<PtrConstHuman> &humans) {
     for (PtrCamera &camera : cameras) {
+        camera->clearSeenMovables();
         for(const PtrConstCar & car : cars) {
             Point carPoint = car->getActualPoint();
             if (isMovableSeen(carPoint, camera))
