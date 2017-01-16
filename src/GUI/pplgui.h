@@ -20,13 +20,19 @@ public:
     static const Qt::PenCapStyle PEN_CAP;
     static const Qt::PenJoinStyle PEN_JOIN;
     static const QColor PEN_COLOR;
+    static const QColor GHOST_PEN_COLOR;
 
     static const QPen PEN;
+    static const QPen GHOST_PEN;
 
     static const Qt::BrushStyle BRUSH_STYLE;
     static const QColor BRUSH_COLOR;
+    static const QColor GHOST_BRUSH_COLOR;
 
     static const QBrush BRUSH;
+    static const QBrush GHOST_BRUSH;
+
+    static const int SPEED;
 
 private:
     QRect pplRect;

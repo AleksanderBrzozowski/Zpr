@@ -5,7 +5,7 @@
 #include "HumanRoute.h"
 
 HumanRoute::HumanRoute(const std::vector<PtrToConstPoint> &points)
-        : points(points), pointsIterator(points.begin()) {
+        : points(points), pointsIterator(this->points.begin()) {
 }
 
 HumanRoute::~HumanRoute() {}
