@@ -37,15 +37,23 @@ bool Camera::isInAngle(const Point &point) {
     }
 }
 
-void Camera::addSeenMovable(PtrMovable movable) {
-    seenMovables.push_back(movable);
+void Camera::addSeenCar(PtrConstCar car) {
+    seenCars.push_back(car);
 }
 
-const std::vector<PtrMovable> &Camera::getSeenMovables() const {
-    return seenMovables;
+const std::vector<PtrConstCar> &Camera::getSeenCars() const {
+    return seenCars;
 }
 
 const Point &Camera::getStartPoint() const {
     return startPoint;
+}
+
+void Camera::addSeenHuman(PtrConstHuman human) {
+    seenHumans.push_back(human);
+}
+
+const std::vector<PtrConstHuman> &Camera::getSeenHumans() const {
+    return seenHumans;
 }
 

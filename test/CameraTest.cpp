@@ -67,15 +67,15 @@ TEST(CameraTest, angle90_3_140_3_degrees){
 TEST(CameraTest, putMovables) {
     Camera camera(Point(-1, 1), Point(-10, 1), 50, 1);
 
-    PtrMovable movable = Car::createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 1);
-    PtrMovable movable1 = Car::createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
-    PtrMovable movable2 = Human::createHuman(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
+    PtrConstCar movable = Car::createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 1);
+    PtrConstCar movable1 = Car::createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
+    PtrConstCar movable2 = Car::createCar(Point(1, 1), std::vector<PtrToConstPoint>{PtrToConstPoint(new Point(1, 2))}, 10, 2);
 
-    camera.addSeenMovable(movable);
-    camera.addSeenMovable(movable1);
-    camera.addSeenMovable(movable2);
+    camera.addSeenCar(movable);
+    camera.addSeenCar(movable1);
+    camera.addSeenCar(movable2);
 
-    std::vector<PtrMovable> movables = camera.getSeenMovables();
+    std::vector<PtrConstCar> movables = camera.getSeenCars();
 
     ASSERT_EQ(movable, movables[0]);
     ASSERT_EQ(movable1, movables[1]);
