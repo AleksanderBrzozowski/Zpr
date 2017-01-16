@@ -92,7 +92,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
             //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-            map->createHuman(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
+            map->createCar(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
             anchorValid = false;
         }
         break;
@@ -103,6 +103,16 @@ void EventInterpreter::mouseClicked(int x, int y) {
         anchorValid = false;
         break;
     case Option::setHuman:
+        if (!anchorValid) {
+            anchor = point;
+            anchorValid = true;
+        } else {
+            //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
+            PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
+            PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
+            map->createHuman(srcPtr, dstPtr, PplGUI::SPEED);
+            anchorValid = false;
+        }
         break;
     case Option::doNothing:
     default:
