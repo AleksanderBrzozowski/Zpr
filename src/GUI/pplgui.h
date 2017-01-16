@@ -32,6 +32,8 @@ public:
     static const QBrush BRUSH;
     static const QBrush GHOST_BRUSH;
 
+    static const int SPEED;
+
 private:
     QRect pplRect;
 };
