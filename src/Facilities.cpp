@@ -46,3 +46,7 @@ PtrCamera Facilities::addCamera(const Point &startPoint, const Point &endPoint, 
     cameras.push_back(camera);
     return camera;
 }
+
+const std::vector<PtrBuilding> &Facilities::getBuildings() const {
+    return buildings;
+}

@@ -20,6 +20,8 @@ public:
     PtrCamera addCamera(const Point &startPoint, const Point &endPoint, double angle, int accuracy);
     void scan(std::vector<PtrMovable> &movables);
     const std::vector<PtrCamera> &getCameras() const;
+    const std::vector<PtrBuilding> &getBuildings() const;
+
 private:
     std::vector<PtrBuilding> buildings;
     std::vector<PtrCamera> cameras;

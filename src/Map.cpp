@@ -10,8 +10,14 @@ void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, 
     movableFactory.createCar(startingPoint, endingPoint, speed, crossFactory.getCrosses());
 }
 
-void Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
+bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
+    StraightLine straightLine(*begin, *end);
+    for (const PtrBuilding &building : facilities.getBuildings()) {
+        if(building->isCommonPointInsideBuilding(straightLine))
+            return false;
+    }
     crossFactory.createRoad(begin, end);
+    return true;
 }
 
 void Map::setRunningMovablePermission(bool permission) {
