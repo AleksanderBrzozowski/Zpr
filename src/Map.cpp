@@ -7,16 +7,22 @@
 
 
 void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, int speed) {
+    criticalSection.lock();
     movableFactory.createCar(startingPoint, endingPoint, speed, crossFactory.getCrosses());
+    criticalSection.unlock();
 }
 
 bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
+    criticalSection.lock();
     StraightLine straightLine(*begin, *end);
     for (const PtrBuilding &building : facilities.getBuildings()) {
-        if(building->isCommonPointInsideBuilding(straightLine))
+        if(building->isCommonPointInsideBuilding(straightLine)){
+            criticalSection.unlock();
             return false;
+        }
     }
     crossFactory.createRoad(begin, end);
+    criticalSection.unlock();
     return true;
 }
 
@@ -39,21 +45,26 @@ void Map::setCameraScanningPermission(bool permission) {
 }
 
 bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
+    criticalSection.lock();
     Building building(upperLeft, lowerRight);
     for (PtrCross &cross : crossFactory.getCrosses()) {
         PtrToConstPoint startPoint = cross->getPosition();
         PtrCross south = cross->getSouthNeighbour();
         PtrCross east = cross->getEastNeighbour();
         if (east != nullptr && building.isCommonPointInsideBuilding(StraightLine(*startPoint, *(east->getPosition()))) ||
-            south != nullptr && building.isCommonPointInsideBuilding(StraightLine(*startPoint, *(south->getPosition()))))
+            south != nullptr && building.isCommonPointInsideBuilding(StraightLine(*startPoint, *(south->getPosition())))){
+            criticalSection.unlock();
             return false;
+        }
     }
     facilities.addBuilding(upperLeft, lowerRight);
+    criticalSection.unlock();
     return true;
 }
 
 void Map::runRunningMovables(){
     while(runningMovablePermission){
+        criticalSection.lock();
         std::list<PtrCar> &cars = movableFactory.getCars();
         std::list<PtrCar>::iterator cars_iter = cars.begin();
         while(cars_iter!=cars.end()){
@@ -87,23 +98,30 @@ void Map::runRunningMovables(){
                 ++humans_iter;
             }
         }
+        criticalSection.unlock();
         MainWindow::getInstance().refresh();
         std::this_thread::sleep_for (std::chrono::milliseconds(50));
     }
 }
 
 void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
+    criticalSection.lock();
     movableFactory.createHuman(src, dst, speed, crossFactory.getCrosses());
+    criticalSection.unlock();
 }
 
 void Map::runCamerasScanning() {
     while (cameraScanningPermission) {
+        criticalSection.lock();
         std::vector<PtrConstCar> cars(movableFactory.getCars().begin(), movableFactory.getCars().end());
         std::vector<PtrConstHuman> humans(movableFactory.getHumans().begin(), movableFactory.getHumans().end());
         facilities.scan(cars, humans);
+        criticalSection.unlock();
     }
 }
 
 void Map::createCamera(const Point &startPoint, const Point &endPoint, double angle) {
+    criticalSection.lock();
     facilities.addCamera(startPoint, endPoint, angle, 1);
+    criticalSection.unlock();
 }

@@ -11,6 +11,7 @@
 #include <vector>
 #include "Movable.h"
 #include "Cross.h"
+#include "GUI/pplgui.h"
 
 class MovableFactory {
 
@@ -28,7 +29,7 @@ public:
 
     bool createCar(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
     bool createHuman(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
-
+    void moveHumansOnSidewalks(std::vector<PtrToConstPoint>&);
 
     std::list<PtrCar>& getCars();
     std::list<PtrHuman>& getHumans();

@@ -10,6 +10,7 @@
 #include "CrossFactory.h"
 #include <thread>
 #include <chrono>
+#include <mutex>
 #include "Types.h"
 #include "Building.h"
 #include "Facilities.h"
@@ -25,6 +26,7 @@ private:
     std::thread camerasScanning;
     bool runningMovablePermission;
     bool cameraScanningPermission;
+    std::mutex criticalSection;
 
 public:
     bool createRoad(PtrToConstPoint, PtrToConstPoint);
