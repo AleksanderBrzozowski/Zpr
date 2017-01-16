@@ -188,7 +188,12 @@ void EventInterpreter::mouseMoved(int x, int y) {
         break;
     case Option::setHuman:
         snapToGridCenter(point);
-        ghostObject->setTo(point.getX(), point.getY());
+        ghostObject->setTo(x, y);
+        if (!anchorValid) {
+            ghostObject->setTo(point.getX(), point.getY());
+        } else {
+            ghostObject->setTo(anchor.getX(), anchor.getY());
+        }
         break;
     case Option::doNothing:
     default:
