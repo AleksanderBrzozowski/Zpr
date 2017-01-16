@@ -57,8 +57,11 @@ void Map::runRunningMovables(){
         std::list<PtrCar> &cars = movableFactory.getCars();
         std::list<PtrCar>::iterator cars_iter = cars.begin();
         while(cars_iter!=cars.end()){
-            if(!(*cars_iter)->move())
+            if(!(*cars_iter)->move()){
+                MainWindow::getInstance().removeObject((*cars_iter)->getId());
                 cars_iter= cars.erase(cars_iter);
+            }
+
             else {
                 MainWindow::getInstance().setCar(
                         (*cars_iter)->getId(),
@@ -71,8 +74,11 @@ void Map::runRunningMovables(){
         std::list<PtrHuman> &humans= movableFactory.getHumans();
         std::list<PtrHuman>::iterator humans_iter = humans.begin();
         while(humans_iter!=humans.end()){
-            if(!(*humans_iter)->move())
+            if(!(*humans_iter)->move()){
+                MainWindow::getInstance().removeObject((*humans_iter)->getId());
                 humans_iter = humans.erase(humans_iter);
+            }
+
             else {
                 MainWindow::getInstance().setPpl(
                         (*humans_iter)->getId(),
