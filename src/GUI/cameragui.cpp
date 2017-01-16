@@ -139,3 +139,14 @@ void CameraGUI::decSpan() {
 	}
 }
 
+int CameraGUI::getAngle() {
+    return angle;
+}
+
+int CameraGUI::getSpan() {
+    return span;
+}
+
+int CameraGUI::getRange() {
+    return rngRect.width()/2;
+}

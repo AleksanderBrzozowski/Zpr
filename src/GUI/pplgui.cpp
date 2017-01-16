@@ -23,6 +23,7 @@ const QBrush PplGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 const QBrush PplGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);
 
 const int PplGUI::SPEED = 4;
+const int PplGUI::OFFSET = GridGUI::SIZE/2 - RoadGUI::SIDEWALK_WIDTH/2;
 
 PplGUI::PplGUI(unsigned int layer, QRect pplRect, bool ghost) :
     Drawable(layer, ghost), pplRect(pplRect){

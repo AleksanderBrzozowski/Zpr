@@ -114,6 +114,8 @@ void EventInterpreter::mouseClicked(int x, int y) {
             anchorValid = false;
         }
         break;
+    case Option::setCamera:
+
     case Option::doNothing:
     default:
         anchorValid = false;

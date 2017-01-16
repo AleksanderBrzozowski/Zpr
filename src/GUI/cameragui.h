@@ -20,6 +20,9 @@ public:
     void rotCounterclockwise();
     void incSpan();
     void decSpan();
+    int getSpan();
+    int getAngle();
+    int getRange();
 
     /**PROPERTIES**/
     static const unsigned int CAM_RADIUS;
