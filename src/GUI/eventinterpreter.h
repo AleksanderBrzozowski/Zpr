@@ -31,6 +31,7 @@ public:
 signals:
     void roadCreated(RoadGUI*);
     void drawableCreated(Drawable*);
+    void cameraCreated(CameraGUI*);
 private:
     enum class buildingSize {small, big, high, wide};
     Option currentOption;
