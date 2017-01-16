@@ -9,8 +9,11 @@ int main(int argc, char *argv[])
     std::shared_ptr<Map> map(new Map);
     w.setMap(map);
     map->setRunningMovablePermission(true);
+    map->setCameraScanningPermission(true);
     w.show();
 
     int returningCode = a.exec();
+    map->setRunningMovablePermission(false);
+    map->setCameraScanningPermission(false);
     return returningCode;
 }
