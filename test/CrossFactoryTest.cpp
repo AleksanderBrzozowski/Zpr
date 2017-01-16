@@ -101,3 +101,11 @@ TEST_F(CrossFactoryTest, fourRoadsCrossed){
     EXPECT_EQ(crossFactory.getCrosses().size(), 21);
 }
 
+
+TEST_F(CrossFactoryTest, littleRoads){
+    crossFactory.createRoad(std::make_shared<Point>(48,48), std::make_shared<Point>(80,48));
+    crossFactory.createRoad(std::make_shared<Point>(16,112), std::make_shared<Point>(80,112));
+    crossFactory.createRoad(std::make_shared<Point>(80,16), std::make_shared<Point>(80,144));
+
+    EXPECT_EQ(crossFactory.getCrosses().size(), 6);
+}
