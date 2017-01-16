@@ -52,8 +52,9 @@ public slots:
 
 private:
     int roadID;
-    std::map<unsigned int, Drawable*> objectMap;
+    std::map<unsigned int, Drawable*> movableMap;
     std::map<unsigned int, RoadGUI*> roadMap;
+    std::vector<Drawable*> objectMap;
     bool displayGrid;
     EventInterpreter eventInterpreter;
     std::shared_ptr<Drawable> ghost;

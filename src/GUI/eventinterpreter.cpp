@@ -88,12 +88,15 @@ void EventInterpreter::mouseClicked(int x, int y) {
             //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
-            map->createCar(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
+            map->createHuman(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
             anchorValid = false;
         }
         break;
     case Option::setBuilding:
-
+        if (map->createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2),
+                            Point(point.getX() + GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2)))
+            emit drawableCreated(new BuildingGUI(1, point.getX(), point.getY()));
+        anchorValid = false;
         break;
     case Option::doNothing:
     default:

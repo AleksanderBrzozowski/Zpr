@@ -14,7 +14,8 @@
 class EventInterpreter: public QObject {
     Q_OBJECT
 public:
-    enum class Option {setRoad, setCar, setFastCar, setBuilding, setCamera, doNothing};
+    enum class Option {setRoad, setCar, setFastCar, setBuilding, setCamera,
+                       doNothing};
 
     EventInterpreter();
 
