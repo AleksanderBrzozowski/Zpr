@@ -58,6 +58,11 @@ QMenu* MainWindow::initMenu() {
                                                    statusLabel->setText("Current option: Set camera");}
             );
     toolsMenu->addAction(setCamera);
+    QAction *setHuman = new QAction("Set human", toolsMenu);
+    connect(setHuman, &QAction::triggered, [=]() {mapArea->setCurrentOption(EventInterpreter::Option::setHuman);
+                                                  statusLabel->setText("Current option: Set camera");}
+            );
+    toolsMenu->addAction(setHuman);
 
     return toolsMenu;
 }
