@@ -2,6 +2,8 @@
 #define CAMERAGUI_H
 
 #include "drawable.h"
+#include <Point.h>
+#include <cmath>
 
 class CameraGUI : public Drawable
 {
@@ -9,6 +11,12 @@ public:
     CameraGUI(unsigned int layer, unsigned int x, unsigned int y,
               unsigned int span, int angle, unsigned int range,
               bool ghost = false);
+    CameraGUI(unsigned int layer, Point position, Point range, int span, bool ghost = false);
+    CameraGUI(unsigned int layer, Point position);
+
+    void setRectangle(Point point);
+    void setRectangle(Point first, Point second);
+
     ~CameraGUI();
     void draw(QPainter &) const;
     void setTo(unsigned int x, unsigned int y) override;

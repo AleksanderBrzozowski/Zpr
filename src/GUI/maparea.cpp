@@ -4,6 +4,7 @@ MapArea::MapArea(QWidget *parent) : QWidget(parent), roadID(0), displayGrid(fals
 
     connect(&eventInterpreter, &EventInterpreter::drawableCreated, this, &MapArea::registerDrawable);
     connect(&eventInterpreter, &EventInterpreter::roadCreated, this, &MapArea::registerRoad);
+    connect(&eventInterpreter, &EventInterpreter::cameraCreated, this, &MapArea::registerCamera);
 
     QPalette pal(palette());
     pal.setColor(QPalette::Background, QColor(196, 195, 208));
@@ -65,6 +66,10 @@ void MapArea::paintEvent(QPaintEvent *event) {
     for (const auto &drawable : objectMap) {
         drawable->draw(painter);
     }
+    for (const auto &drawable : cameraMap) {
+        drawable->draw(painter);
+    }
+
 
     if(ghost != nullptr)
         ghost->draw(painter);
@@ -109,6 +114,11 @@ void MapArea::keyPressEvent(QKeyEvent *event) {
 	update();
     event->accept();
 
+}
+
+void MapArea::registerCamera(CameraGUI *cam) {
+    cameraMap.push_back(cam);
+    update();
 }
 
 void MapArea::createRoad(Point end1, Point end2) {
