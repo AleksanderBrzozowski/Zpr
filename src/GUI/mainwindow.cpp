@@ -131,7 +131,8 @@ void MainWindow::refresh() {
 /*!
  * \brief MainWindow::setMap.
  * \param map
- * \details Sets map object to allow user communication
+ * \details Sets map object to allow pass user-generated events
+ * to model.
  */
 void MainWindow::setMap(std::shared_ptr<Map> map) {
     mapArea->setMap(map);
