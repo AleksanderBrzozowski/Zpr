@@ -48,8 +48,8 @@ bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int s
 
 void MovableFactory::moveHumansOnSidewalks(std::vector<PtrToConstPoint> & route) {
     for(std::vector<PtrToConstPoint>::size_type i = 0; i<route.size(); ++i){
-            int newX =  route[i]->getX() - PplGUI::OFFSET;
-            int newY =  route[i]->getY() - PplGUI::OFFSET;
+            int newX =  humans.size()%2 == 0 ? route[i]->getX() - PplGUI::OFFSET  :  route[i]->getX() + PplGUI::OFFSET;
+            int newY =  humans.size()%2 == 0 ? route[i]->getY() - PplGUI::OFFSET  :  route[i]->getY() + PplGUI::OFFSET;;
             PtrToConstPoint newPoint = std::make_shared<Point>(newX, newY);
             route[i] = newPoint;
     }
