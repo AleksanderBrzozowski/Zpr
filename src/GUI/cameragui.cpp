@@ -172,7 +172,5 @@ void CameraGUI::setRectangle(Point first, Point second) {
     int range = static_cast<int>(sqrt(static_cast<double>(dx * dx + dy * dy)));
     rngRect.setCoords(first.getX() - range, first.getY() - range,
                   first.getX() + range, first.getY() + range);
-    try {
         angle = -(std::atan2(dy, dx) * 16 * 180 / M_PI) - span/2 + 180 * 16;
-    } catch (std::exception) {}
 }
