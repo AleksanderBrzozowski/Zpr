@@ -39,11 +39,20 @@ bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int s
 
     if(route.empty() || speed<=0)
         return false;
-
+    moveHumansOnSidewalks(route);
     humans.push_back( Human::createHuman(*route[0], route, speed, getMovableId()) );
 
     return true;
 
+}
+
+void MovableFactory::moveHumansOnSidewalks(std::vector<PtrToConstPoint> & route) {
+    for(std::vector<PtrToConstPoint>::size_type i = 0; i<route.size(); ++i){
+            int newX =  route[i]->getX() - PplGUI::OFFSET;
+            int newY =  route[i]->getY() - PplGUI::OFFSET;
+            PtrToConstPoint newPoint = std::make_shared<Point>(newX, newY);
+            route[i] = newPoint;
+    }
 }
 
 void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute, std::vector<PtrCross> &crosses) {
