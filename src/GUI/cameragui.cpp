@@ -59,6 +59,15 @@ CameraGUI::CameraGUI(unsigned int layer, unsigned int x, unsigned int y,
 
 }
 
+CameraGUI::CameraGUI(unsigned int layer, Point position) : Drawable(layer, true) {
+    setRectangle(position);
+}
+
+CameraGUI::CameraGUI(unsigned int layer, Point position, Point range, int span, bool ghost) :
+    Drawable(layer, ghost), span(span) {
+    setRectangle(position, range);
+}
+
 CameraGUI::~CameraGUI() {
 
 }
@@ -80,11 +89,6 @@ void CameraGUI::draw(QPainter &painter) const {
         painter.setBrush(GHOST_CAM_BRUSH);
     }
     painter.drawEllipse(camRect);
-}
-
-void CameraGUI::setTo(unsigned int x, unsigned int y) {
-    camRect.moveTo(x - CAM_RADIUS/2, y - CAM_RADIUS/2);
-    rngRect.moveTo(x - rngRect.width()/2, y - rngRect.height()/2);
 }
 
 bool CameraGUI::intersects(QRect &rectangle) const {
@@ -139,3 +143,36 @@ void CameraGUI::decSpan() {
 	}
 }
 
+int CameraGUI::getAngle() {
+    return angle;
+}
+
+int CameraGUI::getSpan() {
+    return span;
+}
+
+int CameraGUI::getRange() {
+    return rngRect.width()/2;
+}
+
+void CameraGUI::setTo(unsigned int x, unsigned int y) {
+
+}
+
+void CameraGUI::setRectangle(Point point) {
+    camRect.moveTo(point.getX() - CAM_RADIUS/2, point.getY() - CAM_RADIUS/2);
+    rngRect.moveTo(point.getX() - rngRect.width()/2, point.getY() - rngRect.height()/2);
+}
+
+void CameraGUI::setRectangle(Point first, Point second) {
+    camRect.setCoords(first.getX() - CAM_RADIUS/2, first.getY() - CAM_RADIUS/2,
+                      first.getX() + CAM_RADIUS/2, first.getY() + CAM_RADIUS/2);
+    int dx = first.getX() - second.getX();
+    int dy = first.getY() - second.getY();
+    int range = static_cast<int>(sqrt(static_cast<double>(dx * dx + dy * dy)));
+    rngRect.setCoords(first.getX() - range, first.getY() - range,
+                  first.getX() + range, first.getY() + range);
+    try {
+        angle = -(std::atan2(dy, dx) * 16 * 180 / M_PI) - span/2 + 180 * 16;
+    } catch (std::exception) {}
+}

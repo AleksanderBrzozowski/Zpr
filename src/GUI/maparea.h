@@ -49,12 +49,14 @@ public slots:
     void toggleGrid();
     void registerRoad(RoadGUI*);
     void registerDrawable(Drawable*);
+    void registerCamera(CameraGUI*);
 
 private:
     int roadID;
     std::map<unsigned int, Drawable*> movableMap;
     std::map<unsigned int, RoadGUI*> roadMap;
     std::vector<Drawable*> objectMap;
+    std::vector<CameraGUI*> cameraMap;
     bool displayGrid;
     EventInterpreter eventInterpreter;
     std::shared_ptr<Drawable> ghost;

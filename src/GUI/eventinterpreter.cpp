@@ -57,9 +57,9 @@ EventInterpreter::Option EventInterpreter::getCurrentOption() {
 
 void EventInterpreter::mouseClicked(int x, int y) {
     Point point(x, y);
-    snapToGridCenter(point);
     switch(currentOption) {
     case Option::setRoad:
+        snapToGridCenter(point);
         if (!anchorValid) {
             anchor = point;
             anchorValid = true;
@@ -73,6 +73,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
         }
         break;
     case Option::setCar:
+        snapToGridCenter(point);
         if (!anchorValid) {
             anchor = point;
             anchorValid = true;
@@ -85,6 +86,8 @@ void EventInterpreter::mouseClicked(int x, int y) {
         }
         break;
     case Option::setFastCar:
+        snapToGridCenter(point);
+        snapToGridCenter(point);
         if (!anchorValid) {
             anchor = point;
             anchorValid = true;
@@ -97,12 +100,14 @@ void EventInterpreter::mouseClicked(int x, int y) {
         }
         break;
     case Option::setBuilding:
+        snapToGridCenter(point);
         if (map->createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2),
                             Point(point.getX() + GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2)))
             emit drawableCreated(new BuildingGUI(1, point.getX(), point.getY()));
         anchorValid = false;
         break;
     case Option::setHuman:
+        snapToGridCenter(point);
         if (!anchorValid) {
             anchor = point;
             anchorValid = true;
@@ -111,6 +116,17 @@ void EventInterpreter::mouseClicked(int x, int y) {
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             map->createHuman(srcPtr, dstPtr, PplGUI::SPEED);
+            anchorValid = false;
+        }
+        break;
+    case Option::setCamera:
+        snapToGridIntersect(point);
+        if (!anchorValid) {
+            anchor = point;
+            anchorValid = true;
+        } else {
+            map->createCamera(anchor, point, ghostCamera->getSpan()/16);
+            emit cameraCreated(new CameraGUI(0, anchor, point, ghostCamera->getSpan()));
             anchorValid = false;
         }
         break;
@@ -132,11 +148,6 @@ void EventInterpreter::steerCamera(int keyCode) {
     case Qt::Key_Right:
 		ghostCamera->incSpan();
         break;
-    case Qt::Key_Down:
-        ghostCamera->decRange();
-        break;
-    case Qt::Key_Up:
-        ghostCamera->incRange();
     default:
         break;
     }
@@ -179,8 +190,13 @@ void EventInterpreter::mouseMoved(int x, int y) {
         }
         break;
     case Option::setCamera:
-        snapToGridIntersect(point);
-        ghostCamera->setTo(point.getX(), point.getY());
+        if (!anchorValid) {
+            snapToGridIntersect(point);
+            ghostCamera->setRectangle(point);
+        } else {
+            ghostCamera->setRectangle(anchor, point);
+        }
+        break;
         break;
     case Option::setBuilding:
         snapToGridCenter(point);

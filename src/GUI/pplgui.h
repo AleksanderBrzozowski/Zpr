@@ -2,6 +2,8 @@
 #define PPLGUI_H
 
 #include "drawable.h"
+#include "gridgui.h"
+#include "roadgui.h"
 
 class PplGUI : public Drawable {
 public:
@@ -33,7 +35,7 @@ public:
     static const QBrush GHOST_BRUSH;
 
     static const int SPEED;
-
+    static const int OFFSET;
 private:
     QRect pplRect;
 };
