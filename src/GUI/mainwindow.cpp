@@ -1,5 +1,10 @@
 #include "mainwindow.h"
 
+/*!
+ * \brief MainWindow::getInstance.
+ * \return Returns instance of MainWindow object. Only way
+ * to create that object.
+ */
 MainWindow& MainWindow::getInstance() {
     static MainWindow instance;
     return instance;
@@ -67,6 +72,11 @@ QMenu* MainWindow::initMenu() {
     return toolsMenu;
 }
 
+/*!
+ * \brief MainWindow::resetLabel.
+ * \details Sets status label to say that no option is chosen and
+ * advise to choose one.
+ */
 void MainWindow::resetLabel() {
     statusLabel->setText("Current option: None. Select tool from menu.");
 }
@@ -75,24 +85,54 @@ MainWindow::~MainWindow() {
 
 }
 
-
+/*!
+ * \brief MainWindow::setCar.
+ * \param id - car ID.
+ * \param x - position X.
+ * \param y - position Y.
+ * \param fast - flag says if car is fast car or not. false by default.
+ * \details Sets car to appropriate position, and specify type of car being set.
+ */
 void MainWindow::setCar(const unsigned int id, const unsigned int x, const unsigned int y,
                         const bool fast) {
     mapArea->setCar(id, x, y, fast);
 }
 
+/*!
+ * \brief MainWindow::setPpl.
+ * \param id - person ID.
+ * \param x - position X.
+ * \param y - position Y.
+ * \details Sets person to appropriate position, so it can be repainted where it actually is.
+ */
 void MainWindow::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {
     mapArea->setPpl(id, x, y);
 }
 
+/*!
+ * \brief MainWindow::removeObject.
+ * \param id - object ID.
+ * \details Removes object from list of object that are being redrawn. Supposed to be called
+ * when object doesn't exist anymore.
+ */
 void MainWindow::removeObject(const unsigned int id) {
     mapArea->removeObject(id);
 }
 
+/*!
+ * \brief MainWindow::refresh.
+ * \details Refreshes rendered area. Render area doesn't refresh itself, so
+ * it can be done only when needed.
+ */
 void MainWindow::refresh() {
     mapArea->update();
 }
 
+/*!
+ * \brief MainWindow::setMap.
+ * \param map
+ * \details Sets map object to allow user communication
+ */
 void MainWindow::setMap(std::shared_ptr<Map> map) {
     mapArea->setMap(map);
 }
