@@ -9,13 +9,12 @@
 #include "CrossFactory.h"
 
 /**
- * Cross's X position comparator.
- *
- * Returns true if cross1 is nearer left. If both crosses have the same x, returns true if cross1 has bigger y than cross2
- * @param cr1 - first cross
- * @param cr2 - second cross
+ * @brief X value of cross position comparator for sorting.
+ * @details Returns true if cross1 is nearer left. If both crosses have the same x, returns true if cross1 has smaller y than cross2.
+ * @param cr1 - first cross.
+ * @param cr2 - second cross.
  * @return true if x value of cross 1 is smaller than x value of cross 2, if both x values are the
- * same, returns true if y value of cross 1 is smaller
+ * same, returns true if y value of cross 1 is smaller.
  */
 
 bool CrossFactory::cmpCrossX(const PtrCross &cr1, const PtrCross &cr2){
@@ -27,13 +26,12 @@ bool CrossFactory::cmpCrossX(const PtrCross &cr1, const PtrCross &cr2){
 }
 
 /**
- * Cross's Y position comparator.
- *
- * Returns true if cross1 is nearer top. If both crosses have the same y, returns true if cross1 has smaller x than cross2
- * @param cr1 - first cross
- * @param cr2 - second cross
- * @return true if y value of cross 1 is smaller than y value of cross 2, if both y values are the
- * same, returns true if x value of cross 1 is smaller
+ * @brief Y value of cross position comparator for sorting.
+ * @details Returns true if cross1 is nearer top. If both crosses have the same y, returns true if cross1 has smaller x than cross2.
+ * @param cr1 - first cross.
+ * @param cr2 - second cross.
+ * @return true if y value of cross1 is smaller than y value of cross2, if both y values are the
+ * same, returns true if x value of cross1 is smaller.
  */
 
 bool CrossFactory::cmpCrossY(const PtrCross &cr1, const PtrCross &cr2){
@@ -48,9 +46,10 @@ std::vector<PtrCross>& CrossFactory::getCrosses(){
 }
 
 /**
- * Return cross that has the same position as given.
- * @param point - given point to search
- * @return cross that has the same point as given
+ * @brief Find the cross that has the same position as the given point as the argument
+ * @details Return cross that has the same position as given.
+ * @param point - given point to search.
+ * @return cross that has the same point as given.
  */
 PtrCross CrossFactory::findCrossByPoint(const PtrToConstPoint &point) const {
 
@@ -63,9 +62,10 @@ PtrCross CrossFactory::findCrossByPoint(const PtrToConstPoint &point) const {
 }
 
 /**
- * Checking if cross at given position already exists. If not creates new cross
- * @param point - point at which we want to create new cross
- * @return cross at given point
+ * @brief Creating new cross if it doesn't exist.
+ * @details Checking if cross at given position already exists. If not creates new cross.
+ * @param point - point at which we want to create new cross.
+ * @return cross at given point.
  */
 
 PtrCross CrossFactory::createNewCross(const PtrToConstPoint &point) {
@@ -79,13 +79,14 @@ PtrCross CrossFactory::createNewCross(const PtrToConstPoint &point) {
 }
 
 /**
- * Check if two roads are vertical and both of roads have the same x value.
- * (If one road hide another road).
- * At first crosses are sorted. First road should has the smallest x value of the position
+ * @brief Updates crosses if new road hide the existing, both roads are verticaly.
+ * @details Check if two roads are vertical and both of roads have the same x value.
+ * (If one road hides another road).
+ * At first crosses are sorted. First cross should has the smallest x value of the position
  * Then we look for the two crosses, between which the new road is being tried to set.
- * If found, we create new crosses and updating neighbours from the north to the south.
- * @param begin - point on the north of the new road
- * @param end - point on the south of the new road
+ * If found, we create new crosses and update neighbours from the north to the south.
+ * @param begin - point on the north of the new road.
+ * @param end - point on the south of the new road.
  */
 
 void CrossFactory::twoVertRoads(const PtrToConstPoint &begin, const PtrToConstPoint &end) {
@@ -121,13 +122,14 @@ void CrossFactory::twoVertRoads(const PtrToConstPoint &begin, const PtrToConstPo
 }
 
 /**
- * Check if two roads are horizontal and both of roads have the same y value.
- * (If one road hide another road).
- * At first crosses are sorted. First road should has the smallest y value of the position.
+ * @brief Updates crosses if new road hide the existing, both roads are horizontaly
+ * @details Check if two roads are horizontal and both of roads have the same y value.
+ * (If one road hides another road).
+ * At first crosses are sorted. First cross should has the smallest y value of the position.
  * Then we look for the two crosses, between which the new road is being tried to set.
- * If found, we create new crosses and updating neighbours from the west to the east.
- * @param begin - point on the west of the new road
- * @param end - point on the east of the new road
+ * If found, we create new crosses and update neighbours from the west to the east.
+ * @param begin - point on the west of the new road.
+ * @param end - point on the east of the new road.
  */
 
 
@@ -164,13 +166,14 @@ void CrossFactory::twoHorizRoads(const PtrToConstPoint &begin, const PtrToConstP
 }
 
 /**
- * This method creates new crosses if the new road crosses with the another roads.
- * The new road is vertical
- * At first, corsses are sorted. The first is cross that has the smallest y value of the position.
- * Then we check each pair of cross and it's east neighbour if the new road doesn't cross the road
+ * @brief Updates crosses if new road crosses the existed one verticaly.
+ * @details This method creates new crosses if the new road crosses with the another roads.
+ * The new road is vertical.
+ * At first, crosses are sorted. The first is cross that has the smallest y value of the position.
+ * Then we check each pair of cross and it's east neighbour, if the new road doesn't cross the road
  * between these pair of crosses. If it crosses, new crosses are added and neighbours are updated.
- * @param begin - point on the north of the new road
- * @param end - point on the south of the new road
+ * @param begin - point on the north of the new road.
+ * @param end - point on the south of the new road.
  */
 
 void CrossFactory::vertCrossedRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
@@ -211,13 +214,14 @@ void CrossFactory::vertCrossedRoad(const PtrToConstPoint &begin, const PtrToCons
 }
 
 /**
- * This method creates new crosses if the new road crosses with the another roads.
+ * @brief Updates crosses if new road crosses the existed one horizontaly
+ * @details This method creates new crosses if the new road crosses with the another roads.
  * The new road is horizontal.
  * At first, crosses are sorted. The first is cross that has the smallest x value of the position.
- * Then we check each pair of cross and it's south neighbour if the new road doesn't cross the road
+ * Then we check each pair of cross and it's south neighbour, if the new road doesn't cross the road
  * between these pair of crosses. If it crosses, new crosses are added and neighbours are updated.
- * @param begin - point on the west of the new road
- * @param end - point on the east of the new road
+ * @param begin - point on the west of the new road.
+ * @param end - point on the east of the new road.
  */
 
 void CrossFactory::horizCrossedRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end){
@@ -259,10 +263,11 @@ void CrossFactory::horizCrossedRoad(const PtrToConstPoint &begin, const PtrToCon
 }
 
 /**
- * Reverses the begin and ending point of the road if the ending point is nearer top left corner of the map.
+ * @brief Updating crosses, creating new crosses from the given road
+ * @details Reverses the begin and ending point of the road if the ending point is nearer top left corner of the map.
  * Then calls methods if the new road is horizontal or vertical.
- * @param begin - starting point of the new road
- * @param end - ending point of the new road
+ * @param begin - starting point of the new road.
+ * @param end - ending point of the new road.
  */
 
 void CrossFactory::createRoad(const PtrToConstPoint &begin, const PtrToConstPoint &end) {
