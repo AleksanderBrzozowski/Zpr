@@ -124,7 +124,7 @@ TEST_F(MovableFactoryTest, checkPointMeetsCross){
     createCrosses();
     PtrToConstPoint point = std::make_shared<Point>(5,0);
     PtrToConstPoint crossPoint = std::make_shared<Point>(10,0);
-    EXPECT_TRUE(movableFactory.pointMeetsCross(point,movableFactory.findNearestCross(crossPoint, crossFactory.getCrosses()), crossFactory.getCrosses()));
+    EXPECT_TRUE(movableFactory.pointMeetsCross(point,movableFactory.findNearestCross(crossPoint, crossFactory.getCrosses())));
 }
 
 TEST_F(MovableFactoryTest, checkRouteFindingRandom2Points){

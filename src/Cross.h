@@ -1,6 +1,10 @@
-//
-// Created by kuco on 02.11.16.
-//
+/**
+ * @file Cross.h
+ * @Author PiotrKuc (piotr.kuc29@gmail.com)
+ * @date November, 2017
+ * @brief Cross class methods declaration
+ *
+ */
 
 #ifndef ZPR_CROSS_H
 #define ZPR_CROSS_H
@@ -8,6 +12,13 @@
 #include <vector>
 #include "Point.h"
 #include "Types.h"
+
+/**
+ * @class Cross class
+ * @brief Cross represents vertices in the graph that describes map.
+ * @details Each cross has it's neighbours and parameter that says if it was already used
+ * by the finding route algorithm and shouldn't be used again.
+ */
 
 class Cross {
 

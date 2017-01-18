@@ -1,13 +1,28 @@
-//
-// Created by kuco on 12.01.17.
-//
+/**
+ * @file Map.cpp
+ * @Author PiotrKuc (piotr.kuc29@gmail.com)
+ * @date January, 2017
+ * @brief MovableFactory class methods implementation
+ *
+ */
 
 
 #include <algorithm>
 #include "MovableFactory.h"
 
+/**
+ * Method creating new ID for movables.
+ * @return new Id for movables
+ */
+
 unsigned int MovableFactory::getMovableId() {
     static unsigned int id=0;
+    if(id == std::numeric_limits<unsigned int>::max()){
+        unsigned int newId = 0;
+        std::for_each(humans.begin(), humans.end(), [&](PtrHuman h){if(h->getId()>newId)newId=h->getId()-1;});
+        return newId;
+    }
+
     return id++;
 }
 
@@ -18,6 +33,16 @@ std::list<PtrCar>& MovableFactory::getCars(){
 std::list<PtrHuman>& MovableFactory::getHumans(){
     return humans;
 }
+
+/**
+ * Method at first looks for a route between starting and ending points.
+ * If route was found, creates car and includes it to the simulation.
+ * @param src as shared_ptr to const Point type object, starting point of the car's route
+ * @param dst as shared_ptr to const Point type object, ending point of the car's route
+ * @param speed integer argument, speed of car
+ * @param crosses vector of shared_ptr to Crosses type objects, needed to make route for car
+ * @return true if route betweend starting and ending points was found and car was created
+ */
 
 bool MovableFactory::createCar(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector<PtrCross> &crosses){
     std::vector<PtrToConstPoint>route;
@@ -31,6 +56,16 @@ bool MovableFactory::createCar(PtrToConstPoint src, PtrToConstPoint dst, int spe
 
     return true;
 }
+
+/**
+ * Method at first looks for a route between starting and ending points.
+ * If route was found, creates human and includes it to the simulation.
+ * @param src as shared_ptr to const Point type object, starting point of the human's route
+ * @param dst as shared_ptr to const Point type object, ending point of the human's route
+ * @param speed integer argument, speed of human
+ * @param crosses vector of shared_ptr to Crosses type objects, needed to make route for human
+ * @return true if route betweend starting and ending points was found and human was created
+ */
 
 bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector<PtrCross> &crosses) {
     std::vector<PtrToConstPoint>route;
@@ -46,6 +81,12 @@ bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int s
 
 }
 
+/**
+ * Adding offset between the street and sidewalk to every point in the found route to
+ * make humans walking on the sidewalks.
+ * @param route as vector of shared_ptr to const Point type objects to add to each point offset between streets and sidewalks
+ */
+
 void MovableFactory::moveHumansOnSidewalks(std::vector<PtrToConstPoint> & route) {
     for(std::vector<PtrToConstPoint>::size_type i = 0; i<route.size(); ++i){
             int newX =  humans.size()%2 == 0 ? route[i]->getX() - PplGUI::OFFSET  :  route[i]->getX() + PplGUI::OFFSET;
@@ -54,6 +95,15 @@ void MovableFactory::moveHumansOnSidewalks(std::vector<PtrToConstPoint> & route)
             route[i] = newPoint;
     }
 }
+
+/**
+ * Finding route between starting point and ending point.
+ * Finding route algorith runs similar to the DFS algorith in graphs.
+ * @param src starting point as shared_ptr<Point>
+ * @param dst endign point as shared_ptr<Point>
+ * @param readyRoute vector to which new points will be written
+ * @param crosses vector of crosses to find route
+ */
 
 void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute, std::vector<PtrCross> &crosses) {
 
@@ -67,7 +117,7 @@ void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
     foundRoute.push(currentCross);
 
 
-    while(!pointMeetsCross(dst, foundRoute.top(), crosses)){
+    while(!pointMeetsCross(dst, foundRoute.top())){
 
         currentCross = foundRoute.top()->getNotVisitedNeighbours();
         if(!currentCross){
@@ -83,7 +133,7 @@ void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
 
     while(!foundRoute.empty()){
         readyRoute.push_back(foundRoute.top()->getPosition());
-        if(pointMeetsCross(src, foundRoute.top(), crosses))break;
+        if(pointMeetsCross(src, foundRoute.top()))break;
         foundRoute.pop();
     }
 
@@ -94,6 +144,11 @@ void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
     readyRoute.push_back(dst);
 }
 
+/**
+ * Preparing crosses to be used by the finding route algorith.
+ * @param crosses to change crosses parametr
+ */
+
 void MovableFactory::prepareRouteFinding(std::vector<PtrCross> &crosses) {
 
     for (std::vector<PtrCross>::size_type i=0; i<crosses.size(); ++i){
@@ -101,7 +156,14 @@ void MovableFactory::prepareRouteFinding(std::vector<PtrCross> &crosses) {
     }
 }
 
-bool MovableFactory::pointMeetsCross(PtrToConstPoint point, PtrCross cross, const std::vector<PtrCross> &crosses) const{
+/**
+ * Checking if point has direct route to the given cross (without any crosses (on the way)
+ * @param point as shared_ptr<Point>, which point we want to check
+ * @param cross as shared_ptr<Cross>, wchoch cross we want to check
+ * @return true if given point has direct route to given cross
+ */
+
+bool MovableFactory::pointMeetsCross(PtrToConstPoint point, PtrCross cross) const{
 
     if(*cross->getPosition() == *point)
         return true;
@@ -131,6 +193,13 @@ bool MovableFactory::pointMeetsCross(PtrToConstPoint point, PtrCross cross, cons
     }
     return false;
 }
+
+/**
+ * Finds the cross that has direct route to the given point.
+ * @param point as shared_ptr<Point>, given point
+ * @param crosses as vector of shared_ptr<Cross> consisting of every existing crosses
+ * @return shared_ptr<Cross> of the cross that directly "sees" the given point
+ */
 
 PtrCross MovableFactory::findNearestCross(PtrToConstPoint point, const std::vector<PtrCross> &crosses) const{
     for(std::vector<PtrCross>::size_type i = 0; i<crosses.size(); ++i){

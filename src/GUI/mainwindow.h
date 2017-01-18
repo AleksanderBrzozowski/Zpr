@@ -41,8 +41,8 @@ public:
     void refresh();
     void resetLabel();
 
-    static const auto REFRESH_TIME;
-    static const auto CAMERA_SCAN_FREQ;
+    static const std::chrono::milliseconds 	 REFRESH_TIME;
+    static const std::chrono::seconds 	 CAMERA_SCAN_FREQ;
 private:
     explicit MainWindow(QWidget *parent = 0);
     MainWindow(const MainWindow &) = delete;

@@ -1,9 +1,20 @@
-//
-// Created by kuco on 12.01.17.
-//
+/**
+ * @file Map.cpp
+ * @Author PiotrKuc (piotr.kuc29@gmail.com)
+ * @date January, 2017
+ * @brief Map class methods implementation
+ *
+ */
 
 #include "Map.h"
 #include <GUI/mainwindow.h>
+
+/**
+ * Calls creating methods in object of MovableFactory type.
+ * @param startingPoint as shared_ptr to Point
+ * @param endingPoint as shared_ptr to Point
+ * @param speed  as integer argument
+ */
 
 
 void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, int speed) {
@@ -11,6 +22,15 @@ void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, 
     movableFactory.createCar(startingPoint, endingPoint, speed, crossFactory.getCrosses());
     criticalSection.unlock();
 }
+
+/**
+ * Checking if road may be created (for example checking if none of buildings
+ * is between these two points). If not -> method returns false.
+ * In other case: calling crosses creating methods from object of CrossFactory type.
+ * @param begin as shared_ptr to Point
+ * @param end as shared_ptr to Point
+ * @return bool value. If true -> new road was created.
+ */
 
 bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
     criticalSection.lock();
@@ -26,6 +46,12 @@ bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
     return true;
 }
 
+/**
+ * If permission is true, new thread is created, where all of the movables
+ * run. If permission is false, the thread finishes.
+ * @param permission says if running thread has to start or to stop.
+ */
+
 void Map::setRunningMovablePermission(bool permission) {
     if (runningMovablePermission == permission) return;
     runningMovablePermission = permission;
@@ -34,6 +60,12 @@ void Map::setRunningMovablePermission(bool permission) {
     else
         runningMovables.join();
 }
+
+/**
+ * If permission is true, new thread is created, where all of the movables
+ * run. If permission is false, the thread finishes.
+ * @param permission says if running thread has to start or stop.
+ */
 
 void Map::setCameraScanningPermission(bool permission) {
     if (cameraScanningPermission == permission) return;
@@ -61,6 +93,13 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
     criticalSection.unlock();
     return true;
 }
+
+/**
+ * All of the movables are asked to make the next move.
+ * If movables end their journey, they are removed from the memory and GUI.
+ * At the end, thread falls asleep for the time set in GUI const values.
+ *
+ */
 
 void Map::runRunningMovables(){
     while(runningMovablePermission){
@@ -100,15 +139,23 @@ void Map::runRunningMovables(){
         }
         criticalSection.unlock();
         MainWindow::getInstance().refresh();
-        std::this_thread::sleep_for (std::chrono::milliseconds(50));
+        std::this_thread::sleep_for (MainWindow::getInstance().REFRESH_TIME);
     }
 }
+
+/**
+ * Calls creating methods in object of MovableFactory type.
+ * @param src as shared_ptr on Point type object
+ * @param dst as shared_ptr on Point type object
+ * @param speed as integer argument
+ */
 
 void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
     criticalSection.lock();
     movableFactory.createHuman(src, dst, speed, crossFactory.getCrosses());
     criticalSection.unlock();
 }
+
 
 void Map::runCamerasScanning() {
     while (cameraScanningPermission) {
@@ -117,6 +164,7 @@ void Map::runCamerasScanning() {
         std::vector<PtrConstHuman> humans(movableFactory.getHumans().begin(), movableFactory.getHumans().end());
         facilities.scan(cars, humans);
         criticalSection.unlock();
+        std::this_thread::sleep_for (MainWindow::getInstance().CAMERA_SCAN_FREQ);
     }
 }
 
