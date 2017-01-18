@@ -22,7 +22,7 @@ const QColor PplGUI::GHOST_BRUSH_COLOR = QColor(255, 105, 97, 127);
 const QBrush PplGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 const QBrush PplGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);
 
-const int PplGUI::SPEED = 4;
+const int PplGUI::SPEED = 1;
 const int PplGUI::OFFSET = GridGUI::SIZE/2 - RoadGUI::SIDEWALK_WIDTH/2;
 
 /*!
