@@ -11,9 +11,19 @@
 #include "cameragui.h"
 #include "qevent.h"
 
+/*!
+ * \brief The EventInterpreter class.
+ * \details Object responsible for interpretating user input.
+ * It has field that remebers current tool chosen by user and
+ * using that can interpret maouse and keyboard events properly.
+ */
 class EventInterpreter: public QObject {
     Q_OBJECT
 public:
+    /*!
+     * \brief The Option enum.
+     * \details Enum class describing current tool.
+     */
     enum class Option {setRoad, setCar, setFastCar, setBuilding, setCamera,
                        setHuman, doNothing};
 
@@ -33,7 +43,6 @@ signals:
     void drawableCreated(Drawable*);
     void cameraCreated(CameraGUI*);
 private:
-    enum class buildingSize {small, big, high, wide};
     Option currentOption;
     Point anchor;
     bool anchorValid;

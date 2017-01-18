@@ -1,5 +1,10 @@
 #include "mainwindow.h"
 
+///\brief MainWindow::REFRESH_TIME. Time between cars movement.
+const auto MainWindow::REFRESH_TIME = std::chrono::milliseconds(50);
+///\brief MainWindow::CAMERA_SCAN_FREQ. Time between camera scans
+const auto MainWindow::CAMERA_SCAN_FREQ = std::chrono::seconds(1);
+
 /*!
  * \brief MainWindow::getInstance.
  * \return Returns instance of MainWindow object. Only way
@@ -132,7 +137,8 @@ void MainWindow::refresh() {
  * \brief MainWindow::setMap.
  * \param map
  * \details Sets map object to allow pass user-generated events
- * to model.
+ * to model. Without map any user input won't take any affect.
+ * \sa EventInterpreter::setMap.
  */
 void MainWindow::setMap(std::shared_ptr<Map> map) {
     mapArea->setMap(map);

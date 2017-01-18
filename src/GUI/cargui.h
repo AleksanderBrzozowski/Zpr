@@ -6,8 +6,8 @@
 
 class CarGUI : public Drawable {
 public:
-    CarGUI(unsigned int layer, QRect carRect, bool fast = false, bool ghost = false);
-    CarGUI(unsigned int layer, unsigned int x, unsigned int y, bool fast = false, bool ghost = false);
+    CarGUI(QRect carRect, bool fast = false, bool ghost = false);
+    CarGUI(unsigned int x, unsigned int y, bool fast = false, bool ghost = false);
     ~CarGUI();
     void draw(QPainter &painter) const override;
     void setTo(unsigned int x, unsigned int y) override;

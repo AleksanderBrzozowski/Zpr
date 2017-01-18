@@ -34,13 +34,13 @@ const unsigned int CarGUI::FAST_CAR_SPEED = 5;
 
 
 
-CarGUI::CarGUI(unsigned int layer, QRect carRect, bool fast, bool ghost) :
-    Drawable(layer, ghost), carRect(carRect), fast(fast) {
+CarGUI::CarGUI(QRect carRect, bool fast, bool ghost) :
+    Drawable(ghost), carRect(carRect), fast(fast) {
 
 }
 
-CarGUI::CarGUI(unsigned int layer, unsigned int x, unsigned int y, bool fast, bool ghost) :
-    Drawable(layer, ghost), fast(fast),
+CarGUI::CarGUI(unsigned int x, unsigned int y, bool fast, bool ghost) :
+    Drawable(ghost), fast(fast),
     carRect(x - WIDTH/2, y - HEIGHT/2,
             WIDTH, HEIGHT) {
 
