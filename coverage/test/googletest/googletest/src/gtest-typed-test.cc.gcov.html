@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/src/gtest-typed-test.cc</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/src</a> - gtest-typed-test.cc<span style="font-size: 80%;"> (source / <a href="gtest-typed-test.cc.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">31</td>
+            <td class="headerCovTableEntryLo">3.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryLo">50.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2008 Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All Rights Reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Author: wan@google.com (Zhanyong Wan)
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : #include &quot;gtest/gtest-typed-test.h&quot;
+<span class="lineNum">      33 </span>            : #include &quot;gtest/gtest.h&quot;
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : namespace testing {
+<span class="lineNum">      36 </span>            : namespace internal {
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : #if GTEST_HAS_TYPED_TEST_P
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : // Skips to the first non-space char in str. Returns an empty string if str
+<a name="41"><span class="lineNum">      41 </span>            : // contains only whitespace characters.</a>
+<span class="lineNum">      42 </span>            : static const char* SkipSpaces(const char* str) {
+<span class="lineNum">      43 </span><span class="lineNoCov">          0 :   while (IsSpace(*str))</span>
+<span class="lineNum">      44 </span><span class="lineNoCov">          0 :     str++;</span>
+<span class="lineNum">      45 </span>            :   return str;
+<span class="lineNum">      46 </span>            : }
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span><span class="lineNoCov">          0 : static std::vector&lt;std::string&gt; SplitIntoTestNames(const char* src) {</span>
+<span class="lineNum">      49 </span>            :   std::vector&lt;std::string&gt; name_vec;
+<span class="lineNum">      50 </span>            :   src = SkipSpaces(src);
+<span class="lineNum">      51 </span><span class="lineNoCov">          0 :   for (; src != NULL; src = SkipComma(src)) {</span>
+<span class="lineNum">      52 </span><span class="lineNoCov">          0 :     name_vec.push_back(StripTrailingSpaces(GetPrefixUntilComma(src)));</span>
+<span class="lineNum">      53 </span>            :   }
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 :   return name_vec;</span>
+<span class="lineNum">      55 </span>            : }
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span>            : // Verifies that registered_tests match the test names in
+<span class="lineNum">      58 </span>            : // registered_tests_; returns registered_tests if successful, or
+<span class="lineNum">      59 </span>            : // aborts the program otherwise.
+<span class="lineNum">      60 </span><span class="lineNoCov">          0 : const char* TypedTestCasePState::VerifyRegisteredTestNames(</span>
+<span class="lineNum">      61 </span>            :     const char* file, int line, const char* registered_tests) {
+<span class="lineNum">      62 </span>            :   typedef RegisteredTestsMap::const_iterator RegisteredTestIter;
+<span class="lineNum">      63 </span><span class="lineNoCov">          0 :   registered_ = true;</span>
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span><span class="lineNoCov">          0 :   std::vector&lt;std::string&gt; name_vec = SplitIntoTestNames(registered_tests);</span>
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span><span class="lineNoCov">          0 :   Message errors;</span>
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span>            :   std::set&lt;std::string&gt; tests;
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :   for (std::vector&lt;std::string&gt;::const_iterator name_it = name_vec.begin();</span>
+<span class="lineNum">      71 </span><span class="lineNoCov">          0 :        name_it != name_vec.end(); ++name_it) {</span>
+<span class="lineNum">      72 </span><span class="lineNoCov">          0 :     const std::string&amp; name = *name_it;</span>
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 :     if (tests.count(name) != 0) {</span>
+<span class="lineNum">      74 </span><span class="lineNoCov">          0 :       errors &lt;&lt; &quot;Test &quot; &lt;&lt; name &lt;&lt; &quot; is listed more than once.\n&quot;;</span>
+<span class="lineNum">      75 </span>            :       continue;
+<span class="lineNum">      76 </span>            :     }
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span><span class="lineNoCov">          0 :     bool found = false;</span>
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 :     for (RegisteredTestIter it = registered_tests_.begin();</span>
+<span class="lineNum">      80 </span><span class="lineNoCov">          0 :          it != registered_tests_.end();</span>
+<span class="lineNum">      81 </span>            :          ++it) {
+<span class="lineNum">      82 </span><span class="lineNoCov">          0 :       if (name == it-&gt;first) {</span>
+<span class="lineNum">      83 </span>            :         found = true;
+<span class="lineNum">      84 </span>            :         break;
+<span class="lineNum">      85 </span>            :       }
+<span class="lineNum">      86 </span>            :     }
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span><span class="lineNoCov">          0 :     if (found) {</span>
+<span class="lineNum">      89 </span>            :       tests.insert(name);
+<span class="lineNum">      90 </span>            :     } else {
+<span class="lineNum">      91 </span><span class="lineNoCov">          0 :       errors &lt;&lt; &quot;No test named &quot; &lt;&lt; name</span>
+<span class="lineNum">      92 </span>            :              &lt;&lt; &quot; can be found in this test case.\n&quot;;
+<span class="lineNum">      93 </span>            :     }
+<span class="lineNum">      94 </span>            :   }
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 :   for (RegisteredTestIter it = registered_tests_.begin();</span>
+<span class="lineNum">      97 </span><span class="lineNoCov">          0 :        it != registered_tests_.end();</span>
+<span class="lineNum">      98 </span>            :        ++it) {
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 :     if (tests.count(it-&gt;first) == 0) {</span>
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :       errors &lt;&lt; &quot;You forgot to list test &quot; &lt;&lt; it-&gt;first &lt;&lt; &quot;.\n&quot;;</span>
+<span class="lineNum">     101 </span>            :     }
+<span class="lineNum">     102 </span>            :   }
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span><span class="lineNoCov">          0 :   const std::string&amp; errors_str = errors.GetString();</span>
+<span class="lineNum">     105 </span><span class="lineNoCov">          0 :   if (errors_str != &quot;&quot;) {</span>
+<span class="lineNum">     106 </span>            :     fprintf(stderr, &quot;%s %s&quot;, FormatFileLocation(file, line).c_str(),
+<span class="lineNum">     107 </span><span class="lineNoCov">          0 :             errors_str.c_str());</span>
+<span class="lineNum">     108 </span><span class="lineNoCov">          0 :     fflush(stderr);</span>
+<span class="lineNum">     109 </span>            :     posix::Abort();
+<span class="lineNum">     110 </span>            :   }
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span><span class="lineNoCov">          0 :   return registered_tests;</span>
+<span class="lineNum">     113 </span>            : }
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span>            : #endif  // GTEST_HAS_TYPED_TEST_P
+<a name="116"><span class="lineNum">     116 </span>            : </a>
+<span class="lineNum">     117 </span>            : }  // namespace internal
+<span class="lineNum">     118 </span><span class="lineCov">          3 : }  // namespace testing</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

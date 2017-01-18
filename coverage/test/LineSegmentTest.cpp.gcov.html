@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/LineSegmentTest.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">test</a> - LineSegmentTest.cpp<span style="font-size: 80%;"> (source / <a href="LineSegmentTest.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">47</td>
+            <td class="headerCovTableEntry">47</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">26</td>
+            <td class="headerCovTableEntryLo">69.2 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //</a>
+<span class="lineNum">       2 </span>            : // Created by aleksander on 06.01.17.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span>            : #include &lt;gtest/gtest.h&gt;
+<span class="lineNum">       6 </span>            : #include &lt;LineSegment.h&gt;
+<a name="7"><span class="lineNum">       7 </span>            : </a>
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span><span class="lineCov">          8 : TEST(LineSegmentTest, ThrowExceptionWhenPointsSameInCtor) {</span>
+<span class="lineNum">      10 </span><span class="lineCov">          1 :     ASSERT_THROW(LineSegment(Point(1, 1), Point(1, 1)), std::invalid_argument);</span>
+<span class="lineNum">      11 </span>            : }
+<a name="12"><span class="lineNum">      12 </span>            : </a>
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span><span class="lineCov">          8 : TEST(LineSegmentTest, OneSolutionWhenNotParralelLines) {</span>
+<span class="lineNum">      15 </span><span class="lineCov">          1 :     LineSegment first(Point(1, 1), Point(2, 2));</span>
+<span class="lineNum">      16 </span><span class="lineCov">          1 :     LineSegment second(Point(2, 0), Point(0, 2));</span>
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span><span class="lineCov">          2 :     ASSERT_TRUE(first.hasIntersection(second));</span>
+<span class="lineNum">      19 </span><span class="lineCov">          2 :     ASSERT_TRUE(second.hasIntersection(first));</span>
+<a name="20"><span class="lineNum">      20 </span>            : }</a>
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span><span class="lineCov">          8 : TEST(LineSegmentTest, NoIntersect) {</span>
+<span class="lineNum">      23 </span><span class="lineCov">          1 :     LineSegment first(Point(1, 1), Point(2, 2));</span>
+<span class="lineNum">      24 </span><span class="lineCov">          1 :     LineSegment second(Point(-1, 0), Point(2, -1));</span>
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span><span class="lineCov">          2 :     ASSERT_FALSE(first.hasIntersection(second));</span>
+<span class="lineNum">      27 </span><span class="lineCov">          2 :     ASSERT_FALSE(second.hasIntersection(first));</span>
+<a name="28"><span class="lineNum">      28 </span>            : }</a>
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span><span class="lineCov">          8 : TEST(LineSegmentTest, ThrowExceptionWhenNonIntersect) {</span>
+<span class="lineNum">      31 </span><span class="lineCov">          1 :     LineSegment first(Point(-2, 1), Point(-3, 5));</span>
+<span class="lineNum">      32 </span><span class="lineCov">          1 :     LineSegment second(Point(-3, 0), Point(-4, 4));</span>
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span><span class="lineCov">          2 :     ASSERT_THROW(first.intersectionPoint(second), std::invalid_argument);</span>
+<span class="lineNum">      35 </span><span class="lineCov">          2 :     ASSERT_THROW(second.intersectionPoint(first), std::invalid_argument);</span>
+<a name="36"><span class="lineNum">      36 </span>            : }</a>
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span><span class="lineCov">          8 : TEST(LineSegmentTest, ThrowExceptionWhenManyIntersect) {</span>
+<span class="lineNum">      39 </span><span class="lineCov">          1 :     LineSegment first(Point(-1, -1), Point(5, 5));</span>
+<span class="lineNum">      40 </span><span class="lineCov">          1 :     LineSegment second(Point(1, 1), Point(2, 2));</span>
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span><span class="lineCov">          2 :     ASSERT_THROW(first.intersectionPoint(second), std::invalid_argument);</span>
+<span class="lineNum">      43 </span><span class="lineCov">          2 :     ASSERT_THROW(second.intersectionPoint(first), std::invalid_argument);</span>
+<a name="44"><span class="lineNum">      44 </span>            : }</a>
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span><span class="lineCov">          8 : TEST(LineSegmentTest, intersectionWhenOneSolution) {</span>
+<span class="lineNum">      47 </span><span class="lineCov">          1 :     LineSegment first(Point(1, 1), Point(2, 2));</span>
+<span class="lineNum">      48 </span><span class="lineCov">          1 :     LineSegment second(Point(5, 5), Point(5, 11));</span>
+<span class="lineNum">      49 </span><span class="lineCov">          1 :     LineSegment third(Point(6, -1), Point(10, -1));</span>
+<span class="lineNum">      50 </span>            : 
+<span class="lineNum">      51 </span><span class="lineCov">          2 :     ASSERT_EQ((std::pair&lt;float, float&gt;(5, 5)), first.intersectionPoint(second));</span>
+<span class="lineNum">      52 </span><span class="lineCov">          2 :     ASSERT_EQ((std::pair&lt;float, float&gt;(5, 5)), second.intersectionPoint(first));</span>
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span><span class="lineCov">          2 :     ASSERT_EQ((std::pair&lt;float, float&gt;(-1, -1)), first.intersectionPoint(third));</span>
+<span class="lineNum">      55 </span><span class="lineCov">          2 :     ASSERT_EQ((std::pair&lt;float, float&gt;(-1, -1)), third.intersectionPoint(first));</span>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span><span class="lineCov">          2 :     ASSERT_EQ((std::pair&lt;float, float&gt;(5, -1)), third.intersectionPoint(second));</span>
+<span class="lineNum">      58 </span><span class="lineCov">          2 :     ASSERT_EQ((std::pair&lt;float, float&gt;(5, -1)), second.intersectionPoint(third));</span>
+<a name="59"><span class="lineNum">      59 </span>            : }</a>
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span><span class="lineCov">          8 : TEST(LineSegmentTest, parralelLinesIntersect) {</span>
+<span class="lineNum">      62 </span><span class="lineCov">          1 :     LineSegment first(Point(1, 1), Point(2, 2));</span>
+<span class="lineNum">      63 </span><span class="lineCov">          1 :     LineSegment second(Point(0, 0), Point(3, 3));</span>
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span><span class="lineCov">          2 :     ASSERT_TRUE(first.hasIntersection(second));</span>
+<span class="lineNum">      66 </span><span class="lineCov">          2 :     ASSERT_TRUE(second.hasIntersection(first));</span>
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span><span class="lineCov">          1 :     LineSegment third(Point(0, 0), Point(1, 1));</span>
+<span class="lineNum">      69 </span><span class="lineCov">          1 :     LineSegment fourth(Point(0, 0), Point(1, 1));</span>
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span><span class="lineCov">          2 :     ASSERT_TRUE(third.hasIntersection(fourth));</span>
+<span class="lineNum">      72 </span><span class="lineCov">          2 :     ASSERT_TRUE(fourth.hasIntersection(third));</span>
+<a name="73"><span class="lineNum">      73 </span>            : }</a>
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span><span class="lineCov">          8 : TEST(LineSegmentTest, parralelLinesNotIntersect) {</span>
+<span class="lineNum">      76 </span><span class="lineCov">          1 :     LineSegment first(Point(1, 1), Point(2, 2));</span>
+<span class="lineNum">      77 </span><span class="lineCov">          1 :     LineSegment second(Point(3, 3), Point(4, 4));</span>
+<span class="lineNum">      78 </span>            : 
+<a name="79"><span class="lineNum">      79 </span><span class="lineCov">          2 :     ASSERT_FALSE(first.hasIntersection(second));</span></a>
+<span class="lineNum">      80 </span><span class="lineCov">          2 :     ASSERT_FALSE(second.hasIntersection(first));</span>
+<span class="lineNum">      81 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/src/gtest-test-part.cc</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/src</a> - gtest-test-part.cc<span style="font-size: 80%;"> (source / <a href="gtest-test-part.cc.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">30</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2008, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Author: mheule@google.com (Markus Heule)
+<span class="lineNum">      31 </span>            : //
+<span class="lineNum">      32 </span>            : // The Google C++ Testing Framework (Google Test)
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : #include &quot;gtest/gtest-test-part.h&quot;
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : // Indicates that this translation unit is part of Google Test's
+<span class="lineNum">      37 </span>            : // implementation.  It must come before gtest-internal-inl.h is
+<span class="lineNum">      38 </span>            : // included, or there will be a compiler error.  This trick exists to
+<span class="lineNum">      39 </span>            : // prevent the accidental inclusion of gtest-internal-inl.h in the
+<span class="lineNum">      40 </span>            : // user's code.
+<span class="lineNum">      41 </span>            : #define GTEST_IMPLEMENTATION_ 1
+<span class="lineNum">      42 </span>            : #include &quot;src/gtest-internal-inl.h&quot;
+<span class="lineNum">      43 </span>            : #undef GTEST_IMPLEMENTATION_
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : namespace testing {
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            : using internal::GetUnitTestImpl;
+<span class="lineNum">      48 </span>            : 
+<a name="49"><span class="lineNum">      49 </span>            : // Gets the summary of the failure message by omitting the stack trace</a>
+<span class="lineNum">      50 </span>            : // in it.
+<span class="lineNum">      51 </span><span class="lineNoCov">          0 : std::string TestPartResult::ExtractSummary(const char* message) {</span>
+<span class="lineNum">      52 </span><span class="lineNoCov">          0 :   const char* const stack_trace = strstr(message, internal::kStackTraceMarker);</span>
+<span class="lineNum">      53 </span>            :   return stack_trace == NULL ? message :
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 :       std::string(message, stack_trace);</span>
+<span class="lineNum">      55 </span>            : }
+<a name="56"><span class="lineNum">      56 </span>            : </a>
+<span class="lineNum">      57 </span>            : // Prints a TestPartResult object.
+<span class="lineNum">      58 </span><span class="lineNoCov">          0 : std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const TestPartResult&amp; result) {</span>
+<span class="lineNum">      59 </span>            :   return os
+<span class="lineNum">      60 </span><span class="lineNoCov">          0 :       &lt;&lt; result.file_name() &lt;&lt; &quot;:&quot; &lt;&lt; result.line_number() &lt;&lt; &quot;: &quot;</span>
+<span class="lineNum">      61 </span><span class="lineNoCov">          0 :       &lt;&lt; (result.type() == TestPartResult::kSuccess ? &quot;Success&quot; :</span>
+<span class="lineNum">      62 </span><span class="lineNoCov">          0 :           result.type() == TestPartResult::kFatalFailure ? &quot;Fatal failure&quot; :</span>
+<span class="lineNum">      63 </span><span class="lineNoCov">          0 :           &quot;Non-fatal failure&quot;) &lt;&lt; &quot;:\n&quot;</span>
+<span class="lineNum">      64 </span><span class="lineNoCov">          0 :       &lt;&lt; result.message() &lt;&lt; std::endl;</span>
+<span class="lineNum">      65 </span>            : }
+<a name="66"><span class="lineNum">      66 </span>            : </a>
+<span class="lineNum">      67 </span>            : // Appends a TestPartResult to the array.
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 : void TestPartResultArray::Append(const TestPartResult&amp; result) {</span>
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :   array_.push_back(result);</span>
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 : }</span>
+<a name="71"><span class="lineNum">      71 </span>            : </a>
+<span class="lineNum">      72 </span>            : // Returns the TestPartResult at the given index (0-based).
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 : const TestPartResult&amp; TestPartResultArray::GetTestPartResult(int index) const {</span>
+<span class="lineNum">      74 </span><span class="lineNoCov">          0 :   if (index &lt; 0 || index &gt;= size()) {</span>
+<span class="lineNum">      75 </span>            :     printf(&quot;\nInvalid index (%d) into TestPartResultArray.\n&quot;, index);
+<span class="lineNum">      76 </span>            :     internal::posix::Abort();
+<span class="lineNum">      77 </span>            :   }
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 :   return array_[index];</span>
+<span class="lineNum">      80 </span>            : }
+<a name="81"><span class="lineNum">      81 </span>            : </a>
+<span class="lineNum">      82 </span>            : // Returns the number of TestPartResult objects in the array.
+<span class="lineNum">      83 </span><span class="lineNoCov">          0 : int TestPartResultArray::size() const {</span>
+<span class="lineNum">      84 </span><span class="lineNoCov">          0 :   return static_cast&lt;int&gt;(array_.size());</span>
+<span class="lineNum">      85 </span>            : }
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : namespace internal {
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span><span class="lineNoCov">          0 : HasNewFatalFailureHelper::HasNewFatalFailureHelper()</span>
+<span class="lineNum">      90 </span>            :     : has_new_fatal_failure_(false),
+<span class="lineNum">      91 </span>            :       original_reporter_(GetUnitTestImpl()-&gt;
+<span class="lineNum">      92 </span><span class="lineNoCov">          0 :                          GetTestPartResultReporterForCurrentThread()) {</span>
+<span class="lineNum">      93 </span><span class="lineNoCov">          0 :   GetUnitTestImpl()-&gt;SetTestPartResultReporterForCurrentThread(this);</span>
+<a name="94"><span class="lineNum">      94 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 : HasNewFatalFailureHelper::~HasNewFatalFailureHelper() {</span>
+<span class="lineNum">      97 </span>            :   GetUnitTestImpl()-&gt;SetTestPartResultReporterForCurrentThread(
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :       original_reporter_);</span>
+<a name="99"><span class="lineNum">      99 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span><span class="lineNoCov">          0 : void HasNewFatalFailureHelper::ReportTestPartResult(</span>
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 :     const TestPartResult&amp; result) {</span>
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :   if (result.fatally_failed())</span>
+<span class="lineNum">     104 </span><span class="lineNoCov">          0 :     has_new_fatal_failure_ = true;</span>
+<span class="lineNum">     105 </span><span class="lineNoCov">          0 :   original_reporter_-&gt;ReportTestPartResult(result);</span>
+<span class="lineNum">     106 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span>            : }  // namespace internal
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            : }  // namespace testing
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

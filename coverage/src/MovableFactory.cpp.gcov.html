@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/MovableFactory.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - MovableFactory.cpp<span style="font-size: 80%;"> (source / <a href="MovableFactory.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">58</td>
+            <td class="headerCovTableEntry">82</td>
+            <td class="headerCovTableEntryLo">70.7 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryLo">61.5 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /**</a>
+<span class="lineNum">       2 </span>            :  * @file Map.cpp
+<span class="lineNum">       3 </span>            :  * @Author PiotrKuc (piotr.kuc29@gmail.com)
+<span class="lineNum">       4 </span>            :  * @date January, 2017
+<span class="lineNum">       5 </span>            :  * @brief MovableFactory class methods implementation
+<span class="lineNum">       6 </span>            :  *
+<span class="lineNum">       7 </span>            :  */
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">      11 </span>            : #include &quot;MovableFactory.h&quot;
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            : /**
+<span class="lineNum">      14 </span>            :  * Method creating new ID for movables.
+<span class="lineNum">      15 </span>            :  * @return new Id for movables
+<a name="16"><span class="lineNum">      16 </span>            :  */</a>
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span><span class="lineCov">          2 : unsigned int MovableFactory::getMovableId() {</span>
+<span class="lineNum">      19 </span>            :     static unsigned int id=0;
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">          2 :     if(id == std::numeric_limits&lt;unsigned int&gt;::max()){</span></a>
+<span class="lineNum">      21 </span><span class="lineNoCov">          0 :         unsigned int newId = 0;</span>
+<span class="lineNum">      22 </span><span class="lineNoCov">          0 :         std::for_each(humans.begin(), humans.end(), [&amp;](PtrHuman h){if(h-&gt;getId()&gt;newId)newId=h-&gt;getId()-1;});</span>
+<span class="lineNum">      23 </span><span class="lineNoCov">          0 :         return newId;</span>
+<span class="lineNum">      24 </span>            :     }
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span><span class="lineCov">          2 :     return id++;</span>
+<a name="27"><span class="lineNum">      27 </span>            : }</a>
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span><span class="lineNoCov">          0 : std::list&lt;PtrCar&gt;&amp; MovableFactory::getCars(){</span>
+<span class="lineNum">      30 </span><span class="lineNoCov">          0 :     return cars;</span>
+<a name="31"><span class="lineNum">      31 </span>            : }</a>
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span><span class="lineNoCov">          0 : std::list&lt;PtrHuman&gt;&amp; MovableFactory::getHumans(){</span>
+<span class="lineNum">      34 </span><span class="lineNoCov">          0 :     return humans;</span>
+<span class="lineNum">      35 </span>            : }
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : /**
+<span class="lineNum">      38 </span>            :  * Method at first looks for a route between starting and ending points.
+<span class="lineNum">      39 </span>            :  * If route was found, creates car and includes it to the simulation.
+<span class="lineNum">      40 </span>            :  * @param src as shared_ptr to const Point type object, starting point of the car's route
+<span class="lineNum">      41 </span>            :  * @param dst as shared_ptr to const Point type object, ending point of the car's route
+<span class="lineNum">      42 </span>            :  * @param speed integer argument, speed of car
+<span class="lineNum">      43 </span>            :  * @param crosses vector of shared_ptr to Crosses type objects, needed to make route for car
+<span class="lineNum">      44 </span>            :  * @return true if route betweend starting and ending points was found and car was created
+<span class="lineNum">      45 </span>            :  */
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span><span class="lineCov">          5 : bool MovableFactory::createCar(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector&lt;PtrCross&gt; &amp;crosses){</span>
+<span class="lineNum">      48 </span>            :     std::vector&lt;PtrToConstPoint&gt;route;
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span><span class="lineCov">         15 :     findRoute(src, dst, route, crosses);</span>
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span><span class="lineCov">          5 :     if(route.empty() || speed&lt;=0)</span>
+<span class="lineNum">      53 </span>            :         return false;
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span><span class="lineCov">          4 :     cars.push_back( Car::createCar(*route[0], route, speed, getMovableId()) );</span>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span><span class="lineCov">          2 :     return true;</span>
+<span class="lineNum">      58 </span>            : }
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span>            : /**
+<span class="lineNum">      61 </span>            :  * Method at first looks for a route between starting and ending points.
+<span class="lineNum">      62 </span>            :  * If route was found, creates human and includes it to the simulation.
+<span class="lineNum">      63 </span>            :  * @param src as shared_ptr to const Point type object, starting point of the human's route
+<span class="lineNum">      64 </span>            :  * @param dst as shared_ptr to const Point type object, ending point of the human's route
+<span class="lineNum">      65 </span>            :  * @param speed integer argument, speed of human
+<span class="lineNum">      66 </span>            :  * @param crosses vector of shared_ptr to Crosses type objects, needed to make route for human
+<span class="lineNum">      67 </span>            :  * @return true if route betweend starting and ending points was found and human was created
+<span class="lineNum">      68 </span>            :  */
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 : bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector&lt;PtrCross&gt; &amp;crosses) {</span>
+<span class="lineNum">      71 </span>            :     std::vector&lt;PtrToConstPoint&gt;route;
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 :     findRoute(src, dst, route, crosses);</span>
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span><span class="lineNoCov">          0 :     if(route.empty() || speed&lt;=0)</span>
+<span class="lineNum">      76 </span>            :         return false;
+<span class="lineNum">      77 </span><span class="lineNoCov">          0 :     moveHumansOnSidewalks(route);</span>
+<span class="lineNum">      78 </span><span class="lineNoCov">          0 :     humans.push_back( Human::createHuman(*route[0], route, speed, getMovableId()) );</span>
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span><span class="lineNoCov">          0 :     return true;</span>
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : }
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            : /**
+<span class="lineNum">      85 </span>            :  * Adding offset between the street and sidewalk to every point in the found route to
+<span class="lineNum">      86 </span>            :  * make humans walking on the sidewalks.
+<span class="lineNum">      87 </span>            :  * @param route as vector of shared_ptr to const Point type objects to add to each point offset between streets and sidewalks
+<span class="lineNum">      88 </span>            :  */
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span><span class="lineNoCov">          0 : void MovableFactory::moveHumansOnSidewalks(std::vector&lt;PtrToConstPoint&gt; &amp; route) {</span>
+<span class="lineNum">      91 </span><span class="lineNoCov">          0 :     for(std::vector&lt;PtrToConstPoint&gt;::size_type i = 0; i&lt;route.size(); ++i){</span>
+<span class="lineNum">      92 </span><span class="lineNoCov">          0 :             int newX =  humans.size()%2 == 0 ? route[i]-&gt;getX() - PplGUI::OFFSET  :  route[i]-&gt;getX() + PplGUI::OFFSET;</span>
+<span class="lineNum">      93 </span><span class="lineNoCov">          0 :             int newY =  humans.size()%2 == 0 ? route[i]-&gt;getY() - PplGUI::OFFSET  :  route[i]-&gt;getY() + PplGUI::OFFSET;;</span>
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 :             PtrToConstPoint newPoint = std::make_shared&lt;Point&gt;(newX, newY);</span>
+<span class="lineNum">      95 </span><span class="lineNoCov">          0 :             route[i] = newPoint;</span>
+<span class="lineNum">      96 </span>            :     }
+<span class="lineNum">      97 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span>            : /**
+<span class="lineNum">     100 </span>            :  * Finding route between starting point and ending point.
+<span class="lineNum">     101 </span>            :  * Finding route algorith runs similar to the DFS algorith in graphs.
+<span class="lineNum">     102 </span>            :  * @param src starting point as shared_ptr&lt;Point&gt;
+<span class="lineNum">     103 </span>            :  * @param dst endign point as shared_ptr&lt;Point&gt;
+<span class="lineNum">     104 </span>            :  * @param readyRoute vector to which new points will be written
+<span class="lineNum">     105 </span>            :  * @param crosses vector of crosses to find route
+<span class="lineNum">     106 </span>            :  */
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span><span class="lineCov">         14 : void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector&lt;PtrToConstPoint&gt;&amp;readyRoute, std::vector&lt;PtrCross&gt; &amp;crosses) {</span>
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span><span class="lineCov">         14 :     std::stack&lt;PtrCross&gt;foundRoute;</span>
+<span class="lineNum">     111 </span><span class="lineCov">         28 :     PtrCross currentCross = findNearestCross(src, crosses);</span>
+<span class="lineNum">     112 </span><span class="lineCov">         28 :     if(currentCross == nullptr)</span>
+<span class="lineNum">     113 </span>            :         return;
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span><span class="lineCov">         13 :     prepareRouteFinding(crosses);</span>
+<span class="lineNum">     116 </span><span class="lineCov">         13 :     currentCross-&gt;setVisited(true);</span>
+<span class="lineNum">     117 </span>            :     foundRoute.push(currentCross);
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span><span class="lineCov">        268 :     while(!pointMeetsCross(dst, foundRoute.top())){</span>
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span><span class="lineCov">        114 :         currentCross = foundRoute.top()-&gt;getNotVisitedNeighbours();</span>
+<span class="lineNum">     123 </span><span class="lineCov">         57 :         if(!currentCross){</span>
+<span class="lineNum">     124 </span>            :             foundRoute.pop();
+<span class="lineNum">     125 </span>            :         }
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span>            :         else{
+<span class="lineNum">     128 </span>            :             foundRoute.push(currentCross);
+<span class="lineNum">     129 </span><span class="lineCov">         33 :             currentCross-&gt;setVisited(true);</span>
+<span class="lineNum">     130 </span>            :         }
+<span class="lineNum">     131 </span><span class="lineCov">         57 :         if(foundRoute.empty()) return;</span>
+<span class="lineNum">     132 </span>            :     }
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span><span class="lineCov">         17 :     while(!foundRoute.empty()){</span>
+<span class="lineNum">     135 </span><span class="lineCov">         34 :         readyRoute.push_back(foundRoute.top()-&gt;getPosition());</span>
+<span class="lineNum">     136 </span><span class="lineCov">         68 :         if(pointMeetsCross(src, foundRoute.top()))break;</span>
+<span class="lineNum">     137 </span>            :         foundRoute.pop();
+<span class="lineNum">     138 </span>            :     }
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span><span class="lineCov">         20 :     if(readyRoute.empty() || *readyRoute.back() != *src)</span>
+<span class="lineNum">     141 </span><span class="lineCov">          7 :         readyRoute.push_back(src);</span>
+<span class="lineNum">     142 </span>            :     std::reverse(readyRoute.begin(), readyRoute.end());
+<span class="lineNum">     143 </span><span class="lineCov">         20 :     if(*readyRoute.back() != *dst);</span>
+<span class="lineNum">     144 </span><span class="lineCov">         10 :     readyRoute.push_back(dst);</span>
+<span class="lineNum">     145 </span>            : }
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            : /**
+<span class="lineNum">     148 </span>            :  * Preparing crosses to be used by the finding route algorith.
+<span class="lineNum">     149 </span>            :  * @param crosses to change crosses parametr
+<a name="150"><span class="lineNum">     150 </span>            :  */</a>
+<span class="lineNum">     151 </span>            : 
+<span class="lineNum">     152 </span><span class="lineCov">        185 : void MovableFactory::prepareRouteFinding(std::vector&lt;PtrCross&gt; &amp;crosses) {</span>
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span><span class="lineCov">        344 :     for (std::vector&lt;PtrCross&gt;::size_type i=0; i&lt;crosses.size(); ++i){</span>
+<span class="lineNum">     155 </span><span class="lineCov">        146 :         crosses[i]-&gt;setVisited(false);</span>
+<span class="lineNum">     156 </span>            :     }
+<span class="lineNum">     157 </span><span class="lineCov">         13 : }</span>
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span>            : /**
+<span class="lineNum">     160 </span>            :  * Checking if point has direct route to the given cross (without any crosses (on the way)
+<span class="lineNum">     161 </span>            :  * @param point as shared_ptr&lt;Point&gt;, which point we want to check
+<span class="lineNum">     162 </span>            :  * @param cross as shared_ptr&lt;Cross&gt;, wchoch cross we want to check
+<span class="lineNum">     163 </span>            :  * @return true if given point has direct route to given cross
+<span class="lineNum">     164 </span>            :  */
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span><span class="lineCov">         85 : bool MovableFactory::pointMeetsCross(PtrToConstPoint point, PtrCross cross) const{</span>
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span><span class="lineCov">        657 :     if(*cross-&gt;getPosition() == *point)</span>
+<span class="lineNum">     169 </span>            :         return true;
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span><span class="lineCov">        328 :     else if(cross-&gt;getPosition()-&gt;getX() == point-&gt;getX()){</span>
+<span class="lineNum">     172 </span><span class="lineCov">        124 :         if(cross-&gt;getPosition()-&gt;getY() &gt;= point-&gt;getY() &amp;&amp; cross-&gt;getNorthNeighbour() != nullptr){</span>
+<span class="lineNum">     173 </span><span class="lineCov">         40 :             if(point-&gt;getY() &gt;= cross-&gt;getNorthNeighbour()-&gt;getPosition()-&gt;getY())</span>
+<span class="lineNum">     174 </span>            :                 return true;
+<span class="lineNum">     175 </span>            :         }
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span><span class="lineCov">        119 :         else if(cross-&gt;getPosition()-&gt;getY() &lt;= point-&gt;getY() &amp;&amp; cross-&gt;getSouthNeighbour() != nullptr){</span>
+<span class="lineNum">     178 </span><span class="lineCov">         60 :             if(point-&gt;getY() &lt;= cross-&gt;getSouthNeighbour()-&gt;getPosition()-&gt;getY())</span>
+<span class="lineNum">     179 </span>            :                 return true;
+<span class="lineNum">     180 </span>            :         }
+<span class="lineNum">     181 </span>            :     }
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span><span class="lineCov">        228 :     else if(cross-&gt;getPosition()-&gt;getY() == point-&gt;getY()){</span>
+<span class="lineNum">     184 </span><span class="lineCov">         55 :         if(cross-&gt;getPosition()-&gt;getX() &gt;= point-&gt;getX() &amp;&amp; cross-&gt;getWestNeighbour() != nullptr){</span>
+<span class="lineNum">     185 </span><span class="lineCov">         10 :             if(point-&gt;getX() &gt;= cross-&gt;getWestNeighbour()-&gt;getPosition()-&gt;getX())</span>
+<span class="lineNum">     186 </span>            :                 return true;
+<span class="lineNum">     187 </span>            :         }
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span><span class="lineCov">         47 :         else if(cross-&gt;getPosition()-&gt;getX() &lt;= point-&gt;getX() &amp;&amp; cross-&gt;getEastNeighbour() != nullptr){</span>
+<span class="lineNum">     190 </span><span class="lineCov">         25 :             if(point-&gt;getX() &lt;= cross-&gt;getEastNeighbour()-&gt;getPosition()-&gt;getX())</span>
+<span class="lineNum">     191 </span>            :                 return true;
+<span class="lineNum">     192 </span>            :         }
+<span class="lineNum">     193 </span>            :     }
+<span class="lineNum">     194 </span>            :     return false;
+<span class="lineNum">     195 </span>            : }
+<span class="lineNum">     196 </span>            : 
+<span class="lineNum">     197 </span>            : /**
+<span class="lineNum">     198 </span>            :  * Finds the cross that has direct route to the given point.
+<span class="lineNum">     199 </span>            :  * @param point as shared_ptr&lt;Point&gt;, given point
+<span class="lineNum">     200 </span>            :  * @param crosses as vector of shared_ptr&lt;Cross&gt; consisting of every existing crosses
+<span class="lineNum">     201 </span>            :  * @return shared_ptr&lt;Cross&gt; of the cross that directly &quot;sees&quot; the given point
+<span class="lineNum">     202 </span>            :  */
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span><span class="lineCov">        216 : PtrCross MovableFactory::findNearestCross(PtrToConstPoint point, const std::vector&lt;PtrCross&gt; &amp;crosses) const{</span>
+<span class="lineNum">     205 </span><span class="lineCov">        160 :     for(std::vector&lt;PtrCross&gt;::size_type i = 0; i&lt;crosses.size(); ++i){</span>
+<span class="lineNum">     206 </span>            : 
+<span class="lineNum">     207 </span><span class="lineCov">        203 :         if(*crosses[i]-&gt;getPosition() == *point)</span>
+<span class="lineNum">     208 </span><span class="lineCov">         22 :             return crosses[i];</span>
+<span class="lineNum">     209 </span>            : 
+<span class="lineNum">     210 </span><span class="lineCov">        108 :         else if(crosses[i]-&gt;getPosition()-&gt;getX() == point-&gt;getX()){</span>
+<span class="lineNum">     211 </span><span class="lineCov">         16 :             if(crosses[i]-&gt;getPosition()-&gt;getY() &gt; point-&gt;getY() &amp;&amp; crosses[i]-&gt;getNorthNeighbour() != nullptr){</span>
+<span class="lineNum">     212 </span><span class="lineNoCov">          0 :                 if(point-&gt;getY() &gt; crosses[i]-&gt;getNorthNeighbour()-&gt;getPosition()-&gt;getY())</span>
+<span class="lineNum">     213 </span><span class="lineNoCov">          0 :                     return crosses[i];</span>
+<span class="lineNum">     214 </span>            :             }
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span><span class="lineCov">         32 :             else if(crosses[i]-&gt;getPosition()-&gt;getY() &lt; point-&gt;getY() &amp;&amp; crosses[i]-&gt;getSouthNeighbour() != nullptr){</span>
+<span class="lineNum">     217 </span><span class="lineCov">         24 :                 if(point-&gt;getY() &lt; crosses[i]-&gt;getSouthNeighbour()-&gt;getPosition()-&gt;getY())</span>
+<span class="lineNum">     218 </span><span class="lineCov">          4 :                     return crosses[i];</span>
+<span class="lineNum">     219 </span>            :             }
+<span class="lineNum">     220 </span>            :         }
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span><span class="lineCov">         92 :         else if(crosses[i]-&gt;getPosition()-&gt;getY() == point-&gt;getY()){</span>
+<span class="lineNum">     223 </span><span class="lineCov">         44 :             if(crosses[i]-&gt;getPosition()-&gt;getX() &gt; point-&gt;getX() &amp;&amp; crosses[i]-&gt;getWestNeighbour() != nullptr){</span>
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :                 if(point-&gt;getX() &gt; crosses[i]-&gt;getWestNeighbour()-&gt;getPosition()-&gt;getX())</span>
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 :                     return crosses[i];</span>
+<span class="lineNum">     226 </span>            :             }
+<span class="lineNum">     227 </span>            : 
+<span class="lineNum">     228 </span><span class="lineCov">         88 :             else if(crosses[i]-&gt;getPosition()-&gt;getX() &lt; point-&gt;getX() &amp;&amp; crosses[i]-&gt;getEastNeighbour() != nullptr){</span>
+<span class="lineNum">     229 </span><span class="lineCov">         30 :                 if(point-&gt;getX() &lt; crosses[i]-&gt;getEastNeighbour()-&gt;getPosition()-&gt;getX())</span>
+<span class="lineNum">     230 </span><span class="lineCov">          4 :                     return crosses[i];</span>
+<span class="lineNum">     231 </span>            :             }
+<span class="lineNum">     232 </span>            :         }
+<a name="233"><span class="lineNum">     233 </span>            :     }</a>
+<span class="lineNum">     234 </span><span class="lineCov">          2 :     return nullptr;</span>
+<span class="lineNum">     235 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

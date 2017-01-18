@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/CrossTest.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">test</a> - CrossTest.cpp<span style="font-size: 80%;"> (source / <a href="CrossTest.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">33</td>
+            <td class="headerCovTableEntry">33</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">14</td>
+            <td class="headerCovTableEntryLo">71.4 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //</a>
+<span class="lineNum">       2 </span>            : // Created by kuco on 03.01.17.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span>            : #include &lt;gtest/gtest.h&gt;
+<span class="lineNum">       6 </span>            : #include &lt;Cross.h&gt;
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : class CrossTest : public ::testing::Test{
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : public:
+<span class="lineNum">      11 </span><span class="lineCov">          3 :     CrossTest(){</span>
+<span class="lineNum">      12 </span><span class="lineCov">         12 :         cross1 = new Cross(std::make_shared&lt;Point&gt;(0,0));</span>
+<span class="lineNum">      13 </span><span class="lineCov">         12 :         cross2 = new Cross(std::make_shared&lt;Point&gt;(10,0));</span>
+<span class="lineNum">      14 </span><span class="lineCov">         12 :         cross3 = new Cross(std::make_shared&lt;Point&gt;(-10,0));</span>
+<span class="lineNum">      15 </span><span class="lineCov">         12 :         cross4 = new Cross(std::make_shared&lt;Point&gt;(0,10));</span>
+<a name="16"><span class="lineNum">      16 </span><span class="lineCov">         12 :         cross5 = new Cross(std::make_shared&lt;Point&gt;(0,-10));</span></a>
+<span class="lineNum">      17 </span><span class="lineCov">          3 :     }</span>
+<span class="lineNum">      18 </span><span class="lineCov">          6 :     ~CrossTest(){</span>
+<span class="lineNum">      19 </span><span class="lineCov">          3 :         delete cross1;</span>
+<span class="lineNum">      20 </span><span class="lineCov">          3 :         delete cross2;</span>
+<span class="lineNum">      21 </span><span class="lineCov">          3 :         delete cross3;</span>
+<span class="lineNum">      22 </span><span class="lineCov">          3 :         delete cross4;</span>
+<span class="lineNum">      23 </span><span class="lineCov">          3 :         delete cross5;</span>
+<span class="lineNum">      24 </span><span class="lineCov">          3 :     }</span>
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            :     Cross* cross1;
+<span class="lineNum">      27 </span>            :     Cross* cross2;
+<span class="lineNum">      28 </span>            :     Cross* cross3;
+<span class="lineNum">      29 </span>            :     Cross* cross4;
+<span class="lineNum">      30 </span>            :     Cross* cross5;
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            :     void make_neighbours(){
+<span class="lineNum">      33 </span>            :         cross1-&gt;addNeighbour(std::make_shared&lt;Cross&gt;(*cross2));
+<span class="lineNum">      34 </span>            :         cross1-&gt;addNeighbour(std::make_shared&lt;Cross&gt;(*cross3));
+<span class="lineNum">      35 </span>            :         cross1-&gt;addNeighbour(std::make_shared&lt;Cross&gt;(*cross4));
+<span class="lineNum">      36 </span>            :         cross1-&gt;addNeighbour(std::make_shared&lt;Cross&gt;(*cross5));
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            :     }
+<span class="lineNum">      39 </span>            : 
+<a name="40"><span class="lineNum">      40 </span>            : };</a>
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span><span class="lineCov">          8 : TEST_F(CrossTest, checkCrossConstructor){</span>
+<span class="lineNum">      43 </span><span class="lineCov">          2 :     PtrToConstPoint point = std::make_shared&lt;Point&gt;(10,-10);</span>
+<span class="lineNum">      44 </span><span class="lineCov">          3 :     Cross cross(point);</span>
+<span class="lineNum">      45 </span><span class="lineCov">          4 :     EXPECT_TRUE(cross.getPosition()-&gt;getX() == 10 &amp;&amp; cross.getPosition()-&gt;getY()==-10);</span>
+<a name="46"><span class="lineNum">      46 </span><span class="lineCov">          1 : }</span></a>
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span><span class="lineCov">          8 : TEST_F(CrossTest, checkCrossEqualsCross){</span>
+<span class="lineNum">      49 </span><span class="lineCov">          2 :     PtrToConstPoint point1 = std::make_shared&lt;Point&gt;(10,-10);</span>
+<span class="lineNum">      50 </span><span class="lineCov">          2 :     PtrToConstPoint point2 = std::make_shared&lt;Point&gt;(10,-10);</span>
+<span class="lineNum">      51 </span><span class="lineCov">          3 :     Cross cr1(point1);</span>
+<span class="lineNum">      52 </span><span class="lineCov">          3 :     Cross cr2(point2);</span>
+<span class="lineNum">      53 </span><span class="lineCov">          2 :     EXPECT_TRUE(cr1 == cr2);</span>
+<a name="54"><span class="lineNum">      54 </span><span class="lineCov">          1 : }</span></a>
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span><span class="lineCov">          8 : TEST_F(CrossTest, checkCrossNotEqualsCross){</span>
+<span class="lineNum">      57 </span><span class="lineCov">          2 :     PtrToConstPoint point1 = std::make_shared&lt;Point&gt;(10,-10);</span>
+<span class="lineNum">      58 </span><span class="lineCov">          2 :     PtrToConstPoint point2 = std::make_shared&lt;Point&gt;(10,10);</span>
+<span class="lineNum">      59 </span><span class="lineCov">          3 :     Cross cr1(point1);</span>
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">          3 :     Cross cr2(point2);</span></a>
+<span class="lineNum">      61 </span><span class="lineCov">          2 :     EXPECT_TRUE(cr1 != cr2);</span>
+<span class="lineNum">      62 </span><span class="lineCov">          4 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

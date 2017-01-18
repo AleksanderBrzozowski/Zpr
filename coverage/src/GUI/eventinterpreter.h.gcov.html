@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/GUI/eventinterpreter.h</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">src/GUI</a> - eventinterpreter.h<span style="font-size: 80%;"> (source / <a href="eventinterpreter.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #ifndef EVENTINTERPRETER_H</a>
+<span class="lineNum">       2 </span>            : #define EVENTINTERPRETER_H
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            : #include &quot;../Point.h&quot;
+<span class="lineNum">       5 </span>            : #include &lt;memory&gt;
+<span class="lineNum">       6 </span>            : #include &lt;Map.h&gt;
+<span class="lineNum">       7 </span>            : #include &quot;drawable.h&quot;
+<span class="lineNum">       8 </span>            : #include &quot;cargui.h&quot;
+<span class="lineNum">       9 </span>            : #include &quot;roadgui.h&quot;
+<span class="lineNum">      10 </span>            : #include &quot;buildinggui.h&quot;
+<span class="lineNum">      11 </span>            : #include &quot;cameragui.h&quot;
+<span class="lineNum">      12 </span>            : #include &quot;qevent.h&quot;
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*!
+<span class="lineNum">      15 </span>            :  * \brief The EventInterpreter class.
+<span class="lineNum">      16 </span>            :  * \details Object responsible for interpretating user input.
+<span class="lineNum">      17 </span>            :  * It has field that remebers current tool chosen by user and
+<a name="18"><span class="lineNum">      18 </span>            :  * using that can interpret maouse and keyboard events properly.</a>
+<span class="lineNum">      19 </span>            :  */
+<span class="lineNum">      20 </span><span class="lineNoCov">          0 : class EventInterpreter: public QObject {</span>
+<span class="lineNum">      21 </span>            :     Q_OBJECT
+<span class="lineNum">      22 </span>            : public:
+<span class="lineNum">      23 </span>            :     /*!
+<span class="lineNum">      24 </span>            :      * \brief The Option enum.
+<span class="lineNum">      25 </span>            :      * \details Enum class describing current tool.
+<span class="lineNum">      26 </span>            :      */
+<span class="lineNum">      27 </span>            :     enum class Option {setRoad, setCar, setFastCar, setBuilding, setCamera,
+<span class="lineNum">      28 </span>            :                        setHuman, doNothing};
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            :     EventInterpreter();
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            :     void mouseMoved(int x, int y);
+<span class="lineNum">      33 </span>            :     void mouseClicked(int x, int y);
+<span class="lineNum">      34 </span>            :     void steerCamera(int keyCode);
+<span class="lineNum">      35 </span>            :     void setMap(std::shared_ptr&lt;Map&gt; map);
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            :     void snapToGridCenter(Point&amp; point) const;
+<span class="lineNum">      38 </span>            :     void snapToGridIntersect(Point&amp; point) const;
+<span class="lineNum">      39 </span>            :     std::shared_ptr&lt;Drawable&gt; setCurrentOption(Option option);
+<span class="lineNum">      40 </span>            :     Option getCurrentOption();
+<span class="lineNum">      41 </span>            : signals:
+<span class="lineNum">      42 </span>            :     void roadCreated(RoadGUI*);
+<span class="lineNum">      43 </span>            :     void drawableCreated(Drawable*);
+<span class="lineNum">      44 </span>            :     void cameraCreated(CameraGUI*);
+<span class="lineNum">      45 </span>            : private:
+<span class="lineNum">      46 </span>            :     Option currentOption;
+<span class="lineNum">      47 </span>            :     Point anchor;
+<span class="lineNum">      48 </span>            :     bool anchorValid;
+<span class="lineNum">      49 </span>            :     std::shared_ptr&lt;Drawable&gt; ghostObject;
+<span class="lineNum">      50 </span>            :     std::shared_ptr&lt;RoadGUI&gt; ghostRoad;
+<span class="lineNum">      51 </span>            :     std::shared_ptr&lt;CameraGUI&gt; ghostCamera;
+<span class="lineNum">      52 </span>            :     std::shared_ptr&lt;Map&gt; map;
+<span class="lineNum">      53 </span>            : };
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span>            : #endif // EVENTINTERPRETER_H
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/GUI/mainwindow.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">src/GUI</a> - mainwindow.cpp<span style="font-size: 80%;"> (source / <a href="mainwindow.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">71</td>
+            <td class="headerCovTableEntryLo">1.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">19</td>
+            <td class="headerCovTableEntryLo">10.5 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;mainwindow.h&quot;</a>
+<span class="lineNum">       2 </span>            : 
+<span class="lineNum">       3 </span>            : ///\brief MainWindow::REFRESH_TIME. Time between cars movement.
+<span class="lineNum">       4 </span>            : const std::chrono::milliseconds MainWindow::REFRESH_TIME = std::chrono::milliseconds(50);
+<span class="lineNum">       5 </span>            : ///\brief MainWindow::CAMERA_SCAN_FREQ. Time between camera scans
+<span class="lineNum">       6 </span>            : const std::chrono::seconds MainWindow::CAMERA_SCAN_FREQ = std::chrono::seconds(1);
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : /*!
+<span class="lineNum">       9 </span>            :  * \brief MainWindow::getInstance.
+<span class="lineNum">      10 </span>            :  * \return Returns instance of MainWindow object. Only way
+<a name="11"><span class="lineNum">      11 </span>            :  * to create that object.</a>
+<span class="lineNum">      12 </span>            :  */
+<span class="lineNum">      13 </span><span class="lineNoCov">          0 : MainWindow&amp; MainWindow::getInstance() {</span>
+<span class="lineNum">      14 </span><span class="lineNoCov">          0 :     static MainWindow instance;</span>
+<span class="lineNum">      15 </span><span class="lineNoCov">          0 :     return instance;</span>
+<a name="16"><span class="lineNum">      16 </span>            : }</a>
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span><span class="lineNoCov">          0 : MainWindow::MainWindow(QWidget *parent) :</span>
+<span class="lineNum">      19 </span>            :     QMainWindow(parent),
+<span class="lineNum">      20 </span><span class="lineNoCov">          0 :     ui(new Ui::MainWindow)</span>
+<span class="lineNum">      21 </span>            : {
+<span class="lineNum">      22 </span><span class="lineNoCov">          0 :     ui-&gt;setupUi(this);</span>
+<span class="lineNum">      23 </span><span class="lineNoCov">          0 :     setMaximumHeight(1080);</span>
+<span class="lineNum">      24 </span><span class="lineNoCov">          0 :     setMaximumWidth(1920);</span>
+<span class="lineNum">      25 </span><span class="lineNoCov">          0 :     mapArea = new MapArea(this);</span>
+<span class="lineNum">      26 </span><span class="lineNoCov">          0 :     setCentralWidget(mapArea);</span>
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span><span class="lineNoCov">          0 :     statusLabel = new QLabel(&quot;Current option: Create road&quot;, this);</span>
+<span class="lineNum">      29 </span><span class="lineNoCov">          0 :     ui-&gt;menuBar-&gt;addMenu(initMenu());</span>
+<span class="lineNum">      30 </span><span class="lineNoCov">          0 :     ui-&gt;statusBar-&gt;addWidget(statusLabel);</span>
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span><span class="lineNoCov">          0 :     resetLabel();</span>
+<a name="33"><span class="lineNum">      33 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span><span class="lineNoCov">          0 : QMenu* MainWindow::initMenu() {</span>
+<span class="lineNum">      36 </span><span class="lineNoCov">          0 :     QMenu *toolsMenu = new QMenu(&quot;Tools&quot;, this);</span>
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span><span class="lineNoCov">          0 :     QAction *toggleGrid = new QAction(&quot;Toggle grid&quot;, toolsMenu);</span>
+<span class="lineNum">      39 </span><span class="lineNoCov">          0 :     connect(toggleGrid, &amp;QAction::triggered, mapArea, &amp;MapArea::toggleGrid);</span>
+<span class="lineNum">      40 </span><span class="lineNoCov">          0 :     toolsMenu-&gt;addAction(toggleGrid);</span>
+<span class="lineNum">      41 </span>            : 
+<a name="42"><span class="lineNum">      42 </span><span class="lineNoCov">          0 :     QAction *createRoad = new QAction(&quot;Create road&quot;, toolsMenu);</span></a>
+<span class="lineNum">      43 </span>            :     connect(createRoad,
+<span class="lineNum">      44 </span><span class="lineNoCov">          0 :             &amp;QAction::triggered, [=]() {mapArea-&gt;setCurrentOption(EventInterpreter::Option::setRoad);</span>
+<span class="lineNum">      45 </span><span class="lineNoCov">          0 :                                         statusLabel-&gt;setText(&quot;Current option: Create road&quot;);}</span>
+<span class="lineNum">      46 </span><span class="lineNoCov">          0 :             );</span>
+<span class="lineNum">      47 </span><span class="lineNoCov">          0 :     toolsMenu-&gt;addAction(createRoad);</span>
+<span class="lineNum">      48 </span>            : 
+<a name="49"><span class="lineNum">      49 </span><span class="lineNoCov">          0 :     QAction *spawnCar = new QAction(&quot;Spawn car&quot;, toolsMenu);</span></a>
+<span class="lineNum">      50 </span>            :     connect(spawnCar,
+<span class="lineNum">      51 </span><span class="lineNoCov">          0 :             &amp;QAction::triggered, [=]() {mapArea-&gt;setCurrentOption(EventInterpreter::Option::setCar);</span>
+<span class="lineNum">      52 </span><span class="lineNoCov">          0 :                                         statusLabel-&gt;setText(&quot;Current option: Spawn Car&quot;);}</span>
+<span class="lineNum">      53 </span><span class="lineNoCov">          0 :             );</span>
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 :     toolsMenu-&gt;addAction(spawnCar);</span>
+<a name="55"><span class="lineNum">      55 </span><span class="lineNoCov">          0 :     QAction *spawnFastCar = new QAction(&quot;Spawn fast car&quot;, toolsMenu);</span></a>
+<span class="lineNum">      56 </span>            :     connect(spawnFastCar,
+<span class="lineNum">      57 </span><span class="lineNoCov">          0 :             &amp;QAction::triggered, [=]() {mapArea-&gt;setCurrentOption(EventInterpreter::Option::setFastCar);</span>
+<span class="lineNum">      58 </span><span class="lineNoCov">          0 :                                         statusLabel-&gt;setText(&quot;Current option: Spawn fast Car&quot;);}</span>
+<span class="lineNum">      59 </span><span class="lineNoCov">          0 :             );</span>
+<a name="60"><span class="lineNum">      60 </span><span class="lineNoCov">          0 :     toolsMenu-&gt;addAction(spawnFastCar);</span></a>
+<span class="lineNum">      61 </span><span class="lineNoCov">          0 :     QAction *setBuilding = new QAction(&quot;Set building&quot;, toolsMenu);</span>
+<span class="lineNum">      62 </span><span class="lineNoCov">          0 :     connect(setBuilding, &amp;QAction::triggered, [=]() {mapArea-&gt;setCurrentOption(EventInterpreter::Option::setBuilding);</span>
+<span class="lineNum">      63 </span><span class="lineNoCov">          0 :                                                      statusLabel-&gt;setText(&quot;Current option: Set building&quot;);}</span>
+<span class="lineNum">      64 </span><span class="lineNoCov">          0 :             );</span>
+<a name="65"><span class="lineNum">      65 </span><span class="lineNoCov">          0 :     toolsMenu-&gt;addAction(setBuilding);</span></a>
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :     QAction *setCamera = new QAction(&quot;Set camera&quot;, toolsMenu);</span>
+<span class="lineNum">      67 </span><span class="lineNoCov">          0 :     connect(setCamera, &amp;QAction::triggered, [=]() {mapArea-&gt;setCurrentOption(EventInterpreter::Option::setCamera);</span>
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :                                                    statusLabel-&gt;setText(&quot;Current option: Set camera&quot;);}</span>
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :             );</span>
+<a name="70"><span class="lineNum">      70 </span><span class="lineNoCov">          0 :     toolsMenu-&gt;addAction(setCamera);</span></a>
+<span class="lineNum">      71 </span><span class="lineNoCov">          0 :     QAction *setHuman = new QAction(&quot;Set human&quot;, toolsMenu);</span>
+<span class="lineNum">      72 </span><span class="lineNoCov">          0 :     connect(setHuman, &amp;QAction::triggered, [=]() {mapArea-&gt;setCurrentOption(EventInterpreter::Option::setHuman);</span>
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 :                                                   statusLabel-&gt;setText(&quot;Current option: Set camera&quot;);}</span>
+<span class="lineNum">      74 </span><span class="lineNoCov">          0 :             );</span>
+<span class="lineNum">      75 </span><span class="lineNoCov">          0 :     toolsMenu-&gt;addAction(setHuman);</span>
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span><span class="lineNoCov">          0 :     return toolsMenu;</span>
+<span class="lineNum">      78 </span>            : }
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span>            : /*!
+<span class="lineNum">      81 </span>            :  * \brief MainWindow::resetLabel.
+<span class="lineNum">      82 </span>            :  * \details Sets status label to say that no option is chosen and
+<a name="83"><span class="lineNum">      83 </span>            :  * advise to choose one.</a>
+<span class="lineNum">      84 </span>            :  */
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 : void MainWindow::resetLabel() {</span>
+<span class="lineNum">      86 </span><span class="lineNoCov">          0 :     statusLabel-&gt;setText(&quot;Current option: None. Select tool from menu.&quot;);</span>
+<a name="87"><span class="lineNum">      87 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span><span class="lineNoCov">          0 : MainWindow::~MainWindow() {</span>
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span>            : /*!
+<span class="lineNum">      94 </span>            :  * \brief MainWindow::setCar.
+<span class="lineNum">      95 </span>            :  * \param id - car ID.
+<span class="lineNum">      96 </span>            :  * \param x - position X.
+<span class="lineNum">      97 </span>            :  * \param y - position Y.
+<span class="lineNum">      98 </span>            :  * \param fast - flag says if car is fast car or not. false by default.
+<a name="99"><span class="lineNum">      99 </span>            :  * \details Sets car to appropriate position, and specify type of car being set.</a>
+<span class="lineNum">     100 </span>            :  */
+<span class="lineNum">     101 </span><span class="lineNoCov">          0 : void MainWindow::setCar(const unsigned int id, const unsigned int x, const unsigned int y,</span>
+<span class="lineNum">     102 </span>            :                         const bool fast) {
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :     mapArea-&gt;setCar(id, x, y, fast);</span>
+<span class="lineNum">     104 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : /*!
+<span class="lineNum">     107 </span>            :  * \brief MainWindow::setPpl.
+<span class="lineNum">     108 </span>            :  * \param id - person ID.
+<span class="lineNum">     109 </span>            :  * \param x - position X.
+<span class="lineNum">     110 </span>            :  * \param y - position Y.
+<a name="111"><span class="lineNum">     111 </span>            :  * \details Sets person to appropriate position, so it can be repainted where it actually is.</a>
+<span class="lineNum">     112 </span>            :  */
+<span class="lineNum">     113 </span><span class="lineNoCov">          0 : void MainWindow::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {</span>
+<span class="lineNum">     114 </span><span class="lineNoCov">          0 :     mapArea-&gt;setPpl(id, x, y);</span>
+<span class="lineNum">     115 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : /*!
+<span class="lineNum">     118 </span>            :  * \brief MainWindow::removeObject.
+<span class="lineNum">     119 </span>            :  * \param id - object ID.
+<span class="lineNum">     120 </span>            :  * \details Removes object from list of object that are being redrawn. Supposed to be called
+<a name="121"><span class="lineNum">     121 </span>            :  * when object doesn't exist anymore.</a>
+<span class="lineNum">     122 </span>            :  */
+<span class="lineNum">     123 </span><span class="lineNoCov">          0 : void MainWindow::removeObject(const unsigned int id) {</span>
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 :     mapArea-&gt;removeObject(id);</span>
+<span class="lineNum">     125 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span>            : /*!
+<span class="lineNum">     128 </span>            :  * \brief MainWindow::refresh.
+<span class="lineNum">     129 </span>            :  * \details Refreshes rendered area. Render area doesn't refresh itself, so
+<a name="130"><span class="lineNum">     130 </span>            :  * it can be done only when needed.</a>
+<span class="lineNum">     131 </span>            :  */
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 : void MainWindow::refresh() {</span>
+<span class="lineNum">     133 </span><span class="lineNoCov">          0 :     mapArea-&gt;update();</span>
+<span class="lineNum">     134 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span>            : /*!
+<span class="lineNum">     137 </span>            :  * \brief MainWindow::setMap.
+<span class="lineNum">     138 </span>            :  * \param map
+<span class="lineNum">     139 </span>            :  * \details Sets map object to allow pass user-generated events
+<span class="lineNum">     140 </span>            :  * to model. Without map any user input won't take any affect.
+<a name="141"><span class="lineNum">     141 </span>            :  * \sa EventInterpreter::setMap.</a>
+<span class="lineNum">     142 </span>            :  */
+<a name="143"><span class="lineNum">     143 </span><span class="lineNoCov">          0 : void MainWindow::setMap(std::shared_ptr&lt;Map&gt; map) {</span></a>
+<span class="lineNum">     144 </span><span class="lineNoCov">          0 :     mapArea-&gt;setMap(map);</span>
+<span class="lineNum">     145 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

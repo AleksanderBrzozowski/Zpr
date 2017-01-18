@@ -1,0 +1,395 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/include/gtest/internal/gtest-death-test-internal.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/include/gtest/internal</a> - gtest-death-test-internal.h<span style="font-size: 80%;"> (source / <a href="gtest-death-test-internal.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntryLo">22.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2005, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Authors: wan@google.com (Zhanyong Wan), eefacm@gmail.com (Sean Mcafee)
+<span class="lineNum">      31 </span>            : //
+<span class="lineNum">      32 </span>            : // The Google C++ Testing Framework (Google Test)
+<span class="lineNum">      33 </span>            : //
+<span class="lineNum">      34 </span>            : // This header file defines internal utilities needed for implementing
+<span class="lineNum">      35 </span>            : // death tests.  They are subject to change without notice.
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : #ifndef GTEST_INCLUDE_GTEST_INTERNAL_GTEST_DEATH_TEST_INTERNAL_H_
+<span class="lineNum">      38 </span>            : #define GTEST_INCLUDE_GTEST_INTERNAL_GTEST_DEATH_TEST_INTERNAL_H_
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : #include &quot;gtest/internal/gtest-internal.h&quot;
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span>            : namespace testing {
+<span class="lineNum">      45 </span>            : namespace internal {
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            : GTEST_DECLARE_string_(internal_run_death_test);
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            : // Names of the flags (needed for parsing Google Test flags).
+<span class="lineNum">      50 </span>            : const char kDeathTestStyleFlag[] = &quot;death_test_style&quot;;
+<span class="lineNum">      51 </span>            : const char kDeathTestUseFork[] = &quot;death_test_use_fork&quot;;
+<span class="lineNum">      52 </span>            : const char kInternalRunDeathTestFlag[] = &quot;internal_run_death_test&quot;;
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : #if GTEST_HAS_DEATH_TEST
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            : // DeathTest is a class that hides much of the complexity of the
+<span class="lineNum">      57 </span>            : // GTEST_DEATH_TEST_ macro.  It is abstract; its static Create method
+<span class="lineNum">      58 </span>            : // returns a concrete class that depends on the prevailing death test
+<span class="lineNum">      59 </span>            : // style, as defined by the --gtest_death_test_style and/or
+<span class="lineNum">      60 </span>            : // --gtest_internal_run_death_test flags.
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : // In describing the results of death tests, these terms are used with
+<span class="lineNum">      63 </span>            : // the corresponding definitions:
+<span class="lineNum">      64 </span>            : //
+<span class="lineNum">      65 </span>            : // exit status:  The integer exit information in the format specified
+<span class="lineNum">      66 </span>            : //               by wait(2)
+<span class="lineNum">      67 </span>            : // exit code:    The integer code passed to exit(3), _exit(2), or
+<span class="lineNum">      68 </span>            : //               returned from main()
+<span class="lineNum">      69 </span>            : class GTEST_API_ DeathTest {
+<span class="lineNum">      70 </span>            :  public:
+<span class="lineNum">      71 </span>            :   // Create returns false if there was an error determining the
+<span class="lineNum">      72 </span>            :   // appropriate action to take for the current death test; for example,
+<span class="lineNum">      73 </span>            :   // if the gtest_death_test_style flag is set to an invalid value.
+<span class="lineNum">      74 </span>            :   // The LastMessage method will return a more detailed message in that
+<span class="lineNum">      75 </span>            :   // case.  Otherwise, the DeathTest pointer pointed to by the &quot;test&quot;
+<span class="lineNum">      76 </span>            :   // argument is set.  If the death test should be skipped, the pointer
+<span class="lineNum">      77 </span>            :   // is set to NULL; otherwise, it is set to the address of a new concrete
+<span class="lineNum">      78 </span>            :   // DeathTest object that controls the execution of the current test.
+<span class="lineNum">      79 </span>            :   static bool Create(const char* statement, const RE* regex,
+<a name="80"><span class="lineNum">      80 </span>            :                      const char* file, int line, DeathTest** test);</a>
+<span class="lineNum">      81 </span>            :   DeathTest();
+<span class="lineNum">      82 </span><span class="lineNoCov">          0 :   virtual ~DeathTest() { }</span>
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            :   // A helper class that aborts a death test when it's deleted.
+<span class="lineNum">      85 </span>            :   class ReturnSentinel {
+<span class="lineNum">      86 </span>            :    public:
+<span class="lineNum">      87 </span>            :     explicit ReturnSentinel(DeathTest* test) : test_(test) { }
+<span class="lineNum">      88 </span>            :     ~ReturnSentinel() { test_-&gt;Abort(TEST_ENCOUNTERED_RETURN_STATEMENT); }
+<span class="lineNum">      89 </span>            :    private:
+<span class="lineNum">      90 </span>            :     DeathTest* const test_;
+<span class="lineNum">      91 </span>            :     GTEST_DISALLOW_COPY_AND_ASSIGN_(ReturnSentinel);
+<span class="lineNum">      92 </span>            :   } GTEST_ATTRIBUTE_UNUSED_;
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            :   // An enumeration of possible roles that may be taken when a death
+<span class="lineNum">      95 </span>            :   // test is encountered.  EXECUTE means that the death test logic should
+<span class="lineNum">      96 </span>            :   // be executed immediately.  OVERSEE means that the program should prepare
+<span class="lineNum">      97 </span>            :   // the appropriate environment for a child process to execute the death
+<span class="lineNum">      98 </span>            :   // test, then wait for it to complete.
+<span class="lineNum">      99 </span>            :   enum TestRole { OVERSEE_TEST, EXECUTE_TEST };
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span>            :   // An enumeration of the three reasons that a test might be aborted.
+<span class="lineNum">     102 </span>            :   enum AbortReason {
+<span class="lineNum">     103 </span>            :     TEST_ENCOUNTERED_RETURN_STATEMENT,
+<span class="lineNum">     104 </span>            :     TEST_THREW_EXCEPTION,
+<span class="lineNum">     105 </span>            :     TEST_DID_NOT_DIE
+<span class="lineNum">     106 </span>            :   };
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span>            :   // Assumes one of the above roles.
+<span class="lineNum">     109 </span>            :   virtual TestRole AssumeRole() = 0;
+<span class="lineNum">     110 </span>            : 
+<span class="lineNum">     111 </span>            :   // Waits for the death test to finish and returns its status.
+<span class="lineNum">     112 </span>            :   virtual int Wait() = 0;
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            :   // Returns true if the death test passed; that is, the test process
+<span class="lineNum">     115 </span>            :   // exited during the test, its exit status matches a user-supplied
+<span class="lineNum">     116 </span>            :   // predicate, and its stderr output matches a user-supplied regular
+<span class="lineNum">     117 </span>            :   // expression.
+<span class="lineNum">     118 </span>            :   // The user-supplied predicate may be a macro expression rather
+<span class="lineNum">     119 </span>            :   // than a function pointer or functor, or else Wait and Passed could
+<span class="lineNum">     120 </span>            :   // be combined.
+<span class="lineNum">     121 </span>            :   virtual bool Passed(bool exit_status_ok) = 0;
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span>            :   // Signals that the death test did not die as expected.
+<span class="lineNum">     124 </span>            :   virtual void Abort(AbortReason reason) = 0;
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span>            :   // Returns a human-readable outcome message regarding the outcome of
+<span class="lineNum">     127 </span>            :   // the last death test.
+<span class="lineNum">     128 </span>            :   static const char* LastMessage();
+<span class="lineNum">     129 </span>            : 
+<span class="lineNum">     130 </span>            :   static void set_last_death_test_message(const std::string&amp; message);
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span>            :  private:
+<span class="lineNum">     133 </span>            :   // A string containing a description of the outcome of the last death test.
+<span class="lineNum">     134 </span>            :   static std::string last_death_test_message_;
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(DeathTest);
+<span class="lineNum">     137 </span>            : };
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span>            : // Factory interface for death tests.  May be mocked out for testing.
+<a name="140"><span class="lineNum">     140 </span><span class="lineCov">          1 : class DeathTestFactory {</span></a>
+<span class="lineNum">     141 </span>            :  public:
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 :   virtual ~DeathTestFactory() { }</span>
+<span class="lineNum">     143 </span>            :   virtual bool Create(const char* statement, const RE* regex,
+<span class="lineNum">     144 </span>            :                       const char* file, int line, DeathTest** test) = 0;
+<span class="lineNum">     145 </span>            : };
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            : // A concrete DeathTestFactory implementation for normal use.
+<span class="lineNum">     148 </span><span class="lineCov">          2 : class DefaultDeathTestFactory : public DeathTestFactory {</span>
+<span class="lineNum">     149 </span>            :  public:
+<span class="lineNum">     150 </span>            :   virtual bool Create(const char* statement, const RE* regex,
+<span class="lineNum">     151 </span>            :                       const char* file, int line, DeathTest** test);
+<span class="lineNum">     152 </span>            : };
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : // Returns true if exit_status describes a process that was terminated
+<span class="lineNum">     155 </span>            : // by a signal, or exited normally with a nonzero exit code.
+<span class="lineNum">     156 </span>            : GTEST_API_ bool ExitedUnsuccessfully(int exit_status);
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            : // Traps C++ exceptions escaping statement and reports them as test
+<span class="lineNum">     159 </span>            : // failures. Note that trapping SEH exceptions is not implemented here.
+<span class="lineNum">     160 </span>            : # if GTEST_HAS_EXCEPTIONS
+<span class="lineNum">     161 </span>            : #  define GTEST_EXECUTE_DEATH_TEST_STATEMENT_(statement, death_test) \
+<span class="lineNum">     162 </span>            :   try { \
+<span class="lineNum">     163 </span>            :     GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement); \
+<span class="lineNum">     164 </span>            :   } catch (const ::std::exception&amp; gtest_exception) { \
+<span class="lineNum">     165 </span>            :     fprintf(\
+<span class="lineNum">     166 </span>            :         stderr, \
+<span class="lineNum">     167 </span>            :         &quot;\n%s: Caught std::exception-derived exception escaping the &quot; \
+<span class="lineNum">     168 </span>            :         &quot;death test statement. Exception message: %s\n&quot;, \
+<span class="lineNum">     169 </span>            :         ::testing::internal::FormatFileLocation(__FILE__, __LINE__).c_str(), \
+<span class="lineNum">     170 </span>            :         gtest_exception.what()); \
+<span class="lineNum">     171 </span>            :     fflush(stderr); \
+<span class="lineNum">     172 </span>            :     death_test-&gt;Abort(::testing::internal::DeathTest::TEST_THREW_EXCEPTION); \
+<span class="lineNum">     173 </span>            :   } catch (...) { \
+<span class="lineNum">     174 </span>            :     death_test-&gt;Abort(::testing::internal::DeathTest::TEST_THREW_EXCEPTION); \
+<span class="lineNum">     175 </span>            :   }
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span>            : # else
+<span class="lineNum">     178 </span>            : #  define GTEST_EXECUTE_DEATH_TEST_STATEMENT_(statement, death_test) \
+<span class="lineNum">     179 </span>            :   GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement)
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span>            : # endif
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span>            : // This macro is for implementing ASSERT_DEATH*, EXPECT_DEATH*,
+<span class="lineNum">     184 </span>            : // ASSERT_EXIT*, and EXPECT_EXIT*.
+<span class="lineNum">     185 </span>            : # define GTEST_DEATH_TEST_(statement, predicate, regex, fail) \
+<span class="lineNum">     186 </span>            :   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
+<span class="lineNum">     187 </span>            :   if (::testing::internal::AlwaysTrue()) { \
+<span class="lineNum">     188 </span>            :     const ::testing::internal::RE&amp; gtest_regex = (regex); \
+<span class="lineNum">     189 </span>            :     ::testing::internal::DeathTest* gtest_dt; \
+<span class="lineNum">     190 </span>            :     if (!::testing::internal::DeathTest::Create(#statement, &amp;gtest_regex, \
+<span class="lineNum">     191 </span>            :         __FILE__, __LINE__, &amp;gtest_dt)) { \
+<span class="lineNum">     192 </span>            :       goto GTEST_CONCAT_TOKEN_(gtest_label_, __LINE__); \
+<span class="lineNum">     193 </span>            :     } \
+<span class="lineNum">     194 </span>            :     if (gtest_dt != NULL) { \
+<span class="lineNum">     195 </span>            :       ::testing::internal::scoped_ptr&lt; ::testing::internal::DeathTest&gt; \
+<span class="lineNum">     196 </span>            :           gtest_dt_ptr(gtest_dt); \
+<span class="lineNum">     197 </span>            :       switch (gtest_dt-&gt;AssumeRole()) { \
+<span class="lineNum">     198 </span>            :         case ::testing::internal::DeathTest::OVERSEE_TEST: \
+<span class="lineNum">     199 </span>            :           if (!gtest_dt-&gt;Passed(predicate(gtest_dt-&gt;Wait()))) { \
+<span class="lineNum">     200 </span>            :             goto GTEST_CONCAT_TOKEN_(gtest_label_, __LINE__); \
+<span class="lineNum">     201 </span>            :           } \
+<span class="lineNum">     202 </span>            :           break; \
+<span class="lineNum">     203 </span>            :         case ::testing::internal::DeathTest::EXECUTE_TEST: { \
+<span class="lineNum">     204 </span>            :           ::testing::internal::DeathTest::ReturnSentinel \
+<span class="lineNum">     205 </span>            :               gtest_sentinel(gtest_dt); \
+<span class="lineNum">     206 </span>            :           GTEST_EXECUTE_DEATH_TEST_STATEMENT_(statement, gtest_dt); \
+<span class="lineNum">     207 </span>            :           gtest_dt-&gt;Abort(::testing::internal::DeathTest::TEST_DID_NOT_DIE); \
+<span class="lineNum">     208 </span>            :           break; \
+<span class="lineNum">     209 </span>            :         } \
+<span class="lineNum">     210 </span>            :         default: \
+<span class="lineNum">     211 </span>            :           break; \
+<span class="lineNum">     212 </span>            :       } \
+<span class="lineNum">     213 </span>            :     } \
+<span class="lineNum">     214 </span>            :   } else \
+<span class="lineNum">     215 </span>            :     GTEST_CONCAT_TOKEN_(gtest_label_, __LINE__): \
+<span class="lineNum">     216 </span>            :       fail(::testing::internal::DeathTest::LastMessage())
+<span class="lineNum">     217 </span>            : // The symbol &quot;fail&quot; here expands to something into which a message
+<span class="lineNum">     218 </span>            : // can be streamed.
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            : // This macro is for implementing ASSERT/EXPECT_DEBUG_DEATH when compiled in
+<span class="lineNum">     221 </span>            : // NDEBUG mode. In this case we need the statements to be executed, the regex is
+<span class="lineNum">     222 </span>            : // ignored, and the macro must accept a streamed message even though the message
+<span class="lineNum">     223 </span>            : // is never printed.
+<span class="lineNum">     224 </span>            : # define GTEST_EXECUTE_STATEMENT_(statement, regex) \
+<span class="lineNum">     225 </span>            :   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
+<span class="lineNum">     226 </span>            :   if (::testing::internal::AlwaysTrue()) { \
+<span class="lineNum">     227 </span>            :      GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement); \
+<span class="lineNum">     228 </span>            :   } else \
+<span class="lineNum">     229 </span>            :     ::testing::Message()
+<span class="lineNum">     230 </span>            : 
+<span class="lineNum">     231 </span>            : // A class representing the parsed contents of the
+<span class="lineNum">     232 </span>            : // --gtest_internal_run_death_test flag, as it existed when
+<span class="lineNum">     233 </span>            : // RUN_ALL_TESTS was called.
+<span class="lineNum">     234 </span>            : class InternalRunDeathTestFlag {
+<span class="lineNum">     235 </span>            :  public:
+<span class="lineNum">     236 </span>            :   InternalRunDeathTestFlag(const std::string&amp; a_file,
+<span class="lineNum">     237 </span>            :                            int a_line,
+<span class="lineNum">     238 </span>            :                            int an_index,
+<span class="lineNum">     239 </span>            :                            int a_write_fd)
+<span class="lineNum">     240 </span>            :       : file_(a_file), line_(a_line), index_(an_index),
+<a name="241"><span class="lineNum">     241 </span><span class="lineNoCov">          0 :         write_fd_(a_write_fd) {}</span></a>
+<span class="lineNum">     242 </span>            : 
+<span class="lineNum">     243 </span><span class="lineNoCov">          0 :   ~InternalRunDeathTestFlag() {</span>
+<span class="lineNum">     244 </span><span class="lineNoCov">          0 :     if (write_fd_ &gt;= 0)</span>
+<span class="lineNum">     245 </span><span class="lineNoCov">          0 :       posix::Close(write_fd_);</span>
+<span class="lineNum">     246 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            :   const std::string&amp; file() const { return file_; }
+<span class="lineNum">     249 </span>            :   int line() const { return line_; }
+<span class="lineNum">     250 </span>            :   int index() const { return index_; }
+<span class="lineNum">     251 </span>            :   int write_fd() const { return write_fd_; }
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span>            :  private:
+<span class="lineNum">     254 </span>            :   std::string file_;
+<span class="lineNum">     255 </span>            :   int line_;
+<span class="lineNum">     256 </span>            :   int index_;
+<span class="lineNum">     257 </span>            :   int write_fd_;
+<span class="lineNum">     258 </span>            : 
+<span class="lineNum">     259 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(InternalRunDeathTestFlag);
+<span class="lineNum">     260 </span>            : };
+<span class="lineNum">     261 </span>            : 
+<span class="lineNum">     262 </span>            : // Returns a newly created InternalRunDeathTestFlag object with fields
+<span class="lineNum">     263 </span>            : // initialized from the GTEST_FLAG(internal_run_death_test) flag if
+<span class="lineNum">     264 </span>            : // the flag is specified; otherwise returns NULL.
+<span class="lineNum">     265 </span>            : InternalRunDeathTestFlag* ParseInternalRunDeathTestFlag();
+<span class="lineNum">     266 </span>            : 
+<span class="lineNum">     267 </span>            : #else  // GTEST_HAS_DEATH_TEST
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span>            : // This macro is used for implementing macros such as
+<span class="lineNum">     270 </span>            : // EXPECT_DEATH_IF_SUPPORTED and ASSERT_DEATH_IF_SUPPORTED on systems where
+<span class="lineNum">     271 </span>            : // death tests are not supported. Those macros must compile on such systems
+<span class="lineNum">     272 </span>            : // iff EXPECT_DEATH and ASSERT_DEATH compile with the same parameters on
+<span class="lineNum">     273 </span>            : // systems that support death tests. This allows one to write such a macro
+<span class="lineNum">     274 </span>            : // on a system that does not support death tests and be sure that it will
+<span class="lineNum">     275 </span>            : // compile on a death-test supporting system.
+<span class="lineNum">     276 </span>            : //
+<span class="lineNum">     277 </span>            : // Parameters:
+<span class="lineNum">     278 </span>            : //   statement -  A statement that a macro such as EXPECT_DEATH would test
+<span class="lineNum">     279 </span>            : //                for program termination. This macro has to make sure this
+<span class="lineNum">     280 </span>            : //                statement is compiled but not executed, to ensure that
+<span class="lineNum">     281 </span>            : //                EXPECT_DEATH_IF_SUPPORTED compiles with a certain
+<span class="lineNum">     282 </span>            : //                parameter iff EXPECT_DEATH compiles with it.
+<span class="lineNum">     283 </span>            : //   regex     -  A regex that a macro such as EXPECT_DEATH would use to test
+<span class="lineNum">     284 </span>            : //                the output of statement.  This parameter has to be
+<span class="lineNum">     285 </span>            : //                compiled but not evaluated by this macro, to ensure that
+<span class="lineNum">     286 </span>            : //                this macro only accepts expressions that a macro such as
+<span class="lineNum">     287 </span>            : //                EXPECT_DEATH would accept.
+<span class="lineNum">     288 </span>            : //   terminator - Must be an empty statement for EXPECT_DEATH_IF_SUPPORTED
+<span class="lineNum">     289 </span>            : //                and a return statement for ASSERT_DEATH_IF_SUPPORTED.
+<span class="lineNum">     290 </span>            : //                This ensures that ASSERT_DEATH_IF_SUPPORTED will not
+<span class="lineNum">     291 </span>            : //                compile inside functions where ASSERT_DEATH doesn't
+<span class="lineNum">     292 </span>            : //                compile.
+<span class="lineNum">     293 </span>            : //
+<span class="lineNum">     294 </span>            : //  The branch that has an always false condition is used to ensure that
+<span class="lineNum">     295 </span>            : //  statement and regex are compiled (and thus syntactically correct) but
+<span class="lineNum">     296 </span>            : //  never executed. The unreachable code macro protects the terminator
+<span class="lineNum">     297 </span>            : //  statement from generating an 'unreachable code' warning in case
+<span class="lineNum">     298 </span>            : //  statement unconditionally returns or throws. The Message constructor at
+<span class="lineNum">     299 </span>            : //  the end allows the syntax of streaming additional messages into the
+<span class="lineNum">     300 </span>            : //  macro, for compilational compatibility with EXPECT_DEATH/ASSERT_DEATH.
+<span class="lineNum">     301 </span>            : # define GTEST_UNSUPPORTED_DEATH_TEST_(statement, regex, terminator) \
+<span class="lineNum">     302 </span>            :     GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
+<span class="lineNum">     303 </span>            :     if (::testing::internal::AlwaysTrue()) { \
+<span class="lineNum">     304 </span>            :       GTEST_LOG_(WARNING) \
+<span class="lineNum">     305 </span>            :           &lt;&lt; &quot;Death tests are not supported on this platform.\n&quot; \
+<span class="lineNum">     306 </span>            :           &lt;&lt; &quot;Statement '&quot; #statement &quot;' cannot be verified.&quot;; \
+<span class="lineNum">     307 </span>            :     } else if (::testing::internal::AlwaysFalse()) { \
+<span class="lineNum">     308 </span>            :       ::testing::internal::RE::PartialMatch(&quot;.*&quot;, (regex)); \
+<span class="lineNum">     309 </span>            :       GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement); \
+<span class="lineNum">     310 </span>            :       terminator; \
+<span class="lineNum">     311 </span>            :     } else \
+<span class="lineNum">     312 </span>            :       ::testing::Message()
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span>            : #endif  // GTEST_HAS_DEATH_TEST
+<span class="lineNum">     315 </span>            : 
+<span class="lineNum">     316 </span>            : }  // namespace internal
+<span class="lineNum">     317 </span>            : }  // namespace testing
+<span class="lineNum">     318 </span>            : 
+<span class="lineNum">     319 </span>            : #endif  // GTEST_INCLUDE_GTEST_INTERNAL_GTEST_DEATH_TEST_INTERNAL_H_
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/GUI/maparea.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">src/GUI</a> - maparea.cpp<span style="font-size: 80%;"> (source / <a href="maparea.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">97</td>
+            <td class="headerCovTableEntryLo">1.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryLo">11.1 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;maparea.h&quot;</a>
+<span class="lineNum">       2 </span>            : 
+<span class="lineNum">       3 </span>            : /*!
+<span class="lineNum">       4 </span>            :  * \brief MapArea::MapArea. Constructor. Sets all variables.
+<span class="lineNum">       5 </span>            :  * \param parent - pointer to parent object.
+<span class="lineNum">       6 </span>            :  * \details Constructor initiates variables and connects signals from EventInterpreter
+<span class="lineNum">       7 </span>            :  * to slots. Its parameter is pointer to parent object which is connected with
+<span class="lineNum">       8 </span>            :  * Qt's way of coordinating objects life span. This object will be deleted by
+<span class="lineNum">       9 </span>            :  * parent's destructor.
+<span class="lineNum">      10 </span>            :  */
+<span class="lineNum">      11 </span><span class="lineNoCov">          0 : MapArea::MapArea(QWidget *parent) : QWidget(parent), roadID(0), displayGrid(false) {</span>
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span><span class="lineNoCov">          0 :     connect(&amp;eventInterpreter, &amp;EventInterpreter::drawableCreated, this, &amp;MapArea::registerDrawable);</span>
+<span class="lineNum">      14 </span><span class="lineNoCov">          0 :     connect(&amp;eventInterpreter, &amp;EventInterpreter::roadCreated, this, &amp;MapArea::registerRoad);</span>
+<span class="lineNum">      15 </span><span class="lineNoCov">          0 :     connect(&amp;eventInterpreter, &amp;EventInterpreter::cameraCreated, this, &amp;MapArea::registerCamera);</span>
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span><span class="lineNoCov">          0 :     QPalette pal(palette());</span>
+<span class="lineNum">      18 </span><span class="lineNoCov">          0 :     pal.setColor(QPalette::Background, QColor(196, 195, 208));</span>
+<span class="lineNum">      19 </span><span class="lineNoCov">          0 :     setAutoFillBackground(true);</span>
+<span class="lineNum">      20 </span><span class="lineNoCov">          0 :     setPalette(pal);</span>
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span><span class="lineNoCov">          0 :     setMouseTracking(true);</span>
+<span class="lineNum">      23 </span><span class="lineNoCov">          0 :     setFocusPolicy(Qt::StrongFocus);</span>
+<span class="lineNum">      24 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            : /*!
+<span class="lineNum">      27 </span>            :  * \brief MapArea::~MapArea.
+<span class="lineNum">      28 </span>            :  * \details Destructor clears vectors of objects that are graphic representation
+<a name="29"><span class="lineNum">      29 </span>            :  * of objects in app.</a>
+<span class="lineNum">      30 </span>            :  */
+<span class="lineNum">      31 </span><span class="lineNoCov">          0 : MapArea::~MapArea() {</span>
+<span class="lineNum">      32 </span><span class="lineNoCov">          0 :     for (const auto &amp;drawable : movableMap)</span>
+<span class="lineNum">      33 </span><span class="lineNoCov">          0 :         delete drawable.second;</span>
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span><span class="lineNoCov">          0 :     for (const auto &amp;road : roadMap)</span>
+<span class="lineNum">      36 </span><span class="lineNoCov">          0 :         delete road.second;</span>
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span><span class="lineNoCov">          0 :     for (const auto &amp;object : objectMap)</span>
+<span class="lineNum">      39 </span><span class="lineNoCov">          0 :         delete object;</span>
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span><span class="lineNoCov">          0 :     for (const auto &amp;camera : cameraMap)</span>
+<span class="lineNum">      42 </span><span class="lineNoCov">          0 :         delete camera;</span>
+<span class="lineNum">      43 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : /*!
+<span class="lineNum">      46 </span>            :  * \brief MapArea::setCar.
+<span class="lineNum">      47 </span>            :  * \param id - car ID.
+<span class="lineNum">      48 </span>            :  * \param x - position X.
+<span class="lineNum">      49 </span>            :  * \param y - position Y.
+<span class="lineNum">      50 </span>            :  * \param fast - flag tells if car is fast car or not.
+<span class="lineNum">      51 </span>            :  * \details Method used to set graphic representation of car object to
+<span class="lineNum">      52 </span>            :  * position corresponding with app's model state. If car with given ID
+<a name="53"><span class="lineNum">      53 </span>            :  * doesn't exist it creates such.</a>
+<span class="lineNum">      54 </span>            :  */
+<span class="lineNum">      55 </span><span class="lineNoCov">          0 : void MapArea::setCar(const unsigned int id, const unsigned int x, const unsigned int y,</span>
+<span class="lineNum">      56 </span>            :                      const bool fast) {
+<span class="lineNum">      57 </span><span class="lineNoCov">          0 :     if (movableMap[id] == nullptr) {</span>
+<span class="lineNum">      58 </span><span class="lineNoCov">          0 :         movableMap[id] = new CarGUI(x, y, fast);</span>
+<span class="lineNum">      59 </span>            :     } else {
+<span class="lineNum">      60 </span><span class="lineNoCov">          0 :         movableMap[id]-&gt;setTo(x, y);</span>
+<span class="lineNum">      61 </span>            :     }
+<span class="lineNum">      62 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            : /*!
+<span class="lineNum">      65 </span>            :  * \brief MapArea::setPpl.
+<span class="lineNum">      66 </span>            :  * \param id - person ID.
+<span class="lineNum">      67 </span>            :  * \param x - position X.
+<span class="lineNum">      68 </span>            :  * \param y - position Y.
+<span class="lineNum">      69 </span>            :  * \details Method used to set graphic representation of human object to
+<span class="lineNum">      70 </span>            :  * position corresponding with app's model state. If car with given ID
+<a name="71"><span class="lineNum">      71 </span>            :  * doesn't exist it creates such.</a>
+<span class="lineNum">      72 </span>            :  */
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 : void MapArea::setPpl(const unsigned int id, const unsigned int x, const unsigned int y) {</span>
+<span class="lineNum">      74 </span><span class="lineNoCov">          0 :     if (movableMap[id] == nullptr) {</span>
+<span class="lineNum">      75 </span><span class="lineNoCov">          0 :         movableMap[id] = new PplGUI(x, y);</span>
+<span class="lineNum">      76 </span>            :     } else {
+<span class="lineNum">      77 </span><span class="lineNoCov">          0 :         movableMap[id]-&gt;setTo(x, y);</span>
+<span class="lineNum">      78 </span>            :     }
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            : /*!
+<span class="lineNum">      82 </span>            :  * \brief MapArea::removeObject.
+<span class="lineNum">      83 </span>            :  * \param id - object ID.
+<span class="lineNum">      84 </span>            :  * \details Method removes movable object with given ID from list of redrawn objects.
+<span class="lineNum">      85 </span>            :  * Movable object is either Human or Car. If object with given ID does not exist,
+<a name="86"><span class="lineNum">      86 </span>            :  * function does nothing.</a>
+<span class="lineNum">      87 </span>            :  */
+<span class="lineNum">      88 </span><span class="lineNoCov">          0 : void MapArea::removeObject(const unsigned int id) {</span>
+<span class="lineNum">      89 </span><span class="lineNoCov">          0 :     if (movableMap[id] != nullptr) {</span>
+<span class="lineNum">      90 </span><span class="lineNoCov">          0 :         delete movableMap[id];</span>
+<span class="lineNum">      91 </span><span class="lineNoCov">          0 :         movableMap.erase(id);</span>
+<span class="lineNum">      92 </span>            :     }
+<span class="lineNum">      93 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      94 </span>            : 
+<span class="lineNum">      95 </span>            : /*!
+<span class="lineNum">      96 </span>            :  * \brief MapArea::paintEvent.
+<span class="lineNum">      97 </span>            :  * \param event - pointer to object with info about event that called method.
+<span class="lineNum">      98 </span>            :  * \details Method inherited from base class. It creates painter and
+<span class="lineNum">      99 </span>            :  * iterates through object's lists of drawable objects and calls theirs
+<span class="lineNum">     100 </span>            :  * draw method.
+<span class="lineNum">     101 </span>            :  */
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 : void MapArea::paintEvent(QPaintEvent *event) {</span>
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :     QPainter painter(this);</span>
+<span class="lineNum">     104 </span><span class="lineNoCov">          0 :     painter.setRenderHint(QPainter::Antialiasing, true);</span>
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span><span class="lineNoCov">          0 :     for (const auto &amp;road : roadMap) {</span>
+<span class="lineNum">     107 </span><span class="lineNoCov">          0 :         road.second-&gt;drawSidewalk(painter);</span>
+<span class="lineNum">     108 </span>            :     }
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span><span class="lineNoCov">          0 :     for (const auto &amp;drawable : roadMap) {</span>
+<span class="lineNum">     111 </span><span class="lineNoCov">          0 :             drawable.second-&gt;draw(painter);</span>
+<span class="lineNum">     112 </span>            :     }
+<span class="lineNum">     113 </span><span class="lineNoCov">          0 :     for (const auto &amp;drawable : movableMap) {</span>
+<span class="lineNum">     114 </span><span class="lineNoCov">          0 :             drawable.second-&gt;draw(painter);</span>
+<span class="lineNum">     115 </span>            :     }
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :     for (const auto &amp;drawable : objectMap) {</span>
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :         drawable-&gt;draw(painter);</span>
+<span class="lineNum">     118 </span>            :     }
+<span class="lineNum">     119 </span><span class="lineNoCov">          0 :     for (const auto &amp;drawable : cameraMap) {</span>
+<span class="lineNum">     120 </span><span class="lineNoCov">          0 :         drawable-&gt;draw(painter);</span>
+<span class="lineNum">     121 </span>            :     }
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span><span class="lineNoCov">          0 :     if(ghost != nullptr)</span>
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 :         ghost-&gt;draw(painter);</span>
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span><span class="lineNoCov">          0 :     if(displayGrid)</span>
+<span class="lineNum">     127 </span><span class="lineNoCov">          0 :         GridGUI(width(), height()).draw(painter);</span>
+<span class="lineNum">     128 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     129 </span>            : 
+<span class="lineNum">     130 </span>            : /*!
+<span class="lineNum">     131 </span>            :  * \brief MapArea::mouseReleaseEvent.
+<span class="lineNum">     132 </span>            :  * \param event - pointer to object with info about event that called method.
+<span class="lineNum">     133 </span>            :  * \details Method inherited from base class. It intercepts all
+<span class="lineNum">     134 </span>            :  * events of releasing left mouse button and send that info
+<span class="lineNum">     135 </span>            :  * to appropriate class to interpret that. If clicked button isn't
+<a name="136"><span class="lineNum">     136 </span>            :  * RMB then event is sent up to base class to be interpreted.</a>
+<span class="lineNum">     137 </span>            :  */
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 : void MapArea::mouseReleaseEvent(QMouseEvent *event) {</span>
+<span class="lineNum">     139 </span><span class="lineNoCov">          0 :     if (event-&gt;button() == Qt::LeftButton) {</span>
+<span class="lineNum">     140 </span><span class="lineNoCov">          0 :         eventInterpreter.mouseClicked(event-&gt;x(), event-&gt;y());</span>
+<span class="lineNum">     141 </span><span class="lineNoCov">          0 :         event-&gt;accept();</span>
+<span class="lineNum">     142 </span>            :     } else {
+<span class="lineNum">     143 </span><span class="lineNoCov">          0 :         QWidget::mouseReleaseEvent(event);</span>
+<span class="lineNum">     144 </span>            :     }
+<span class="lineNum">     145 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            : /*!
+<span class="lineNum">     148 </span>            :  * \brief MapArea::mouseMoveEvent.
+<span class="lineNum">     149 </span>            :  * \param event - pointer to object with info about event that called method.
+<span class="lineNum">     150 </span>            :  * \details Method inherited from base class. It intercepts all
+<span class="lineNum">     151 </span>            :  * events of moving mouse and send that info to appropriate class
+<a name="152"><span class="lineNum">     152 </span>            :  * to interpret that. Before exit map area is being redrawn.</a>
+<span class="lineNum">     153 </span>            :  */
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 : void MapArea::mouseMoveEvent(QMouseEvent *event) {</span>
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 :     eventInterpreter.mouseMoved(event-&gt;x(), event-&gt;y());</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :     event-&gt;accept();</span>
+<span class="lineNum">     157 </span><span class="lineNoCov">          0 :     update();</span>
+<span class="lineNum">     158 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : /*!
+<span class="lineNum">     161 </span>            :  * \brief MapArea::keyPressEvent.
+<span class="lineNum">     162 </span>            :  * \param event - pointer to object with info about event that called method.
+<span class="lineNum">     163 </span>            :  * \details Method inherited from base class. It intercepts key press events.
+<span class="lineNum">     164 </span>            :  * If pressed key is left/right arrow or escape appropriate interpeter oprions
+<span class="lineNum">     165 </span>            :  * are called. Otherwise event is passed to base object. Before exit map area
+<a name="166"><span class="lineNum">     166 </span>            :  * is being redrawn.</a>
+<span class="lineNum">     167 </span>            :  */
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 : void MapArea::keyPressEvent(QKeyEvent *event) {</span>
+<span class="lineNum">     169 </span><span class="lineNoCov">          0 :     int key = event-&gt;key();</span>
+<span class="lineNum">     170 </span><span class="lineNoCov">          0 :     if (key == Qt::Key_Escape)</span>
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 :         setCurrentOption(EventInterpreter::Option::doNothing);</span>
+<span class="lineNum">     172 </span><span class="lineNoCov">          0 :     else if (key == Qt::Key_Left || key == Qt::Key_Right)</span>
+<span class="lineNum">     173 </span><span class="lineNoCov">          0 :         eventInterpreter.steerCamera(key);</span>
+<span class="lineNum">     174 </span>            :     else
+<span class="lineNum">     175 </span><span class="lineNoCov">          0 :         QWidget::keyPressEvent(event);</span>
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :         update();</span>
+<span class="lineNum">     177 </span><span class="lineNoCov">          0 :     event-&gt;accept();</span>
+<span class="lineNum">     178 </span>            : 
+<span class="lineNum">     179 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span>            : /*!
+<span class="lineNum">     182 </span>            :  * \brief MapArea::registerCamera.
+<span class="lineNum">     183 </span>            :  * \param cam - pointer to CameraGUI object.
+<span class="lineNum">     184 </span>            :  * \details Function adds new camera to the list of cameras to be drawn.
+<span class="lineNum">     185 </span>            :  * Pointer to camera is passed as argument. Before exit map area is
+<span class="lineNum">     186 </span>            :  * redrawn. Function is a slot, so it is called by signal in EventInterpreter
+<a name="187"><span class="lineNum">     187 </span>            :  * object.</a>
+<span class="lineNum">     188 </span>            :  */
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 : void MapArea::registerCamera(CameraGUI *cam) {</span>
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :     cameraMap.push_back(cam);</span>
+<span class="lineNum">     191 </span><span class="lineNoCov">          0 :     update();</span>
+<span class="lineNum">     192 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span>            : /*!
+<span class="lineNum">     195 </span>            :  * \brief MapArea::toggleGrid.
+<span class="lineNum">     196 </span>            :  * Toggles flag, whether grid is supposed to be drawn.
+<a name="197"><span class="lineNum">     197 </span>            :  * After that map area is being redrawn.</a>
+<span class="lineNum">     198 </span>            :  */
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 : void MapArea::toggleGrid() {</span>
+<span class="lineNum">     200 </span><span class="lineNoCov">          0 :     displayGrid = !displayGrid;</span>
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :     update();</span>
+<span class="lineNum">     202 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span>            : /*!
+<span class="lineNum">     205 </span>            :  * \brief MapArea::setCurrentOption.
+<span class="lineNum">     206 </span>            :  * \param option - Option to be set.
+<span class="lineNum">     207 </span>            :  * \details Passes current tool that user want to use to EventInterpreter
+<a name="208"><span class="lineNum">     208 </span>            :  * object, and sets appropriate ghost object that will be drawn.</a>
+<span class="lineNum">     209 </span>            :  */
+<span class="lineNum">     210 </span><span class="lineNoCov">          0 : void MapArea::setCurrentOption(EventInterpreter::Option option) {</span>
+<span class="lineNum">     211 </span><span class="lineNoCov">          0 :     ghost = eventInterpreter.setCurrentOption(option);</span>
+<span class="lineNum">     212 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     213 </span>            : 
+<span class="lineNum">     214 </span>            : /*!
+<span class="lineNum">     215 </span>            :  * \brief MapArea::registerRoad.
+<span class="lineNum">     216 </span>            :  * \param road - pointer to RoadGUI object.
+<span class="lineNum">     217 </span>            :  * \details Function adds new road to the list of roads to be drawn.
+<span class="lineNum">     218 </span>            :  * Pointer to RoadGUI object is passed as argument. Before exiting map
+<span class="lineNum">     219 </span>            :  * area is redrawn. Function is a slot, so it is called by signal in
+<a name="220"><span class="lineNum">     220 </span>            :  * EventInterpreter object.</a>
+<span class="lineNum">     221 </span>            :  */
+<span class="lineNum">     222 </span><span class="lineNoCov">          0 : void MapArea::registerRoad(RoadGUI *road) {</span>
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 :     roadMap[++roadID] = road;</span>
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :     update();</span>
+<span class="lineNum">     225 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            : /*!
+<span class="lineNum">     228 </span>            :  * \brief MapArea::registerDrawable.
+<span class="lineNum">     229 </span>            :  * \param drawable - pointer to Drawable object.
+<span class="lineNum">     230 </span>            :  * \details Function adds new drawable object to list of objects
+<span class="lineNum">     231 </span>            :  * to be drawn. Pointer to Drawable object is being passed as argument.
+<span class="lineNum">     232 </span>            :  * Before exiting map area is being redrawn. Function is a slot, so it
+<a name="233"><span class="lineNum">     233 </span>            :  * is called by signal in EventInterpreter object.</a>
+<span class="lineNum">     234 </span>            :  */
+<span class="lineNum">     235 </span><span class="lineNoCov">          0 : void MapArea::registerDrawable(Drawable *drawable) {</span>
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :     objectMap.push_back(drawable);</span>
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 :     update();</span>
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span>            : /*!
+<span class="lineNum">     241 </span>            :  * \brief MapArea::setMap.
+<span class="lineNum">     242 </span>            :  * \param map - Shared pointer to map object.
+<span class="lineNum">     243 </span>            :  * \details Function sets map object in EventInterpreter object
+<a name="244"><span class="lineNum">     244 </span>            :  * \sa EventInterpreter::setMap.</a>
+<span class="lineNum">     245 </span>            :  */
+<a name="246"><span class="lineNum">     246 </span><span class="lineNoCov">          0 : void MapArea::setMap(std::shared_ptr&lt;Map&gt; map) {</span></a>
+<span class="lineNum">     247 </span><span class="lineNoCov">          0 :     eventInterpreter.setMap(map);</span>
+<span class="lineNum">     248 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,1418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/src/gtest-death-test.cc</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/src</a> - gtest-death-test.cc<span style="font-size: 80%;"> (source / <a href="gtest-death-test.cc.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">290</td>
+            <td class="headerCovTableEntryLo">2.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">41</td>
+            <td class="headerCovTableEntryLo">2.4 %</td>
+          </tr>
+          <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2005, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Author: wan@google.com (Zhanyong Wan), vladl@google.com (Vlad Losev)
+<span class="lineNum">      31 </span>            : //
+<span class="lineNum">      32 </span>            : // This file implements death tests.
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : #include &quot;gtest/gtest-death-test.h&quot;
+<span class="lineNum">      35 </span>            : #include &quot;gtest/internal/gtest-port.h&quot;
+<span class="lineNum">      36 </span>            : #include &quot;gtest/internal/custom/gtest.h&quot;
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : #if GTEST_HAS_DEATH_TEST
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : # if GTEST_OS_MAC
+<span class="lineNum">      41 </span>            : #  include &lt;crt_externs.h&gt;
+<span class="lineNum">      42 </span>            : # endif  // GTEST_OS_MAC
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span>            : # include &lt;errno.h&gt;
+<span class="lineNum">      45 </span>            : # include &lt;fcntl.h&gt;
+<span class="lineNum">      46 </span>            : # include &lt;limits.h&gt;
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : # if GTEST_OS_LINUX
+<span class="lineNum">      49 </span>            : #  include &lt;signal.h&gt;
+<span class="lineNum">      50 </span>            : # endif  // GTEST_OS_LINUX
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : # include &lt;stdarg.h&gt;
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">      55 </span>            : #  include &lt;windows.h&gt;
+<span class="lineNum">      56 </span>            : # else
+<span class="lineNum">      57 </span>            : #  include &lt;sys/mman.h&gt;
+<span class="lineNum">      58 </span>            : #  include &lt;sys/wait.h&gt;
+<span class="lineNum">      59 </span>            : # endif  // GTEST_OS_WINDOWS
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : # if GTEST_OS_QNX
+<span class="lineNum">      62 </span>            : #  include &lt;spawn.h&gt;
+<span class="lineNum">      63 </span>            : # endif  // GTEST_OS_QNX
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            : #endif  // GTEST_HAS_DEATH_TEST
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span>            : #include &quot;gtest/gtest-message.h&quot;
+<span class="lineNum">      68 </span>            : #include &quot;gtest/internal/gtest-string.h&quot;
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            : // Indicates that this translation unit is part of Google Test's
+<span class="lineNum">      71 </span>            : // implementation.  It must come before gtest-internal-inl.h is
+<span class="lineNum">      72 </span>            : // included, or there will be a compiler error.  This trick exists to
+<span class="lineNum">      73 </span>            : // prevent the accidental inclusion of gtest-internal-inl.h in the
+<span class="lineNum">      74 </span>            : // user's code.
+<span class="lineNum">      75 </span>            : #define GTEST_IMPLEMENTATION_ 1
+<span class="lineNum">      76 </span>            : #include &quot;src/gtest-internal-inl.h&quot;
+<span class="lineNum">      77 </span>            : #undef GTEST_IMPLEMENTATION_
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            : namespace testing {
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            : // Constants.
+<span class="lineNum">      82 </span>            : 
+<span class="lineNum">      83 </span>            : // The default death test style.
+<span class="lineNum">      84 </span>            : static const char kDefaultDeathTestStyle[] = &quot;fast&quot;;
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span><span class="lineCov">          1 : GTEST_DEFINE_string_(</span>
+<span class="lineNum">      87 </span>            :     death_test_style,
+<span class="lineNum">      88 </span>            :     internal::StringFromGTestEnv(&quot;death_test_style&quot;, kDefaultDeathTestStyle),
+<span class="lineNum">      89 </span>            :     &quot;Indicates how to run a death test in a forked child process: &quot;
+<span class="lineNum">      90 </span>            :     &quot;\&quot;threadsafe\&quot; (child process re-executes the test binary &quot;
+<span class="lineNum">      91 </span>            :     &quot;from the beginning, running only the specific death test) or &quot;
+<span class="lineNum">      92 </span>            :     &quot;\&quot;fast\&quot; (child process runs the death test immediately &quot;
+<span class="lineNum">      93 </span>            :     &quot;after forking).&quot;);
+<span class="lineNum">      94 </span>            : 
+<span class="lineNum">      95 </span><span class="lineCov">          1 : GTEST_DEFINE_bool_(</span>
+<span class="lineNum">      96 </span>            :     death_test_use_fork,
+<span class="lineNum">      97 </span>            :     internal::BoolFromGTestEnv(&quot;death_test_use_fork&quot;, false),
+<span class="lineNum">      98 </span>            :     &quot;Instructs to use fork()/_exit() instead of clone() in death tests. &quot;
+<span class="lineNum">      99 </span>            :     &quot;Ignored and always uses fork() on POSIX systems where clone() is not &quot;
+<span class="lineNum">     100 </span>            :     &quot;implemented. Useful when running under valgrind or similar tools if &quot;
+<span class="lineNum">     101 </span>            :     &quot;those do not support clone(). Valgrind 3.3.1 will just fail if &quot;
+<span class="lineNum">     102 </span>            :     &quot;it sees an unsupported combination of clone() flags. &quot;
+<span class="lineNum">     103 </span>            :     &quot;It is not recommended to use this flag w/o valgrind though it will &quot;
+<span class="lineNum">     104 </span>            :     &quot;work in 99% of the cases. Once valgrind is fixed, this flag will &quot;
+<span class="lineNum">     105 </span>            :     &quot;most likely be removed.&quot;);
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span>            : namespace internal {
+<span class="lineNum">     108 </span><span class="lineCov">          1 : GTEST_DEFINE_string_(</span>
+<span class="lineNum">     109 </span>            :     internal_run_death_test, &quot;&quot;,
+<span class="lineNum">     110 </span>            :     &quot;Indicates the file, line number, temporal index of &quot;
+<span class="lineNum">     111 </span>            :     &quot;the single death test to run, and a file descriptor to &quot;
+<span class="lineNum">     112 </span>            :     &quot;which a success code may be sent, all separated by &quot;
+<span class="lineNum">     113 </span>            :     &quot;the '|' characters.  This flag is specified if and only if the current &quot;
+<span class="lineNum">     114 </span>            :     &quot;process is a sub-process launched for running a thread-safe &quot;
+<span class="lineNum">     115 </span>            :     &quot;death test.  FOR INTERNAL USE ONLY.&quot;);
+<span class="lineNum">     116 </span>            : }  // namespace internal
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span>            : #if GTEST_HAS_DEATH_TEST
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span>            : namespace internal {
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            : // Valid only for fast death tests. Indicates the code is running in the
+<span class="lineNum">     123 </span>            : // child process of a fast style death test.
+<span class="lineNum">     124 </span>            : # if !GTEST_OS_WINDOWS
+<span class="lineNum">     125 </span>            : static bool g_in_fast_death_test_child = false;
+<span class="lineNum">     126 </span>            : # endif
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span>            : // Returns a Boolean value indicating whether the caller is currently
+<span class="lineNum">     129 </span>            : // executing in the context of the death test child process.  Tools such as
+<span class="lineNum">     130 </span>            : // Valgrind heap checkers may need this to modify their behavior in death
+<a name="131"><span class="lineNum">     131 </span>            : // tests.  IMPORTANT: This is an internal utility.  Using it may break the</a>
+<span class="lineNum">     132 </span>            : // implementation of death tests.  User code MUST NOT use it.
+<span class="lineNum">     133 </span><span class="lineNoCov">          0 : bool InDeathTestChild() {</span>
+<span class="lineNum">     134 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span>            :   // On Windows, death tests are thread-safe regardless of the value of the
+<span class="lineNum">     137 </span>            :   // death_test_style flag.
+<span class="lineNum">     138 </span>            :   return !GTEST_FLAG(internal_run_death_test).empty();
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span>            : # else
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 :   if (GTEST_FLAG(death_test_style) == &quot;threadsafe&quot;)</span>
+<span class="lineNum">     143 </span><span class="lineNoCov">          0 :     return !GTEST_FLAG(internal_run_death_test).empty();</span>
+<span class="lineNum">     144 </span>            :   else
+<span class="lineNum">     145 </span><span class="lineNoCov">          0 :     return g_in_fast_death_test_child;</span>
+<span class="lineNum">     146 </span>            : #endif
+<span class="lineNum">     147 </span>            : }
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            : }  // namespace internal
+<a name="150"><span class="lineNum">     150 </span>            : </a>
+<span class="lineNum">     151 </span>            : // ExitedWithCode constructor.
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 : ExitedWithCode::ExitedWithCode(int exit_code) : exit_code_(exit_code) {</span>
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 : }</span>
+<a name="154"><span class="lineNum">     154 </span>            : </a>
+<span class="lineNum">     155 </span>            : // ExitedWithCode function-call operator.
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 : bool ExitedWithCode::operator()(int exit_status) const {</span>
+<span class="lineNum">     157 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span>            :   return exit_status == exit_code_;
+<span class="lineNum">     160 </span>            : 
+<a name="161"><span class="lineNum">     161 </span>            : # else</a>
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span><span class="lineNoCov">          0 :   return WIFEXITED(exit_status) &amp;&amp; WEXITSTATUS(exit_status) == exit_code_;</span>
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span>            : # endif  // GTEST_OS_WINDOWS
+<span class="lineNum">     166 </span>            : }
+<span class="lineNum">     167 </span>            : 
+<a name="168"><span class="lineNum">     168 </span>            : # if !GTEST_OS_WINDOWS</a>
+<span class="lineNum">     169 </span>            : // KilledBySignal constructor.
+<span class="lineNum">     170 </span><span class="lineNoCov">          0 : KilledBySignal::KilledBySignal(int signum) : signum_(signum) {</span>
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 : }</span>
+<a name="172"><span class="lineNum">     172 </span>            : </a>
+<span class="lineNum">     173 </span>            : // KilledBySignal function-call operator.
+<span class="lineNum">     174 </span><span class="lineNoCov">          0 : bool KilledBySignal::operator()(int exit_status) const {</span>
+<span class="lineNum">     175 </span>            : #  if defined(GTEST_KILLED_BY_SIGNAL_OVERRIDE_)
+<span class="lineNum">     176 </span>            :   {
+<span class="lineNum">     177 </span>            :     bool result;
+<span class="lineNum">     178 </span>            :     if (GTEST_KILLED_BY_SIGNAL_OVERRIDE_(signum_, exit_status, &amp;result)) {
+<span class="lineNum">     179 </span>            :       return result;
+<span class="lineNum">     180 </span>            :     }
+<span class="lineNum">     181 </span>            :   }
+<span class="lineNum">     182 </span>            : #  endif  // defined(GTEST_KILLED_BY_SIGNAL_OVERRIDE_)
+<span class="lineNum">     183 </span><span class="lineNoCov">          0 :   return WIFSIGNALED(exit_status) &amp;&amp; WTERMSIG(exit_status) == signum_;</span>
+<span class="lineNum">     184 </span>            : }
+<span class="lineNum">     185 </span>            : # endif  // !GTEST_OS_WINDOWS
+<span class="lineNum">     186 </span>            : 
+<span class="lineNum">     187 </span>            : namespace internal {
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span>            : // Utilities needed for death tests.
+<span class="lineNum">     190 </span>            : 
+<span class="lineNum">     191 </span>            : // Generates a textual description of a given exit code, in the format
+<span class="lineNum">     192 </span>            : // specified by wait(2).
+<span class="lineNum">     193 </span><span class="lineNoCov">          0 : static std::string ExitSummary(int exit_code) {</span>
+<span class="lineNum">     194 </span><span class="lineNoCov">          0 :   Message m;</span>
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">     197 </span>            : 
+<span class="lineNum">     198 </span>            :   m &lt;&lt; &quot;Exited with exit status &quot; &lt;&lt; exit_code;
+<span class="lineNum">     199 </span>            : 
+<span class="lineNum">     200 </span>            : # else
+<span class="lineNum">     201 </span>            : 
+<span class="lineNum">     202 </span><span class="lineNoCov">          0 :   if (WIFEXITED(exit_code)) {</span>
+<span class="lineNum">     203 </span><span class="lineNoCov">          0 :     m &lt;&lt; &quot;Exited with exit status &quot; &lt;&lt; WEXITSTATUS(exit_code);</span>
+<span class="lineNum">     204 </span><span class="lineNoCov">          0 :   } else if (WIFSIGNALED(exit_code)) {</span>
+<span class="lineNum">     205 </span><span class="lineNoCov">          0 :     m &lt;&lt; &quot;Terminated by signal &quot; &lt;&lt; WTERMSIG(exit_code);</span>
+<span class="lineNum">     206 </span>            :   }
+<span class="lineNum">     207 </span>            : #  ifdef WCOREDUMP
+<span class="lineNum">     208 </span><span class="lineNoCov">          0 :   if (WCOREDUMP(exit_code)) {</span>
+<span class="lineNum">     209 </span>            :     m &lt;&lt; &quot; (core dumped)&quot;;
+<span class="lineNum">     210 </span>            :   }
+<span class="lineNum">     211 </span>            : #  endif
+<span class="lineNum">     212 </span>            : # endif  // GTEST_OS_WINDOWS
+<span class="lineNum">     213 </span>            : 
+<span class="lineNum">     214 </span><span class="lineNoCov">          0 :   return m.GetString();</span>
+<span class="lineNum">     215 </span>            : }
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span>            : // Returns true if exit_status describes a process that was terminated
+<span class="lineNum">     218 </span>            : // by a signal, or exited normally with a nonzero exit code.
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 : bool ExitedUnsuccessfully(int exit_status) {</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :   return !ExitedWithCode(0)(exit_status);</span>
+<span class="lineNum">     221 </span>            : }
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span>            : # if !GTEST_OS_WINDOWS
+<span class="lineNum">     224 </span>            : // Generates a textual failure message when a death test finds more than
+<span class="lineNum">     225 </span>            : // one thread running, or cannot determine the number of threads, prior
+<span class="lineNum">     226 </span>            : // to executing the given statement.  It is the responsibility of the
+<span class="lineNum">     227 </span>            : // caller not to pass a thread_count of 1.
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 : static std::string DeathTestThreadWarning(size_t thread_count) {</span>
+<span class="lineNum">     229 </span><span class="lineNoCov">          0 :   Message msg;</span>
+<span class="lineNum">     230 </span><span class="lineNoCov">          0 :   msg &lt;&lt; &quot;Death tests use fork(), which is unsafe particularly&quot;</span>
+<span class="lineNum">     231 </span><span class="lineNoCov">          0 :       &lt;&lt; &quot; in a threaded context. For this test, &quot; &lt;&lt; GTEST_NAME_ &lt;&lt; &quot; &quot;;</span>
+<span class="lineNum">     232 </span><span class="lineNoCov">          0 :   if (thread_count == 0)</span>
+<span class="lineNum">     233 </span>            :     msg &lt;&lt; &quot;couldn't detect the number of threads.&quot;;
+<span class="lineNum">     234 </span>            :   else
+<span class="lineNum">     235 </span><span class="lineNoCov">          0 :     msg &lt;&lt; &quot;detected &quot; &lt;&lt; thread_count &lt;&lt; &quot; threads.&quot;;</span>
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :   return msg.GetString();</span>
+<span class="lineNum">     237 </span>            : }
+<span class="lineNum">     238 </span>            : # endif  // !GTEST_OS_WINDOWS
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span>            : // Flag characters for reporting a death test that did not die.
+<span class="lineNum">     241 </span>            : static const char kDeathTestLived = 'L';
+<span class="lineNum">     242 </span>            : static const char kDeathTestReturned = 'R';
+<span class="lineNum">     243 </span>            : static const char kDeathTestThrew = 'T';
+<span class="lineNum">     244 </span>            : static const char kDeathTestInternalError = 'I';
+<span class="lineNum">     245 </span>            : 
+<span class="lineNum">     246 </span>            : // An enumeration describing all of the possible ways that a death test can
+<span class="lineNum">     247 </span>            : // conclude.  DIED means that the process died while executing the test
+<span class="lineNum">     248 </span>            : // code; LIVED means that process lived beyond the end of the test code;
+<span class="lineNum">     249 </span>            : // RETURNED means that the test statement attempted to execute a return
+<span class="lineNum">     250 </span>            : // statement, which is not allowed; THREW means that the test statement
+<span class="lineNum">     251 </span>            : // returned control by throwing an exception.  IN_PROGRESS means the test
+<span class="lineNum">     252 </span>            : // has not yet concluded.
+<span class="lineNum">     253 </span>            : // TODO(vladl@google.com): Unify names and possibly values for
+<span class="lineNum">     254 </span>            : // AbortReason, DeathTestOutcome, and flag characters above.
+<span class="lineNum">     255 </span>            : enum DeathTestOutcome { IN_PROGRESS, DIED, LIVED, RETURNED, THREW };
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span>            : // Routine for aborting the program which is safe to call from an
+<span class="lineNum">     258 </span>            : // exec-style death test child process, in which case the error
+<span class="lineNum">     259 </span>            : // message is propagated back to the parent process.  Otherwise, the
+<a name="260"><span class="lineNum">     260 </span>            : // message is simply printed to stderr.  In either case, the program</a>
+<span class="lineNum">     261 </span>            : // then exits with status 1.
+<span class="lineNum">     262 </span><span class="lineNoCov">          0 : void DeathTestAbort(const std::string&amp; message) {</span>
+<span class="lineNum">     263 </span>            :   // On a POSIX system, this function may be called from a threadsafe-style
+<span class="lineNum">     264 </span>            :   // death test child process, which operates on a very small stack.  Use
+<span class="lineNum">     265 </span>            :   // the heap for any additional non-minuscule memory requirements.
+<span class="lineNum">     266 </span><span class="lineNoCov">          0 :   const InternalRunDeathTestFlag* const flag =</span>
+<span class="lineNum">     267 </span><span class="lineNoCov">          0 :       GetUnitTestImpl()-&gt;internal_run_death_test_flag();</span>
+<span class="lineNum">     268 </span><span class="lineNoCov">          0 :   if (flag != NULL) {</span>
+<span class="lineNum">     269 </span><span class="lineNoCov">          0 :     FILE* parent = posix::FDOpen(flag-&gt;write_fd(), &quot;w&quot;);</span>
+<span class="lineNum">     270 </span><span class="lineNoCov">          0 :     fputc(kDeathTestInternalError, parent);</span>
+<span class="lineNum">     271 </span><span class="lineNoCov">          0 :     fprintf(parent, &quot;%s&quot;, message.c_str());</span>
+<span class="lineNum">     272 </span><span class="lineNoCov">          0 :     fflush(parent);</span>
+<span class="lineNum">     273 </span><span class="lineNoCov">          0 :     _exit(1);</span>
+<span class="lineNum">     274 </span>            :   } else {
+<span class="lineNum">     275 </span><span class="lineNoCov">          0 :     fprintf(stderr, &quot;%s&quot;, message.c_str());</span>
+<span class="lineNum">     276 </span><span class="lineNoCov">          0 :     fflush(stderr);</span>
+<span class="lineNum">     277 </span>            :     posix::Abort();
+<span class="lineNum">     278 </span>            :   }
+<span class="lineNum">     279 </span>            : }
+<span class="lineNum">     280 </span>            : 
+<span class="lineNum">     281 </span>            : // A replacement for CHECK that calls DeathTestAbort if the assertion
+<span class="lineNum">     282 </span>            : // fails.
+<span class="lineNum">     283 </span>            : # define GTEST_DEATH_TEST_CHECK_(expression) \
+<span class="lineNum">     284 </span>            :   do { \
+<span class="lineNum">     285 </span>            :     if (!::testing::internal::IsTrue(expression)) { \
+<span class="lineNum">     286 </span>            :       DeathTestAbort( \
+<span class="lineNum">     287 </span>            :           ::std::string(&quot;CHECK failed: File &quot;) + __FILE__ +  &quot;, line &quot; \
+<span class="lineNum">     288 </span>            :           + ::testing::internal::StreamableToString(__LINE__) + &quot;: &quot; \
+<span class="lineNum">     289 </span>            :           + #expression); \
+<span class="lineNum">     290 </span>            :     } \
+<span class="lineNum">     291 </span>            :   } while (::testing::internal::AlwaysFalse())
+<span class="lineNum">     292 </span>            : 
+<span class="lineNum">     293 </span>            : // This macro is similar to GTEST_DEATH_TEST_CHECK_, but it is meant for
+<span class="lineNum">     294 </span>            : // evaluating any system call that fulfills two conditions: it must return
+<span class="lineNum">     295 </span>            : // -1 on failure, and set errno to EINTR when it is interrupted and
+<span class="lineNum">     296 </span>            : // should be tried again.  The macro expands to a loop that repeatedly
+<span class="lineNum">     297 </span>            : // evaluates the expression as long as it evaluates to -1 and sets
+<span class="lineNum">     298 </span>            : // errno to EINTR.  If the expression evaluates to -1 but errno is
+<span class="lineNum">     299 </span>            : // something other than EINTR, DeathTestAbort is called.
+<span class="lineNum">     300 </span>            : # define GTEST_DEATH_TEST_CHECK_SYSCALL_(expression) \
+<span class="lineNum">     301 </span>            :   do { \
+<span class="lineNum">     302 </span>            :     int gtest_retval; \
+<span class="lineNum">     303 </span>            :     do { \
+<span class="lineNum">     304 </span>            :       gtest_retval = (expression); \
+<span class="lineNum">     305 </span>            :     } while (gtest_retval == -1 &amp;&amp; errno == EINTR); \
+<span class="lineNum">     306 </span>            :     if (gtest_retval == -1) { \
+<span class="lineNum">     307 </span>            :       DeathTestAbort( \
+<span class="lineNum">     308 </span>            :           ::std::string(&quot;CHECK failed: File &quot;) + __FILE__ + &quot;, line &quot; \
+<span class="lineNum">     309 </span>            :           + ::testing::internal::StreamableToString(__LINE__) + &quot;: &quot; \
+<span class="lineNum">     310 </span>            :           + #expression + &quot; != -1&quot;); \
+<span class="lineNum">     311 </span>            :     } \
+<span class="lineNum">     312 </span>            :   } while (::testing::internal::AlwaysFalse())
+<a name="313"><span class="lineNum">     313 </span>            : </a>
+<span class="lineNum">     314 </span>            : // Returns the message describing the last system error in errno.
+<span class="lineNum">     315 </span><span class="lineNoCov">          0 : std::string GetLastErrnoDescription() {</span>
+<span class="lineNum">     316 </span><span class="lineNoCov">          0 :     return errno == 0 ? &quot;&quot; : posix::StrError(errno);</span>
+<span class="lineNum">     317 </span>            : }
+<span class="lineNum">     318 </span>            : 
+<span class="lineNum">     319 </span>            : // This is called from a death test parent process to read a failure
+<span class="lineNum">     320 </span>            : // message from the death test child process and log it with the FATAL
+<span class="lineNum">     321 </span>            : // severity. On Windows, the message is read from a pipe handle. On other
+<span class="lineNum">     322 </span>            : // platforms, it is read from a file descriptor.
+<span class="lineNum">     323 </span><span class="lineNoCov">          0 : static void FailFromInternalError(int fd) {</span>
+<span class="lineNum">     324 </span><span class="lineNoCov">          0 :   Message error;</span>
+<span class="lineNum">     325 </span>            :   char buffer[256];
+<span class="lineNum">     326 </span>            :   int num_read;
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span><span class="lineNoCov">          0 :   do {</span>
+<span class="lineNum">     329 </span><span class="lineNoCov">          0 :     while ((num_read = posix::Read(fd, buffer, 255)) &gt; 0) {</span>
+<span class="lineNum">     330 </span><span class="lineNoCov">          0 :       buffer[num_read] = '\0';</span>
+<span class="lineNum">     331 </span>            :       error &lt;&lt; buffer;
+<span class="lineNum">     332 </span>            :     }
+<span class="lineNum">     333 </span><span class="lineNoCov">          0 :   } while (num_read == -1 &amp;&amp; errno == EINTR);</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span><span class="lineNoCov">          0 :   if (num_read == 0) {</span>
+<span class="lineNum">     336 </span><span class="lineNoCov">          0 :     GTEST_LOG_(FATAL) &lt;&lt; error.GetString();</span>
+<span class="lineNum">     337 </span>            :   } else {
+<span class="lineNum">     338 </span><span class="lineNoCov">          0 :     const int last_error = errno;</span>
+<span class="lineNum">     339 </span><span class="lineNoCov">          0 :     GTEST_LOG_(FATAL) &lt;&lt; &quot;Error while reading death test internal: &quot;</span>
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 :                       &lt;&lt; GetLastErrnoDescription() &lt;&lt; &quot; [&quot; &lt;&lt; last_error &lt;&lt; &quot;]&quot;;</span>
+<span class="lineNum">     341 </span>            :   }
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     343 </span>            : 
+<a name="344"><span class="lineNum">     344 </span>            : // Death test constructor.  Increments the running death test count</a>
+<span class="lineNum">     345 </span>            : // for the current test.
+<span class="lineNum">     346 </span><span class="lineNoCov">          0 : DeathTest::DeathTest() {</span>
+<span class="lineNum">     347 </span><span class="lineNoCov">          0 :   TestInfo* const info = GetUnitTestImpl()-&gt;current_test_info();</span>
+<span class="lineNum">     348 </span><span class="lineNoCov">          0 :   if (info == NULL) {</span>
+<span class="lineNum">     349 </span>            :     DeathTestAbort(&quot;Cannot run a death test outside of a TEST or &quot;
+<span class="lineNum">     350 </span><span class="lineNoCov">          0 :                    &quot;TEST_F construct&quot;);</span>
+<span class="lineNum">     351 </span>            :   }
+<span class="lineNum">     352 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     353 </span>            : 
+<a name="354"><span class="lineNum">     354 </span>            : // Creates and returns a death test by dispatching to the current</a>
+<span class="lineNum">     355 </span>            : // death test factory.
+<span class="lineNum">     356 </span><span class="lineNoCov">          0 : bool DeathTest::Create(const char* statement, const RE* regex,</span>
+<span class="lineNum">     357 </span>            :                        const char* file, int line, DeathTest** test) {
+<span class="lineNum">     358 </span><span class="lineNoCov">          0 :   return GetUnitTestImpl()-&gt;death_test_factory()-&gt;Create(</span>
+<span class="lineNum">     359 </span><span class="lineNoCov">          0 :       statement, regex, file, line, test);</span>
+<a name="360"><span class="lineNum">     360 </span>            : }</a>
+<span class="lineNum">     361 </span>            : 
+<span class="lineNum">     362 </span><span class="lineNoCov">          0 : const char* DeathTest::LastMessage() {</span>
+<span class="lineNum">     363 </span><span class="lineNoCov">          0 :   return last_death_test_message_.c_str();</span>
+<a name="364"><span class="lineNum">     364 </span>            : }</a>
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span><span class="lineNoCov">          0 : void DeathTest::set_last_death_test_message(const std::string&amp; message) {</span>
+<span class="lineNum">     367 </span>            :   last_death_test_message_ = message;
+<span class="lineNum">     368 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     369 </span>            : 
+<span class="lineNum">     370 </span><span class="lineCov">          1 : std::string DeathTest::last_death_test_message_;</span>
+<span class="lineNum">     371 </span>            : 
+<span class="lineNum">     372 </span>            : // Provides cross platform implementation for some death functionality.
+<span class="lineNum">     373 </span>            : class DeathTestImpl : public DeathTest {
+<span class="lineNum">     374 </span>            :  protected:
+<span class="lineNum">     375 </span>            :   DeathTestImpl(const char* a_statement, const RE* a_regex)
+<span class="lineNum">     376 </span>            :       : statement_(a_statement),
+<span class="lineNum">     377 </span>            :         regex_(a_regex),
+<span class="lineNum">     378 </span>            :         spawned_(false),
+<span class="lineNum">     379 </span>            :         status_(-1),
+<a name="380"><span class="lineNum">     380 </span>            :         outcome_(IN_PROGRESS),</a>
+<span class="lineNum">     381 </span>            :         read_fd_(-1),
+<span class="lineNum">     382 </span><span class="lineNoCov">          0 :         write_fd_(-1) {}</span>
+<a name="383"><span class="lineNum">     383 </span>            : </a>
+<span class="lineNum">     384 </span>            :   // read_fd_ is expected to be closed and cleared by a derived class.
+<span class="lineNum">     385 </span><span class="lineNoCov">          0 :   ~DeathTestImpl() { GTEST_DEATH_TEST_CHECK_(read_fd_ == -1); }</span>
+<span class="lineNum">     386 </span>            : 
+<span class="lineNum">     387 </span>            :   void Abort(AbortReason reason);
+<span class="lineNum">     388 </span>            :   virtual bool Passed(bool status_ok);
+<span class="lineNum">     389 </span>            : 
+<span class="lineNum">     390 </span>            :   const char* statement() const { return statement_; }
+<a name="391"><span class="lineNum">     391 </span>            :   const RE* regex() const { return regex_; }</a>
+<span class="lineNum">     392 </span>            :   bool spawned() const { return spawned_; }
+<a name="393"><span class="lineNum">     393 </span><span class="lineNoCov">          0 :   void set_spawned(bool is_spawned) { spawned_ = is_spawned; }</span></a>
+<span class="lineNum">     394 </span>            :   int status() const { return status_; }
+<a name="395"><span class="lineNum">     395 </span><span class="lineNoCov">          0 :   void set_status(int a_status) { status_ = a_status; }</span></a>
+<span class="lineNum">     396 </span>            :   DeathTestOutcome outcome() const { return outcome_; }
+<span class="lineNum">     397 </span><span class="lineNoCov">          0 :   void set_outcome(DeathTestOutcome an_outcome) { outcome_ = an_outcome; }</span>
+<span class="lineNum">     398 </span>            :   int read_fd() const { return read_fd_; }
+<span class="lineNum">     399 </span><span class="lineNoCov">          0 :   void set_read_fd(int fd) { read_fd_ = fd; }</span>
+<span class="lineNum">     400 </span>            :   int write_fd() const { return write_fd_; }
+<span class="lineNum">     401 </span><span class="lineNoCov">          0 :   void set_write_fd(int fd) { write_fd_ = fd; }</span>
+<span class="lineNum">     402 </span>            : 
+<span class="lineNum">     403 </span>            :   // Called in the parent process only. Reads the result code of the death
+<span class="lineNum">     404 </span>            :   // test child process via a pipe, interprets it to set the outcome_
+<span class="lineNum">     405 </span>            :   // member, and closes read_fd_.  Outputs diagnostics and terminates in
+<span class="lineNum">     406 </span>            :   // case of unexpected codes.
+<span class="lineNum">     407 </span>            :   void ReadAndInterpretStatusByte();
+<span class="lineNum">     408 </span>            : 
+<span class="lineNum">     409 </span>            :  private:
+<span class="lineNum">     410 </span>            :   // The textual content of the code this object is testing.  This class
+<span class="lineNum">     411 </span>            :   // doesn't own this string and should not attempt to delete it.
+<span class="lineNum">     412 </span>            :   const char* const statement_;
+<span class="lineNum">     413 </span>            :   // The regular expression which test output must match.  DeathTestImpl
+<span class="lineNum">     414 </span>            :   // doesn't own this object and should not attempt to delete it.
+<span class="lineNum">     415 </span>            :   const RE* const regex_;
+<span class="lineNum">     416 </span>            :   // True if the death test child process has been successfully spawned.
+<span class="lineNum">     417 </span>            :   bool spawned_;
+<span class="lineNum">     418 </span>            :   // The exit status of the child process.
+<span class="lineNum">     419 </span>            :   int status_;
+<span class="lineNum">     420 </span>            :   // How the death test concluded.
+<span class="lineNum">     421 </span>            :   DeathTestOutcome outcome_;
+<span class="lineNum">     422 </span>            :   // Descriptor to the read end of the pipe to the child process.  It is
+<span class="lineNum">     423 </span>            :   // always -1 in the child process.  The child keeps its write end of the
+<span class="lineNum">     424 </span>            :   // pipe in write_fd_.
+<span class="lineNum">     425 </span>            :   int read_fd_;
+<span class="lineNum">     426 </span>            :   // Descriptor to the child's write end of the pipe to the parent process.
+<span class="lineNum">     427 </span>            :   // It is always -1 in the parent process.  The parent keeps its end of the
+<span class="lineNum">     428 </span>            :   // pipe in read_fd_.
+<span class="lineNum">     429 </span>            :   int write_fd_;
+<span class="lineNum">     430 </span>            : };
+<span class="lineNum">     431 </span>            : 
+<span class="lineNum">     432 </span>            : // Called in the parent process only. Reads the result code of the death
+<span class="lineNum">     433 </span>            : // test child process via a pipe, interprets it to set the outcome_
+<span class="lineNum">     434 </span>            : // member, and closes read_fd_.  Outputs diagnostics and terminates in
+<span class="lineNum">     435 </span>            : // case of unexpected codes.
+<span class="lineNum">     436 </span><span class="lineNoCov">          0 : void DeathTestImpl::ReadAndInterpretStatusByte() {</span>
+<span class="lineNum">     437 </span>            :   char flag;
+<span class="lineNum">     438 </span>            :   int bytes_read;
+<span class="lineNum">     439 </span>            : 
+<span class="lineNum">     440 </span>            :   // The read() here blocks until data is available (signifying the
+<span class="lineNum">     441 </span>            :   // failure of the death test) or until the pipe is closed (signifying
+<span class="lineNum">     442 </span>            :   // its success), so it's okay to call this in the parent before
+<span class="lineNum">     443 </span>            :   // the child process has exited.
+<span class="lineNum">     444 </span><span class="lineNoCov">          0 :   do {</span>
+<span class="lineNum">     445 </span><span class="lineNoCov">          0 :     bytes_read = posix::Read(read_fd(), &amp;flag, 1);</span>
+<span class="lineNum">     446 </span><span class="lineNoCov">          0 :   } while (bytes_read == -1 &amp;&amp; errno == EINTR);</span>
+<span class="lineNum">     447 </span>            : 
+<span class="lineNum">     448 </span><span class="lineNoCov">          0 :   if (bytes_read == 0) {</span>
+<span class="lineNum">     449 </span><span class="lineNoCov">          0 :     set_outcome(DIED);</span>
+<span class="lineNum">     450 </span><span class="lineNoCov">          0 :   } else if (bytes_read == 1) {</span>
+<span class="lineNum">     451 </span><span class="lineNoCov">          0 :     switch (flag) {</span>
+<span class="lineNum">     452 </span>            :       case kDeathTestReturned:
+<span class="lineNum">     453 </span><span class="lineNoCov">          0 :         set_outcome(RETURNED);</span>
+<span class="lineNum">     454 </span>            :         break;
+<span class="lineNum">     455 </span>            :       case kDeathTestThrew:
+<span class="lineNum">     456 </span><span class="lineNoCov">          0 :         set_outcome(THREW);</span>
+<span class="lineNum">     457 </span>            :         break;
+<span class="lineNum">     458 </span>            :       case kDeathTestLived:
+<span class="lineNum">     459 </span><span class="lineNoCov">          0 :         set_outcome(LIVED);</span>
+<span class="lineNum">     460 </span>            :         break;
+<span class="lineNum">     461 </span>            :       case kDeathTestInternalError:
+<span class="lineNum">     462 </span><span class="lineNoCov">          0 :         FailFromInternalError(read_fd());  // Does not return.</span>
+<span class="lineNum">     463 </span>            :         break;
+<span class="lineNum">     464 </span>            :       default:
+<span class="lineNum">     465 </span><span class="lineNoCov">          0 :         GTEST_LOG_(FATAL) &lt;&lt; &quot;Death test child process reported &quot;</span>
+<span class="lineNum">     466 </span><span class="lineNoCov">          0 :                           &lt;&lt; &quot;unexpected status byte (&quot;</span>
+<span class="lineNum">     467 </span><span class="lineNoCov">          0 :                           &lt;&lt; static_cast&lt;unsigned int&gt;(flag) &lt;&lt; &quot;)&quot;;</span>
+<span class="lineNum">     468 </span>            :     }
+<span class="lineNum">     469 </span>            :   } else {
+<span class="lineNum">     470 </span><span class="lineNoCov">          0 :     GTEST_LOG_(FATAL) &lt;&lt; &quot;Read from death test child process failed: &quot;</span>
+<span class="lineNum">     471 </span><span class="lineNoCov">          0 :                       &lt;&lt; GetLastErrnoDescription();</span>
+<span class="lineNum">     472 </span>            :   }
+<span class="lineNum">     473 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_SYSCALL_(posix::Close(read_fd()));</span>
+<span class="lineNum">     474 </span><span class="lineNoCov">          0 :   set_read_fd(-1);</span>
+<span class="lineNum">     475 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     476 </span>            : 
+<span class="lineNum">     477 </span>            : // Signals that the death test code which should have exited, didn't.
+<span class="lineNum">     478 </span>            : // Should be called only in a death test child process.
+<a name="479"><span class="lineNum">     479 </span>            : // Writes a status byte to the child's status file descriptor, then</a>
+<span class="lineNum">     480 </span>            : // calls _exit(1).
+<span class="lineNum">     481 </span><span class="lineNoCov">          0 : void DeathTestImpl::Abort(AbortReason reason) {</span>
+<span class="lineNum">     482 </span>            :   // The parent process considers the death test to be a failure if
+<span class="lineNum">     483 </span>            :   // it finds any data in our pipe.  So, here we write a single flag byte
+<span class="lineNum">     484 </span>            :   // to the pipe, then exit.
+<span class="lineNum">     485 </span>            :   const char status_ch =
+<span class="lineNum">     486 </span>            :       reason == TEST_DID_NOT_DIE ? kDeathTestLived :
+<span class="lineNum">     487 </span><span class="lineNoCov">          0 :       reason == TEST_THREW_EXCEPTION ? kDeathTestThrew : kDeathTestReturned;</span>
+<span class="lineNum">     488 </span>            : 
+<span class="lineNum">     489 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_SYSCALL_(posix::Write(write_fd(), &amp;status_ch, 1));</span>
+<span class="lineNum">     490 </span>            :   // We are leaking the descriptor here because on some platforms (i.e.,
+<span class="lineNum">     491 </span>            :   // when built as Windows DLL), destructors of global objects will still
+<span class="lineNum">     492 </span>            :   // run after calling _exit(). On such systems, write_fd_ will be
+<span class="lineNum">     493 </span>            :   // indirectly closed from the destructor of UnitTestImpl, causing double
+<span class="lineNum">     494 </span>            :   // close if it is also closed here. On debug configurations, double close
+<span class="lineNum">     495 </span>            :   // may assert. As there are no in-process buffers to flush here, we are
+<span class="lineNum">     496 </span>            :   // relying on the OS to close the descriptor after the process terminates
+<span class="lineNum">     497 </span>            :   // when the destructors are not run.
+<span class="lineNum">     498 </span><span class="lineNoCov">          0 :   _exit(1);  // Exits w/o any normal exit hooks (we were supposed to crash)</span>
+<span class="lineNum">     499 </span>            : }
+<span class="lineNum">     500 </span>            : 
+<span class="lineNum">     501 </span>            : // Returns an indented copy of stderr output for a death test.
+<a name="502"><span class="lineNum">     502 </span>            : // This makes distinguishing death test output lines from regular log lines</a>
+<span class="lineNum">     503 </span>            : // much easier.
+<span class="lineNum">     504 </span><span class="lineNoCov">          0 : static ::std::string FormatDeathTestOutput(const ::std::string&amp; output) {</span>
+<span class="lineNum">     505 </span>            :   ::std::string ret;
+<span class="lineNum">     506 </span><span class="lineNoCov">          0 :   for (size_t at = 0; ; ) {</span>
+<span class="lineNum">     507 </span><span class="lineNoCov">          0 :     const size_t line_end = output.find('\n', at);</span>
+<span class="lineNum">     508 </span>            :     ret += &quot;[  DEATH   ] &quot;;
+<span class="lineNum">     509 </span><span class="lineNoCov">          0 :     if (line_end == ::std::string::npos) {</span>
+<span class="lineNum">     510 </span><span class="lineNoCov">          0 :       ret += output.substr(at);</span>
+<span class="lineNum">     511 </span>            :       break;
+<span class="lineNum">     512 </span>            :     }
+<span class="lineNum">     513 </span><span class="lineNoCov">          0 :     ret += output.substr(at, line_end + 1 - at);</span>
+<span class="lineNum">     514 </span><span class="lineNoCov">          0 :     at = line_end + 1;</span>
+<span class="lineNum">     515 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">     516 </span><span class="lineNoCov">          0 :   return ret;</span>
+<span class="lineNum">     517 </span>            : }
+<span class="lineNum">     518 </span>            : 
+<span class="lineNum">     519 </span>            : // Assesses the success or failure of a death test, using both private
+<span class="lineNum">     520 </span>            : // members which have previously been set, and one argument:
+<span class="lineNum">     521 </span>            : //
+<span class="lineNum">     522 </span>            : // Private data members:
+<span class="lineNum">     523 </span>            : //   outcome:  An enumeration describing how the death test
+<span class="lineNum">     524 </span>            : //             concluded: DIED, LIVED, THREW, or RETURNED.  The death test
+<span class="lineNum">     525 </span>            : //             fails in the latter three cases.
+<span class="lineNum">     526 </span>            : //   status:   The exit status of the child process. On *nix, it is in the
+<span class="lineNum">     527 </span>            : //             in the format specified by wait(2). On Windows, this is the
+<span class="lineNum">     528 </span>            : //             value supplied to the ExitProcess() API or a numeric code
+<span class="lineNum">     529 </span>            : //             of the exception that terminated the program.
+<span class="lineNum">     530 </span>            : //   regex:    A regular expression object to be applied to
+<span class="lineNum">     531 </span>            : //             the test's captured standard error output; the death test
+<span class="lineNum">     532 </span>            : //             fails if it does not match.
+<span class="lineNum">     533 </span>            : //
+<span class="lineNum">     534 </span>            : // Argument:
+<span class="lineNum">     535 </span>            : //   status_ok: true if exit_status is acceptable in the context of
+<span class="lineNum">     536 </span>            : //              this particular death test, which fails if it is false
+<span class="lineNum">     537 </span>            : //
+<span class="lineNum">     538 </span>            : // Returns true iff all of the above conditions are met.  Otherwise, the
+<span class="lineNum">     539 </span>            : // first failing condition, in the order given above, is the one that is
+<span class="lineNum">     540 </span>            : // reported. Also sets the last death test message string.
+<span class="lineNum">     541 </span><span class="lineNoCov">          0 : bool DeathTestImpl::Passed(bool status_ok) {</span>
+<span class="lineNum">     542 </span><span class="lineNoCov">          0 :   if (!spawned())</span>
+<span class="lineNum">     543 </span>            :     return false;
+<span class="lineNum">     544 </span>            : 
+<span class="lineNum">     545 </span>            :   const std::string error_message = GetCapturedStderr();
+<span class="lineNum">     546 </span>            : 
+<span class="lineNum">     547 </span><span class="lineNoCov">          0 :   bool success = false;</span>
+<span class="lineNum">     548 </span><span class="lineNoCov">          0 :   Message buffer;</span>
+<span class="lineNum">     549 </span>            : 
+<span class="lineNum">     550 </span><span class="lineNoCov">          0 :   buffer &lt;&lt; &quot;Death test: &quot; &lt;&lt; statement() &lt;&lt; &quot;\n&quot;;</span>
+<span class="lineNum">     551 </span><span class="lineNoCov">          0 :   switch (outcome()) {</span>
+<span class="lineNum">     552 </span>            :     case LIVED:
+<span class="lineNum">     553 </span><span class="lineNoCov">          0 :       buffer &lt;&lt; &quot;    Result: failed to die.\n&quot;</span>
+<span class="lineNum">     554 </span><span class="lineNoCov">          0 :              &lt;&lt; &quot; Error msg:\n&quot; &lt;&lt; FormatDeathTestOutput(error_message);</span>
+<span class="lineNum">     555 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     556 </span>            :     case THREW:
+<span class="lineNum">     557 </span><span class="lineNoCov">          0 :       buffer &lt;&lt; &quot;    Result: threw an exception.\n&quot;</span>
+<span class="lineNum">     558 </span><span class="lineNoCov">          0 :              &lt;&lt; &quot; Error msg:\n&quot; &lt;&lt; FormatDeathTestOutput(error_message);</span>
+<span class="lineNum">     559 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     560 </span>            :     case RETURNED:
+<span class="lineNum">     561 </span><span class="lineNoCov">          0 :       buffer &lt;&lt; &quot;    Result: illegal return in test statement.\n&quot;</span>
+<span class="lineNum">     562 </span><span class="lineNoCov">          0 :              &lt;&lt; &quot; Error msg:\n&quot; &lt;&lt; FormatDeathTestOutput(error_message);</span>
+<span class="lineNum">     563 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     564 </span>            :     case DIED:
+<span class="lineNum">     565 </span><span class="lineNoCov">          0 :       if (status_ok) {</span>
+<span class="lineNum">     566 </span><span class="lineNoCov">          0 :         const bool matched = RE::PartialMatch(error_message.c_str(), *regex());</span>
+<span class="lineNum">     567 </span><span class="lineNoCov">          0 :         if (matched) {</span>
+<span class="lineNum">     568 </span>            :           success = true;
+<span class="lineNum">     569 </span>            :         } else {
+<span class="lineNum">     570 </span><span class="lineNoCov">          0 :           buffer &lt;&lt; &quot;    Result: died but not with expected error.\n&quot;</span>
+<span class="lineNum">     571 </span><span class="lineNoCov">          0 :                  &lt;&lt; &quot;  Expected: &quot; &lt;&lt; regex()-&gt;pattern() &lt;&lt; &quot;\n&quot;</span>
+<span class="lineNum">     572 </span><span class="lineNoCov">          0 :                  &lt;&lt; &quot;Actual msg:\n&quot; &lt;&lt; FormatDeathTestOutput(error_message);</span>
+<span class="lineNum">     573 </span>            :         }
+<span class="lineNum">     574 </span>            :       } else {
+<span class="lineNum">     575 </span><span class="lineNoCov">          0 :         buffer &lt;&lt; &quot;    Result: died but not with expected exit code:\n&quot;</span>
+<span class="lineNum">     576 </span><span class="lineNoCov">          0 :                &lt;&lt; &quot;            &quot; &lt;&lt; ExitSummary(status()) &lt;&lt; &quot;\n&quot;</span>
+<span class="lineNum">     577 </span><span class="lineNoCov">          0 :                &lt;&lt; &quot;Actual msg:\n&quot; &lt;&lt; FormatDeathTestOutput(error_message);</span>
+<span class="lineNum">     578 </span>            :       }
+<span class="lineNum">     579 </span>            :       break;
+<span class="lineNum">     580 </span>            :     case IN_PROGRESS:
+<span class="lineNum">     581 </span>            :     default:
+<span class="lineNum">     582 </span><span class="lineNoCov">          0 :       GTEST_LOG_(FATAL)</span>
+<span class="lineNum">     583 </span><span class="lineNoCov">          0 :           &lt;&lt; &quot;DeathTest::Passed somehow called before conclusion of test&quot;;</span>
+<span class="lineNum">     584 </span>            :   }
+<span class="lineNum">     585 </span>            : 
+<span class="lineNum">     586 </span><span class="lineNoCov">          0 :   DeathTest::set_last_death_test_message(buffer.GetString());</span>
+<span class="lineNum">     587 </span><span class="lineNoCov">          0 :   return success;</span>
+<span class="lineNum">     588 </span>            : }
+<span class="lineNum">     589 </span>            : 
+<span class="lineNum">     590 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">     591 </span>            : // WindowsDeathTest implements death tests on Windows. Due to the
+<span class="lineNum">     592 </span>            : // specifics of starting new processes on Windows, death tests there are
+<span class="lineNum">     593 </span>            : // always threadsafe, and Google Test considers the
+<span class="lineNum">     594 </span>            : // --gtest_death_test_style=fast setting to be equivalent to
+<span class="lineNum">     595 </span>            : // --gtest_death_test_style=threadsafe there.
+<span class="lineNum">     596 </span>            : //
+<span class="lineNum">     597 </span>            : // A few implementation notes:  Like the Linux version, the Windows
+<span class="lineNum">     598 </span>            : // implementation uses pipes for child-to-parent communication. But due to
+<span class="lineNum">     599 </span>            : // the specifics of pipes on Windows, some extra steps are required:
+<span class="lineNum">     600 </span>            : //
+<span class="lineNum">     601 </span>            : // 1. The parent creates a communication pipe and stores handles to both
+<span class="lineNum">     602 </span>            : //    ends of it.
+<span class="lineNum">     603 </span>            : // 2. The parent starts the child and provides it with the information
+<span class="lineNum">     604 </span>            : //    necessary to acquire the handle to the write end of the pipe.
+<span class="lineNum">     605 </span>            : // 3. The child acquires the write end of the pipe and signals the parent
+<span class="lineNum">     606 </span>            : //    using a Windows event.
+<span class="lineNum">     607 </span>            : // 4. Now the parent can release the write end of the pipe on its side. If
+<span class="lineNum">     608 </span>            : //    this is done before step 3, the object's reference count goes down to
+<span class="lineNum">     609 </span>            : //    0 and it is destroyed, preventing the child from acquiring it. The
+<span class="lineNum">     610 </span>            : //    parent now has to release it, or read operations on the read end of
+<span class="lineNum">     611 </span>            : //    the pipe will not return when the child terminates.
+<span class="lineNum">     612 </span>            : // 5. The parent reads child's output through the pipe (outcome code and
+<span class="lineNum">     613 </span>            : //    any possible error messages) from the pipe, and its stderr and then
+<span class="lineNum">     614 </span>            : //    determines whether to fail the test.
+<span class="lineNum">     615 </span>            : //
+<span class="lineNum">     616 </span>            : // Note: to distinguish Win32 API calls from the local method and function
+<span class="lineNum">     617 </span>            : // calls, the former are explicitly resolved in the global namespace.
+<span class="lineNum">     618 </span>            : //
+<span class="lineNum">     619 </span>            : class WindowsDeathTest : public DeathTestImpl {
+<span class="lineNum">     620 </span>            :  public:
+<span class="lineNum">     621 </span>            :   WindowsDeathTest(const char* a_statement,
+<span class="lineNum">     622 </span>            :                    const RE* a_regex,
+<span class="lineNum">     623 </span>            :                    const char* file,
+<span class="lineNum">     624 </span>            :                    int line)
+<span class="lineNum">     625 </span>            :       : DeathTestImpl(a_statement, a_regex), file_(file), line_(line) {}
+<span class="lineNum">     626 </span>            : 
+<span class="lineNum">     627 </span>            :   // All of these virtual functions are inherited from DeathTest.
+<span class="lineNum">     628 </span>            :   virtual int Wait();
+<span class="lineNum">     629 </span>            :   virtual TestRole AssumeRole();
+<span class="lineNum">     630 </span>            : 
+<span class="lineNum">     631 </span>            :  private:
+<span class="lineNum">     632 </span>            :   // The name of the file in which the death test is located.
+<span class="lineNum">     633 </span>            :   const char* const file_;
+<span class="lineNum">     634 </span>            :   // The line number on which the death test is located.
+<span class="lineNum">     635 </span>            :   const int line_;
+<span class="lineNum">     636 </span>            :   // Handle to the write end of the pipe to the child process.
+<span class="lineNum">     637 </span>            :   AutoHandle write_handle_;
+<span class="lineNum">     638 </span>            :   // Child process handle.
+<span class="lineNum">     639 </span>            :   AutoHandle child_handle_;
+<span class="lineNum">     640 </span>            :   // Event the child process uses to signal the parent that it has
+<span class="lineNum">     641 </span>            :   // acquired the handle to the write end of the pipe. After seeing this
+<span class="lineNum">     642 </span>            :   // event the parent can release its own handles to make sure its
+<span class="lineNum">     643 </span>            :   // ReadFile() calls return when the child terminates.
+<span class="lineNum">     644 </span>            :   AutoHandle event_handle_;
+<span class="lineNum">     645 </span>            : };
+<span class="lineNum">     646 </span>            : 
+<span class="lineNum">     647 </span>            : // Waits for the child in a death test to exit, returning its exit
+<span class="lineNum">     648 </span>            : // status, or 0 if no child process exists.  As a side effect, sets the
+<span class="lineNum">     649 </span>            : // outcome data member.
+<span class="lineNum">     650 </span>            : int WindowsDeathTest::Wait() {
+<span class="lineNum">     651 </span>            :   if (!spawned())
+<span class="lineNum">     652 </span>            :     return 0;
+<span class="lineNum">     653 </span>            : 
+<span class="lineNum">     654 </span>            :   // Wait until the child either signals that it has acquired the write end
+<span class="lineNum">     655 </span>            :   // of the pipe or it dies.
+<span class="lineNum">     656 </span>            :   const HANDLE wait_handles[2] = { child_handle_.Get(), event_handle_.Get() };
+<span class="lineNum">     657 </span>            :   switch (::WaitForMultipleObjects(2,
+<span class="lineNum">     658 </span>            :                                    wait_handles,
+<span class="lineNum">     659 </span>            :                                    FALSE,  // Waits for any of the handles.
+<span class="lineNum">     660 </span>            :                                    INFINITE)) {
+<span class="lineNum">     661 </span>            :     case WAIT_OBJECT_0:
+<span class="lineNum">     662 </span>            :     case WAIT_OBJECT_0 + 1:
+<span class="lineNum">     663 </span>            :       break;
+<span class="lineNum">     664 </span>            :     default:
+<span class="lineNum">     665 </span>            :       GTEST_DEATH_TEST_CHECK_(false);  // Should not get here.
+<span class="lineNum">     666 </span>            :   }
+<span class="lineNum">     667 </span>            : 
+<span class="lineNum">     668 </span>            :   // The child has acquired the write end of the pipe or exited.
+<span class="lineNum">     669 </span>            :   // We release the handle on our side and continue.
+<span class="lineNum">     670 </span>            :   write_handle_.Reset();
+<span class="lineNum">     671 </span>            :   event_handle_.Reset();
+<span class="lineNum">     672 </span>            : 
+<span class="lineNum">     673 </span>            :   ReadAndInterpretStatusByte();
+<span class="lineNum">     674 </span>            : 
+<span class="lineNum">     675 </span>            :   // Waits for the child process to exit if it haven't already. This
+<span class="lineNum">     676 </span>            :   // returns immediately if the child has already exited, regardless of
+<span class="lineNum">     677 </span>            :   // whether previous calls to WaitForMultipleObjects synchronized on this
+<span class="lineNum">     678 </span>            :   // handle or not.
+<span class="lineNum">     679 </span>            :   GTEST_DEATH_TEST_CHECK_(
+<span class="lineNum">     680 </span>            :       WAIT_OBJECT_0 == ::WaitForSingleObject(child_handle_.Get(),
+<span class="lineNum">     681 </span>            :                                              INFINITE));
+<span class="lineNum">     682 </span>            :   DWORD status_code;
+<span class="lineNum">     683 </span>            :   GTEST_DEATH_TEST_CHECK_(
+<span class="lineNum">     684 </span>            :       ::GetExitCodeProcess(child_handle_.Get(), &amp;status_code) != FALSE);
+<span class="lineNum">     685 </span>            :   child_handle_.Reset();
+<span class="lineNum">     686 </span>            :   set_status(static_cast&lt;int&gt;(status_code));
+<span class="lineNum">     687 </span>            :   return status();
+<span class="lineNum">     688 </span>            : }
+<span class="lineNum">     689 </span>            : 
+<span class="lineNum">     690 </span>            : // The AssumeRole process for a Windows death test.  It creates a child
+<span class="lineNum">     691 </span>            : // process with the same executable as the current process to run the
+<span class="lineNum">     692 </span>            : // death test.  The child process is given the --gtest_filter and
+<span class="lineNum">     693 </span>            : // --gtest_internal_run_death_test flags such that it knows to run the
+<span class="lineNum">     694 </span>            : // current death test only.
+<span class="lineNum">     695 </span>            : DeathTest::TestRole WindowsDeathTest::AssumeRole() {
+<span class="lineNum">     696 </span>            :   const UnitTestImpl* const impl = GetUnitTestImpl();
+<span class="lineNum">     697 </span>            :   const InternalRunDeathTestFlag* const flag =
+<span class="lineNum">     698 </span>            :       impl-&gt;internal_run_death_test_flag();
+<span class="lineNum">     699 </span>            :   const TestInfo* const info = impl-&gt;current_test_info();
+<span class="lineNum">     700 </span>            :   const int death_test_index = info-&gt;result()-&gt;death_test_count();
+<span class="lineNum">     701 </span>            : 
+<span class="lineNum">     702 </span>            :   if (flag != NULL) {
+<span class="lineNum">     703 </span>            :     // ParseInternalRunDeathTestFlag() has performed all the necessary
+<span class="lineNum">     704 </span>            :     // processing.
+<span class="lineNum">     705 </span>            :     set_write_fd(flag-&gt;write_fd());
+<span class="lineNum">     706 </span>            :     return EXECUTE_TEST;
+<span class="lineNum">     707 </span>            :   }
+<span class="lineNum">     708 </span>            : 
+<span class="lineNum">     709 </span>            :   // WindowsDeathTest uses an anonymous pipe to communicate results of
+<span class="lineNum">     710 </span>            :   // a death test.
+<span class="lineNum">     711 </span>            :   SECURITY_ATTRIBUTES handles_are_inheritable = {
+<span class="lineNum">     712 </span>            :     sizeof(SECURITY_ATTRIBUTES), NULL, TRUE };
+<span class="lineNum">     713 </span>            :   HANDLE read_handle, write_handle;
+<span class="lineNum">     714 </span>            :   GTEST_DEATH_TEST_CHECK_(
+<span class="lineNum">     715 </span>            :       ::CreatePipe(&amp;read_handle, &amp;write_handle, &amp;handles_are_inheritable,
+<span class="lineNum">     716 </span>            :                    0)  // Default buffer size.
+<span class="lineNum">     717 </span>            :       != FALSE);
+<span class="lineNum">     718 </span>            :   set_read_fd(::_open_osfhandle(reinterpret_cast&lt;intptr_t&gt;(read_handle),
+<span class="lineNum">     719 </span>            :                                 O_RDONLY));
+<span class="lineNum">     720 </span>            :   write_handle_.Reset(write_handle);
+<span class="lineNum">     721 </span>            :   event_handle_.Reset(::CreateEvent(
+<span class="lineNum">     722 </span>            :       &amp;handles_are_inheritable,
+<span class="lineNum">     723 </span>            :       TRUE,    // The event will automatically reset to non-signaled state.
+<span class="lineNum">     724 </span>            :       FALSE,   // The initial state is non-signalled.
+<span class="lineNum">     725 </span>            :       NULL));  // The even is unnamed.
+<span class="lineNum">     726 </span>            :   GTEST_DEATH_TEST_CHECK_(event_handle_.Get() != NULL);
+<span class="lineNum">     727 </span>            :   const std::string filter_flag =
+<span class="lineNum">     728 </span>            :       std::string(&quot;--&quot;) + GTEST_FLAG_PREFIX_ + kFilterFlag + &quot;=&quot; +
+<span class="lineNum">     729 </span>            :       info-&gt;test_case_name() + &quot;.&quot; + info-&gt;name();
+<span class="lineNum">     730 </span>            :   const std::string internal_flag =
+<span class="lineNum">     731 </span>            :       std::string(&quot;--&quot;) + GTEST_FLAG_PREFIX_ + kInternalRunDeathTestFlag +
+<span class="lineNum">     732 </span>            :       &quot;=&quot; + file_ + &quot;|&quot; + StreamableToString(line_) + &quot;|&quot; +
+<span class="lineNum">     733 </span>            :       StreamableToString(death_test_index) + &quot;|&quot; +
+<span class="lineNum">     734 </span>            :       StreamableToString(static_cast&lt;unsigned int&gt;(::GetCurrentProcessId())) +
+<span class="lineNum">     735 </span>            :       // size_t has the same width as pointers on both 32-bit and 64-bit
+<span class="lineNum">     736 </span>            :       // Windows platforms.
+<span class="lineNum">     737 </span>            :       // See http://msdn.microsoft.com/en-us/library/tcxf1dw6.aspx.
+<span class="lineNum">     738 </span>            :       &quot;|&quot; + StreamableToString(reinterpret_cast&lt;size_t&gt;(write_handle)) +
+<span class="lineNum">     739 </span>            :       &quot;|&quot; + StreamableToString(reinterpret_cast&lt;size_t&gt;(event_handle_.Get()));
+<span class="lineNum">     740 </span>            : 
+<span class="lineNum">     741 </span>            :   char executable_path[_MAX_PATH + 1];  // NOLINT
+<span class="lineNum">     742 </span>            :   GTEST_DEATH_TEST_CHECK_(
+<span class="lineNum">     743 </span>            :       _MAX_PATH + 1 != ::GetModuleFileNameA(NULL,
+<span class="lineNum">     744 </span>            :                                             executable_path,
+<span class="lineNum">     745 </span>            :                                             _MAX_PATH));
+<span class="lineNum">     746 </span>            : 
+<span class="lineNum">     747 </span>            :   std::string command_line =
+<span class="lineNum">     748 </span>            :       std::string(::GetCommandLineA()) + &quot; &quot; + filter_flag + &quot; \&quot;&quot; +
+<span class="lineNum">     749 </span>            :       internal_flag + &quot;\&quot;&quot;;
+<span class="lineNum">     750 </span>            : 
+<span class="lineNum">     751 </span>            :   DeathTest::set_last_death_test_message(&quot;&quot;);
+<span class="lineNum">     752 </span>            : 
+<span class="lineNum">     753 </span>            :   CaptureStderr();
+<span class="lineNum">     754 </span>            :   // Flush the log buffers since the log streams are shared with the child.
+<span class="lineNum">     755 </span>            :   FlushInfoLog();
+<span class="lineNum">     756 </span>            : 
+<span class="lineNum">     757 </span>            :   // The child process will share the standard handles with the parent.
+<span class="lineNum">     758 </span>            :   STARTUPINFOA startup_info;
+<span class="lineNum">     759 </span>            :   memset(&amp;startup_info, 0, sizeof(STARTUPINFO));
+<span class="lineNum">     760 </span>            :   startup_info.dwFlags = STARTF_USESTDHANDLES;
+<span class="lineNum">     761 </span>            :   startup_info.hStdInput = ::GetStdHandle(STD_INPUT_HANDLE);
+<span class="lineNum">     762 </span>            :   startup_info.hStdOutput = ::GetStdHandle(STD_OUTPUT_HANDLE);
+<span class="lineNum">     763 </span>            :   startup_info.hStdError = ::GetStdHandle(STD_ERROR_HANDLE);
+<span class="lineNum">     764 </span>            : 
+<span class="lineNum">     765 </span>            :   PROCESS_INFORMATION process_info;
+<span class="lineNum">     766 </span>            :   GTEST_DEATH_TEST_CHECK_(::CreateProcessA(
+<span class="lineNum">     767 </span>            :       executable_path,
+<span class="lineNum">     768 </span>            :       const_cast&lt;char*&gt;(command_line.c_str()),
+<span class="lineNum">     769 </span>            :       NULL,   // Retuned process handle is not inheritable.
+<span class="lineNum">     770 </span>            :       NULL,   // Retuned thread handle is not inheritable.
+<span class="lineNum">     771 </span>            :       TRUE,   // Child inherits all inheritable handles (for write_handle_).
+<span class="lineNum">     772 </span>            :       0x0,    // Default creation flags.
+<span class="lineNum">     773 </span>            :       NULL,   // Inherit the parent's environment.
+<span class="lineNum">     774 </span>            :       UnitTest::GetInstance()-&gt;original_working_dir(),
+<span class="lineNum">     775 </span>            :       &amp;startup_info,
+<span class="lineNum">     776 </span>            :       &amp;process_info) != FALSE);
+<span class="lineNum">     777 </span>            :   child_handle_.Reset(process_info.hProcess);
+<span class="lineNum">     778 </span>            :   ::CloseHandle(process_info.hThread);
+<span class="lineNum">     779 </span>            :   set_spawned(true);
+<span class="lineNum">     780 </span>            :   return OVERSEE_TEST;
+<span class="lineNum">     781 </span>            : }
+<span class="lineNum">     782 </span>            : # else  // We are not on Windows.
+<span class="lineNum">     783 </span>            : 
+<span class="lineNum">     784 </span>            : // ForkingDeathTest provides implementations for most of the abstract
+<a name="785"><span class="lineNum">     785 </span>            : // methods of the DeathTest interface.  Only the AssumeRole method is</a>
+<span class="lineNum">     786 </span>            : // left undefined.
+<span class="lineNum">     787 </span><span class="lineNoCov">          0 : class ForkingDeathTest : public DeathTestImpl {</span>
+<span class="lineNum">     788 </span>            :  public:
+<span class="lineNum">     789 </span>            :   ForkingDeathTest(const char* statement, const RE* regex);
+<span class="lineNum">     790 </span>            : 
+<span class="lineNum">     791 </span>            :   // All of these virtual functions are inherited from DeathTest.
+<span class="lineNum">     792 </span>            :   virtual int Wait();
+<span class="lineNum">     793 </span>            : 
+<span class="lineNum">     794 </span>            :  protected:
+<span class="lineNum">     795 </span><span class="lineNoCov">          0 :   void set_child_pid(pid_t child_pid) { child_pid_ = child_pid; }</span>
+<span class="lineNum">     796 </span>            : 
+<span class="lineNum">     797 </span>            :  private:
+<span class="lineNum">     798 </span>            :   // PID of child process during death test; 0 in the child process itself.
+<span class="lineNum">     799 </span>            :   pid_t child_pid_;
+<span class="lineNum">     800 </span>            : };
+<span class="lineNum">     801 </span>            : 
+<span class="lineNum">     802 </span>            : // Constructs a ForkingDeathTest.
+<span class="lineNum">     803 </span><span class="lineNoCov">          0 : ForkingDeathTest::ForkingDeathTest(const char* a_statement, const RE* a_regex)</span>
+<span class="lineNum">     804 </span>            :     : DeathTestImpl(a_statement, a_regex),
+<span class="lineNum">     805 </span><span class="lineNoCov">          0 :       child_pid_(-1) {}</span>
+<span class="lineNum">     806 </span>            : 
+<span class="lineNum">     807 </span>            : // Waits for the child in a death test to exit, returning its exit
+<span class="lineNum">     808 </span>            : // status, or 0 if no child process exists.  As a side effect, sets the
+<span class="lineNum">     809 </span>            : // outcome data member.
+<span class="lineNum">     810 </span><span class="lineNoCov">          0 : int ForkingDeathTest::Wait() {</span>
+<span class="lineNum">     811 </span><span class="lineNoCov">          0 :   if (!spawned())</span>
+<span class="lineNum">     812 </span>            :     return 0;
+<span class="lineNum">     813 </span>            : 
+<span class="lineNum">     814 </span><span class="lineNoCov">          0 :   ReadAndInterpretStatusByte();</span>
+<span class="lineNum">     815 </span>            : 
+<span class="lineNum">     816 </span>            :   int status_value;
+<span class="lineNum">     817 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_SYSCALL_(waitpid(child_pid_, &amp;status_value, 0));</span>
+<span class="lineNum">     818 </span><span class="lineNoCov">          0 :   set_status(status_value);</span>
+<span class="lineNum">     819 </span><span class="lineNoCov">          0 :   return status_value;</span>
+<span class="lineNum">     820 </span>            : }
+<span class="lineNum">     821 </span>            : 
+<span class="lineNum">     822 </span>            : // A concrete death test class that forks, then immediately runs the test
+<span class="lineNum">     823 </span>            : // in the child process.
+<span class="lineNum">     824 </span><span class="lineNoCov">          0 : class NoExecDeathTest : public ForkingDeathTest {</span>
+<span class="lineNum">     825 </span>            :  public:
+<span class="lineNum">     826 </span>            :   NoExecDeathTest(const char* a_statement, const RE* a_regex) :
+<span class="lineNum">     827 </span><span class="lineNoCov">          0 :       ForkingDeathTest(a_statement, a_regex) { }</span>
+<span class="lineNum">     828 </span>            :   virtual TestRole AssumeRole();
+<span class="lineNum">     829 </span>            : };
+<span class="lineNum">     830 </span>            : 
+<span class="lineNum">     831 </span>            : // The AssumeRole process for a fork-and-run death test.  It implements a
+<span class="lineNum">     832 </span>            : // straightforward fork, with a simple pipe to transmit the status byte.
+<span class="lineNum">     833 </span><span class="lineNoCov">          0 : DeathTest::TestRole NoExecDeathTest::AssumeRole() {</span>
+<span class="lineNum">     834 </span><span class="lineNoCov">          0 :   const size_t thread_count = GetThreadCount();</span>
+<span class="lineNum">     835 </span><span class="lineNoCov">          0 :   if (thread_count != 1) {</span>
+<span class="lineNum">     836 </span><span class="lineNoCov">          0 :     GTEST_LOG_(WARNING) &lt;&lt; DeathTestThreadWarning(thread_count);</span>
+<span class="lineNum">     837 </span>            :   }
+<span class="lineNum">     838 </span>            : 
+<span class="lineNum">     839 </span>            :   int pipe_fd[2];
+<span class="lineNum">     840 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_(pipe(pipe_fd) != -1);</span>
+<span class="lineNum">     841 </span>            : 
+<span class="lineNum">     842 </span><span class="lineNoCov">          0 :   DeathTest::set_last_death_test_message(&quot;&quot;);</span>
+<span class="lineNum">     843 </span>            :   CaptureStderr();
+<span class="lineNum">     844 </span>            :   // When we fork the process below, the log file buffers are copied, but the
+<span class="lineNum">     845 </span>            :   // file descriptors are shared.  We flush all log files here so that closing
+<span class="lineNum">     846 </span>            :   // the file descriptors in the child process doesn't throw off the
+<span class="lineNum">     847 </span>            :   // synchronization between descriptors and buffers in the parent process.
+<span class="lineNum">     848 </span>            :   // This is as close to the fork as possible to avoid a race condition in case
+<span class="lineNum">     849 </span>            :   // there are multiple threads running before the death test, and another
+<span class="lineNum">     850 </span>            :   // thread writes to the log file.
+<span class="lineNum">     851 </span>            :   FlushInfoLog();
+<span class="lineNum">     852 </span>            : 
+<span class="lineNum">     853 </span><span class="lineNoCov">          0 :   const pid_t child_pid = fork();</span>
+<span class="lineNum">     854 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_(child_pid != -1);</span>
+<span class="lineNum">     855 </span><span class="lineNoCov">          0 :   set_child_pid(child_pid);</span>
+<span class="lineNum">     856 </span><span class="lineNoCov">          0 :   if (child_pid == 0) {</span>
+<span class="lineNum">     857 </span><span class="lineNoCov">          0 :     GTEST_DEATH_TEST_CHECK_SYSCALL_(close(pipe_fd[0]));</span>
+<span class="lineNum">     858 </span><span class="lineNoCov">          0 :     set_write_fd(pipe_fd[1]);</span>
+<span class="lineNum">     859 </span>            :     // Redirects all logging to stderr in the child process to prevent
+<span class="lineNum">     860 </span>            :     // concurrent writes to the log files.  We capture stderr in the parent
+<span class="lineNum">     861 </span>            :     // process and append the child process' output to a log.
+<span class="lineNum">     862 </span>            :     LogToStderr();
+<span class="lineNum">     863 </span>            :     // Event forwarding to the listeners of event listener API mush be shut
+<span class="lineNum">     864 </span>            :     // down in death test subprocesses.
+<span class="lineNum">     865 </span><span class="lineNoCov">          0 :     GetUnitTestImpl()-&gt;listeners()-&gt;SuppressEventForwarding();</span>
+<span class="lineNum">     866 </span><span class="lineNoCov">          0 :     g_in_fast_death_test_child = true;</span>
+<span class="lineNum">     867 </span><span class="lineNoCov">          0 :     return EXECUTE_TEST;</span>
+<span class="lineNum">     868 </span>            :   } else {
+<span class="lineNum">     869 </span><span class="lineNoCov">          0 :     GTEST_DEATH_TEST_CHECK_SYSCALL_(close(pipe_fd[1]));</span>
+<span class="lineNum">     870 </span><span class="lineNoCov">          0 :     set_read_fd(pipe_fd[0]);</span>
+<span class="lineNum">     871 </span><span class="lineNoCov">          0 :     set_spawned(true);</span>
+<span class="lineNum">     872 </span><span class="lineNoCov">          0 :     return OVERSEE_TEST;</span>
+<span class="lineNum">     873 </span>            :   }
+<span class="lineNum">     874 </span>            : }
+<span class="lineNum">     875 </span>            : 
+<span class="lineNum">     876 </span>            : // A concrete death test class that forks and re-executes the main
+<span class="lineNum">     877 </span>            : // program from the beginning, with command-line flags set that cause
+<span class="lineNum">     878 </span>            : // only this specific death test to be run.
+<span class="lineNum">     879 </span><span class="lineNoCov">          0 : class ExecDeathTest : public ForkingDeathTest {</span>
+<span class="lineNum">     880 </span>            :  public:
+<span class="lineNum">     881 </span>            :   ExecDeathTest(const char* a_statement, const RE* a_regex,
+<span class="lineNum">     882 </span>            :                 const char* file, int line) :
+<span class="lineNum">     883 </span><span class="lineNoCov">          0 :       ForkingDeathTest(a_statement, a_regex), file_(file), line_(line) { }</span>
+<span class="lineNum">     884 </span>            :   virtual TestRole AssumeRole();
+<span class="lineNum">     885 </span>            :  private:
+<span class="lineNum">     886 </span>            :   static ::std::vector&lt;testing::internal::string&gt;
+<span class="lineNum">     887 </span>            :   GetArgvsForDeathTestChildProcess() {
+<span class="lineNum">     888 </span><span class="lineNoCov">          0 :     ::std::vector&lt;testing::internal::string&gt; args = GetInjectableArgvs();</span>
+<span class="lineNum">     889 </span>            : #  if defined(GTEST_EXTRA_DEATH_TEST_COMMAND_LINE_ARGS_)
+<span class="lineNum">     890 </span>            :     ::std::vector&lt;testing::internal::string&gt; extra_args =
+<span class="lineNum">     891 </span>            :         GTEST_EXTRA_DEATH_TEST_COMMAND_LINE_ARGS_();
+<span class="lineNum">     892 </span>            :     args.insert(args.end(), extra_args.begin(), extra_args.end());
+<span class="lineNum">     893 </span>            : #  endif  // defined(GTEST_EXTRA_DEATH_TEST_COMMAND_LINE_ARGS_)
+<span class="lineNum">     894 </span>            :     return args;
+<span class="lineNum">     895 </span>            :   }
+<span class="lineNum">     896 </span>            :   // The name of the file in which the death test is located.
+<span class="lineNum">     897 </span>            :   const char* const file_;
+<span class="lineNum">     898 </span>            :   // The line number on which the death test is located.
+<span class="lineNum">     899 </span>            :   const int line_;
+<span class="lineNum">     900 </span>            : };
+<span class="lineNum">     901 </span>            : 
+<span class="lineNum">     902 </span>            : // Utility class for accumulating command-line arguments.
+<a name="903"><span class="lineNum">     903 </span>            : class Arguments {</a>
+<span class="lineNum">     904 </span>            :  public:
+<span class="lineNum">     905 </span><span class="lineNoCov">          0 :   Arguments() {</span>
+<span class="lineNum">     906 </span><span class="lineNoCov">          0 :     args_.push_back(NULL);</span>
+<a name="907"><span class="lineNum">     907 </span><span class="lineNoCov">          0 :   }</span></a>
+<span class="lineNum">     908 </span>            : 
+<span class="lineNum">     909 </span><span class="lineNoCov">          0 :   ~Arguments() {</span>
+<span class="lineNum">     910 </span><span class="lineNoCov">          0 :     for (std::vector&lt;char*&gt;::iterator i = args_.begin(); i != args_.end();</span>
+<span class="lineNum">     911 </span>            :          ++i) {
+<span class="lineNum">     912 </span><span class="lineNoCov">          0 :       free(*i);</span>
+<a name="913"><span class="lineNum">     913 </span>            :     }</a>
+<span class="lineNum">     914 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">     915 </span><span class="lineNoCov">          0 :   void AddArgument(const char* argument) {</span>
+<span class="lineNum">     916 </span><span class="lineNoCov">          0 :     args_.insert(args_.end() - 1, posix::StrDup(argument));</span>
+<span class="lineNum">     917 </span><span class="lineNoCov">          0 :   }</span>
+<a name="918"><span class="lineNum">     918 </span>            : </a>
+<span class="lineNum">     919 </span>            :   template &lt;typename Str&gt;
+<span class="lineNum">     920 </span><span class="lineNoCov">          0 :   void AddArguments(const ::std::vector&lt;Str&gt;&amp; arguments) {</span>
+<span class="lineNum">     921 </span><span class="lineNoCov">          0 :     for (typename ::std::vector&lt;Str&gt;::const_iterator i = arguments.begin();</span>
+<span class="lineNum">     922 </span><span class="lineNoCov">          0 :          i != arguments.end();</span>
+<span class="lineNum">     923 </span>            :          ++i) {
+<span class="lineNum">     924 </span><span class="lineNoCov">          0 :       args_.insert(args_.end() - 1, posix::StrDup(i-&gt;c_str()));</span>
+<span class="lineNum">     925 </span>            :     }
+<span class="lineNum">     926 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">     927 </span>            :   char* const* Argv() {
+<span class="lineNum">     928 </span><span class="lineNoCov">          0 :     return &amp;args_[0];</span>
+<span class="lineNum">     929 </span>            :   }
+<span class="lineNum">     930 </span>            : 
+<span class="lineNum">     931 </span>            :  private:
+<span class="lineNum">     932 </span>            :   std::vector&lt;char*&gt; args_;
+<span class="lineNum">     933 </span>            : };
+<span class="lineNum">     934 </span>            : 
+<span class="lineNum">     935 </span>            : // A struct that encompasses the arguments to the child process of a
+<span class="lineNum">     936 </span>            : // threadsafe-style death test process.
+<span class="lineNum">     937 </span>            : struct ExecDeathTestArgs {
+<span class="lineNum">     938 </span>            :   char* const* argv;  // Command-line arguments for the child's call to exec
+<span class="lineNum">     939 </span>            :   int close_fd;       // File descriptor to close; the read end of a pipe
+<span class="lineNum">     940 </span>            : };
+<span class="lineNum">     941 </span>            : 
+<span class="lineNum">     942 </span>            : #  if GTEST_OS_MAC
+<span class="lineNum">     943 </span>            : inline char** GetEnviron() {
+<span class="lineNum">     944 </span>            :   // When Google Test is built as a framework on MacOS X, the environ variable
+<span class="lineNum">     945 </span>            :   // is unavailable. Apple's documentation (man environ) recommends using
+<span class="lineNum">     946 </span>            :   // _NSGetEnviron() instead.
+<span class="lineNum">     947 </span>            :   return *_NSGetEnviron();
+<span class="lineNum">     948 </span>            : }
+<span class="lineNum">     949 </span>            : #  else
+<span class="lineNum">     950 </span>            : // Some POSIX platforms expect you to declare environ. extern &quot;C&quot; makes
+<span class="lineNum">     951 </span>            : // it reside in the global namespace.
+<span class="lineNum">     952 </span>            : extern &quot;C&quot; char** environ;
+<span class="lineNum">     953 </span><span class="lineNoCov">          0 : inline char** GetEnviron() { return environ; }</span>
+<span class="lineNum">     954 </span>            : #  endif  // GTEST_OS_MAC
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span>            : #  if !GTEST_OS_QNX
+<span class="lineNum">     957 </span>            : // The main function for a threadsafe-style death test child process.
+<span class="lineNum">     958 </span>            : // This function is called in a clone()-ed process and thus must avoid
+<span class="lineNum">     959 </span>            : // any potentially unsafe operations like malloc or libc functions.
+<span class="lineNum">     960 </span><span class="lineNoCov">          0 : static int ExecDeathTestChildMain(void* child_arg) {</span>
+<span class="lineNum">     961 </span><span class="lineNoCov">          0 :   ExecDeathTestArgs* const args = static_cast&lt;ExecDeathTestArgs*&gt;(child_arg);</span>
+<span class="lineNum">     962 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_SYSCALL_(close(args-&gt;close_fd));</span>
+<span class="lineNum">     963 </span>            : 
+<span class="lineNum">     964 </span>            :   // We need to execute the test program in the same environment where
+<span class="lineNum">     965 </span>            :   // it was originally invoked.  Therefore we change to the original
+<span class="lineNum">     966 </span>            :   // working directory first.
+<span class="lineNum">     967 </span>            :   const char* const original_dir =
+<span class="lineNum">     968 </span><span class="lineNoCov">          0 :       UnitTest::GetInstance()-&gt;original_working_dir();</span>
+<span class="lineNum">     969 </span>            :   // We can safely call chdir() as it's a direct system call.
+<span class="lineNum">     970 </span><span class="lineNoCov">          0 :   if (chdir(original_dir) != 0) {</span>
+<span class="lineNum">     971 </span><span class="lineNoCov">          0 :     DeathTestAbort(std::string(&quot;chdir(\&quot;&quot;) + original_dir + &quot;\&quot;) failed: &quot; +</span>
+<span class="lineNum">     972 </span><span class="lineNoCov">          0 :                    GetLastErrnoDescription());</span>
+<span class="lineNum">     973 </span>            :     return EXIT_FAILURE;
+<span class="lineNum">     974 </span>            :   }
+<span class="lineNum">     975 </span>            : 
+<span class="lineNum">     976 </span>            :   // We can safely call execve() as it's a direct system call.  We
+<span class="lineNum">     977 </span>            :   // cannot use execvp() as it's a libc function and thus potentially
+<span class="lineNum">     978 </span>            :   // unsafe.  Since execve() doesn't search the PATH, the user must
+<span class="lineNum">     979 </span>            :   // invoke the test program via a valid path that contains at least
+<span class="lineNum">     980 </span>            :   // one path separator.
+<span class="lineNum">     981 </span><span class="lineNoCov">          0 :   execve(args-&gt;argv[0], args-&gt;argv, GetEnviron());</span>
+<span class="lineNum">     982 </span><span class="lineNoCov">          0 :   DeathTestAbort(std::string(&quot;execve(&quot;) + args-&gt;argv[0] + &quot;, ...) in &quot; +</span>
+<span class="lineNum">     983 </span><span class="lineNoCov">          0 :                  original_dir + &quot; failed: &quot; +</span>
+<span class="lineNum">     984 </span><span class="lineNoCov">          0 :                  GetLastErrnoDescription());</span>
+<span class="lineNum">     985 </span>            :   return EXIT_FAILURE;
+<span class="lineNum">     986 </span>            : }
+<span class="lineNum">     987 </span>            : #  endif  // !GTEST_OS_QNX
+<span class="lineNum">     988 </span>            : 
+<span class="lineNum">     989 </span>            : // Two utility routines that together determine the direction the stack
+<span class="lineNum">     990 </span>            : // grows.
+<span class="lineNum">     991 </span>            : // This could be accomplished more elegantly by a single recursive
+<span class="lineNum">     992 </span>            : // function, but we want to guard against the unlikely possibility of
+<span class="lineNum">     993 </span>            : // a smart compiler optimizing the recursion away.
+<span class="lineNum">     994 </span>            : //
+<span class="lineNum">     995 </span>            : // GTEST_NO_INLINE_ is required to prevent GCC 4.6 from inlining
+<span class="lineNum">     996 </span>            : // StackLowerThanAddress into StackGrowsDown, which then doesn't give
+<a name="997"><span class="lineNum">     997 </span>            : // correct answer.</a>
+<span class="lineNum">     998 </span>            : void StackLowerThanAddress(const void* ptr, bool* result) GTEST_NO_INLINE_;
+<span class="lineNum">     999 </span><span class="lineNoCov">          0 : void StackLowerThanAddress(const void* ptr, bool* result) {</span>
+<span class="lineNum">    1000 </span>            :   int dummy;
+<span class="lineNum">    1001 </span><span class="lineNoCov">          0 :   *result = (&amp;dummy &lt; ptr);</span>
+<span class="lineNum">    1002 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1003 </span>            : 
+<a name="1004"><span class="lineNum">    1004 </span>            : // Make sure AddressSanitizer does not tamper with the stack here.</a>
+<span class="lineNum">    1005 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_
+<span class="lineNum">    1006 </span><span class="lineNoCov">          0 : bool StackGrowsDown() {</span>
+<a name="1007"><span class="lineNum">    1007 </span>            :   int dummy;</a>
+<span class="lineNum">    1008 </span>            :   bool result;
+<span class="lineNum">    1009 </span><span class="lineNoCov">          0 :   StackLowerThanAddress(&amp;dummy, &amp;result);</span>
+<span class="lineNum">    1010 </span><span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">    1011 </span>            : }
+<span class="lineNum">    1012 </span>            : 
+<span class="lineNum">    1013 </span>            : // Spawns a child process with the same executable as the current process in
+<span class="lineNum">    1014 </span>            : // a thread-safe manner and instructs it to run the death test.  The
+<span class="lineNum">    1015 </span>            : // implementation uses fork(2) + exec.  On systems where clone(2) is
+<span class="lineNum">    1016 </span>            : // available, it is used instead, being slightly more thread-safe.  On QNX,
+<span class="lineNum">    1017 </span>            : // fork supports only single-threaded environments, so this function uses
+<span class="lineNum">    1018 </span>            : // spawn(2) there instead.  The function dies with an error message if
+<span class="lineNum">    1019 </span>            : // anything goes wrong.
+<span class="lineNum">    1020 </span><span class="lineNoCov">          0 : static pid_t ExecDeathTestSpawnChild(char* const* argv, int close_fd) {</span>
+<span class="lineNum">    1021 </span><span class="lineNoCov">          0 :   ExecDeathTestArgs args = { argv, close_fd };</span>
+<span class="lineNum">    1022 </span><span class="lineNoCov">          0 :   pid_t child_pid = -1;</span>
+<span class="lineNum">    1023 </span>            : 
+<span class="lineNum">    1024 </span>            : #  if GTEST_OS_QNX
+<span class="lineNum">    1025 </span>            :   // Obtains the current directory and sets it to be closed in the child
+<span class="lineNum">    1026 </span>            :   // process.
+<span class="lineNum">    1027 </span>            :   const int cwd_fd = open(&quot;.&quot;, O_RDONLY);
+<span class="lineNum">    1028 </span>            :   GTEST_DEATH_TEST_CHECK_(cwd_fd != -1);
+<span class="lineNum">    1029 </span>            :   GTEST_DEATH_TEST_CHECK_SYSCALL_(fcntl(cwd_fd, F_SETFD, FD_CLOEXEC));
+<span class="lineNum">    1030 </span>            :   // We need to execute the test program in the same environment where
+<span class="lineNum">    1031 </span>            :   // it was originally invoked.  Therefore we change to the original
+<span class="lineNum">    1032 </span>            :   // working directory first.
+<span class="lineNum">    1033 </span>            :   const char* const original_dir =
+<span class="lineNum">    1034 </span>            :       UnitTest::GetInstance()-&gt;original_working_dir();
+<span class="lineNum">    1035 </span>            :   // We can safely call chdir() as it's a direct system call.
+<span class="lineNum">    1036 </span>            :   if (chdir(original_dir) != 0) {
+<span class="lineNum">    1037 </span>            :     DeathTestAbort(std::string(&quot;chdir(\&quot;&quot;) + original_dir + &quot;\&quot;) failed: &quot; +
+<span class="lineNum">    1038 </span>            :                    GetLastErrnoDescription());
+<span class="lineNum">    1039 </span>            :     return EXIT_FAILURE;
+<span class="lineNum">    1040 </span>            :   }
+<span class="lineNum">    1041 </span>            : 
+<span class="lineNum">    1042 </span>            :   int fd_flags;
+<span class="lineNum">    1043 </span>            :   // Set close_fd to be closed after spawn.
+<span class="lineNum">    1044 </span>            :   GTEST_DEATH_TEST_CHECK_SYSCALL_(fd_flags = fcntl(close_fd, F_GETFD));
+<span class="lineNum">    1045 </span>            :   GTEST_DEATH_TEST_CHECK_SYSCALL_(fcntl(close_fd, F_SETFD,
+<span class="lineNum">    1046 </span>            :                                         fd_flags | FD_CLOEXEC));
+<span class="lineNum">    1047 </span>            :   struct inheritance inherit = {0};
+<span class="lineNum">    1048 </span>            :   // spawn is a system call.
+<span class="lineNum">    1049 </span>            :   child_pid = spawn(args.argv[0], 0, NULL, &amp;inherit, args.argv, GetEnviron());
+<span class="lineNum">    1050 </span>            :   // Restores the current working directory.
+<span class="lineNum">    1051 </span>            :   GTEST_DEATH_TEST_CHECK_(fchdir(cwd_fd) != -1);
+<span class="lineNum">    1052 </span>            :   GTEST_DEATH_TEST_CHECK_SYSCALL_(close(cwd_fd));
+<span class="lineNum">    1053 </span>            : 
+<span class="lineNum">    1054 </span>            : #  else   // GTEST_OS_QNX
+<span class="lineNum">    1055 </span>            : #   if GTEST_OS_LINUX
+<span class="lineNum">    1056 </span>            :   // When a SIGPROF signal is received while fork() or clone() are executing,
+<span class="lineNum">    1057 </span>            :   // the process may hang. To avoid this, we ignore SIGPROF here and re-enable
+<span class="lineNum">    1058 </span>            :   // it after the call to fork()/clone() is complete.
+<span class="lineNum">    1059 </span>            :   struct sigaction saved_sigprof_action;
+<span class="lineNum">    1060 </span>            :   struct sigaction ignore_sigprof_action;
+<span class="lineNum">    1061 </span>            :   memset(&amp;ignore_sigprof_action, 0, sizeof(ignore_sigprof_action));
+<span class="lineNum">    1062 </span><span class="lineNoCov">          0 :   sigemptyset(&amp;ignore_sigprof_action.sa_mask);</span>
+<span class="lineNum">    1063 </span><span class="lineNoCov">          0 :   ignore_sigprof_action.sa_handler = SIG_IGN;</span>
+<span class="lineNum">    1064 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_SYSCALL_(sigaction(</span>
+<span class="lineNum">    1065 </span>            :       SIGPROF, &amp;ignore_sigprof_action, &amp;saved_sigprof_action));
+<span class="lineNum">    1066 </span>            : #   endif  // GTEST_OS_LINUX
+<span class="lineNum">    1067 </span>            : 
+<span class="lineNum">    1068 </span>            : #   if GTEST_HAS_CLONE
+<span class="lineNum">    1069 </span><span class="lineNoCov">          0 :   const bool use_fork = GTEST_FLAG(death_test_use_fork);</span>
+<span class="lineNum">    1070 </span>            : 
+<span class="lineNum">    1071 </span><span class="lineNoCov">          0 :   if (!use_fork) {</span>
+<span class="lineNum">    1072 </span><span class="lineNoCov">          0 :     static const bool stack_grows_down = StackGrowsDown();</span>
+<span class="lineNum">    1073 </span><span class="lineNoCov">          0 :     const size_t stack_size = getpagesize();</span>
+<span class="lineNum">    1074 </span>            :     // MMAP_ANONYMOUS is not defined on Mac, so we use MAP_ANON instead.
+<span class="lineNum">    1075 </span>            :     void* const stack = mmap(NULL, stack_size, PROT_READ | PROT_WRITE,
+<span class="lineNum">    1076 </span><span class="lineNoCov">          0 :                              MAP_ANON | MAP_PRIVATE, -1, 0);</span>
+<span class="lineNum">    1077 </span><span class="lineNoCov">          0 :     GTEST_DEATH_TEST_CHECK_(stack != MAP_FAILED);</span>
+<span class="lineNum">    1078 </span>            : 
+<span class="lineNum">    1079 </span>            :     // Maximum stack alignment in bytes:  For a downward-growing stack, this
+<span class="lineNum">    1080 </span>            :     // amount is subtracted from size of the stack space to get an address
+<span class="lineNum">    1081 </span>            :     // that is within the stack space and is aligned on all systems we care
+<span class="lineNum">    1082 </span>            :     // about.  As far as I know there is no ABI with stack alignment greater
+<span class="lineNum">    1083 </span>            :     // than 64.  We assume stack and stack_size already have alignment of
+<span class="lineNum">    1084 </span>            :     // kMaxStackAlignment.
+<span class="lineNum">    1085 </span><span class="lineNoCov">          0 :     const size_t kMaxStackAlignment = 64;</span>
+<span class="lineNum">    1086 </span>            :     void* const stack_top =
+<span class="lineNum">    1087 </span><span class="lineNoCov">          0 :         static_cast&lt;char*&gt;(stack) +</span>
+<span class="lineNum">    1088 </span><span class="lineNoCov">          0 :             (stack_grows_down ? stack_size - kMaxStackAlignment : 0);</span>
+<span class="lineNum">    1089 </span><span class="lineNoCov">          0 :     GTEST_DEATH_TEST_CHECK_(stack_size &gt; kMaxStackAlignment &amp;&amp;</span>
+<span class="lineNum">    1090 </span>            :         reinterpret_cast&lt;intptr_t&gt;(stack_top) % kMaxStackAlignment == 0);
+<span class="lineNum">    1091 </span>            : 
+<span class="lineNum">    1092 </span><span class="lineNoCov">          0 :     child_pid = clone(&amp;ExecDeathTestChildMain, stack_top, SIGCHLD, &amp;args);</span>
+<span class="lineNum">    1093 </span>            : 
+<span class="lineNum">    1094 </span><span class="lineNoCov">          0 :     GTEST_DEATH_TEST_CHECK_(munmap(stack, stack_size) != -1);</span>
+<span class="lineNum">    1095 </span>            :   }
+<span class="lineNum">    1096 </span>            : #   else
+<span class="lineNum">    1097 </span>            :   const bool use_fork = true;
+<span class="lineNum">    1098 </span>            : #   endif  // GTEST_HAS_CLONE
+<span class="lineNum">    1099 </span>            : 
+<span class="lineNum">    1100 </span><span class="lineNoCov">          0 :   if (use_fork &amp;&amp; (child_pid = fork()) == 0) {</span>
+<span class="lineNum">    1101 </span><span class="lineNoCov">          0 :       ExecDeathTestChildMain(&amp;args);</span>
+<span class="lineNum">    1102 </span>            :       _exit(0);
+<span class="lineNum">    1103 </span>            :   }
+<span class="lineNum">    1104 </span>            : #  endif  // GTEST_OS_QNX
+<span class="lineNum">    1105 </span>            : #  if GTEST_OS_LINUX
+<span class="lineNum">    1106 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_SYSCALL_(</span>
+<span class="lineNum">    1107 </span>            :       sigaction(SIGPROF, &amp;saved_sigprof_action, NULL));
+<span class="lineNum">    1108 </span>            : #  endif  // GTEST_OS_LINUX
+<span class="lineNum">    1109 </span>            : 
+<span class="lineNum">    1110 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_(child_pid != -1);</span>
+<span class="lineNum">    1111 </span><span class="lineNoCov">          0 :   return child_pid;</span>
+<span class="lineNum">    1112 </span>            : }
+<span class="lineNum">    1113 </span>            : 
+<span class="lineNum">    1114 </span>            : // The AssumeRole process for a fork-and-exec death test.  It re-executes the
+<span class="lineNum">    1115 </span>            : // main program from the beginning, setting the --gtest_filter
+<span class="lineNum">    1116 </span>            : // and --gtest_internal_run_death_test flags to cause only the current
+<span class="lineNum">    1117 </span>            : // death test to be re-run.
+<span class="lineNum">    1118 </span><span class="lineNoCov">          0 : DeathTest::TestRole ExecDeathTest::AssumeRole() {</span>
+<span class="lineNum">    1119 </span><span class="lineNoCov">          0 :   const UnitTestImpl* const impl = GetUnitTestImpl();</span>
+<span class="lineNum">    1120 </span><span class="lineNoCov">          0 :   const InternalRunDeathTestFlag* const flag =</span>
+<span class="lineNum">    1121 </span><span class="lineNoCov">          0 :       impl-&gt;internal_run_death_test_flag();</span>
+<span class="lineNum">    1122 </span><span class="lineNoCov">          0 :   const TestInfo* const info = impl-&gt;current_test_info();</span>
+<span class="lineNum">    1123 </span><span class="lineNoCov">          0 :   const int death_test_index = info-&gt;result()-&gt;death_test_count();</span>
+<span class="lineNum">    1124 </span>            : 
+<span class="lineNum">    1125 </span><span class="lineNoCov">          0 :   if (flag != NULL) {</span>
+<span class="lineNum">    1126 </span><span class="lineNoCov">          0 :     set_write_fd(flag-&gt;write_fd());</span>
+<span class="lineNum">    1127 </span><span class="lineNoCov">          0 :     return EXECUTE_TEST;</span>
+<span class="lineNum">    1128 </span>            :   }
+<span class="lineNum">    1129 </span>            : 
+<span class="lineNum">    1130 </span>            :   int pipe_fd[2];
+<span class="lineNum">    1131 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_(pipe(pipe_fd) != -1);</span>
+<span class="lineNum">    1132 </span>            :   // Clear the close-on-exec flag on the write end of the pipe, lest
+<span class="lineNum">    1133 </span>            :   // it be closed when the child process does an exec:
+<span class="lineNum">    1134 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_(fcntl(pipe_fd[1], F_SETFD, 0) != -1);</span>
+<span class="lineNum">    1135 </span>            : 
+<span class="lineNum">    1136 </span>            :   const std::string filter_flag =
+<span class="lineNum">    1137 </span><span class="lineNoCov">          0 :       std::string(&quot;--&quot;) + GTEST_FLAG_PREFIX_ + kFilterFlag + &quot;=&quot;</span>
+<span class="lineNum">    1138 </span><span class="lineNoCov">          0 :       + info-&gt;test_case_name() + &quot;.&quot; + info-&gt;name();</span>
+<span class="lineNum">    1139 </span>            :   const std::string internal_flag =
+<span class="lineNum">    1140 </span><span class="lineNoCov">          0 :       std::string(&quot;--&quot;) + GTEST_FLAG_PREFIX_ + kInternalRunDeathTestFlag + &quot;=&quot;</span>
+<span class="lineNum">    1141 </span><span class="lineNoCov">          0 :       + file_ + &quot;|&quot; + StreamableToString(line_) + &quot;|&quot;</span>
+<span class="lineNum">    1142 </span><span class="lineNoCov">          0 :       + StreamableToString(death_test_index) + &quot;|&quot;</span>
+<span class="lineNum">    1143 </span><span class="lineNoCov">          0 :       + StreamableToString(pipe_fd[1]);</span>
+<span class="lineNum">    1144 </span><span class="lineNoCov">          0 :   Arguments args;</span>
+<span class="lineNum">    1145 </span><span class="lineNoCov">          0 :   args.AddArguments(GetArgvsForDeathTestChildProcess());</span>
+<span class="lineNum">    1146 </span><span class="lineNoCov">          0 :   args.AddArgument(filter_flag.c_str());</span>
+<span class="lineNum">    1147 </span><span class="lineNoCov">          0 :   args.AddArgument(internal_flag.c_str());</span>
+<span class="lineNum">    1148 </span>            : 
+<span class="lineNum">    1149 </span><span class="lineNoCov">          0 :   DeathTest::set_last_death_test_message(&quot;&quot;);</span>
+<span class="lineNum">    1150 </span>            : 
+<span class="lineNum">    1151 </span>            :   CaptureStderr();
+<span class="lineNum">    1152 </span>            :   // See the comment in NoExecDeathTest::AssumeRole for why the next line
+<span class="lineNum">    1153 </span>            :   // is necessary.
+<span class="lineNum">    1154 </span>            :   FlushInfoLog();
+<span class="lineNum">    1155 </span>            : 
+<span class="lineNum">    1156 </span><span class="lineNoCov">          0 :   const pid_t child_pid = ExecDeathTestSpawnChild(args.Argv(), pipe_fd[0]);</span>
+<span class="lineNum">    1157 </span><span class="lineNoCov">          0 :   GTEST_DEATH_TEST_CHECK_SYSCALL_(close(pipe_fd[1]));</span>
+<span class="lineNum">    1158 </span><span class="lineNoCov">          0 :   set_child_pid(child_pid);</span>
+<span class="lineNum">    1159 </span><span class="lineNoCov">          0 :   set_read_fd(pipe_fd[0]);</span>
+<span class="lineNum">    1160 </span><span class="lineNoCov">          0 :   set_spawned(true);</span>
+<span class="lineNum">    1161 </span>            :   return OVERSEE_TEST;
+<span class="lineNum">    1162 </span>            : }
+<span class="lineNum">    1163 </span>            : 
+<span class="lineNum">    1164 </span>            : # endif  // !GTEST_OS_WINDOWS
+<span class="lineNum">    1165 </span>            : 
+<span class="lineNum">    1166 </span>            : // Creates a concrete DeathTest-derived class that depends on the
+<span class="lineNum">    1167 </span>            : // --gtest_death_test_style flag, and sets the pointer pointed to
+<span class="lineNum">    1168 </span>            : // by the &quot;test&quot; argument to its address.  If the test should be
+<span class="lineNum">    1169 </span>            : // skipped, sets that pointer to NULL.  Returns true, unless the
+<span class="lineNum">    1170 </span>            : // flag is set to an invalid value.
+<span class="lineNum">    1171 </span><span class="lineNoCov">          0 : bool DefaultDeathTestFactory::Create(const char* statement, const RE* regex,</span>
+<span class="lineNum">    1172 </span>            :                                      const char* file, int line,
+<span class="lineNum">    1173 </span>            :                                      DeathTest** test) {
+<span class="lineNum">    1174 </span><span class="lineNoCov">          0 :   UnitTestImpl* const impl = GetUnitTestImpl();</span>
+<span class="lineNum">    1175 </span><span class="lineNoCov">          0 :   const InternalRunDeathTestFlag* const flag =</span>
+<span class="lineNum">    1176 </span><span class="lineNoCov">          0 :       impl-&gt;internal_run_death_test_flag();</span>
+<span class="lineNum">    1177 </span>            :   const int death_test_index = impl-&gt;current_test_info()
+<span class="lineNum">    1178 </span><span class="lineNoCov">          0 :       -&gt;increment_death_test_count();</span>
+<span class="lineNum">    1179 </span>            : 
+<span class="lineNum">    1180 </span><span class="lineNoCov">          0 :   if (flag != NULL) {</span>
+<span class="lineNum">    1181 </span><span class="lineNoCov">          0 :     if (death_test_index &gt; flag-&gt;index()) {</span>
+<span class="lineNum">    1182 </span>            :       DeathTest::set_last_death_test_message(
+<span class="lineNum">    1183 </span><span class="lineNoCov">          0 :           &quot;Death test count (&quot; + StreamableToString(death_test_index)</span>
+<span class="lineNum">    1184 </span><span class="lineNoCov">          0 :           + &quot;) somehow exceeded expected maximum (&quot;</span>
+<span class="lineNum">    1185 </span><span class="lineNoCov">          0 :           + StreamableToString(flag-&gt;index()) + &quot;)&quot;);</span>
+<span class="lineNum">    1186 </span><span class="lineNoCov">          0 :       return false;</span>
+<span class="lineNum">    1187 </span>            :     }
+<span class="lineNum">    1188 </span>            : 
+<span class="lineNum">    1189 </span><span class="lineNoCov">          0 :     if (!(flag-&gt;file() == file &amp;&amp; flag-&gt;line() == line &amp;&amp;</span>
+<span class="lineNum">    1190 </span><span class="lineNoCov">          0 :           flag-&gt;index() == death_test_index)) {</span>
+<span class="lineNum">    1191 </span><span class="lineNoCov">          0 :       *test = NULL;</span>
+<span class="lineNum">    1192 </span><span class="lineNoCov">          0 :       return true;</span>
+<span class="lineNum">    1193 </span>            :     }
+<span class="lineNum">    1194 </span>            :   }
+<span class="lineNum">    1195 </span>            : 
+<span class="lineNum">    1196 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">    1197 </span>            : 
+<span class="lineNum">    1198 </span>            :   if (GTEST_FLAG(death_test_style) == &quot;threadsafe&quot; ||
+<span class="lineNum">    1199 </span>            :       GTEST_FLAG(death_test_style) == &quot;fast&quot;) {
+<span class="lineNum">    1200 </span>            :     *test = new WindowsDeathTest(statement, regex, file, line);
+<span class="lineNum">    1201 </span>            :   }
+<span class="lineNum">    1202 </span>            : 
+<span class="lineNum">    1203 </span>            : # else
+<span class="lineNum">    1204 </span>            : 
+<span class="lineNum">    1205 </span><span class="lineNoCov">          0 :   if (GTEST_FLAG(death_test_style) == &quot;threadsafe&quot;) {</span>
+<span class="lineNum">    1206 </span><span class="lineNoCov">          0 :     *test = new ExecDeathTest(statement, regex, file, line);</span>
+<span class="lineNum">    1207 </span><span class="lineNoCov">          0 :   } else if (GTEST_FLAG(death_test_style) == &quot;fast&quot;) {</span>
+<span class="lineNum">    1208 </span><span class="lineNoCov">          0 :     *test = new NoExecDeathTest(statement, regex);</span>
+<span class="lineNum">    1209 </span>            :   }
+<span class="lineNum">    1210 </span>            : 
+<span class="lineNum">    1211 </span>            : # endif  // GTEST_OS_WINDOWS
+<span class="lineNum">    1212 </span>            : 
+<span class="lineNum">    1213 </span>            :   else {  // NOLINT - this is more readable than unbalanced brackets inside #if.
+<span class="lineNum">    1214 </span>            :     DeathTest::set_last_death_test_message(
+<span class="lineNum">    1215 </span><span class="lineNoCov">          0 :         &quot;Unknown death test style \&quot;&quot; + GTEST_FLAG(death_test_style)</span>
+<span class="lineNum">    1216 </span><span class="lineNoCov">          0 :         + &quot;\&quot; encountered&quot;);</span>
+<span class="lineNum">    1217 </span><span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">    1218 </span>            :   }
+<span class="lineNum">    1219 </span>            : 
+<span class="lineNum">    1220 </span>            :   return true;
+<span class="lineNum">    1221 </span>            : }
+<span class="lineNum">    1222 </span>            : 
+<span class="lineNum">    1223 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">    1224 </span>            : // Recreates the pipe and event handles from the provided parameters,
+<span class="lineNum">    1225 </span>            : // signals the event, and returns a file descriptor wrapped around the pipe
+<span class="lineNum">    1226 </span>            : // handle. This function is called in the child process only.
+<span class="lineNum">    1227 </span>            : int GetStatusFileDescriptor(unsigned int parent_process_id,
+<span class="lineNum">    1228 </span>            :                             size_t write_handle_as_size_t,
+<span class="lineNum">    1229 </span>            :                             size_t event_handle_as_size_t) {
+<span class="lineNum">    1230 </span>            :   AutoHandle parent_process_handle(::OpenProcess(PROCESS_DUP_HANDLE,
+<span class="lineNum">    1231 </span>            :                                                    FALSE,  // Non-inheritable.
+<span class="lineNum">    1232 </span>            :                                                    parent_process_id));
+<span class="lineNum">    1233 </span>            :   if (parent_process_handle.Get() == INVALID_HANDLE_VALUE) {
+<span class="lineNum">    1234 </span>            :     DeathTestAbort(&quot;Unable to open parent process &quot; +
+<span class="lineNum">    1235 </span>            :                    StreamableToString(parent_process_id));
+<span class="lineNum">    1236 </span>            :   }
+<span class="lineNum">    1237 </span>            : 
+<span class="lineNum">    1238 </span>            :   // TODO(vladl@google.com): Replace the following check with a
+<span class="lineNum">    1239 </span>            :   // compile-time assertion when available.
+<span class="lineNum">    1240 </span>            :   GTEST_CHECK_(sizeof(HANDLE) &lt;= sizeof(size_t));
+<span class="lineNum">    1241 </span>            : 
+<span class="lineNum">    1242 </span>            :   const HANDLE write_handle =
+<span class="lineNum">    1243 </span>            :       reinterpret_cast&lt;HANDLE&gt;(write_handle_as_size_t);
+<span class="lineNum">    1244 </span>            :   HANDLE dup_write_handle;
+<span class="lineNum">    1245 </span>            : 
+<span class="lineNum">    1246 </span>            :   // The newly initialized handle is accessible only in in the parent
+<span class="lineNum">    1247 </span>            :   // process. To obtain one accessible within the child, we need to use
+<span class="lineNum">    1248 </span>            :   // DuplicateHandle.
+<span class="lineNum">    1249 </span>            :   if (!::DuplicateHandle(parent_process_handle.Get(), write_handle,
+<span class="lineNum">    1250 </span>            :                          ::GetCurrentProcess(), &amp;dup_write_handle,
+<span class="lineNum">    1251 </span>            :                          0x0,    // Requested privileges ignored since
+<span class="lineNum">    1252 </span>            :                                  // DUPLICATE_SAME_ACCESS is used.
+<span class="lineNum">    1253 </span>            :                          FALSE,  // Request non-inheritable handler.
+<span class="lineNum">    1254 </span>            :                          DUPLICATE_SAME_ACCESS)) {
+<span class="lineNum">    1255 </span>            :     DeathTestAbort(&quot;Unable to duplicate the pipe handle &quot; +
+<span class="lineNum">    1256 </span>            :                    StreamableToString(write_handle_as_size_t) +
+<span class="lineNum">    1257 </span>            :                    &quot; from the parent process &quot; +
+<span class="lineNum">    1258 </span>            :                    StreamableToString(parent_process_id));
+<span class="lineNum">    1259 </span>            :   }
+<span class="lineNum">    1260 </span>            : 
+<span class="lineNum">    1261 </span>            :   const HANDLE event_handle = reinterpret_cast&lt;HANDLE&gt;(event_handle_as_size_t);
+<span class="lineNum">    1262 </span>            :   HANDLE dup_event_handle;
+<span class="lineNum">    1263 </span>            : 
+<span class="lineNum">    1264 </span>            :   if (!::DuplicateHandle(parent_process_handle.Get(), event_handle,
+<span class="lineNum">    1265 </span>            :                          ::GetCurrentProcess(), &amp;dup_event_handle,
+<span class="lineNum">    1266 </span>            :                          0x0,
+<span class="lineNum">    1267 </span>            :                          FALSE,
+<span class="lineNum">    1268 </span>            :                          DUPLICATE_SAME_ACCESS)) {
+<span class="lineNum">    1269 </span>            :     DeathTestAbort(&quot;Unable to duplicate the event handle &quot; +
+<span class="lineNum">    1270 </span>            :                    StreamableToString(event_handle_as_size_t) +
+<span class="lineNum">    1271 </span>            :                    &quot; from the parent process &quot; +
+<span class="lineNum">    1272 </span>            :                    StreamableToString(parent_process_id));
+<span class="lineNum">    1273 </span>            :   }
+<span class="lineNum">    1274 </span>            : 
+<span class="lineNum">    1275 </span>            :   const int write_fd =
+<span class="lineNum">    1276 </span>            :       ::_open_osfhandle(reinterpret_cast&lt;intptr_t&gt;(dup_write_handle), O_APPEND);
+<span class="lineNum">    1277 </span>            :   if (write_fd == -1) {
+<span class="lineNum">    1278 </span>            :     DeathTestAbort(&quot;Unable to convert pipe handle &quot; +
+<span class="lineNum">    1279 </span>            :                    StreamableToString(write_handle_as_size_t) +
+<span class="lineNum">    1280 </span>            :                    &quot; to a file descriptor&quot;);
+<span class="lineNum">    1281 </span>            :   }
+<span class="lineNum">    1282 </span>            : 
+<span class="lineNum">    1283 </span>            :   // Signals the parent that the write end of the pipe has been acquired
+<span class="lineNum">    1284 </span>            :   // so the parent can release its own write end.
+<span class="lineNum">    1285 </span>            :   ::SetEvent(dup_event_handle);
+<span class="lineNum">    1286 </span>            : 
+<span class="lineNum">    1287 </span>            :   return write_fd;
+<span class="lineNum">    1288 </span>            : }
+<span class="lineNum">    1289 </span>            : # endif  // GTEST_OS_WINDOWS
+<span class="lineNum">    1290 </span>            : 
+<span class="lineNum">    1291 </span>            : // Returns a newly created InternalRunDeathTestFlag object with fields
+<a name="1292"><span class="lineNum">    1292 </span>            : // initialized from the GTEST_FLAG(internal_run_death_test) flag if</a>
+<span class="lineNum">    1293 </span>            : // the flag is specified; otherwise returns NULL.
+<span class="lineNum">    1294 </span><span class="lineCov">          1 : InternalRunDeathTestFlag* ParseInternalRunDeathTestFlag() {</span>
+<span class="lineNum">    1295 </span><span class="lineCov">          1 :   if (GTEST_FLAG(internal_run_death_test) == &quot;&quot;) return NULL;</span>
+<span class="lineNum">    1296 </span>            : 
+<span class="lineNum">    1297 </span>            :   // GTEST_HAS_DEATH_TEST implies that we have ::std::string, so we
+<span class="lineNum">    1298 </span>            :   // can use it here.
+<span class="lineNum">    1299 </span><span class="lineNoCov">          0 :   int line = -1;</span>
+<span class="lineNum">    1300 </span><span class="lineNoCov">          0 :   int index = -1;</span>
+<span class="lineNum">    1301 </span>            :   ::std::vector&lt; ::std::string&gt; fields;
+<span class="lineNum">    1302 </span><span class="lineNoCov">          0 :   SplitString(GTEST_FLAG(internal_run_death_test).c_str(), '|', &amp;fields);</span>
+<span class="lineNum">    1303 </span><span class="lineNoCov">          0 :   int write_fd = -1;</span>
+<span class="lineNum">    1304 </span>            : 
+<span class="lineNum">    1305 </span>            : # if GTEST_OS_WINDOWS
+<span class="lineNum">    1306 </span>            : 
+<span class="lineNum">    1307 </span>            :   unsigned int parent_process_id = 0;
+<span class="lineNum">    1308 </span>            :   size_t write_handle_as_size_t = 0;
+<span class="lineNum">    1309 </span>            :   size_t event_handle_as_size_t = 0;
+<span class="lineNum">    1310 </span>            : 
+<span class="lineNum">    1311 </span>            :   if (fields.size() != 6
+<span class="lineNum">    1312 </span>            :       || !ParseNaturalNumber(fields[1], &amp;line)
+<span class="lineNum">    1313 </span>            :       || !ParseNaturalNumber(fields[2], &amp;index)
+<span class="lineNum">    1314 </span>            :       || !ParseNaturalNumber(fields[3], &amp;parent_process_id)
+<span class="lineNum">    1315 </span>            :       || !ParseNaturalNumber(fields[4], &amp;write_handle_as_size_t)
+<span class="lineNum">    1316 </span>            :       || !ParseNaturalNumber(fields[5], &amp;event_handle_as_size_t)) {
+<span class="lineNum">    1317 </span>            :     DeathTestAbort(&quot;Bad --gtest_internal_run_death_test flag: &quot; +
+<span class="lineNum">    1318 </span>            :                    GTEST_FLAG(internal_run_death_test));
+<span class="lineNum">    1319 </span>            :   }
+<span class="lineNum">    1320 </span>            :   write_fd = GetStatusFileDescriptor(parent_process_id,
+<span class="lineNum">    1321 </span>            :                                      write_handle_as_size_t,
+<span class="lineNum">    1322 </span>            :                                      event_handle_as_size_t);
+<span class="lineNum">    1323 </span>            : # else
+<span class="lineNum">    1324 </span>            : 
+<span class="lineNum">    1325 </span><span class="lineNoCov">          0 :   if (fields.size() != 4</span>
+<span class="lineNum">    1326 </span><span class="lineNoCov">          0 :       || !ParseNaturalNumber(fields[1], &amp;line)</span>
+<span class="lineNum">    1327 </span><span class="lineNoCov">          0 :       || !ParseNaturalNumber(fields[2], &amp;index)</span>
+<span class="lineNum">    1328 </span><span class="lineNoCov">          0 :       || !ParseNaturalNumber(fields[3], &amp;write_fd)) {</span>
+<span class="lineNum">    1329 </span>            :     DeathTestAbort(&quot;Bad --gtest_internal_run_death_test flag: &quot;
+<span class="lineNum">    1330 </span><span class="lineNoCov">          0 :         + GTEST_FLAG(internal_run_death_test));</span>
+<span class="lineNum">    1331 </span>            :   }
+<span class="lineNum">    1332 </span>            : 
+<span class="lineNum">    1333 </span>            : # endif  // GTEST_OS_WINDOWS
+<span class="lineNum">    1334 </span>            : 
+<span class="lineNum">    1335 </span><span class="lineNoCov">          0 :   return new InternalRunDeathTestFlag(fields[0], line, index, write_fd);</span>
+<span class="lineNum">    1336 </span>            : }
+<span class="lineNum">    1337 </span>            : 
+<span class="lineNum">    1338 </span>            : }  // namespace internal
+<span class="lineNum">    1339 </span>            : 
+<span class="lineNum">    1340 </span>            : #endif  // GTEST_HAS_DEATH_TEST
+<span class="lineNum">    1341 </span>            : 
+<span class="lineNum">    1342 </span>            : }  // namespace testing
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

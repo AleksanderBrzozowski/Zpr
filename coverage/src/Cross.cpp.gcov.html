@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/Cross.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - Cross.cpp<span style="font-size: 80%;"> (source / <a href="Cross.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">39</td>
+            <td class="headerCovTableEntry">39</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntry">12</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /**</a>
+<span class="lineNum">       2 </span>            :  * @file Cross.cpp
+<span class="lineNum">       3 </span>            :  * @Author PiotrKuc (piotr.kuc29@gmail.com)
+<span class="lineNum">       4 </span>            :  * @date November, 2017
+<span class="lineNum">       5 </span>            :  * @brief Cross class methods implementation
+<span class="lineNum">       6 </span>            :  *
+<span class="lineNum">       7 </span>            :  */
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            : #include &lt;stdexcept&gt;
+<span class="lineNum">      10 </span>            : #include &quot;Cross.h&quot;
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span>            : ///Contructor for Cross
+<span class="lineNum">      13 </span><span class="lineCov">        178 : Cross::Cross(PtrToConstPoint pos): position(pos), southNeighbour(nullptr),</span>
+<span class="lineNum">      14 </span><span class="lineCov">        356 :     eastNeighbour(nullptr), northNeighbour(nullptr), westNeighbour(nullptr){}</span>
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            : /**
+<span class="lineNum">      17 </span>            :  * Changes the wasVisited parameter by the finding route algorithm
+<span class="lineNum">      18 </span>            :  * @param wasVisited - describes if the cross was used by the finding route algorithm and cannot be reused
+<a name="19"><span class="lineNum">      19 </span>            :  * @return the new value of wasVisited parameter.</a>
+<span class="lineNum">      20 </span>            :  */
+<span class="lineNum">      21 </span><span class="lineCov">        119 : bool Cross::setVisited(const bool&amp; wasVisited) {</span>
+<span class="lineNum">      22 </span><span class="lineCov">        119 :     visited = wasVisited;</span>
+<span class="lineNum">      23 </span><span class="lineCov">        119 :     return visited;</span>
+<a name="24"><span class="lineNum">      24 </span>            : }</a>
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span><span class="lineCov">        103 : bool Cross::getVisited() const {return visited;}</span>
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : /**
+<span class="lineNum">      29 </span>            :  * Get this cross' neighbour that wasn't be used so far
+<span class="lineNum">      30 </span>            :  * @return not visited neighbour of this cross
+<span class="lineNum">      31 </span>            :  */
+<span class="lineNum">      32 </span><span class="lineCov">         57 : PtrCross Cross::getNotVisitedNeighbours() const{</span>
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span><span class="lineCov">        114 :     if(northNeighbour!=nullptr)</span>
+<span class="lineNum">      35 </span><span class="lineCov">         37 :         if(!northNeighbour-&gt;getVisited())</span>
+<span class="lineNum">      36 </span><span class="lineCov">          8 :             return northNeighbour;</span>
+<span class="lineNum">      37 </span><span class="lineCov">         98 :     if(westNeighbour!=nullptr)</span>
+<span class="lineNum">      38 </span><span class="lineCov">         25 :         if(!westNeighbour-&gt;getVisited())</span>
+<span class="lineNum">      39 </span><span class="lineCov">          8 :             return westNeighbour;</span>
+<span class="lineNum">      40 </span><span class="lineCov">         82 :     if(eastNeighbour!=nullptr)</span>
+<span class="lineNum">      41 </span><span class="lineCov">         18 :         if(!eastNeighbour-&gt;getVisited())</span>
+<span class="lineNum">      42 </span><span class="lineCov">          8 :             return eastNeighbour;</span>
+<span class="lineNum">      43 </span><span class="lineCov">         66 :     if(southNeighbour!=nullptr)</span>
+<span class="lineNum">      44 </span><span class="lineCov">         23 :         if(!southNeighbour-&gt;getVisited())</span>
+<span class="lineNum">      45 </span><span class="lineCov">          9 :             return southNeighbour;</span>
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span><span class="lineCov">         24 :     return nullptr;</span>
+<span class="lineNum">      48 </span>            : }
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span><span class="lineCov">      41026 : PtrToConstPoint Cross::getPosition() const {return position;}</span>
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span><span class="lineCov">        986 : PtrCross Cross::getEastNeighbour() const {return eastNeighbour;}</span>
+<span class="lineNum">      53 </span><span class="lineCov">        164 : PtrCross Cross::getWestNeighbour() const {return westNeighbour;}</span>
+<span class="lineNum">      54 </span><span class="lineCov">        210 : PtrCross Cross::getNorthNeighbour() const {return northNeighbour;}</span>
+<span class="lineNum">      55 </span><span class="lineCov">       1016 : PtrCross Cross::getSouthNeighbour() const {return southNeighbour;}</span>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span>            : /**
+<span class="lineNum">      58 </span>            :  * Adding new neighbour and deciding if the new neighbour is on the north, east, west or south.
+<span class="lineNum">      59 </span>            :  * @param cr - new neighbour
+<span class="lineNum">      60 </span>            :  */
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span><span class="lineCov">       1428 : void Cross::addNeighbour(PtrCross cr) {</span>
+<span class="lineNum">      63 </span><span class="lineCov">       9612 :     if(*(cr-&gt;getPosition()) == *position) return;</span>
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span><span class="lineCov">       3552 :     if(cr-&gt;getPosition()-&gt;getX() == this-&gt;position-&gt;getX())</span>
+<span class="lineNum">      66 </span><span class="lineCov">       1976 :         if(cr-&gt;getPosition()-&gt;getY() &lt; this-&gt;position-&gt;getY())</span>
+<span class="lineNum">      67 </span><span class="lineCov">        247 :             northNeighbour = cr;</span>
+<span class="lineNum">      68 </span>            :         else
+<span class="lineNum">      69 </span><span class="lineCov">        247 :             southNeighbour = cr;</span>
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span><span class="lineCov">       3552 :     if(cr-&gt;getPosition()-&gt;getY() == this-&gt;position-&gt;getY())</span>
+<span class="lineNum">      72 </span><span class="lineCov">       1576 :         if(cr-&gt;getPosition()-&gt;getX() &lt; this-&gt;position-&gt;getX())</span>
+<span class="lineNum">      73 </span><span class="lineCov">        197 :             westNeighbour = cr;</span>
+<span class="lineNum">      74 </span>            :         else
+<span class="lineNum">      75 </span><span class="lineCov">        197 :             eastNeighbour = cr;</span>
+<span class="lineNum">      76 </span>            : }
+<a name="77"><span class="lineNum">      77 </span>            : </a>
+<span class="lineNum">      78 </span>            : ///Returns true if two crosses have the same position
+<span class="lineNum">      79 </span><span class="lineCov">          1 : bool Cross::operator==(const Cross &amp;rhs) const{</span>
+<span class="lineNum">      80 </span><span class="lineCov">          1 :     return *this-&gt;position.get() == *rhs.position.get();</span>
+<span class="lineNum">      81 </span>            : }
+<a name="82"><span class="lineNum">      82 </span>            : </a>
+<span class="lineNum">      83 </span>            : ///Returns true if two crosses have different positions
+<span class="lineNum">      84 </span><span class="lineCov">          1 : bool Cross::operator!=(const Cross &amp;rhs) const{</span>
+<span class="lineNum">      85 </span><span class="lineCov">          1 :     return !(*this-&gt;position.get() == *rhs.position.get());</span>
+<span class="lineNum">      86 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

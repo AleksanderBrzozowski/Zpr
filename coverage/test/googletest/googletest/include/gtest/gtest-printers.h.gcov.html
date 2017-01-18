@@ -1,0 +1,1069 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/include/gtest/gtest-printers.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/include/gtest</a> - gtest-printers.h<span style="font-size: 80%;"> (source / <a href="gtest-printers.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">13</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2007, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Author: wan@google.com (Zhanyong Wan)
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : // Google Test - The Google C++ Testing Framework
+<span class="lineNum">      33 </span>            : //
+<span class="lineNum">      34 </span>            : // This file implements a universal value printer that can print a
+<span class="lineNum">      35 </span>            : // value of any type T:
+<span class="lineNum">      36 </span>            : //
+<span class="lineNum">      37 </span>            : //   void ::testing::internal::UniversalPrinter&lt;T&gt;::Print(value, ostream_ptr);
+<span class="lineNum">      38 </span>            : //
+<span class="lineNum">      39 </span>            : // A user can teach this function how to print a class type T by
+<span class="lineNum">      40 </span>            : // defining either operator&lt;&lt;() or PrintTo() in the namespace that
+<span class="lineNum">      41 </span>            : // defines T.  More specifically, the FIRST defined function in the
+<span class="lineNum">      42 </span>            : // following list will be used (assuming T is defined in namespace
+<span class="lineNum">      43 </span>            : // foo):
+<span class="lineNum">      44 </span>            : //
+<span class="lineNum">      45 </span>            : //   1. foo::PrintTo(const T&amp;, ostream*)
+<span class="lineNum">      46 </span>            : //   2. operator&lt;&lt;(ostream&amp;, const T&amp;) defined in either foo or the
+<span class="lineNum">      47 </span>            : //      global namespace.
+<span class="lineNum">      48 </span>            : //
+<span class="lineNum">      49 </span>            : // If none of the above is defined, it will print the debug string of
+<span class="lineNum">      50 </span>            : // the value if it is a protocol buffer, or print the raw bytes in the
+<span class="lineNum">      51 </span>            : // value otherwise.
+<span class="lineNum">      52 </span>            : //
+<span class="lineNum">      53 </span>            : // To aid debugging: when T is a reference type, the address of the
+<span class="lineNum">      54 </span>            : // value is also printed; when T is a (const) char pointer, both the
+<span class="lineNum">      55 </span>            : // pointer value and the NUL-terminated string it points to are
+<span class="lineNum">      56 </span>            : // printed.
+<span class="lineNum">      57 </span>            : //
+<span class="lineNum">      58 </span>            : // We also provide some convenient wrappers:
+<span class="lineNum">      59 </span>            : //
+<span class="lineNum">      60 </span>            : //   // Prints a value to a string.  For a (const or not) char
+<span class="lineNum">      61 </span>            : //   // pointer, the NUL-terminated string (but not the pointer) is
+<span class="lineNum">      62 </span>            : //   // printed.
+<span class="lineNum">      63 </span>            : //   std::string ::testing::PrintToString(const T&amp; value);
+<span class="lineNum">      64 </span>            : //
+<span class="lineNum">      65 </span>            : //   // Prints a value tersely: for a reference type, the referenced
+<span class="lineNum">      66 </span>            : //   // value (but not the address) is printed; for a (const or not) char
+<span class="lineNum">      67 </span>            : //   // pointer, the NUL-terminated string (but not the pointer) is
+<span class="lineNum">      68 </span>            : //   // printed.
+<span class="lineNum">      69 </span>            : //   void ::testing::internal::UniversalTersePrint(const T&amp; value, ostream*);
+<span class="lineNum">      70 </span>            : //
+<span class="lineNum">      71 </span>            : //   // Prints value using the type inferred by the compiler.  The difference
+<span class="lineNum">      72 </span>            : //   // from UniversalTersePrint() is that this function prints both the
+<span class="lineNum">      73 </span>            : //   // pointer and the NUL-terminated string for a (const or not) char pointer.
+<span class="lineNum">      74 </span>            : //   void ::testing::internal::UniversalPrint(const T&amp; value, ostream*);
+<span class="lineNum">      75 </span>            : //
+<span class="lineNum">      76 </span>            : //   // Prints the fields of a tuple tersely to a string vector, one
+<span class="lineNum">      77 </span>            : //   // element for each field. Tuple support must be enabled in
+<span class="lineNum">      78 </span>            : //   // gtest-port.h.
+<span class="lineNum">      79 </span>            : //   std::vector&lt;string&gt; UniversalTersePrintTupleFieldsToStrings(
+<span class="lineNum">      80 </span>            : //       const Tuple&amp; value);
+<span class="lineNum">      81 </span>            : //
+<span class="lineNum">      82 </span>            : // Known limitation:
+<span class="lineNum">      83 </span>            : //
+<span class="lineNum">      84 </span>            : // The print primitives print the elements of an STL-style container
+<span class="lineNum">      85 </span>            : // using the compiler-inferred type of *iter where iter is a
+<span class="lineNum">      86 </span>            : // const_iterator of the container.  When const_iterator is an input
+<span class="lineNum">      87 </span>            : // iterator but not a forward iterator, this inferred type may not
+<span class="lineNum">      88 </span>            : // match value_type, and the print output may be incorrect.  In
+<span class="lineNum">      89 </span>            : // practice, this is rarely a problem as for most containers
+<span class="lineNum">      90 </span>            : // const_iterator is a forward iterator.  We'll fix this if there's an
+<span class="lineNum">      91 </span>            : // actual need for it.  Note that this fix cannot rely on value_type
+<span class="lineNum">      92 </span>            : // being defined as many user-defined container types don't have
+<span class="lineNum">      93 </span>            : // value_type.
+<span class="lineNum">      94 </span>            : 
+<span class="lineNum">      95 </span>            : #ifndef GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
+<span class="lineNum">      96 </span>            : #define GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            : #include &lt;ostream&gt;  // NOLINT
+<span class="lineNum">      99 </span>            : #include &lt;sstream&gt;
+<span class="lineNum">     100 </span>            : #include &lt;string&gt;
+<span class="lineNum">     101 </span>            : #include &lt;utility&gt;
+<span class="lineNum">     102 </span>            : #include &lt;vector&gt;
+<span class="lineNum">     103 </span>            : #include &quot;gtest/internal/gtest-port.h&quot;
+<span class="lineNum">     104 </span>            : #include &quot;gtest/internal/gtest-internal.h&quot;
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : #if GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     107 </span>            : # include &lt;tuple&gt;
+<span class="lineNum">     108 </span>            : #endif
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            : namespace testing {
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span>            : // Definitions in the 'internal' and 'internal2' name spaces are
+<span class="lineNum">     113 </span>            : // subject to change without notice.  DO NOT USE THEM IN USER CODE!
+<span class="lineNum">     114 </span>            : namespace internal2 {
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span>            : // Prints the given number of bytes in the given object to the given
+<span class="lineNum">     117 </span>            : // ostream.
+<span class="lineNum">     118 </span>            : GTEST_API_ void PrintBytesInObjectTo(const unsigned char* obj_bytes,
+<span class="lineNum">     119 </span>            :                                      size_t count,
+<span class="lineNum">     120 </span>            :                                      ::std::ostream* os);
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            : // For selecting which printer to use when a given type has neither &lt;&lt;
+<span class="lineNum">     123 </span>            : // nor PrintTo().
+<span class="lineNum">     124 </span>            : enum TypeKind {
+<span class="lineNum">     125 </span>            :   kProtobuf,              // a protobuf type
+<span class="lineNum">     126 </span>            :   kConvertibleToInteger,  // a type implicitly convertible to BiggestInt
+<span class="lineNum">     127 </span>            :                           // (e.g. a named or unnamed enum type)
+<span class="lineNum">     128 </span>            :   kOtherType              // anything else
+<span class="lineNum">     129 </span>            : };
+<span class="lineNum">     130 </span>            : 
+<span class="lineNum">     131 </span>            : // TypeWithoutFormatter&lt;T, kTypeKind&gt;::PrintValue(value, os) is called
+<span class="lineNum">     132 </span>            : // by the universal printer to print a value of type T when neither
+<span class="lineNum">     133 </span>            : // operator&lt;&lt; nor PrintTo() is defined for T, where kTypeKind is the
+<span class="lineNum">     134 </span>            : // &quot;kind&quot; of T as defined by enum TypeKind.
+<span class="lineNum">     135 </span>            : template &lt;typename T, TypeKind kTypeKind&gt;
+<span class="lineNum">     136 </span>            : class TypeWithoutFormatter {
+<span class="lineNum">     137 </span>            :  public:
+<a name="138"><span class="lineNum">     138 </span>            :   // This default version is called when kTypeKind is kOtherType.</a>
+<span class="lineNum">     139 </span>            :   static void PrintValue(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     140 </span><span class="lineNoCov">          0 :     PrintBytesInObjectTo(reinterpret_cast&lt;const unsigned char*&gt;(&amp;value),</span>
+<span class="lineNum">     141 </span>            :                          sizeof(value), os);
+<span class="lineNum">     142 </span>            :   }
+<span class="lineNum">     143 </span>            : };
+<span class="lineNum">     144 </span>            : 
+<span class="lineNum">     145 </span>            : // We print a protobuf using its ShortDebugString() when the string
+<span class="lineNum">     146 </span>            : // doesn't exceed this many characters; otherwise we print it using
+<span class="lineNum">     147 </span>            : // DebugString() for better readability.
+<span class="lineNum">     148 </span>            : const size_t kProtobufOneLinerMaxLength = 50;
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     151 </span>            : class TypeWithoutFormatter&lt;T, kProtobuf&gt; {
+<span class="lineNum">     152 </span>            :  public:
+<span class="lineNum">     153 </span>            :   static void PrintValue(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     154 </span>            :     const ::testing::internal::string short_str = value.ShortDebugString();
+<span class="lineNum">     155 </span>            :     const ::testing::internal::string pretty_str =
+<span class="lineNum">     156 </span>            :         short_str.length() &lt;= kProtobufOneLinerMaxLength ?
+<span class="lineNum">     157 </span>            :         short_str : (&quot;\n&quot; + value.DebugString());
+<span class="lineNum">     158 </span>            :     *os &lt;&lt; (&quot;&lt;&quot; + pretty_str + &quot;&gt;&quot;);
+<span class="lineNum">     159 </span>            :   }
+<span class="lineNum">     160 </span>            : };
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     163 </span>            : class TypeWithoutFormatter&lt;T, kConvertibleToInteger&gt; {
+<span class="lineNum">     164 </span>            :  public:
+<span class="lineNum">     165 </span>            :   // Since T has no &lt;&lt; operator or PrintTo() but can be implicitly
+<span class="lineNum">     166 </span>            :   // converted to BiggestInt, we print it as a BiggestInt.
+<span class="lineNum">     167 </span>            :   //
+<span class="lineNum">     168 </span>            :   // Most likely T is an enum type (either named or unnamed), in which
+<span class="lineNum">     169 </span>            :   // case printing it as an integer is the desired behavior.  In case
+<span class="lineNum">     170 </span>            :   // T is not an enum, printing it as an integer is the best we can do
+<span class="lineNum">     171 </span>            :   // given that it has no user-defined printer.
+<span class="lineNum">     172 </span>            :   static void PrintValue(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     173 </span>            :     const internal::BiggestInt kBigInt = value;
+<span class="lineNum">     174 </span>            :     *os &lt;&lt; kBigInt;
+<span class="lineNum">     175 </span>            :   }
+<span class="lineNum">     176 </span>            : };
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span>            : // Prints the given value to the given ostream.  If the value is a
+<span class="lineNum">     179 </span>            : // protocol message, its debug string is printed; if it's an enum or
+<span class="lineNum">     180 </span>            : // of a type implicitly convertible to BiggestInt, it's printed as an
+<span class="lineNum">     181 </span>            : // integer; otherwise the bytes in the value are printed.  This is
+<span class="lineNum">     182 </span>            : // what UniversalPrinter&lt;T&gt;::Print() does when it knows nothing about
+<span class="lineNum">     183 </span>            : // type T and T has neither &lt;&lt; operator nor PrintTo().
+<span class="lineNum">     184 </span>            : //
+<span class="lineNum">     185 </span>            : // A user can override this behavior for a class type Foo by defining
+<span class="lineNum">     186 </span>            : // a &lt;&lt; operator in the namespace where Foo is defined.
+<span class="lineNum">     187 </span>            : //
+<span class="lineNum">     188 </span>            : // We put this operator in namespace 'internal2' instead of 'internal'
+<span class="lineNum">     189 </span>            : // to simplify the implementation, as much code in 'internal' needs to
+<span class="lineNum">     190 </span>            : // use &lt;&lt; in STL, which would conflict with our own &lt;&lt; were it defined
+<span class="lineNum">     191 </span>            : // in 'internal'.
+<span class="lineNum">     192 </span>            : //
+<span class="lineNum">     193 </span>            : // Note that this operator&lt;&lt; takes a generic std::basic_ostream&lt;Char,
+<span class="lineNum">     194 </span>            : // CharTraits&gt; type instead of the more restricted std::ostream.  If
+<span class="lineNum">     195 </span>            : // we define it to take an std::ostream instead, we'll get an
+<span class="lineNum">     196 </span>            : // &quot;ambiguous overloads&quot; compiler error when trying to print a type
+<span class="lineNum">     197 </span>            : // Foo that supports streaming to std::basic_ostream&lt;Char,
+<span class="lineNum">     198 </span>            : // CharTraits&gt;, as the compiler cannot tell whether
+<span class="lineNum">     199 </span>            : // operator&lt;&lt;(std::ostream&amp;, const T&amp;) or
+<span class="lineNum">     200 </span>            : // operator&lt;&lt;(std::basic_stream&lt;Char, CharTraits&gt;, const Foo&amp;) is more
+<span class="lineNum">     201 </span>            : // specific.
+<span class="lineNum">     202 </span>            : template &lt;typename Char, typename CharTraits, typename T&gt;
+<span class="lineNum">     203 </span>            : ::std::basic_ostream&lt;Char, CharTraits&gt;&amp; operator&lt;&lt;(
+<span class="lineNum">     204 </span>            :     ::std::basic_ostream&lt;Char, CharTraits&gt;&amp; os, const T&amp; x) {
+<span class="lineNum">     205 </span>            :   TypeWithoutFormatter&lt;T,
+<span class="lineNum">     206 </span>            :       (internal::IsAProtocolMessage&lt;T&gt;::value ? kProtobuf :
+<span class="lineNum">     207 </span>            :        internal::ImplicitlyConvertible&lt;const T&amp;, internal::BiggestInt&gt;::value ?
+<span class="lineNum">     208 </span>            :        kConvertibleToInteger : kOtherType)&gt;::PrintValue(x, &amp;os);
+<span class="lineNum">     209 </span>            :   return os;
+<span class="lineNum">     210 </span>            : }
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            : }  // namespace internal2
+<span class="lineNum">     213 </span>            : }  // namespace testing
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span>            : // This namespace MUST NOT BE NESTED IN ::testing, or the name look-up
+<span class="lineNum">     216 </span>            : // magic needed for implementing UniversalPrinter won't work.
+<span class="lineNum">     217 </span>            : namespace testing_internal {
+<span class="lineNum">     218 </span>            : 
+<span class="lineNum">     219 </span>            : // Used to print a value that is not an STL-style container when the
+<span class="lineNum">     220 </span>            : // user doesn't define PrintTo() for it.
+<span class="lineNum">     221 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     222 </span>            : void DefaultPrintNonContainerTo(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     223 </span>            :   // With the following statement, during unqualified name lookup,
+<span class="lineNum">     224 </span>            :   // testing::internal2::operator&lt;&lt; appears as if it was declared in
+<span class="lineNum">     225 </span>            :   // the nearest enclosing namespace that contains both
+<span class="lineNum">     226 </span>            :   // ::testing_internal and ::testing::internal2, i.e. the global
+<span class="lineNum">     227 </span>            :   // namespace.  For more details, refer to the C++ Standard section
+<span class="lineNum">     228 </span>            :   // 7.3.4-1 [namespace.udir].  This allows us to fall back onto
+<span class="lineNum">     229 </span>            :   // testing::internal2::operator&lt;&lt; in case T doesn't come with a &lt;&lt;
+<span class="lineNum">     230 </span>            :   // operator.
+<span class="lineNum">     231 </span>            :   //
+<span class="lineNum">     232 </span>            :   // We cannot write 'using ::testing::internal2::operator&lt;&lt;;', which
+<span class="lineNum">     233 </span>            :   // gcc 3.3 fails to compile due to a compiler bug.
+<span class="lineNum">     234 </span>            :   using namespace ::testing::internal2;  // NOLINT
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span>            :   // Assuming T is defined in namespace foo, in the next statement,
+<span class="lineNum">     237 </span>            :   // the compiler will consider all of:
+<span class="lineNum">     238 </span>            :   //
+<span class="lineNum">     239 </span>            :   //   1. foo::operator&lt;&lt; (thanks to Koenig look-up),
+<span class="lineNum">     240 </span>            :   //   2. ::operator&lt;&lt; (as the current namespace is enclosed in ::),
+<span class="lineNum">     241 </span>            :   //   3. testing::internal2::operator&lt;&lt; (thanks to the using statement above).
+<span class="lineNum">     242 </span>            :   //
+<span class="lineNum">     243 </span>            :   // The operator&lt;&lt; whose type matches T best will be picked.
+<span class="lineNum">     244 </span>            :   //
+<span class="lineNum">     245 </span>            :   // We deliberately allow #2 to be a candidate, as sometimes it's
+<span class="lineNum">     246 </span>            :   // impossible to define #1 (e.g. when foo is ::std, defining
+<a name="247"><span class="lineNum">     247 </span>            :   // anything in it is undefined behavior unless you are a compiler</a>
+<span class="lineNum">     248 </span>            :   // vendor.).
+<span class="lineNum">     249 </span><span class="lineNoCov">          0 :   *os &lt;&lt; value;</span>
+<span class="lineNum">     250 </span>            : }
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span>            : }  // namespace testing_internal
+<span class="lineNum">     253 </span>            : 
+<span class="lineNum">     254 </span>            : namespace testing {
+<span class="lineNum">     255 </span>            : namespace internal {
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span>            : // FormatForComparison&lt;ToPrint, OtherOperand&gt;::Format(value) formats a
+<span class="lineNum">     258 </span>            : // value of type ToPrint that is an operand of a comparison assertion
+<span class="lineNum">     259 </span>            : // (e.g. ASSERT_EQ).  OtherOperand is the type of the other operand in
+<span class="lineNum">     260 </span>            : // the comparison, and is used to help determine the best way to
+<span class="lineNum">     261 </span>            : // format the value.  In particular, when the value is a C string
+<span class="lineNum">     262 </span>            : // (char pointer) and the other operand is an STL string object, we
+<span class="lineNum">     263 </span>            : // want to format the C string as a string, since we know it is
+<span class="lineNum">     264 </span>            : // compared by value with the string object.  If the value is a char
+<span class="lineNum">     265 </span>            : // pointer but the other operand is not an STL string object, we don't
+<span class="lineNum">     266 </span>            : // know whether the pointer is supposed to point to a NUL-terminated
+<span class="lineNum">     267 </span>            : // string, and thus want to print it as a pointer to be safe.
+<span class="lineNum">     268 </span>            : //
+<span class="lineNum">     269 </span>            : // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span>            : // The default case.
+<span class="lineNum">     272 </span>            : template &lt;typename ToPrint, typename OtherOperand&gt;
+<span class="lineNum">     273 </span>            : class FormatForComparison {
+<span class="lineNum">     274 </span>            :  public:
+<span class="lineNum">     275 </span>            :   static ::std::string Format(const ToPrint&amp; value) {
+<span class="lineNum">     276 </span><span class="lineNoCov">          0 :     return ::testing::PrintToString(value);</span>
+<span class="lineNum">     277 </span>            :   }
+<span class="lineNum">     278 </span>            : };
+<span class="lineNum">     279 </span>            : 
+<span class="lineNum">     280 </span>            : // Array.
+<span class="lineNum">     281 </span>            : template &lt;typename ToPrint, size_t N, typename OtherOperand&gt;
+<span class="lineNum">     282 </span>            : class FormatForComparison&lt;ToPrint[N], OtherOperand&gt; {
+<span class="lineNum">     283 </span>            :  public:
+<span class="lineNum">     284 </span>            :   static ::std::string Format(const ToPrint* value) {
+<span class="lineNum">     285 </span>            :     return FormatForComparison&lt;const ToPrint*, OtherOperand&gt;::Format(value);
+<span class="lineNum">     286 </span>            :   }
+<span class="lineNum">     287 </span>            : };
+<span class="lineNum">     288 </span>            : 
+<span class="lineNum">     289 </span>            : // By default, print C string as pointers to be safe, as we don't know
+<span class="lineNum">     290 </span>            : // whether they actually point to a NUL-terminated string.
+<span class="lineNum">     291 </span>            : 
+<span class="lineNum">     292 </span>            : #define GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_(CharType)                \
+<span class="lineNum">     293 </span>            :   template &lt;typename OtherOperand&gt;                                      \
+<span class="lineNum">     294 </span>            :   class FormatForComparison&lt;CharType*, OtherOperand&gt; {                  \
+<span class="lineNum">     295 </span>            :    public:                                                              \
+<span class="lineNum">     296 </span>            :     static ::std::string Format(CharType* value) {                      \
+<span class="lineNum">     297 </span>            :       return ::testing::PrintToString(static_cast&lt;const void*&gt;(value)); \
+<span class="lineNum">     298 </span>            :     }                                                                   \
+<span class="lineNum">     299 </span>            :   }
+<span class="lineNum">     300 </span>            : 
+<span class="lineNum">     301 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_(char);
+<span class="lineNum">     302 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_(const char);
+<span class="lineNum">     303 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_(wchar_t);
+<span class="lineNum">     304 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_(const wchar_t);
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span>            : #undef GTEST_IMPL_FORMAT_C_STRING_AS_POINTER_
+<span class="lineNum">     307 </span>            : 
+<span class="lineNum">     308 </span>            : // If a C string is compared with an STL string object, we know it's meant
+<span class="lineNum">     309 </span>            : // to point to a NUL-terminated string, and thus can print it as a string.
+<span class="lineNum">     310 </span>            : 
+<span class="lineNum">     311 </span>            : #define GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(CharType, OtherStringType) \
+<span class="lineNum">     312 </span>            :   template &lt;&gt;                                                           \
+<span class="lineNum">     313 </span>            :   class FormatForComparison&lt;CharType*, OtherStringType&gt; {               \
+<span class="lineNum">     314 </span>            :    public:                                                              \
+<span class="lineNum">     315 </span>            :     static ::std::string Format(CharType* value) {                      \
+<span class="lineNum">     316 </span>            :       return ::testing::PrintToString(value);                           \
+<span class="lineNum">     317 </span>            :     }                                                                   \
+<span class="lineNum">     318 </span>            :   }
+<span class="lineNum">     319 </span>            : 
+<span class="lineNum">     320 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(char, ::std::string);
+<span class="lineNum">     321 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(const char, ::std::string);
+<span class="lineNum">     322 </span>            : 
+<span class="lineNum">     323 </span>            : #if GTEST_HAS_GLOBAL_STRING
+<span class="lineNum">     324 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(char, ::string);
+<span class="lineNum">     325 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(const char, ::string);
+<span class="lineNum">     326 </span>            : #endif
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span>            : #if GTEST_HAS_GLOBAL_WSTRING
+<span class="lineNum">     329 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(wchar_t, ::wstring);
+<span class="lineNum">     330 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(const wchar_t, ::wstring);
+<span class="lineNum">     331 </span>            : #endif
+<span class="lineNum">     332 </span>            : 
+<span class="lineNum">     333 </span>            : #if GTEST_HAS_STD_WSTRING
+<span class="lineNum">     334 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(wchar_t, ::std::wstring);
+<span class="lineNum">     335 </span>            : GTEST_IMPL_FORMAT_C_STRING_AS_STRING_(const wchar_t, ::std::wstring);
+<span class="lineNum">     336 </span>            : #endif
+<span class="lineNum">     337 </span>            : 
+<span class="lineNum">     338 </span>            : #undef GTEST_IMPL_FORMAT_C_STRING_AS_STRING_
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span>            : // Formats a comparison assertion (e.g. ASSERT_EQ, EXPECT_LT, and etc)
+<span class="lineNum">     341 </span>            : // operand to be used in a failure message.  The type (but not value)
+<span class="lineNum">     342 </span>            : // of the other operand may affect the format.  This allows us to
+<span class="lineNum">     343 </span>            : // print a char* as a raw pointer when it is compared against another
+<span class="lineNum">     344 </span>            : // char* or void*, and print it as a C string when it is compared
+<span class="lineNum">     345 </span>            : // against an std::string object, for example.
+<span class="lineNum">     346 </span>            : //
+<span class="lineNum">     347 </span>            : // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+<span class="lineNum">     348 </span>            : template &lt;typename T1, typename T2&gt;
+<span class="lineNum">     349 </span>            : std::string FormatForComparisonFailureMessage(
+<span class="lineNum">     350 </span>            :     const T1&amp; value, const T2&amp; /* other_operand */) {
+<span class="lineNum">     351 </span>            :   return FormatForComparison&lt;T1, T2&gt;::Format(value);
+<span class="lineNum">     352 </span>            : }
+<span class="lineNum">     353 </span>            : 
+<span class="lineNum">     354 </span>            : // UniversalPrinter&lt;T&gt;::Print(value, ostream_ptr) prints the given
+<span class="lineNum">     355 </span>            : // value to the given ostream.  The caller must ensure that
+<span class="lineNum">     356 </span>            : // 'ostream_ptr' is not NULL, or the behavior is undefined.
+<span class="lineNum">     357 </span>            : //
+<span class="lineNum">     358 </span>            : // We define UniversalPrinter as a class template (as opposed to a
+<span class="lineNum">     359 </span>            : // function template), as we need to partially specialize it for
+<span class="lineNum">     360 </span>            : // reference types, which cannot be done with function templates.
+<span class="lineNum">     361 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     362 </span>            : class UniversalPrinter;
+<span class="lineNum">     363 </span>            : 
+<span class="lineNum">     364 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     365 </span>            : void UniversalPrint(const T&amp; value, ::std::ostream* os);
+<span class="lineNum">     366 </span>            : 
+<span class="lineNum">     367 </span>            : // Used to print an STL-style container when the user doesn't define
+<span class="lineNum">     368 </span>            : // a PrintTo() for it.
+<span class="lineNum">     369 </span>            : template &lt;typename C&gt;
+<span class="lineNum">     370 </span>            : void DefaultPrintTo(IsContainer /* dummy */,
+<span class="lineNum">     371 </span>            :                     false_type /* is not a pointer */,
+<span class="lineNum">     372 </span>            :                     const C&amp; container, ::std::ostream* os) {
+<span class="lineNum">     373 </span>            :   const size_t kMaxCount = 32;  // The maximum number of elements to print.
+<span class="lineNum">     374 </span>            :   *os &lt;&lt; '{';
+<span class="lineNum">     375 </span>            :   size_t count = 0;
+<span class="lineNum">     376 </span>            :   for (typename C::const_iterator it = container.begin();
+<span class="lineNum">     377 </span>            :        it != container.end(); ++it, ++count) {
+<span class="lineNum">     378 </span>            :     if (count &gt; 0) {
+<span class="lineNum">     379 </span>            :       *os &lt;&lt; ',';
+<span class="lineNum">     380 </span>            :       if (count == kMaxCount) {  // Enough has been printed.
+<span class="lineNum">     381 </span>            :         *os &lt;&lt; &quot; ...&quot;;
+<span class="lineNum">     382 </span>            :         break;
+<span class="lineNum">     383 </span>            :       }
+<span class="lineNum">     384 </span>            :     }
+<span class="lineNum">     385 </span>            :     *os &lt;&lt; ' ';
+<span class="lineNum">     386 </span>            :     // We cannot call PrintTo(*it, os) here as PrintTo() doesn't
+<span class="lineNum">     387 </span>            :     // handle *it being a native array.
+<span class="lineNum">     388 </span>            :     internal::UniversalPrint(*it, os);
+<span class="lineNum">     389 </span>            :   }
+<span class="lineNum">     390 </span>            : 
+<span class="lineNum">     391 </span>            :   if (count &gt; 0) {
+<span class="lineNum">     392 </span>            :     *os &lt;&lt; ' ';
+<span class="lineNum">     393 </span>            :   }
+<span class="lineNum">     394 </span>            :   *os &lt;&lt; '}';
+<span class="lineNum">     395 </span>            : }
+<span class="lineNum">     396 </span>            : 
+<span class="lineNum">     397 </span>            : // Used to print a pointer that is neither a char pointer nor a member
+<span class="lineNum">     398 </span>            : // pointer, when the user doesn't define PrintTo() for it.  (A member
+<span class="lineNum">     399 </span>            : // variable pointer or member function pointer doesn't really point to
+<span class="lineNum">     400 </span>            : // a location in the address space.  Their representation is
+<span class="lineNum">     401 </span>            : // implementation-defined.  Therefore they will be printed as raw
+<span class="lineNum">     402 </span>            : // bytes.)
+<span class="lineNum">     403 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     404 </span>            : void DefaultPrintTo(IsNotContainer /* dummy */,
+<span class="lineNum">     405 </span>            :                     true_type /* is a pointer */,
+<span class="lineNum">     406 </span>            :                     T* p, ::std::ostream* os) {
+<span class="lineNum">     407 </span>            :   if (p == NULL) {
+<span class="lineNum">     408 </span>            :     *os &lt;&lt; &quot;NULL&quot;;
+<span class="lineNum">     409 </span>            :   } else {
+<span class="lineNum">     410 </span>            :     // C++ doesn't allow casting from a function pointer to any object
+<span class="lineNum">     411 </span>            :     // pointer.
+<span class="lineNum">     412 </span>            :     //
+<span class="lineNum">     413 </span>            :     // IsTrue() silences warnings: &quot;Condition is always true&quot;,
+<span class="lineNum">     414 </span>            :     // &quot;unreachable code&quot;.
+<span class="lineNum">     415 </span>            :     if (IsTrue(ImplicitlyConvertible&lt;T*, const void*&gt;::value)) {
+<span class="lineNum">     416 </span>            :       // T is not a function type.  We just call &lt;&lt; to print p,
+<span class="lineNum">     417 </span>            :       // relying on ADL to pick up user-defined &lt;&lt; for their pointer
+<span class="lineNum">     418 </span>            :       // types, if any.
+<span class="lineNum">     419 </span>            :       *os &lt;&lt; p;
+<span class="lineNum">     420 </span>            :     } else {
+<span class="lineNum">     421 </span>            :       // T is a function type, so '*os &lt;&lt; p' doesn't do what we want
+<span class="lineNum">     422 </span>            :       // (it just prints p as bool).  We want to print p as a const
+<span class="lineNum">     423 </span>            :       // void*.  However, we cannot cast it to const void* directly,
+<span class="lineNum">     424 </span>            :       // even using reinterpret_cast, as earlier versions of gcc
+<span class="lineNum">     425 </span>            :       // (e.g. 3.4.5) cannot compile the cast when p is a function
+<span class="lineNum">     426 </span>            :       // pointer.  Casting to UInt64 first solves the problem.
+<span class="lineNum">     427 </span>            :       *os &lt;&lt; reinterpret_cast&lt;const void*&gt;(
+<span class="lineNum">     428 </span>            :           reinterpret_cast&lt;internal::UInt64&gt;(p));
+<span class="lineNum">     429 </span>            :     }
+<span class="lineNum">     430 </span>            :   }
+<span class="lineNum">     431 </span>            : }
+<span class="lineNum">     432 </span>            : 
+<span class="lineNum">     433 </span>            : // Used to print a non-container, non-pointer value when the user
+<span class="lineNum">     434 </span>            : // doesn't define PrintTo() for it.
+<span class="lineNum">     435 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     436 </span>            : void DefaultPrintTo(IsNotContainer /* dummy */,
+<span class="lineNum">     437 </span>            :                     false_type /* is not a pointer */,
+<span class="lineNum">     438 </span>            :                     const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     439 </span><span class="lineNoCov">          0 :   ::testing_internal::DefaultPrintNonContainerTo(value, os);</span>
+<span class="lineNum">     440 </span>            : }
+<span class="lineNum">     441 </span>            : 
+<span class="lineNum">     442 </span>            : // Prints the given value using the &lt;&lt; operator if it has one;
+<span class="lineNum">     443 </span>            : // otherwise prints the bytes in it.  This is what
+<span class="lineNum">     444 </span>            : // UniversalPrinter&lt;T&gt;::Print() does when PrintTo() is not specialized
+<span class="lineNum">     445 </span>            : // or overloaded for type T.
+<span class="lineNum">     446 </span>            : //
+<span class="lineNum">     447 </span>            : // A user can override this behavior for a class type Foo by defining
+<span class="lineNum">     448 </span>            : // an overload of PrintTo() in the namespace where Foo is defined.  We
+<span class="lineNum">     449 </span>            : // give the user this option as sometimes defining a &lt;&lt; operator for
+<span class="lineNum">     450 </span>            : // Foo is not desirable (e.g. the coding style may prevent doing it,
+<span class="lineNum">     451 </span>            : // or there is already a &lt;&lt; operator but it doesn't do what the user
+<span class="lineNum">     452 </span>            : // wants).
+<span class="lineNum">     453 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     454 </span>            : void PrintTo(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     455 </span>            :   // DefaultPrintTo() is overloaded.  The type of its first two
+<span class="lineNum">     456 </span>            :   // arguments determine which version will be picked.  If T is an
+<span class="lineNum">     457 </span>            :   // STL-style container, the version for container will be called; if
+<span class="lineNum">     458 </span>            :   // T is a pointer, the pointer version will be called; otherwise the
+<span class="lineNum">     459 </span>            :   // generic version will be called.
+<span class="lineNum">     460 </span>            :   //
+<span class="lineNum">     461 </span>            :   // Note that we check for container types here, prior to we check
+<span class="lineNum">     462 </span>            :   // for protocol message types in our operator&lt;&lt;.  The rationale is:
+<span class="lineNum">     463 </span>            :   //
+<span class="lineNum">     464 </span>            :   // For protocol messages, we want to give people a chance to
+<span class="lineNum">     465 </span>            :   // override Google Mock's format by defining a PrintTo() or
+<span class="lineNum">     466 </span>            :   // operator&lt;&lt;.  For STL containers, other formats can be
+<span class="lineNum">     467 </span>            :   // incompatible with Google Mock's format for the container
+<span class="lineNum">     468 </span>            :   // elements; therefore we check for container types here to ensure
+<span class="lineNum">     469 </span>            :   // that our format is used.
+<span class="lineNum">     470 </span>            :   //
+<span class="lineNum">     471 </span>            :   // The second argument of DefaultPrintTo() is needed to bypass a bug
+<span class="lineNum">     472 </span>            :   // in Symbian's C++ compiler that prevents it from picking the right
+<span class="lineNum">     473 </span>            :   // overload between:
+<span class="lineNum">     474 </span>            :   //
+<span class="lineNum">     475 </span>            :   //   PrintTo(const T&amp; x, ...);
+<span class="lineNum">     476 </span>            :   //   PrintTo(T* x, ...);
+<span class="lineNum">     477 </span><span class="lineNoCov">          0 :   DefaultPrintTo(IsContainerTest&lt;T&gt;(0), is_pointer&lt;T&gt;(), value, os);</span>
+<span class="lineNum">     478 </span>            : }
+<span class="lineNum">     479 </span>            : 
+<span class="lineNum">     480 </span>            : // The following list of PrintTo() overloads tells
+<span class="lineNum">     481 </span>            : // UniversalPrinter&lt;T&gt;::Print() how to print standard types (built-in
+<span class="lineNum">     482 </span>            : // types, strings, plain arrays, and pointers).
+<span class="lineNum">     483 </span>            : 
+<span class="lineNum">     484 </span>            : // Overloads for various char types.
+<span class="lineNum">     485 </span>            : GTEST_API_ void PrintTo(unsigned char c, ::std::ostream* os);
+<span class="lineNum">     486 </span>            : GTEST_API_ void PrintTo(signed char c, ::std::ostream* os);
+<span class="lineNum">     487 </span>            : inline void PrintTo(char c, ::std::ostream* os) {
+<span class="lineNum">     488 </span>            :   // When printing a plain char, we always treat it as unsigned.  This
+<span class="lineNum">     489 </span>            :   // way, the output won't be affected by whether the compiler thinks
+<span class="lineNum">     490 </span>            :   // char is signed or not.
+<span class="lineNum">     491 </span>            :   PrintTo(static_cast&lt;unsigned char&gt;(c), os);
+<span class="lineNum">     492 </span>            : }
+<span class="lineNum">     493 </span>            : 
+<span class="lineNum">     494 </span>            : // Overloads for other simple built-in types.
+<span class="lineNum">     495 </span>            : inline void PrintTo(bool x, ::std::ostream* os) {
+<span class="lineNum">     496 </span>            :   *os &lt;&lt; (x ? &quot;true&quot; : &quot;false&quot;);
+<span class="lineNum">     497 </span>            : }
+<span class="lineNum">     498 </span>            : 
+<span class="lineNum">     499 </span>            : // Overload for wchar_t type.
+<span class="lineNum">     500 </span>            : // Prints a wchar_t as a symbol if it is printable or as its internal
+<span class="lineNum">     501 </span>            : // code otherwise and also as its decimal code (except for L'\0').
+<span class="lineNum">     502 </span>            : // The L'\0' char is printed as &quot;L'\\0'&quot;. The decimal code is printed
+<span class="lineNum">     503 </span>            : // as signed integer when wchar_t is implemented by the compiler
+<span class="lineNum">     504 </span>            : // as a signed type and is printed as an unsigned integer when wchar_t
+<span class="lineNum">     505 </span>            : // is implemented as an unsigned type.
+<span class="lineNum">     506 </span>            : GTEST_API_ void PrintTo(wchar_t wc, ::std::ostream* os);
+<span class="lineNum">     507 </span>            : 
+<span class="lineNum">     508 </span>            : // Overloads for C strings.
+<span class="lineNum">     509 </span>            : GTEST_API_ void PrintTo(const char* s, ::std::ostream* os);
+<span class="lineNum">     510 </span>            : inline void PrintTo(char* s, ::std::ostream* os) {
+<span class="lineNum">     511 </span>            :   PrintTo(ImplicitCast_&lt;const char*&gt;(s), os);
+<span class="lineNum">     512 </span>            : }
+<span class="lineNum">     513 </span>            : 
+<span class="lineNum">     514 </span>            : // signed/unsigned char is often used for representing binary data, so
+<span class="lineNum">     515 </span>            : // we print pointers to it as void* to be safe.
+<span class="lineNum">     516 </span>            : inline void PrintTo(const signed char* s, ::std::ostream* os) {
+<span class="lineNum">     517 </span>            :   PrintTo(ImplicitCast_&lt;const void*&gt;(s), os);
+<span class="lineNum">     518 </span>            : }
+<span class="lineNum">     519 </span>            : inline void PrintTo(signed char* s, ::std::ostream* os) {
+<span class="lineNum">     520 </span>            :   PrintTo(ImplicitCast_&lt;const void*&gt;(s), os);
+<span class="lineNum">     521 </span>            : }
+<span class="lineNum">     522 </span>            : inline void PrintTo(const unsigned char* s, ::std::ostream* os) {
+<span class="lineNum">     523 </span>            :   PrintTo(ImplicitCast_&lt;const void*&gt;(s), os);
+<span class="lineNum">     524 </span>            : }
+<span class="lineNum">     525 </span>            : inline void PrintTo(unsigned char* s, ::std::ostream* os) {
+<span class="lineNum">     526 </span>            :   PrintTo(ImplicitCast_&lt;const void*&gt;(s), os);
+<span class="lineNum">     527 </span>            : }
+<span class="lineNum">     528 </span>            : 
+<span class="lineNum">     529 </span>            : // MSVC can be configured to define wchar_t as a typedef of unsigned
+<span class="lineNum">     530 </span>            : // short.  It defines _NATIVE_WCHAR_T_DEFINED when wchar_t is a native
+<span class="lineNum">     531 </span>            : // type.  When wchar_t is a typedef, defining an overload for const
+<span class="lineNum">     532 </span>            : // wchar_t* would cause unsigned short* be printed as a wide string,
+<span class="lineNum">     533 </span>            : // possibly causing invalid memory accesses.
+<span class="lineNum">     534 </span>            : #if !defined(_MSC_VER) || defined(_NATIVE_WCHAR_T_DEFINED)
+<span class="lineNum">     535 </span>            : // Overloads for wide C strings
+<span class="lineNum">     536 </span>            : GTEST_API_ void PrintTo(const wchar_t* s, ::std::ostream* os);
+<span class="lineNum">     537 </span>            : inline void PrintTo(wchar_t* s, ::std::ostream* os) {
+<span class="lineNum">     538 </span>            :   PrintTo(ImplicitCast_&lt;const wchar_t*&gt;(s), os);
+<span class="lineNum">     539 </span>            : }
+<span class="lineNum">     540 </span>            : #endif
+<span class="lineNum">     541 </span>            : 
+<span class="lineNum">     542 </span>            : // Overload for C arrays.  Multi-dimensional arrays are printed
+<span class="lineNum">     543 </span>            : // properly.
+<span class="lineNum">     544 </span>            : 
+<span class="lineNum">     545 </span>            : // Prints the given number of elements in an array, without printing
+<span class="lineNum">     546 </span>            : // the curly braces.
+<span class="lineNum">     547 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     548 </span>            : void PrintRawArrayTo(const T a[], size_t count, ::std::ostream* os) {
+<span class="lineNum">     549 </span>            :   UniversalPrint(a[0], os);
+<span class="lineNum">     550 </span>            :   for (size_t i = 1; i != count; i++) {
+<span class="lineNum">     551 </span>            :     *os &lt;&lt; &quot;, &quot;;
+<span class="lineNum">     552 </span>            :     UniversalPrint(a[i], os);
+<span class="lineNum">     553 </span>            :   }
+<span class="lineNum">     554 </span>            : }
+<span class="lineNum">     555 </span>            : 
+<span class="lineNum">     556 </span>            : // Overloads for ::string and ::std::string.
+<span class="lineNum">     557 </span>            : #if GTEST_HAS_GLOBAL_STRING
+<span class="lineNum">     558 </span>            : GTEST_API_ void PrintStringTo(const ::string&amp;s, ::std::ostream* os);
+<span class="lineNum">     559 </span>            : inline void PrintTo(const ::string&amp; s, ::std::ostream* os) {
+<span class="lineNum">     560 </span>            :   PrintStringTo(s, os);
+<span class="lineNum">     561 </span>            : }
+<span class="lineNum">     562 </span>            : #endif  // GTEST_HAS_GLOBAL_STRING
+<span class="lineNum">     563 </span>            : 
+<span class="lineNum">     564 </span>            : GTEST_API_ void PrintStringTo(const ::std::string&amp;s, ::std::ostream* os);
+<span class="lineNum">     565 </span>            : inline void PrintTo(const ::std::string&amp; s, ::std::ostream* os) {
+<span class="lineNum">     566 </span>            :   PrintStringTo(s, os);
+<span class="lineNum">     567 </span>            : }
+<span class="lineNum">     568 </span>            : 
+<span class="lineNum">     569 </span>            : // Overloads for ::wstring and ::std::wstring.
+<span class="lineNum">     570 </span>            : #if GTEST_HAS_GLOBAL_WSTRING
+<span class="lineNum">     571 </span>            : GTEST_API_ void PrintWideStringTo(const ::wstring&amp;s, ::std::ostream* os);
+<span class="lineNum">     572 </span>            : inline void PrintTo(const ::wstring&amp; s, ::std::ostream* os) {
+<span class="lineNum">     573 </span>            :   PrintWideStringTo(s, os);
+<span class="lineNum">     574 </span>            : }
+<span class="lineNum">     575 </span>            : #endif  // GTEST_HAS_GLOBAL_WSTRING
+<span class="lineNum">     576 </span>            : 
+<span class="lineNum">     577 </span>            : #if GTEST_HAS_STD_WSTRING
+<span class="lineNum">     578 </span>            : GTEST_API_ void PrintWideStringTo(const ::std::wstring&amp;s, ::std::ostream* os);
+<span class="lineNum">     579 </span>            : inline void PrintTo(const ::std::wstring&amp; s, ::std::ostream* os) {
+<span class="lineNum">     580 </span>            :   PrintWideStringTo(s, os);
+<span class="lineNum">     581 </span>            : }
+<span class="lineNum">     582 </span>            : #endif  // GTEST_HAS_STD_WSTRING
+<span class="lineNum">     583 </span>            : 
+<span class="lineNum">     584 </span>            : #if GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     585 </span>            : // Helper function for printing a tuple.  T must be instantiated with
+<span class="lineNum">     586 </span>            : // a tuple type.
+<span class="lineNum">     587 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     588 </span>            : void PrintTupleTo(const T&amp; t, ::std::ostream* os);
+<span class="lineNum">     589 </span>            : #endif  // GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     590 </span>            : 
+<span class="lineNum">     591 </span>            : #if GTEST_HAS_TR1_TUPLE
+<span class="lineNum">     592 </span>            : // Overload for ::std::tr1::tuple.  Needed for printing function arguments,
+<span class="lineNum">     593 </span>            : // which are packed as tuples.
+<span class="lineNum">     594 </span>            : 
+<span class="lineNum">     595 </span>            : // Overloaded PrintTo() for tuples of various arities.  We support
+<span class="lineNum">     596 </span>            : // tuples of up-to 10 fields.  The following implementation works
+<span class="lineNum">     597 </span>            : // regardless of whether tr1::tuple is implemented using the
+<span class="lineNum">     598 </span>            : // non-standard variadic template feature or not.
+<span class="lineNum">     599 </span>            : 
+<span class="lineNum">     600 </span>            : inline void PrintTo(const ::std::tr1::tuple&lt;&gt;&amp; t, ::std::ostream* os) {
+<span class="lineNum">     601 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     602 </span>            : }
+<span class="lineNum">     603 </span>            : 
+<span class="lineNum">     604 </span>            : template &lt;typename T1&gt;
+<span class="lineNum">     605 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1&gt;&amp; t, ::std::ostream* os) {
+<span class="lineNum">     606 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     607 </span>            : }
+<span class="lineNum">     608 </span>            : 
+<span class="lineNum">     609 </span>            : template &lt;typename T1, typename T2&gt;
+<span class="lineNum">     610 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2&gt;&amp; t, ::std::ostream* os) {
+<span class="lineNum">     611 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     612 </span>            : }
+<span class="lineNum">     613 </span>            : 
+<span class="lineNum">     614 </span>            : template &lt;typename T1, typename T2, typename T3&gt;
+<span class="lineNum">     615 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2, T3&gt;&amp; t, ::std::ostream* os) {
+<span class="lineNum">     616 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     617 </span>            : }
+<span class="lineNum">     618 </span>            : 
+<span class="lineNum">     619 </span>            : template &lt;typename T1, typename T2, typename T3, typename T4&gt;
+<span class="lineNum">     620 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2, T3, T4&gt;&amp; t, ::std::ostream* os) {
+<span class="lineNum">     621 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     622 </span>            : }
+<span class="lineNum">     623 </span>            : 
+<span class="lineNum">     624 </span>            : template &lt;typename T1, typename T2, typename T3, typename T4, typename T5&gt;
+<span class="lineNum">     625 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2, T3, T4, T5&gt;&amp; t,
+<span class="lineNum">     626 </span>            :              ::std::ostream* os) {
+<span class="lineNum">     627 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     628 </span>            : }
+<span class="lineNum">     629 </span>            : 
+<span class="lineNum">     630 </span>            : template &lt;typename T1, typename T2, typename T3, typename T4, typename T5,
+<span class="lineNum">     631 </span>            :           typename T6&gt;
+<span class="lineNum">     632 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2, T3, T4, T5, T6&gt;&amp; t,
+<span class="lineNum">     633 </span>            :              ::std::ostream* os) {
+<span class="lineNum">     634 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     635 </span>            : }
+<span class="lineNum">     636 </span>            : 
+<span class="lineNum">     637 </span>            : template &lt;typename T1, typename T2, typename T3, typename T4, typename T5,
+<span class="lineNum">     638 </span>            :           typename T6, typename T7&gt;
+<span class="lineNum">     639 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2, T3, T4, T5, T6, T7&gt;&amp; t,
+<span class="lineNum">     640 </span>            :              ::std::ostream* os) {
+<span class="lineNum">     641 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     642 </span>            : }
+<span class="lineNum">     643 </span>            : 
+<span class="lineNum">     644 </span>            : template &lt;typename T1, typename T2, typename T3, typename T4, typename T5,
+<span class="lineNum">     645 </span>            :           typename T6, typename T7, typename T8&gt;
+<span class="lineNum">     646 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2, T3, T4, T5, T6, T7, T8&gt;&amp; t,
+<span class="lineNum">     647 </span>            :              ::std::ostream* os) {
+<span class="lineNum">     648 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     649 </span>            : }
+<span class="lineNum">     650 </span>            : 
+<span class="lineNum">     651 </span>            : template &lt;typename T1, typename T2, typename T3, typename T4, typename T5,
+<span class="lineNum">     652 </span>            :           typename T6, typename T7, typename T8, typename T9&gt;
+<span class="lineNum">     653 </span>            : void PrintTo(const ::std::tr1::tuple&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9&gt;&amp; t,
+<span class="lineNum">     654 </span>            :              ::std::ostream* os) {
+<span class="lineNum">     655 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     656 </span>            : }
+<span class="lineNum">     657 </span>            : 
+<span class="lineNum">     658 </span>            : template &lt;typename T1, typename T2, typename T3, typename T4, typename T5,
+<span class="lineNum">     659 </span>            :           typename T6, typename T7, typename T8, typename T9, typename T10&gt;
+<span class="lineNum">     660 </span>            : void PrintTo(
+<span class="lineNum">     661 </span>            :     const ::std::tr1::tuple&lt;T1, T2, T3, T4, T5, T6, T7, T8, T9, T10&gt;&amp; t,
+<span class="lineNum">     662 </span>            :     ::std::ostream* os) {
+<span class="lineNum">     663 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     664 </span>            : }
+<span class="lineNum">     665 </span>            : #endif  // GTEST_HAS_TR1_TUPLE
+<span class="lineNum">     666 </span>            : 
+<span class="lineNum">     667 </span>            : #if GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     668 </span>            : template &lt;typename... Types&gt;
+<span class="lineNum">     669 </span>            : void PrintTo(const ::std::tuple&lt;Types...&gt;&amp; t, ::std::ostream* os) {
+<span class="lineNum">     670 </span>            :   PrintTupleTo(t, os);
+<span class="lineNum">     671 </span>            : }
+<span class="lineNum">     672 </span>            : #endif  // GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     673 </span>            : 
+<span class="lineNum">     674 </span>            : // Overload for std::pair.
+<span class="lineNum">     675 </span>            : template &lt;typename T1, typename T2&gt;
+<span class="lineNum">     676 </span><span class="lineNoCov">          0 : void PrintTo(const ::std::pair&lt;T1, T2&gt;&amp; value, ::std::ostream* os) {</span>
+<span class="lineNum">     677 </span>            :   *os &lt;&lt; '(';
+<span class="lineNum">     678 </span>            :   // We cannot use UniversalPrint(value.first, os) here, as T1 may be
+<span class="lineNum">     679 </span>            :   // a reference type.  The same for printing value.second.
+<span class="lineNum">     680 </span><span class="lineNoCov">          0 :   UniversalPrinter&lt;T1&gt;::Print(value.first, os);</span>
+<span class="lineNum">     681 </span><span class="lineNoCov">          0 :   *os &lt;&lt; &quot;, &quot;;</span>
+<span class="lineNum">     682 </span><span class="lineNoCov">          0 :   UniversalPrinter&lt;T2&gt;::Print(value.second, os);</span>
+<span class="lineNum">     683 </span>            :   *os &lt;&lt; ')';
+<span class="lineNum">     684 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     685 </span>            : 
+<span class="lineNum">     686 </span>            : // Implements printing a non-reference type T by letting the compiler
+<span class="lineNum">     687 </span>            : // pick the right overload of PrintTo() for T.
+<span class="lineNum">     688 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     689 </span>            : class UniversalPrinter {
+<span class="lineNum">     690 </span>            :  public:
+<span class="lineNum">     691 </span>            :   // MSVC warns about adding const to a function type, so we want to
+<span class="lineNum">     692 </span>            :   // disable the warning.
+<span class="lineNum">     693 </span>            :   GTEST_DISABLE_MSC_WARNINGS_PUSH_(4180)
+<span class="lineNum">     694 </span>            : 
+<span class="lineNum">     695 </span>            :   // Note: we deliberately don't call this PrintTo(), as that name
+<span class="lineNum">     696 </span>            :   // conflicts with ::testing::internal::PrintTo in the body of the
+<span class="lineNum">     697 </span>            :   // function.
+<span class="lineNum">     698 </span>            :   static void Print(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     699 </span>            :     // By default, ::testing::internal::PrintTo() is used for printing
+<span class="lineNum">     700 </span>            :     // the value.
+<span class="lineNum">     701 </span>            :     //
+<span class="lineNum">     702 </span>            :     // Thanks to Koenig look-up, if T is a class and has its own
+<span class="lineNum">     703 </span>            :     // PrintTo() function defined in its namespace, that function will
+<span class="lineNum">     704 </span>            :     // be visible here.  Since it is more specific than the generic ones
+<a name="705"><span class="lineNum">     705 </span>            :     // in ::testing::internal, it will be picked by the compiler in the</a>
+<span class="lineNum">     706 </span>            :     // following statement - exactly what we want.
+<span class="lineNum">     707 </span><span class="lineNoCov">          0 :     PrintTo(value, os);</span>
+<span class="lineNum">     708 </span>            :   }
+<span class="lineNum">     709 </span>            : 
+<span class="lineNum">     710 </span>            :   GTEST_DISABLE_MSC_WARNINGS_POP_()
+<span class="lineNum">     711 </span>            : };
+<span class="lineNum">     712 </span>            : 
+<span class="lineNum">     713 </span>            : // UniversalPrintArray(begin, len, os) prints an array of 'len'
+<span class="lineNum">     714 </span>            : // elements, starting at address 'begin'.
+<span class="lineNum">     715 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     716 </span>            : void UniversalPrintArray(const T* begin, size_t len, ::std::ostream* os) {
+<span class="lineNum">     717 </span>            :   if (len == 0) {
+<span class="lineNum">     718 </span>            :     *os &lt;&lt; &quot;{}&quot;;
+<span class="lineNum">     719 </span>            :   } else {
+<span class="lineNum">     720 </span>            :     *os &lt;&lt; &quot;{ &quot;;
+<span class="lineNum">     721 </span>            :     const size_t kThreshold = 18;
+<span class="lineNum">     722 </span>            :     const size_t kChunkSize = 8;
+<span class="lineNum">     723 </span>            :     // If the array has more than kThreshold elements, we'll have to
+<span class="lineNum">     724 </span>            :     // omit some details by printing only the first and the last
+<span class="lineNum">     725 </span>            :     // kChunkSize elements.
+<span class="lineNum">     726 </span>            :     // TODO(wan@google.com): let the user control the threshold using a flag.
+<span class="lineNum">     727 </span>            :     if (len &lt;= kThreshold) {
+<span class="lineNum">     728 </span>            :       PrintRawArrayTo(begin, len, os);
+<span class="lineNum">     729 </span>            :     } else {
+<span class="lineNum">     730 </span>            :       PrintRawArrayTo(begin, kChunkSize, os);
+<span class="lineNum">     731 </span>            :       *os &lt;&lt; &quot;, ..., &quot;;
+<span class="lineNum">     732 </span>            :       PrintRawArrayTo(begin + len - kChunkSize, kChunkSize, os);
+<span class="lineNum">     733 </span>            :     }
+<span class="lineNum">     734 </span>            :     *os &lt;&lt; &quot; }&quot;;
+<span class="lineNum">     735 </span>            :   }
+<span class="lineNum">     736 </span>            : }
+<span class="lineNum">     737 </span>            : // This overload prints a (const) char array compactly.
+<span class="lineNum">     738 </span>            : GTEST_API_ void UniversalPrintArray(
+<span class="lineNum">     739 </span>            :     const char* begin, size_t len, ::std::ostream* os);
+<span class="lineNum">     740 </span>            : 
+<span class="lineNum">     741 </span>            : // This overload prints a (const) wchar_t array compactly.
+<span class="lineNum">     742 </span>            : GTEST_API_ void UniversalPrintArray(
+<span class="lineNum">     743 </span>            :     const wchar_t* begin, size_t len, ::std::ostream* os);
+<span class="lineNum">     744 </span>            : 
+<span class="lineNum">     745 </span>            : // Implements printing an array type T[N].
+<span class="lineNum">     746 </span>            : template &lt;typename T, size_t N&gt;
+<span class="lineNum">     747 </span>            : class UniversalPrinter&lt;T[N]&gt; {
+<span class="lineNum">     748 </span>            :  public:
+<span class="lineNum">     749 </span>            :   // Prints the given array, omitting some elements when there are too
+<span class="lineNum">     750 </span>            :   // many.
+<span class="lineNum">     751 </span>            :   static void Print(const T (&amp;a)[N], ::std::ostream* os) {
+<span class="lineNum">     752 </span>            :     UniversalPrintArray(a, N, os);
+<span class="lineNum">     753 </span>            :   }
+<span class="lineNum">     754 </span>            : };
+<span class="lineNum">     755 </span>            : 
+<span class="lineNum">     756 </span>            : // Implements printing a reference type T&amp;.
+<span class="lineNum">     757 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     758 </span>            : class UniversalPrinter&lt;T&amp;&gt; {
+<span class="lineNum">     759 </span>            :  public:
+<span class="lineNum">     760 </span>            :   // MSVC warns about adding const to a function type, so we want to
+<span class="lineNum">     761 </span>            :   // disable the warning.
+<span class="lineNum">     762 </span>            :   GTEST_DISABLE_MSC_WARNINGS_PUSH_(4180)
+<span class="lineNum">     763 </span>            : 
+<span class="lineNum">     764 </span>            :   static void Print(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     765 </span>            :     // Prints the address of the value.  We use reinterpret_cast here
+<span class="lineNum">     766 </span>            :     // as static_cast doesn't compile when T is a function type.
+<span class="lineNum">     767 </span>            :     *os &lt;&lt; &quot;@&quot; &lt;&lt; reinterpret_cast&lt;const void*&gt;(&amp;value) &lt;&lt; &quot; &quot;;
+<span class="lineNum">     768 </span>            : 
+<span class="lineNum">     769 </span>            :     // Then prints the value itself.
+<span class="lineNum">     770 </span>            :     UniversalPrint(value, os);
+<span class="lineNum">     771 </span>            :   }
+<span class="lineNum">     772 </span>            : 
+<span class="lineNum">     773 </span>            :   GTEST_DISABLE_MSC_WARNINGS_POP_()
+<span class="lineNum">     774 </span>            : };
+<span class="lineNum">     775 </span>            : 
+<span class="lineNum">     776 </span>            : // Prints a value tersely: for a reference type, the referenced value
+<span class="lineNum">     777 </span>            : // (but not the address) is printed; for a (const) char pointer, the
+<span class="lineNum">     778 </span>            : // NUL-terminated string (but not the pointer) is printed.
+<span class="lineNum">     779 </span>            : 
+<span class="lineNum">     780 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     781 </span>            : class UniversalTersePrinter {
+<span class="lineNum">     782 </span>            :  public:
+<span class="lineNum">     783 </span>            :   static void Print(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     784 </span><span class="lineNoCov">          0 :     UniversalPrint(value, os);</span>
+<span class="lineNum">     785 </span>            :   }
+<span class="lineNum">     786 </span>            : };
+<span class="lineNum">     787 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     788 </span>            : class UniversalTersePrinter&lt;T&amp;&gt; {
+<span class="lineNum">     789 </span>            :  public:
+<span class="lineNum">     790 </span>            :   static void Print(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     791 </span>            :     UniversalPrint(value, os);
+<span class="lineNum">     792 </span>            :   }
+<span class="lineNum">     793 </span>            : };
+<span class="lineNum">     794 </span>            : template &lt;typename T, size_t N&gt;
+<span class="lineNum">     795 </span>            : class UniversalTersePrinter&lt;T[N]&gt; {
+<span class="lineNum">     796 </span>            :  public:
+<span class="lineNum">     797 </span>            :   static void Print(const T (&amp;value)[N], ::std::ostream* os) {
+<span class="lineNum">     798 </span>            :     UniversalPrinter&lt;T[N]&gt;::Print(value, os);
+<span class="lineNum">     799 </span>            :   }
+<span class="lineNum">     800 </span>            : };
+<span class="lineNum">     801 </span>            : template &lt;&gt;
+<a name="802"><span class="lineNum">     802 </span>            : class UniversalTersePrinter&lt;const char*&gt; {</a>
+<span class="lineNum">     803 </span>            :  public:
+<span class="lineNum">     804 </span><span class="lineNoCov">          0 :   static void Print(const char* str, ::std::ostream* os) {</span>
+<span class="lineNum">     805 </span><span class="lineNoCov">          0 :     if (str == NULL) {</span>
+<span class="lineNum">     806 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;NULL&quot;;</span>
+<span class="lineNum">     807 </span>            :     } else {
+<span class="lineNum">     808 </span><span class="lineNoCov">          0 :       UniversalPrint(string(str), os);</span>
+<span class="lineNum">     809 </span>            :     }
+<span class="lineNum">     810 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">     811 </span>            : };
+<span class="lineNum">     812 </span>            : template &lt;&gt;
+<span class="lineNum">     813 </span>            : class UniversalTersePrinter&lt;char*&gt; {
+<span class="lineNum">     814 </span>            :  public:
+<span class="lineNum">     815 </span>            :   static void Print(char* str, ::std::ostream* os) {
+<span class="lineNum">     816 </span>            :     UniversalTersePrinter&lt;const char*&gt;::Print(str, os);
+<span class="lineNum">     817 </span>            :   }
+<span class="lineNum">     818 </span>            : };
+<span class="lineNum">     819 </span>            : 
+<span class="lineNum">     820 </span>            : #if GTEST_HAS_STD_WSTRING
+<span class="lineNum">     821 </span>            : template &lt;&gt;
+<a name="822"><span class="lineNum">     822 </span>            : class UniversalTersePrinter&lt;const wchar_t*&gt; {</a>
+<span class="lineNum">     823 </span>            :  public:
+<span class="lineNum">     824 </span><span class="lineNoCov">          0 :   static void Print(const wchar_t* str, ::std::ostream* os) {</span>
+<span class="lineNum">     825 </span><span class="lineNoCov">          0 :     if (str == NULL) {</span>
+<span class="lineNum">     826 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;NULL&quot;;</span>
+<span class="lineNum">     827 </span>            :     } else {
+<span class="lineNum">     828 </span><span class="lineNoCov">          0 :       UniversalPrint(::std::wstring(str), os);</span>
+<span class="lineNum">     829 </span>            :     }
+<span class="lineNum">     830 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">     831 </span>            : };
+<span class="lineNum">     832 </span>            : #endif
+<span class="lineNum">     833 </span>            : 
+<span class="lineNum">     834 </span>            : template &lt;&gt;
+<span class="lineNum">     835 </span>            : class UniversalTersePrinter&lt;wchar_t*&gt; {
+<span class="lineNum">     836 </span>            :  public:
+<span class="lineNum">     837 </span>            :   static void Print(wchar_t* str, ::std::ostream* os) {
+<span class="lineNum">     838 </span>            :     UniversalTersePrinter&lt;const wchar_t*&gt;::Print(str, os);
+<span class="lineNum">     839 </span>            :   }
+<span class="lineNum">     840 </span>            : };
+<span class="lineNum">     841 </span>            : 
+<span class="lineNum">     842 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     843 </span>            : void UniversalTersePrint(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     844 </span>            :   UniversalTersePrinter&lt;T&gt;::Print(value, os);
+<span class="lineNum">     845 </span>            : }
+<span class="lineNum">     846 </span>            : 
+<span class="lineNum">     847 </span>            : // Prints a value using the type inferred by the compiler.  The
+<span class="lineNum">     848 </span>            : // difference between this and UniversalTersePrint() is that for a
+<span class="lineNum">     849 </span>            : // (const) char pointer, this prints both the pointer and the
+<span class="lineNum">     850 </span>            : // NUL-terminated string.
+<span class="lineNum">     851 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     852 </span>            : void UniversalPrint(const T&amp; value, ::std::ostream* os) {
+<span class="lineNum">     853 </span>            :   // A workarond for the bug in VC++ 7.1 that prevents us from instantiating
+<span class="lineNum">     854 </span>            :   // UniversalPrinter with T directly.
+<span class="lineNum">     855 </span>            :   typedef T T1;
+<span class="lineNum">     856 </span><span class="lineNoCov">          0 :   UniversalPrinter&lt;T1&gt;::Print(value, os);</span>
+<span class="lineNum">     857 </span>            : }
+<span class="lineNum">     858 </span>            : 
+<span class="lineNum">     859 </span>            : typedef ::std::vector&lt;string&gt; Strings;
+<span class="lineNum">     860 </span>            : 
+<span class="lineNum">     861 </span>            : // TuplePolicy&lt;TupleT&gt; must provide:
+<span class="lineNum">     862 </span>            : // - tuple_size
+<span class="lineNum">     863 </span>            : //     size of tuple TupleT.
+<span class="lineNum">     864 </span>            : // - get&lt;size_t I&gt;(const TupleT&amp; t)
+<span class="lineNum">     865 </span>            : //     static function extracting element I of tuple TupleT.
+<span class="lineNum">     866 </span>            : // - tuple_element&lt;size_t I&gt;::type
+<span class="lineNum">     867 </span>            : //     type of element I of tuple TupleT.
+<span class="lineNum">     868 </span>            : template &lt;typename TupleT&gt;
+<span class="lineNum">     869 </span>            : struct TuplePolicy;
+<span class="lineNum">     870 </span>            : 
+<span class="lineNum">     871 </span>            : #if GTEST_HAS_TR1_TUPLE
+<span class="lineNum">     872 </span>            : template &lt;typename TupleT&gt;
+<span class="lineNum">     873 </span>            : struct TuplePolicy {
+<span class="lineNum">     874 </span>            :   typedef TupleT Tuple;
+<span class="lineNum">     875 </span>            :   static const size_t tuple_size = ::std::tr1::tuple_size&lt;Tuple&gt;::value;
+<span class="lineNum">     876 </span>            : 
+<span class="lineNum">     877 </span>            :   template &lt;size_t I&gt;
+<span class="lineNum">     878 </span>            :   struct tuple_element : ::std::tr1::tuple_element&lt;I, Tuple&gt; {};
+<span class="lineNum">     879 </span>            : 
+<span class="lineNum">     880 </span>            :   template &lt;size_t I&gt;
+<span class="lineNum">     881 </span>            :   static typename AddReference&lt;
+<span class="lineNum">     882 </span>            :       const typename ::std::tr1::tuple_element&lt;I, Tuple&gt;::type&gt;::type get(
+<span class="lineNum">     883 </span>            :       const Tuple&amp; tuple) {
+<span class="lineNum">     884 </span>            :     return ::std::tr1::get&lt;I&gt;(tuple);
+<span class="lineNum">     885 </span>            :   }
+<span class="lineNum">     886 </span>            : };
+<span class="lineNum">     887 </span>            : template &lt;typename TupleT&gt;
+<span class="lineNum">     888 </span>            : const size_t TuplePolicy&lt;TupleT&gt;::tuple_size;
+<span class="lineNum">     889 </span>            : #endif  // GTEST_HAS_TR1_TUPLE
+<span class="lineNum">     890 </span>            : 
+<span class="lineNum">     891 </span>            : #if GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     892 </span>            : template &lt;typename... Types&gt;
+<span class="lineNum">     893 </span>            : struct TuplePolicy&lt; ::std::tuple&lt;Types...&gt; &gt; {
+<span class="lineNum">     894 </span>            :   typedef ::std::tuple&lt;Types...&gt; Tuple;
+<span class="lineNum">     895 </span>            :   static const size_t tuple_size = ::std::tuple_size&lt;Tuple&gt;::value;
+<span class="lineNum">     896 </span>            : 
+<span class="lineNum">     897 </span>            :   template &lt;size_t I&gt;
+<span class="lineNum">     898 </span>            :   struct tuple_element : ::std::tuple_element&lt;I, Tuple&gt; {};
+<span class="lineNum">     899 </span>            : 
+<span class="lineNum">     900 </span>            :   template &lt;size_t I&gt;
+<span class="lineNum">     901 </span>            :   static const typename ::std::tuple_element&lt;I, Tuple&gt;::type&amp; get(
+<span class="lineNum">     902 </span>            :       const Tuple&amp; tuple) {
+<span class="lineNum">     903 </span>            :     return ::std::get&lt;I&gt;(tuple);
+<span class="lineNum">     904 </span>            :   }
+<span class="lineNum">     905 </span>            : };
+<span class="lineNum">     906 </span>            : template &lt;typename... Types&gt;
+<span class="lineNum">     907 </span>            : const size_t TuplePolicy&lt; ::std::tuple&lt;Types...&gt; &gt;::tuple_size;
+<span class="lineNum">     908 </span>            : #endif  // GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     909 </span>            : 
+<span class="lineNum">     910 </span>            : #if GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     911 </span>            : // This helper template allows PrintTo() for tuples and
+<span class="lineNum">     912 </span>            : // UniversalTersePrintTupleFieldsToStrings() to be defined by
+<span class="lineNum">     913 </span>            : // induction on the number of tuple fields.  The idea is that
+<span class="lineNum">     914 </span>            : // TuplePrefixPrinter&lt;N&gt;::PrintPrefixTo(t, os) prints the first N
+<span class="lineNum">     915 </span>            : // fields in tuple t, and can be defined in terms of
+<span class="lineNum">     916 </span>            : // TuplePrefixPrinter&lt;N - 1&gt;.
+<span class="lineNum">     917 </span>            : //
+<span class="lineNum">     918 </span>            : // The inductive case.
+<span class="lineNum">     919 </span>            : template &lt;size_t N&gt;
+<span class="lineNum">     920 </span>            : struct TuplePrefixPrinter {
+<span class="lineNum">     921 </span>            :   // Prints the first N fields of a tuple.
+<span class="lineNum">     922 </span>            :   template &lt;typename Tuple&gt;
+<span class="lineNum">     923 </span>            :   static void PrintPrefixTo(const Tuple&amp; t, ::std::ostream* os) {
+<span class="lineNum">     924 </span>            :     TuplePrefixPrinter&lt;N - 1&gt;::PrintPrefixTo(t, os);
+<span class="lineNum">     925 </span>            :     GTEST_INTENTIONAL_CONST_COND_PUSH_()
+<span class="lineNum">     926 </span>            :     if (N &gt; 1) {
+<span class="lineNum">     927 </span>            :     GTEST_INTENTIONAL_CONST_COND_POP_()
+<span class="lineNum">     928 </span>            :       *os &lt;&lt; &quot;, &quot;;
+<span class="lineNum">     929 </span>            :     }
+<span class="lineNum">     930 </span>            :     UniversalPrinter&lt;
+<span class="lineNum">     931 </span>            :         typename TuplePolicy&lt;Tuple&gt;::template tuple_element&lt;N - 1&gt;::type&gt;
+<span class="lineNum">     932 </span>            :         ::Print(TuplePolicy&lt;Tuple&gt;::template get&lt;N - 1&gt;(t), os);
+<span class="lineNum">     933 </span>            :   }
+<span class="lineNum">     934 </span>            : 
+<span class="lineNum">     935 </span>            :   // Tersely prints the first N fields of a tuple to a string vector,
+<span class="lineNum">     936 </span>            :   // one element for each field.
+<span class="lineNum">     937 </span>            :   template &lt;typename Tuple&gt;
+<span class="lineNum">     938 </span>            :   static void TersePrintPrefixToStrings(const Tuple&amp; t, Strings* strings) {
+<span class="lineNum">     939 </span>            :     TuplePrefixPrinter&lt;N - 1&gt;::TersePrintPrefixToStrings(t, strings);
+<span class="lineNum">     940 </span>            :     ::std::stringstream ss;
+<span class="lineNum">     941 </span>            :     UniversalTersePrint(TuplePolicy&lt;Tuple&gt;::template get&lt;N - 1&gt;(t), &amp;ss);
+<span class="lineNum">     942 </span>            :     strings-&gt;push_back(ss.str());
+<span class="lineNum">     943 </span>            :   }
+<span class="lineNum">     944 </span>            : };
+<span class="lineNum">     945 </span>            : 
+<span class="lineNum">     946 </span>            : // Base case.
+<span class="lineNum">     947 </span>            : template &lt;&gt;
+<span class="lineNum">     948 </span>            : struct TuplePrefixPrinter&lt;0&gt; {
+<span class="lineNum">     949 </span>            :   template &lt;typename Tuple&gt;
+<span class="lineNum">     950 </span>            :   static void PrintPrefixTo(const Tuple&amp;, ::std::ostream*) {}
+<span class="lineNum">     951 </span>            : 
+<span class="lineNum">     952 </span>            :   template &lt;typename Tuple&gt;
+<span class="lineNum">     953 </span>            :   static void TersePrintPrefixToStrings(const Tuple&amp;, Strings*) {}
+<span class="lineNum">     954 </span>            : };
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span>            : // Helper function for printing a tuple.
+<span class="lineNum">     957 </span>            : // Tuple must be either std::tr1::tuple or std::tuple type.
+<span class="lineNum">     958 </span>            : template &lt;typename Tuple&gt;
+<span class="lineNum">     959 </span>            : void PrintTupleTo(const Tuple&amp; t, ::std::ostream* os) {
+<span class="lineNum">     960 </span>            :   *os &lt;&lt; &quot;(&quot;;
+<span class="lineNum">     961 </span>            :   TuplePrefixPrinter&lt;TuplePolicy&lt;Tuple&gt;::tuple_size&gt;::PrintPrefixTo(t, os);
+<span class="lineNum">     962 </span>            :   *os &lt;&lt; &quot;)&quot;;
+<span class="lineNum">     963 </span>            : }
+<span class="lineNum">     964 </span>            : 
+<span class="lineNum">     965 </span>            : // Prints the fields of a tuple tersely to a string vector, one
+<span class="lineNum">     966 </span>            : // element for each field.  See the comment before
+<span class="lineNum">     967 </span>            : // UniversalTersePrint() for how we define &quot;tersely&quot;.
+<span class="lineNum">     968 </span>            : template &lt;typename Tuple&gt;
+<span class="lineNum">     969 </span>            : Strings UniversalTersePrintTupleFieldsToStrings(const Tuple&amp; value) {
+<span class="lineNum">     970 </span>            :   Strings result;
+<span class="lineNum">     971 </span>            :   TuplePrefixPrinter&lt;TuplePolicy&lt;Tuple&gt;::tuple_size&gt;::
+<span class="lineNum">     972 </span>            :       TersePrintPrefixToStrings(value, &amp;result);
+<span class="lineNum">     973 </span>            :   return result;
+<span class="lineNum">     974 </span>            : }
+<span class="lineNum">     975 </span>            : #endif  // GTEST_HAS_TR1_TUPLE || GTEST_HAS_STD_TUPLE_
+<span class="lineNum">     976 </span>            : 
+<span class="lineNum">     977 </span>            : }  // namespace internal
+<a name="978"><span class="lineNum">     978 </span>            : </a>
+<span class="lineNum">     979 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     980 </span><span class="lineNoCov">          0 : ::std::string PrintToString(const T&amp; value) {</span>
+<span class="lineNum">     981 </span><span class="lineNoCov">          0 :   ::std::stringstream ss;</span>
+<span class="lineNum">     982 </span><span class="lineNoCov">          0 :   internal::UniversalTersePrinter&lt;T&gt;::Print(value, &amp;ss);</span>
+<span class="lineNum">     983 </span><span class="lineNoCov">          0 :   return ss.str();</span>
+<span class="lineNum">     984 </span>            : }
+<span class="lineNum">     985 </span>            : 
+<span class="lineNum">     986 </span>            : }  // namespace testing
+<span class="lineNum">     987 </span>            : 
+<span class="lineNum">     988 </span>            : // Include any custom printer added by the local installation.
+<span class="lineNum">     989 </span>            : // We must include this header at the end to make sure it can use the
+<span class="lineNum">     990 </span>            : // declarations from this file.
+<span class="lineNum">     991 </span>            : #include &quot;gtest/internal/custom/gtest-printers.h&quot;
+<span class="lineNum">     992 </span>            : 
+<span class="lineNum">     993 </span>            : #endif  // GTEST_INCLUDE_GTEST_GTEST_PRINTERS_H_
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
