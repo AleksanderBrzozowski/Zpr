@@ -48,8 +48,8 @@ public:
     static const unsigned int MAX_SPAN;
     static const unsigned int MIN_SPAN;
 
-    static const unsigned int DEFAULT_SPAN;
-    static const unsigned int DEFAULT_ANGLE;
+    static const int DEFAULT_SPAN;
+    static const int DEFAULT_ANGLE;
     static const unsigned int DEFAULT_RANGE;
 
     static const int CAM_PEN_WIDTH;
@@ -91,7 +91,7 @@ public:
 private:
     QRect camRect;
     QRect rngRect;
-    int span;
+    unsigned int span;
     int angle;
 };
 

@@ -27,10 +27,10 @@ GridGUI::~GridGUI() {
  */
 void GridGUI::draw(QPainter &painter) const {
     painter.setPen(PEN);
-    for (int x = 0; x < width; x += SIZE) {
+    for (unsigned int x = 0; x < width; x += SIZE) {
         painter.drawLine(x, 0, x, height);
     }
-    for (int y = 0; y < height; y += SIZE) {
+    for (unsigned int y = 0; y < height; y += SIZE) {
         painter.drawLine(0, y, width, y);
     }
 }
