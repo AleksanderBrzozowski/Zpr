@@ -3,6 +3,7 @@
 //
 
 #include "Movable.h"
+#include "GUI/cargui.h"
 
 Movable::Movable(Route *route, const Point &actualPoint, const int speed, const unsigned int id)
         : route(std::move(route)), actualPoint(actualPoint), speed(speed), id(id) {}
@@ -37,6 +38,14 @@ Point Movable::getActualPoint() const {
 
 unsigned int Movable::getId() const {
     return id;
+}
+
+bool Movable::isFast() const {
+    if (this->speed == CarGUI::FAST_CAR_SPEED) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 Car::Car(CarRoute *route, const Point &actualPoint, const int speed, const unsigned int id) :

@@ -22,6 +22,8 @@ public:
     /**PROPERTIES**/
     static const int WIDTH;
     static const int HEIGHT;
+    static const int FAST_WIDTH;
+    static const int FAST_HEIGHT;
 
     static const int PEN_WIDTH;
     static const Qt::PenStyle PEN_STYLE;

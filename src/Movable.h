@@ -16,6 +16,7 @@ public:
     bool move();
     Point getActualPoint() const;
     unsigned int getId() const;
+    bool isFast() const;
 
 protected:
     Movable(Route *route, const Point &actualPoint, const int speed, const unsigned int id);

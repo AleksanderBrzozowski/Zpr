@@ -77,7 +77,8 @@ void Map::runRunningMovables(){
                 MainWindow::getInstance().setCar(
                         (*cars_iter)->getId(),
                         static_cast<unsigned int>((*cars_iter)->getActualPoint().getX()),
-                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getY()));
+                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getY()),
+                        (*cars_iter)->isFast());
                 ++cars_iter;
             }
         }

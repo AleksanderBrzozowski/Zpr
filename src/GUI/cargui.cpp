@@ -2,8 +2,10 @@
 
 
 /**PROPERTIES INITIALIZATION**/
-const int CarGUI::WIDTH = 8;
-const int CarGUI::HEIGHT = 8;
+const int CarGUI::WIDTH = 10;
+const int CarGUI::HEIGHT = 10;
+const int CarGUI::FAST_WIDTH = 8;
+const int CarGUI::FAST_HEIGHT = 8;
 
 const int CarGUI::PEN_WIDTH = 2;
 const Qt::PenStyle CarGUI::PEN_STYLE = Qt::SolidLine;
@@ -29,8 +31,8 @@ const QBrush CarGUI::FAST_BRUSH(FAST_BRUSH_COLOR, BRUSH_STYLE);
 const QBrush CarGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);
 const QBrush CarGUI::FAST_GHOST_BRUSH(FAST_GHOST_BRUSH_COLOR, BRUSH_STYLE);
 
-const unsigned int CarGUI::CAR_SPEED = 3;
-const unsigned int CarGUI::FAST_CAR_SPEED = 5;
+const unsigned int CarGUI::CAR_SPEED = 2;
+const unsigned int CarGUI::FAST_CAR_SPEED = 3;
 
 
 /*!
@@ -55,9 +57,14 @@ CarGUI::CarGUI(QRect carRect, bool fast, bool ghost) :
  * Size of such car is defined in object fields.
  */
 CarGUI::CarGUI(unsigned int x, unsigned int y, bool fast, bool ghost) :
-    Drawable(ghost), fast(fast),
-    carRect(x - WIDTH/2, y - HEIGHT/2,
-            WIDTH, HEIGHT) {
+    Drawable(ghost), fast(fast) {
+    if (fast) {
+        carRect = QRect(x - FAST_WIDTH/2, y - FAST_HEIGHT/2,
+                        FAST_WIDTH, FAST_HEIGHT);
+    } else {
+        carRect = QRect(x - WIDTH/2, y - HEIGHT/2,
+                          WIDTH, HEIGHT);
+    }
 
 }
 
@@ -72,8 +79,14 @@ CarGUI::~CarGUI() {
  * \details Function sets car object to position given as arguments.
  */
 void CarGUI::setTo(unsigned int x, unsigned int y) {
-    carRect.setCoords(x - WIDTH/2, y - HEIGHT/2,
-                      x + WIDTH/2, y + HEIGHT/2);
+    if (fast) {
+        carRect.setCoords(x - FAST_WIDTH/2, y - FAST_HEIGHT/2,
+                          x + FAST_WIDTH/2, y + FAST_HEIGHT/2);
+    } else {
+        carRect.setCoords(x - WIDTH/2, y - HEIGHT/2,
+                          x + WIDTH/2, y + HEIGHT/2);
+    }
+
 }
 
 /*!
