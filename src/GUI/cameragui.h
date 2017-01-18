@@ -1,5 +1,6 @@
 #ifndef CAMERAGUI_H
 #define CAMERAGUI_H
+#define _USE_MATH_DEFINES
 
 #include "drawable.h"
 #include <Point.h>

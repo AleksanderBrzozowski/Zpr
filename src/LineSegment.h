@@ -5,7 +5,7 @@
 #ifndef ZPR_STRAIGHTLINE_H
 #define ZPR_STRAIGHTLINE_H
 
-
+#include <algorithm>
 #include "Point.h"
 
 /**
