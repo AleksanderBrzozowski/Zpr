@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/CrossFactory.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - CrossFactory.cpp<span style="font-size: 80%;"> (source / <a href="CrossFactory.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">120</td>
+            <td class="headerCovTableEntry">122</td>
+            <td class="headerCovTableEntryHi">98.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /**</a>
+<span class="lineNum">       2 </span>            :  * @file CrossFactory.cpp
+<span class="lineNum">       3 </span>            :  * @Author PiotrKuc (piotr.kuc29@gmail.com)
+<span class="lineNum">       4 </span>            :  * @date December, 2017
+<span class="lineNum">       5 </span>            :  * @brief CrossFactory class methods implementation
+<span class="lineNum">       6 </span>            :  *
+<span class="lineNum">       7 </span>            :  */
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            : #include &quot;CrossFactory.h&quot;
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : /**
+<span class="lineNum">      12 </span>            :  * Cross's X position comparator.
+<span class="lineNum">      13 </span>            :  *
+<span class="lineNum">      14 </span>            :  * Returns true if cross1 is nearer left. If both crosses have the same x, returns true if cross1 has bigger y than cross2
+<span class="lineNum">      15 </span>            :  * @param cr1 - first cross
+<span class="lineNum">      16 </span>            :  * @param cr2 - second cross
+<span class="lineNum">      17 </span>            :  * @return true if x value of cross 1 is smaller than x value of cross 2, if both x values are the
+<span class="lineNum">      18 </span>            :  * same, returns true if y value of cross 1 is smaller
+<span class="lineNum">      19 </span>            :  */
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span><span class="lineCov">       1346 : bool CrossFactory::cmpCrossX(const PtrCross &amp;cr1, const PtrCross &amp;cr2){</span>
+<span class="lineNum">      22 </span>            : 
+<span class="lineNum">      23 </span><span class="lineCov">       6730 :     if(cr1-&gt;getPosition()-&gt;getX() == cr2-&gt;getPosition()-&gt;getX())</span>
+<span class="lineNum">      24 </span><span class="lineCov">       2565 :         return cr1-&gt;getPosition()-&gt;getY()&lt;cr2-&gt;getPosition()-&gt;getY();</span>
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span><span class="lineCov">       4165 :     return cr1-&gt;getPosition()-&gt;getX()&lt;cr2-&gt;getPosition()-&gt;getX();</span>
+<span class="lineNum">      27 </span>            : }
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span>            : /**
+<span class="lineNum">      30 </span>            :  * Cross's Y position comparator.
+<span class="lineNum">      31 </span>            :  *
+<span class="lineNum">      32 </span>            :  * Returns true if cross1 is nearer top. If both crosses have the same y, returns true if cross1 has smaller x than cross2
+<span class="lineNum">      33 </span>            :  * @param cr1 - first cross
+<span class="lineNum">      34 </span>            :  * @param cr2 - second cross
+<span class="lineNum">      35 </span>            :  * @return true if y value of cross 1 is smaller than y value of cross 2, if both y values are the
+<span class="lineNum">      36 </span>            :  * same, returns true if x value of cross 1 is smaller
+<span class="lineNum">      37 </span>            :  */
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span><span class="lineCov">       1218 : bool CrossFactory::cmpCrossY(const PtrCross &amp;cr1, const PtrCross &amp;cr2){</span>
+<span class="lineNum">      40 </span><span class="lineCov">       6090 :     if(cr1-&gt;getPosition()-&gt;getY() == cr2-&gt;getPosition()-&gt;getY())</span>
+<span class="lineNum">      41 </span><span class="lineCov">       2165 :         return cr1-&gt;getPosition()-&gt;getX()&lt;cr2-&gt;getPosition()-&gt;getX();</span>
+<span class="lineNum">      42 </span><span class="lineCov">       3925 :     return cr1-&gt;getPosition()-&gt;getY()&lt;cr2-&gt;getPosition()-&gt;getY();</span>
+<span class="lineNum">      43 </span>            : }
+<a name="44"><span class="lineNum">      44 </span>            : </a>
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span><span class="lineCov">         26 : std::vector&lt;PtrCross&gt;&amp; CrossFactory::getCrosses(){</span>
+<span class="lineNum">      47 </span><span class="lineCov">         26 :     return crosses;</span>
+<span class="lineNum">      48 </span>            : }
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : /**
+<span class="lineNum">      51 </span>            :  * Return cross that has the same position as given.
+<span class="lineNum">      52 </span>            :  * @param point - given point to search
+<span class="lineNum">      53 </span>            :  * @return cross that has the same point as given
+<span class="lineNum">      54 </span>            :  */
+<span class="lineNum">      55 </span><span class="lineCov">        681 : PtrCross CrossFactory::findCrossByPoint(const PtrToConstPoint &amp;point) const {</span>
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span><span class="lineCov">      12360 :     for(std::vector&lt;PtrCross&gt;::size_type i = 0; i&lt;crosses.size(); ++i ){</span>
+<span class="lineNum">      58 </span><span class="lineCov">      15499 :         if(*(crosses[i]-&gt;getPosition()) == *point){</span>
+<span class="lineNum">      59 </span><span class="lineCov">       1569 :             return crosses[i];</span>
+<span class="lineNum">      60 </span>            :         }
+<span class="lineNum">      61 </span>            :     }
+<span class="lineNum">      62 </span><span class="lineCov">        158 :     return nullptr;</span>
+<span class="lineNum">      63 </span>            : }
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            : /**
+<span class="lineNum">      66 </span>            :  * Checking if cross at given position already exists. If not creates new cross
+<span class="lineNum">      67 </span>            :  * @param point - point at which we want to create new cross
+<span class="lineNum">      68 </span>            :  * @return cross at given point
+<span class="lineNum">      69 </span>            :  */
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span><span class="lineCov">        681 : PtrCross CrossFactory::createNewCross(const PtrToConstPoint &amp;point) {</span>
+<span class="lineNum">      72 </span><span class="lineCov">        681 :     PtrCross newCross = findCrossByPoint(point);</span>
+<span class="lineNum">      73 </span><span class="lineCov">       1362 :     if(newCross == nullptr) {</span>
+<span class="lineNum">      74 </span><span class="lineCov">        158 :         newCross = std::make_shared&lt;Cross&gt;(point);</span>
+<span class="lineNum">      75 </span><span class="lineCov">        158 :         crosses.push_back(newCross);</span>
+<span class="lineNum">      76 </span>            :         return newCross;
+<span class="lineNum">      77 </span>            :     }
+<span class="lineNum">      78 </span>            :     return newCross;
+<span class="lineNum">      79 </span>            : }
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            : /**
+<span class="lineNum">      82 </span>            :  * Check if two roads are vertical and both of roads have the same x value.
+<span class="lineNum">      83 </span>            :  * (If one road hide another road).
+<span class="lineNum">      84 </span>            :  * At first crosses are sorted. First road should has the smallest x value of the position
+<span class="lineNum">      85 </span>            :  * Then we look for the two crosses, between which the new road is being tried to set.
+<span class="lineNum">      86 </span>            :  * If found, we create new crosses and updating neighbours from the north to the south.
+<span class="lineNum">      87 </span>            :  * @param begin - point on the north of the new road
+<span class="lineNum">      88 </span>            :  * @param end - point on the south of the new road
+<span class="lineNum">      89 </span>            :  */
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span><span class="lineCov">         72 : void CrossFactory::twoVertRoads(const PtrToConstPoint &amp;begin, const PtrToConstPoint &amp;end) {</span>
+<span class="lineNum">      92 </span><span class="lineCov">        950 :     std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossX);</span>
+<span class="lineNum">      93 </span><span class="lineCov">        992 :     for(std::vector&lt;PtrCross&gt;::size_type i = 0; i&lt;crosses.size(); ++i ){</span>
+<span class="lineNum">      94 </span><span class="lineCov">        855 :         if(crosses[i]-&gt;getPosition()-&gt;getX() == begin-&gt;getX()</span>
+<span class="lineNum">      95 </span><span class="lineCov">        718 :                 &amp;&amp; crosses[i]-&gt;getPosition()-&gt;getY() &gt;= begin-&gt;getY()</span>
+<span class="lineNum">      96 </span><span class="lineCov">        616 :                 &amp;&amp; crosses[i]-&gt;getPosition()-&gt;getY() &lt;= end-&gt;getY()){</span>
+<span class="lineNum">      97 </span><span class="lineCov">        216 :             PtrCross currentCross = crosses[i];</span>
+<span class="lineNum">      98 </span><span class="lineCov">         72 :             PtrCross newCross = createNewCross(begin);</span>
+<span class="lineNum">      99 </span><span class="lineCov">        216 :             while(currentCross-&gt;getNorthNeighbour()!= nullptr){</span>
+<span class="lineNum">     100 </span><span class="lineCov">         68 :                 if(currentCross-&gt;getNorthNeighbour()-&gt;getPosition()-&gt;getY()&lt;=begin-&gt;getY())</span>
+<span class="lineNum">     101 </span>            :                     break;
+<span class="lineNum">     102 </span>            :                 else
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :                     currentCross=currentCross-&gt;getNorthNeighbour();</span>
+<span class="lineNum">     104 </span>            :             }
+<span class="lineNum">     105 </span><span class="lineCov">        144 :             newCross-&gt;addNeighbour(currentCross);</span>
+<span class="lineNum">     106 </span><span class="lineCov">        144 :             currentCross-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     107 </span>            :             currentCross=newCross;
+<span class="lineNum">     108 </span><span class="lineCov">        144 :             newCross = createNewCross(end);</span>
+<span class="lineNum">     109 </span><span class="lineCov">        312 :             while(currentCross-&gt;getSouthNeighbour()!= nullptr){</span>
+<span class="lineNum">     110 </span><span class="lineCov">        320 :                 if(currentCross-&gt;getSouthNeighbour()-&gt;getPosition()-&gt;getY()&gt;=end-&gt;getY())</span>
+<span class="lineNum">     111 </span>            :                     break;
+<span class="lineNum">     112 </span>            :                 else
+<span class="lineNum">     113 </span><span class="lineCov">         16 :                     currentCross=currentCross-&gt;getSouthNeighbour();</span>
+<span class="lineNum">     114 </span>            :             }
+<span class="lineNum">     115 </span><span class="lineCov">        144 :             newCross-&gt;addNeighbour(currentCross);</span>
+<span class="lineNum">     116 </span><span class="lineCov">        144 :             currentCross-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span>            :             break;
+<span class="lineNum">     119 </span>            :         }
+<span class="lineNum">     120 </span>            :     }
+<span class="lineNum">     121 </span><span class="lineCov">         72 : }</span>
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span>            : /**
+<span class="lineNum">     124 </span>            :  * Check if two roads are horizontal and both of roads have the same y value.
+<span class="lineNum">     125 </span>            :  * (If one road hide another road).
+<span class="lineNum">     126 </span>            :  * At first crosses are sorted. First road should has the smallest y value of the position.
+<span class="lineNum">     127 </span>            :  * Then we look for the two crosses, between which the new road is being tried to set.
+<span class="lineNum">     128 </span>            :  * If found, we create new crosses and updating neighbours from the west to the east.
+<span class="lineNum">     129 </span>            :  * @param begin - point on the west of the new road
+<span class="lineNum">     130 </span>            :  * @param end - point on the east of the new road
+<span class="lineNum">     131 </span>            :  */
+<span class="lineNum">     132 </span>            : 
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span><span class="lineCov">         61 : void CrossFactory::twoHorizRoads(const PtrToConstPoint &amp;begin, const PtrToConstPoint &amp;end) {</span>
+<span class="lineNum">     135 </span><span class="lineCov">        864 :     std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossY);</span>
+<span class="lineNum">     136 </span><span class="lineCov">        968 :     for(std::vector&lt;PtrCross&gt;::size_type i = 0; i&lt;crosses.size(); ++i ){</span>
+<span class="lineNum">     137 </span><span class="lineCov">        815 :         if(crosses[i]-&gt;getPosition()-&gt;getY() == begin-&gt;getY()</span>
+<span class="lineNum">     138 </span><span class="lineCov">        617 :            &amp;&amp; crosses[i]-&gt;getPosition()-&gt;getX() &gt;= begin-&gt;getX()</span>
+<span class="lineNum">     139 </span><span class="lineCov">        556 :            &amp;&amp; crosses[i]-&gt;getPosition()-&gt;getX() &lt;= end-&gt;getX()){</span>
+<span class="lineNum">     140 </span><span class="lineCov">        183 :             PtrCross currentCross = crosses[i];</span>
+<span class="lineNum">     141 </span><span class="lineCov">         61 :             PtrCross newCross = createNewCross(begin);</span>
+<span class="lineNum">     142 </span><span class="lineCov">        183 :             while(currentCross-&gt;getWestNeighbour()!= nullptr){</span>
+<span class="lineNum">     143 </span><span class="lineCov">         56 :                 if(currentCross-&gt;getWestNeighbour()-&gt;getPosition()-&gt;getX()&lt;=begin-&gt;getX())</span>
+<span class="lineNum">     144 </span>            :                     break;
+<span class="lineNum">     145 </span>            :                 else
+<span class="lineNum">     146 </span><span class="lineNoCov">          0 :                     currentCross=currentCross-&gt;getWestNeighbour();</span>
+<span class="lineNum">     147 </span>            :             }
+<span class="lineNum">     148 </span><span class="lineCov">        122 :             newCross-&gt;addNeighbour(currentCross);</span>
+<span class="lineNum">     149 </span><span class="lineCov">        122 :             currentCross-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     150 </span>            :             currentCross=newCross;
+<span class="lineNum">     151 </span><span class="lineCov">        122 :             newCross = createNewCross(end);</span>
+<span class="lineNum">     152 </span><span class="lineCov">        271 :             while(currentCross-&gt;getEastNeighbour()!= nullptr){</span>
+<span class="lineNum">     153 </span><span class="lineCov">        280 :                 if(currentCross-&gt;getEastNeighbour()-&gt;getPosition()-&gt;getX()&gt;=end-&gt;getX())</span>
+<span class="lineNum">     154 </span>            :                     break;
+<span class="lineNum">     155 </span>            :                 else
+<span class="lineNum">     156 </span><span class="lineCov">         18 :                     currentCross=currentCross-&gt;getEastNeighbour();</span>
+<span class="lineNum">     157 </span>            :             }
+<span class="lineNum">     158 </span><span class="lineCov">        122 :             newCross-&gt;addNeighbour(currentCross);</span>
+<span class="lineNum">     159 </span><span class="lineCov">        122 :             currentCross-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     160 </span>            : 
+<span class="lineNum">     161 </span>            :             break;
+<span class="lineNum">     162 </span>            :         }
+<span class="lineNum">     163 </span>            :     }
+<span class="lineNum">     164 </span><span class="lineCov">         61 : }</span>
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            : /**
+<span class="lineNum">     167 </span>            :  * This method creates new crosses if the new road crosses with the another roads.
+<span class="lineNum">     168 </span>            :  * The new road is vertical
+<span class="lineNum">     169 </span>            :  * At first, corsses are sorted. The first is cross that has the smallest y value of the position.
+<span class="lineNum">     170 </span>            :  * Then we check each pair of cross and it's east neighbour if the new road doesn't cross the road
+<span class="lineNum">     171 </span>            :  * between these pair of crosses. If it crosses, new crosses are added and neighbours are updated.
+<span class="lineNum">     172 </span>            :  * @param begin - point on the north of the new road
+<span class="lineNum">     173 </span>            :  * @param end - point on the south of the new road
+<span class="lineNum">     174 </span>            :  */
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span><span class="lineCov">         72 : void CrossFactory::vertCrossedRoad(const PtrToConstPoint &amp;begin, const PtrToConstPoint &amp;end){</span>
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span><span class="lineCov">        678 :     std::sort(crosses.begin(), crosses.end(), cmpCrossY);</span>
+<span class="lineNum">     179 </span><span class="lineCov">         72 :     PtrCross currentNorth = createNewCross(begin);</span>
+<span class="lineNum">     180 </span>            : 
+<span class="lineNum">     181 </span><span class="lineCov">        288 :     std::vector&lt;PtrCross&gt;::size_type nbCrosses = crosses.size();</span>
+<span class="lineNum">     182 </span><span class="lineCov">        390 :     for(std::vector&lt;PtrCross&gt;::size_type i = 0; i&lt;nbCrosses; ++i ){</span>
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span><span class="lineCov">        954 :         PtrCross left = crosses[i];</span>
+<span class="lineNum">     185 </span><span class="lineCov">        318 :         PtrCross right = left-&gt;getEastNeighbour();</span>
+<span class="lineNum">     186 </span>            : 
+<span class="lineNum">     187 </span>            :         //checking only eastNeighbour
+<span class="lineNum">     188 </span><span class="lineCov">        636 :         if(right == nullptr) continue;</span>
+<span class="lineNum">     189 </span>            : 
+<span class="lineNum">     190 </span>            :         //if new road crosses with the other that already exists
+<span class="lineNum">     191 </span><span class="lineCov">        708 :         if( left-&gt;getPosition()-&gt;getX() &lt;= currentNorth-&gt;getPosition()-&gt;getX() &amp;&amp; currentNorth-&gt;getPosition()-&gt;getX() &lt;= right-&gt;getPosition()-&gt;getX()</span>
+<span class="lineNum">     192 </span><span class="lineCov">        384 :             &amp;&amp; currentNorth-&gt;getPosition()-&gt;getY() &lt;= left-&gt;getPosition()-&gt;getY() &amp;&amp; left-&gt;getPosition()-&gt;getY() &lt;= end-&gt;getY()){</span>
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span><span class="lineCov">        366 :                 PtrCross newCross = createNewCross( std::make_shared&lt;Point&gt;(currentNorth-&gt;getPosition()-&gt;getX(), left-&gt;getPosition()-&gt;getY()) );</span>
+<span class="lineNum">     195 </span><span class="lineCov">        122 :                 left-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     196 </span><span class="lineCov">        122 :                 right-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     197 </span><span class="lineCov">        122 :                 newCross-&gt;addNeighbour(left);</span>
+<span class="lineNum">     198 </span><span class="lineCov">        122 :                 newCross-&gt;addNeighbour(right);</span>
+<span class="lineNum">     199 </span><span class="lineCov">         61 :                 if(newCross != currentNorth){</span>
+<span class="lineNum">     200 </span><span class="lineCov">         24 :                     currentNorth-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     201 </span><span class="lineCov">         24 :                     newCross-&gt;addNeighbour(currentNorth);</span>
+<span class="lineNum">     202 </span>            :                     currentNorth = newCross;
+<span class="lineNum">     203 </span>            :                 }
+<span class="lineNum">     204 </span>            :         }
+<span class="lineNum">     205 </span>            :     }
+<span class="lineNum">     206 </span><span class="lineCov">         72 :     PtrCross newCross = createNewCross(end);</span>
+<span class="lineNum">     207 </span><span class="lineCov">         72 :     if(newCross != currentNorth){</span>
+<span class="lineNum">     208 </span><span class="lineCov">        136 :         currentNorth-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     209 </span><span class="lineCov">        136 :         newCross-&gt;addNeighbour(currentNorth);</span>
+<span class="lineNum">     210 </span>            :     }
+<span class="lineNum">     211 </span><span class="lineCov">         72 : }</span>
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            : /**
+<span class="lineNum">     214 </span>            :  * This method creates new crosses if the new road crosses with the another roads.
+<span class="lineNum">     215 </span>            :  * The new road is horizontal.
+<span class="lineNum">     216 </span>            :  * At first, crosses are sorted. The first is cross that has the smallest x value of the position.
+<span class="lineNum">     217 </span>            :  * Then we check each pair of cross and it's south neighbour if the new road doesn't cross the road
+<span class="lineNum">     218 </span>            :  * between these pair of crosses. If it crosses, new crosses are added and neighbours are updated.
+<span class="lineNum">     219 </span>            :  * @param begin - point on the west of the new road
+<span class="lineNum">     220 </span>            :  * @param end - point on the east of the new road
+<span class="lineNum">     221 </span>            :  */
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span><span class="lineCov">         61 : void CrossFactory::horizCrossedRoad(const PtrToConstPoint &amp;begin, const PtrToConstPoint &amp;end){</span>
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span><span class="lineCov">        608 :     std::sort(crosses.begin(), crosses.end(), CrossFactory::cmpCrossX);</span>
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span><span class="lineCov">         61 :     PtrCross currentWest = createNewCross(begin);</span>
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span><span class="lineCov">        244 :     std::vector&lt;PtrCross&gt;::size_type nbCrosses = crosses.size();</span>
+<span class="lineNum">     230 </span><span class="lineCov">        364 :     for(std::vector&lt;PtrCross&gt;::size_type i = 0; i&lt;nbCrosses; ++i ){</span>
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span><span class="lineCov">        909 :         PtrCross top = crosses[i];</span>
+<span class="lineNum">     233 </span><span class="lineCov">        303 :         PtrCross bottom = top-&gt;getSouthNeighbour();</span>
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            :         //checking only southNeighbour
+<span class="lineNum">     236 </span><span class="lineCov">        606 :         if(bottom == nullptr) continue;</span>
+<span class="lineNum">     237 </span>            : 
+<span class="lineNum">     238 </span>            :         //if new road crosses with the other that already exists
+<span class="lineNum">     239 </span><span class="lineCov">       1046 :         if( top-&gt;getPosition()-&gt;getY() &lt;= currentWest-&gt;getPosition()-&gt;getY() &amp;&amp; currentWest-&gt;getPosition()-&gt;getY() &lt;= bottom-&gt;getPosition()-&gt;getY()</span>
+<span class="lineNum">     240 </span><span class="lineCov">        554 :             &amp;&amp; currentWest-&gt;getPosition()-&gt;getX() &lt;= top-&gt;getPosition()-&gt;getX() &amp;&amp; top-&gt;getPosition()-&gt;getX() &lt;= end-&gt;getX()){</span>
+<span class="lineNum">     241 </span>            : 
+<span class="lineNum">     242 </span><span class="lineCov">        528 :             PtrCross newCross = createNewCross( std::make_shared&lt;Point&gt;(top-&gt;getPosition()-&gt;getX(), currentWest-&gt;getPosition()-&gt;getY() ));</span>
+<span class="lineNum">     243 </span><span class="lineCov">        176 :             top-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     244 </span><span class="lineCov">        176 :             bottom-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     245 </span><span class="lineCov">        176 :             newCross-&gt;addNeighbour(top);</span>
+<span class="lineNum">     246 </span><span class="lineCov">        176 :             newCross-&gt;addNeighbour(bottom);</span>
+<span class="lineNum">     247 </span><span class="lineCov">         88 :             if(newCross != currentWest){</span>
+<span class="lineNum">     248 </span><span class="lineCov">         80 :                 currentWest-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     249 </span><span class="lineCov">         80 :                 newCross-&gt;addNeighbour(currentWest);</span>
+<span class="lineNum">     250 </span>            :                 currentWest = newCross;
+<span class="lineNum">     251 </span>            :             }
+<span class="lineNum">     252 </span>            :         }
+<span class="lineNum">     253 </span>            :     }
+<span class="lineNum">     254 </span><span class="lineCov">         61 :     PtrCross newCross = createNewCross(end);</span>
+<span class="lineNum">     255 </span><span class="lineCov">         61 :     if(newCross != currentWest) {</span>
+<span class="lineNum">     256 </span><span class="lineCov">         60 :         currentWest-&gt;addNeighbour(newCross);</span>
+<span class="lineNum">     257 </span><span class="lineCov">         60 :         newCross-&gt;addNeighbour(currentWest);</span>
+<span class="lineNum">     258 </span>            :     }
+<span class="lineNum">     259 </span><span class="lineCov">         61 : }</span>
+<span class="lineNum">     260 </span>            : 
+<span class="lineNum">     261 </span>            : /**
+<span class="lineNum">     262 </span>            :  * Reverses the begin and ending point of the road if the ending point is nearer top left corner of the map.
+<span class="lineNum">     263 </span>            :  * Then calls methods if the new road is horizontal or vertical.
+<span class="lineNum">     264 </span>            :  * @param begin - starting point of the new road
+<span class="lineNum">     265 </span>            :  * @param end - ending point of the new road
+<a name="266"><span class="lineNum">     266 </span>            :  */</a>
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span><span class="lineCov">        134 : void CrossFactory::createRoad(const PtrToConstPoint &amp;begin, const PtrToConstPoint &amp;end) {</span>
+<span class="lineNum">     269 </span>            :     //deciding if new road is horizontal of vertical, begin must nearer top left corner
+<span class="lineNum">     270 </span><span class="lineCov">        698 :     if(begin-&gt;getX() == end-&gt;getX()){</span>
+<span class="lineNum">     271 </span><span class="lineCov">        219 :         if(begin-&gt;getY() &gt; end-&gt;getY()){</span>
+<span class="lineNum">     272 </span><span class="lineCov">         31 :             vertCrossedRoad(end, begin);</span>
+<span class="lineNum">     273 </span><span class="lineCov">         31 :             twoVertRoads(end,begin);</span>
+<span class="lineNum">     274 </span>            :         }
+<span class="lineNum">     275 </span><span class="lineCov">        126 :         else if(begin-&gt;getY() &lt; end-&gt;getY()){</span>
+<span class="lineNum">     276 </span><span class="lineCov">         41 :             vertCrossedRoad(begin, end);</span>
+<span class="lineNum">     277 </span><span class="lineCov">         41 :             twoVertRoads(begin,end);</span>
+<span class="lineNum">     278 </span>            :         }
+<span class="lineNum">     279 </span>            :     }
+<span class="lineNum">     280 </span><span class="lineCov">        183 :     else if(begin-&gt;getY() == end-&gt;getY()){</span>
+<span class="lineNum">     281 </span><span class="lineCov">        183 :         if(begin-&gt;getX() &gt; end-&gt;getX()){</span>
+<span class="lineNum">     282 </span><span class="lineCov">         16 :             horizCrossedRoad(end, begin);</span>
+<span class="lineNum">     283 </span><span class="lineCov">         16 :             twoHorizRoads(end, begin);</span>
+<span class="lineNum">     284 </span>            :         }
+<span class="lineNum">     285 </span>            : 
+<span class="lineNum">     286 </span><span class="lineCov">        135 :         else if(begin-&gt;getX() &lt; end-&gt;getX()){</span>
+<span class="lineNum">     287 </span><span class="lineCov">         45 :             horizCrossedRoad(begin, end);</span>
+<span class="lineNum">     288 </span><span class="lineCov">         45 :             twoHorizRoads(begin, end);</span>
+<span class="lineNum">     289 </span>            :         }
+<span class="lineNum">     290 </span>            :     }
+<span class="lineNum">     291 </span><span class="lineCov">        134 : }</span>
+<span class="lineNum">     292 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

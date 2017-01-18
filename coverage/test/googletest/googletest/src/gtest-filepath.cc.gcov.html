@@ -1,0 +1,463 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/src/gtest-filepath.cc</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/src</a> - gtest-filepath.cc<span style="font-size: 80%;"> (source / <a href="gtest-filepath.cc.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">21</td>
+            <td class="headerCovTableEntry">81</td>
+            <td class="headerCovTableEntryLo">25.9 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">17</td>
+            <td class="headerCovTableEntryLo">11.8 %</td>
+          </tr>
+          <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2008, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Authors: keith.ray@gmail.com (Keith Ray)
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : #include &quot;gtest/gtest-message.h&quot;
+<span class="lineNum">      33 </span>            : #include &quot;gtest/internal/gtest-filepath.h&quot;
+<span class="lineNum">      34 </span>            : #include &quot;gtest/internal/gtest-port.h&quot;
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : #if GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">      39 </span>            : # include &lt;windows.h&gt;
+<span class="lineNum">      40 </span>            : #elif GTEST_OS_WINDOWS
+<span class="lineNum">      41 </span>            : # include &lt;direct.h&gt;
+<span class="lineNum">      42 </span>            : # include &lt;io.h&gt;
+<span class="lineNum">      43 </span>            : #elif GTEST_OS_SYMBIAN
+<span class="lineNum">      44 </span>            : // Symbian OpenC has PATH_MAX in sys/syslimits.h
+<span class="lineNum">      45 </span>            : # include &lt;sys/syslimits.h&gt;
+<span class="lineNum">      46 </span>            : #else
+<span class="lineNum">      47 </span>            : # include &lt;limits.h&gt;
+<span class="lineNum">      48 </span>            : # include &lt;climits&gt;  // Some Linux distributions define PATH_MAX here.
+<span class="lineNum">      49 </span>            : #endif  // GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">      50 </span>            : 
+<span class="lineNum">      51 </span>            : #if GTEST_OS_WINDOWS
+<span class="lineNum">      52 </span>            : # define GTEST_PATH_MAX_ _MAX_PATH
+<span class="lineNum">      53 </span>            : #elif defined(PATH_MAX)
+<span class="lineNum">      54 </span>            : # define GTEST_PATH_MAX_ PATH_MAX
+<span class="lineNum">      55 </span>            : #elif defined(_XOPEN_PATH_MAX)
+<span class="lineNum">      56 </span>            : # define GTEST_PATH_MAX_ _XOPEN_PATH_MAX
+<span class="lineNum">      57 </span>            : #else
+<span class="lineNum">      58 </span>            : # define GTEST_PATH_MAX_ _POSIX_PATH_MAX
+<span class="lineNum">      59 </span>            : #endif  // GTEST_OS_WINDOWS
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : #include &quot;gtest/internal/gtest-string.h&quot;
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span>            : namespace testing {
+<span class="lineNum">      64 </span>            : namespace internal {
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span>            : #if GTEST_OS_WINDOWS
+<span class="lineNum">      67 </span>            : // On Windows, '\\' is the standard path separator, but many tools and the
+<span class="lineNum">      68 </span>            : // Windows API also accept '/' as an alternate path separator. Unless otherwise
+<span class="lineNum">      69 </span>            : // noted, a file path can contain either kind of path separators, or a mixture
+<span class="lineNum">      70 </span>            : // of them.
+<span class="lineNum">      71 </span>            : const char kPathSeparator = '\\';
+<span class="lineNum">      72 </span>            : const char kAlternatePathSeparator = '/';
+<span class="lineNum">      73 </span>            : const char kAlternatePathSeparatorString[] = &quot;/&quot;;
+<span class="lineNum">      74 </span>            : # if GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">      75 </span>            : // Windows CE doesn't have a current directory. You should not use
+<span class="lineNum">      76 </span>            : // the current directory in tests on Windows CE, but this at least
+<span class="lineNum">      77 </span>            : // provides a reasonable fallback.
+<span class="lineNum">      78 </span>            : const char kCurrentDirectoryString[] = &quot;\\&quot;;
+<span class="lineNum">      79 </span>            : // Windows CE doesn't define INVALID_FILE_ATTRIBUTES
+<span class="lineNum">      80 </span>            : const DWORD kInvalidFileAttributes = 0xffffffff;
+<span class="lineNum">      81 </span>            : # else
+<span class="lineNum">      82 </span>            : const char kCurrentDirectoryString[] = &quot;.\\&quot;;
+<span class="lineNum">      83 </span>            : # endif  // GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">      84 </span>            : #else
+<span class="lineNum">      85 </span>            : const char kPathSeparator = '/';
+<span class="lineNum">      86 </span>            : const char kCurrentDirectoryString[] = &quot;./&quot;;
+<span class="lineNum">      87 </span>            : #endif  // GTEST_OS_WINDOWS
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span>            : // Returns whether the given character is a valid path separator.
+<span class="lineNum">      90 </span>            : static bool IsPathSeparator(char c) {
+<span class="lineNum">      91 </span>            : #if GTEST_HAS_ALT_PATH_SEP_
+<a name="92"><span class="lineNum">      92 </span>            :   return (c == kPathSeparator) || (c == kAlternatePathSeparator);</a>
+<span class="lineNum">      93 </span>            : #else
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 :   return c == kPathSeparator;</span>
+<span class="lineNum">      95 </span>            : #endif
+<span class="lineNum">      96 </span>            : }
+<a name="97"><span class="lineNum">      97 </span>            : </a>
+<span class="lineNum">      98 </span>            : // Returns the current working directory, or &quot;&quot; if unsuccessful.
+<span class="lineNum">      99 </span><span class="lineCov">          1 : FilePath FilePath::GetCurrentDir() {</span>
+<span class="lineNum">     100 </span>            : #if GTEST_OS_WINDOWS_MOBILE || GTEST_OS_WINDOWS_PHONE || GTEST_OS_WINDOWS_RT
+<span class="lineNum">     101 </span>            :   // Windows CE doesn't have a current directory, so we just return
+<span class="lineNum">     102 </span>            :   // something reasonable.
+<span class="lineNum">     103 </span>            :   return FilePath(kCurrentDirectoryString);
+<span class="lineNum">     104 </span>            : #elif GTEST_OS_WINDOWS
+<span class="lineNum">     105 </span>            :   char cwd[GTEST_PATH_MAX_ + 1] = { '\0' };
+<span class="lineNum">     106 </span>            :   return FilePath(_getcwd(cwd, sizeof(cwd)) == NULL ? &quot;&quot; : cwd);
+<span class="lineNum">     107 </span>            : #else
+<span class="lineNum">     108 </span><span class="lineCov">          1 :   char cwd[GTEST_PATH_MAX_ + 1] = { '\0' };</span>
+<span class="lineNum">     109 </span><span class="lineCov">          1 :   char* result = getcwd(cwd, sizeof(cwd));</span>
+<span class="lineNum">     110 </span>            : # if GTEST_OS_NACL
+<span class="lineNum">     111 </span>            :   // getcwd will likely fail in NaCl due to the sandbox, so return something
+<span class="lineNum">     112 </span>            :   // reasonable. The user may have provided a shim implementation for getcwd,
+<span class="lineNum">     113 </span>            :   // however, so fallback only when failure is detected.
+<span class="lineNum">     114 </span>            :   return FilePath(result == NULL ? kCurrentDirectoryString : cwd);
+<span class="lineNum">     115 </span>            : # endif  // GTEST_OS_NACL
+<span class="lineNum">     116 </span><span class="lineCov">          2 :   return FilePath(result == NULL ? &quot;&quot; : cwd);</span>
+<span class="lineNum">     117 </span>            : #endif  // GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">     118 </span>            : }
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span>            : // Returns a copy of the FilePath with the case-insensitive extension removed.
+<span class="lineNum">     121 </span>            : // Example: FilePath(&quot;dir/file.exe&quot;).RemoveExtension(&quot;EXE&quot;) returns
+<a name="122"><span class="lineNum">     122 </span>            : // FilePath(&quot;dir/file&quot;). If a case-insensitive extension is not</a>
+<span class="lineNum">     123 </span>            : // found, returns a copy of the original FilePath.
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 : FilePath FilePath::RemoveExtension(const char* extension) const {</span>
+<span class="lineNum">     125 </span><span class="lineNoCov">          0 :   const std::string dot_extension = std::string(&quot;.&quot;) + extension;</span>
+<span class="lineNum">     126 </span><span class="lineNoCov">          0 :   if (String::EndsWithCaseInsensitive(pathname_, dot_extension)) {</span>
+<span class="lineNum">     127 </span>            :     return FilePath(pathname_.substr(
+<span class="lineNum">     128 </span><span class="lineNoCov">          0 :         0, pathname_.length() - dot_extension.length()));</span>
+<span class="lineNum">     129 </span>            :   }
+<span class="lineNum">     130 </span>            :   return *this;
+<span class="lineNum">     131 </span>            : }
+<span class="lineNum">     132 </span>            : 
+<span class="lineNum">     133 </span>            : // Returns a pointer to the last occurence of a valid path separator in
+<a name="134"><span class="lineNum">     134 </span>            : // the FilePath. On Windows, for example, both '/' and '\' are valid path</a>
+<a name="135"><span class="lineNum">     135 </span>            : // separators. Returns NULL if no path separator was found.</a>
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 : const char* FilePath::FindLastPathSeparator() const {</span>
+<span class="lineNum">     137 </span><span class="lineNoCov">          0 :   const char* const last_sep = strrchr(c_str(), kPathSeparator);</span>
+<span class="lineNum">     138 </span>            : #if GTEST_HAS_ALT_PATH_SEP_
+<span class="lineNum">     139 </span>            :   const char* const last_alt_sep = strrchr(c_str(), kAlternatePathSeparator);
+<span class="lineNum">     140 </span>            :   // Comparing two pointers of which only one is NULL is undefined.
+<span class="lineNum">     141 </span>            :   if (last_alt_sep != NULL &amp;&amp;
+<span class="lineNum">     142 </span>            :       (last_sep == NULL || last_alt_sep &gt; last_sep)) {
+<span class="lineNum">     143 </span>            :     return last_alt_sep;
+<span class="lineNum">     144 </span>            :   }
+<span class="lineNum">     145 </span>            : #endif
+<span class="lineNum">     146 </span><span class="lineNoCov">          0 :   return last_sep;</span>
+<span class="lineNum">     147 </span>            : }
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            : // Returns a copy of the FilePath with the directory part removed.
+<span class="lineNum">     150 </span>            : // Example: FilePath(&quot;path/to/file&quot;).RemoveDirectoryName() returns
+<span class="lineNum">     151 </span>            : // FilePath(&quot;file&quot;). If there is no directory part (&quot;just_a_file&quot;), it returns
+<span class="lineNum">     152 </span>            : // the FilePath unmodified. If there is no file part (&quot;just_a_dir/&quot;) it
+<span class="lineNum">     153 </span>            : // returns an empty FilePath (&quot;&quot;).
+<span class="lineNum">     154 </span>            : // On Windows platform, '\' is the path separator, otherwise it is '/'.
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 : FilePath FilePath::RemoveDirectoryName() const {</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :   const char* const last_sep = FindLastPathSeparator();</span>
+<span class="lineNum">     157 </span><span class="lineNoCov">          0 :   return last_sep ? FilePath(last_sep + 1) : *this;</span>
+<span class="lineNum">     158 </span>            : }
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : // RemoveFileName returns the directory path with the filename removed.
+<span class="lineNum">     161 </span>            : // Example: FilePath(&quot;path/to/file&quot;).RemoveFileName() returns &quot;path/to/&quot;.
+<span class="lineNum">     162 </span>            : // If the FilePath is &quot;a_file&quot; or &quot;/a_file&quot;, RemoveFileName returns
+<span class="lineNum">     163 </span>            : // FilePath(&quot;./&quot;) or, on Windows, FilePath(&quot;.\\&quot;). If the filepath does
+<span class="lineNum">     164 </span>            : // not have a file, like &quot;just/a/dir/&quot;, it returns the FilePath unmodified.
+<span class="lineNum">     165 </span>            : // On Windows platform, '\' is the path separator, otherwise it is '/'.
+<span class="lineNum">     166 </span><span class="lineNoCov">          0 : FilePath FilePath::RemoveFileName() const {</span>
+<span class="lineNum">     167 </span><span class="lineNoCov">          0 :   const char* const last_sep = FindLastPathSeparator();</span>
+<span class="lineNum">     168 </span>            :   std::string dir;
+<span class="lineNum">     169 </span><span class="lineNoCov">          0 :   if (last_sep) {</span>
+<span class="lineNum">     170 </span><span class="lineNoCov">          0 :     dir = std::string(c_str(), last_sep + 1 - c_str());</span>
+<span class="lineNum">     171 </span>            :   } else {
+<span class="lineNum">     172 </span>            :     dir = kCurrentDirectoryString;
+<span class="lineNum">     173 </span>            :   }
+<span class="lineNum">     174 </span><span class="lineNoCov">          0 :   return FilePath(dir);</span>
+<span class="lineNum">     175 </span>            : }
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span>            : // Helper functions for naming files in a directory for xml output.
+<span class="lineNum">     178 </span>            : 
+<span class="lineNum">     179 </span>            : // Given directory = &quot;dir&quot;, base_name = &quot;test&quot;, number = 0,
+<span class="lineNum">     180 </span>            : // extension = &quot;xml&quot;, returns &quot;dir/test.xml&quot;. If number is greater
+<a name="181"><span class="lineNum">     181 </span>            : // than zero (e.g., 12), returns &quot;dir/test_12.xml&quot;.</a>
+<span class="lineNum">     182 </span>            : // On Windows platform, uses \ as the separator rather than /.
+<span class="lineNum">     183 </span><span class="lineNoCov">          0 : FilePath FilePath::MakeFileName(const FilePath&amp; directory,</span>
+<span class="lineNum">     184 </span>            :                                 const FilePath&amp; base_name,
+<span class="lineNum">     185 </span>            :                                 int number,
+<span class="lineNum">     186 </span>            :                                 const char* extension) {
+<span class="lineNum">     187 </span>            :   std::string file;
+<span class="lineNum">     188 </span><span class="lineNoCov">          0 :   if (number == 0) {</span>
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 :     file = base_name.string() + &quot;.&quot; + extension;</span>
+<span class="lineNum">     190 </span>            :   } else {
+<span class="lineNum">     191 </span><span class="lineNoCov">          0 :     file = base_name.string() + &quot;_&quot; + StreamableToString(number)</span>
+<span class="lineNum">     192 </span><span class="lineNoCov">          0 :         + &quot;.&quot; + extension;</span>
+<span class="lineNum">     193 </span>            :   }
+<span class="lineNum">     194 </span><span class="lineNoCov">          0 :   return ConcatPaths(directory, FilePath(file));</span>
+<span class="lineNum">     195 </span>            : }
+<span class="lineNum">     196 </span>            : 
+<a name="197"><span class="lineNum">     197 </span>            : // Given directory = &quot;dir&quot;, relative_path = &quot;test.xml&quot;, returns &quot;dir/test.xml&quot;.</a>
+<span class="lineNum">     198 </span>            : // On Windows, uses \ as the separator rather than /.
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 : FilePath FilePath::ConcatPaths(const FilePath&amp; directory,</span>
+<span class="lineNum">     200 </span>            :                                const FilePath&amp; relative_path) {
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :   if (directory.IsEmpty())</span>
+<span class="lineNum">     202 </span>            :     return relative_path;
+<span class="lineNum">     203 </span><span class="lineNoCov">          0 :   const FilePath dir(directory.RemoveTrailingPathSeparator());</span>
+<span class="lineNum">     204 </span><span class="lineNoCov">          0 :   return FilePath(dir.string() + kPathSeparator + relative_path.string());</span>
+<span class="lineNum">     205 </span>            : }
+<span class="lineNum">     206 </span>            : 
+<a name="207"><span class="lineNum">     207 </span>            : // Returns true if pathname describes something findable in the file-system,</a>
+<span class="lineNum">     208 </span>            : // either a file, directory, or whatever.
+<span class="lineNum">     209 </span><span class="lineNoCov">          0 : bool FilePath::FileOrDirectoryExists() const {</span>
+<span class="lineNum">     210 </span>            : #if GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">     211 </span>            :   LPCWSTR unicode = String::AnsiToUtf16(pathname_.c_str());
+<span class="lineNum">     212 </span>            :   const DWORD attributes = GetFileAttributes(unicode);
+<span class="lineNum">     213 </span>            :   delete [] unicode;
+<span class="lineNum">     214 </span>            :   return attributes != kInvalidFileAttributes;
+<a name="215"><span class="lineNum">     215 </span>            : #else</a>
+<span class="lineNum">     216 </span>            :   posix::StatStruct file_stat;
+<span class="lineNum">     217 </span><span class="lineNoCov">          0 :   return posix::Stat(pathname_.c_str(), &amp;file_stat) == 0;</span>
+<span class="lineNum">     218 </span>            : #endif  // GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">     219 </span>            : }
+<span class="lineNum">     220 </span>            : 
+<a name="221"><span class="lineNum">     221 </span>            : // Returns true if pathname describes a directory in the file-system</a>
+<span class="lineNum">     222 </span>            : // that exists.
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 : bool FilePath::DirectoryExists() const {</span>
+<span class="lineNum">     224 </span><span class="lineNoCov">          0 :   bool result = false;</span>
+<span class="lineNum">     225 </span>            : #if GTEST_OS_WINDOWS
+<span class="lineNum">     226 </span>            :   // Don't strip off trailing separator if path is a root directory on
+<span class="lineNum">     227 </span>            :   // Windows (like &quot;C:\\&quot;).
+<span class="lineNum">     228 </span>            :   const FilePath&amp; path(IsRootDirectory() ? *this :
+<span class="lineNum">     229 </span>            :                                            RemoveTrailingPathSeparator());
+<span class="lineNum">     230 </span>            : #else
+<span class="lineNum">     231 </span><span class="lineNoCov">          0 :   const FilePath&amp; path(*this);</span>
+<span class="lineNum">     232 </span>            : #endif
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span>            : #if GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">     235 </span>            :   LPCWSTR unicode = String::AnsiToUtf16(path.c_str());
+<span class="lineNum">     236 </span>            :   const DWORD attributes = GetFileAttributes(unicode);
+<span class="lineNum">     237 </span>            :   delete [] unicode;
+<span class="lineNum">     238 </span>            :   if ((attributes != kInvalidFileAttributes) &amp;&amp;
+<span class="lineNum">     239 </span>            :       (attributes &amp; FILE_ATTRIBUTE_DIRECTORY)) {
+<span class="lineNum">     240 </span>            :     result = true;
+<span class="lineNum">     241 </span>            :   }
+<span class="lineNum">     242 </span>            : #else
+<span class="lineNum">     243 </span>            :   posix::StatStruct file_stat;
+<span class="lineNum">     244 </span><span class="lineNoCov">          0 :   result = posix::Stat(path.c_str(), &amp;file_stat) == 0 &amp;&amp;</span>
+<span class="lineNum">     245 </span><span class="lineNoCov">          0 :       posix::IsDir(file_stat);</span>
+<span class="lineNum">     246 </span>            : #endif  // GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span><span class="lineNoCov">          0 :   return result;</span>
+<span class="lineNum">     249 </span>            : }
+<span class="lineNum">     250 </span>            : 
+<a name="251"><span class="lineNum">     251 </span>            : // Returns true if pathname describes a root directory. (Windows has one</a>
+<span class="lineNum">     252 </span>            : // root directory per disk drive.)
+<span class="lineNum">     253 </span><span class="lineNoCov">          0 : bool FilePath::IsRootDirectory() const {</span>
+<span class="lineNum">     254 </span>            : #if GTEST_OS_WINDOWS
+<span class="lineNum">     255 </span>            :   // TODO(wan@google.com): on Windows a network share like
+<span class="lineNum">     256 </span>            :   // \\server\share can be a root directory, although it cannot be the
+<span class="lineNum">     257 </span>            :   // current directory.  Handle this properly.
+<span class="lineNum">     258 </span>            :   return pathname_.length() == 3 &amp;&amp; IsAbsolutePath();
+<span class="lineNum">     259 </span>            : #else
+<span class="lineNum">     260 </span><span class="lineNoCov">          0 :   return pathname_.length() == 1 &amp;&amp; IsPathSeparator(pathname_.c_str()[0]);</span>
+<span class="lineNum">     261 </span>            : #endif
+<span class="lineNum">     262 </span>            : }
+<span class="lineNum">     263 </span>            : 
+<span class="lineNum">     264 </span>            : // Returns true if pathname describes an absolute path.
+<span class="lineNum">     265 </span><span class="lineNoCov">          0 : bool FilePath::IsAbsolutePath() const {</span>
+<span class="lineNum">     266 </span><span class="lineNoCov">          0 :   const char* const name = pathname_.c_str();</span>
+<span class="lineNum">     267 </span>            : #if GTEST_OS_WINDOWS
+<span class="lineNum">     268 </span>            :   return pathname_.length() &gt;= 3 &amp;&amp;
+<span class="lineNum">     269 </span>            :      ((name[0] &gt;= 'a' &amp;&amp; name[0] &lt;= 'z') ||
+<span class="lineNum">     270 </span>            :       (name[0] &gt;= 'A' &amp;&amp; name[0] &lt;= 'Z')) &amp;&amp;
+<span class="lineNum">     271 </span>            :      name[1] == ':' &amp;&amp;
+<span class="lineNum">     272 </span>            :      IsPathSeparator(name[2]);
+<span class="lineNum">     273 </span>            : #else
+<span class="lineNum">     274 </span><span class="lineNoCov">          0 :   return IsPathSeparator(name[0]);</span>
+<span class="lineNum">     275 </span>            : #endif
+<span class="lineNum">     276 </span>            : }
+<span class="lineNum">     277 </span>            : 
+<span class="lineNum">     278 </span>            : // Returns a pathname for a file that does not currently exist. The pathname
+<span class="lineNum">     279 </span>            : // will be directory/base_name.extension or
+<span class="lineNum">     280 </span>            : // directory/base_name_&lt;number&gt;.extension if directory/base_name.extension
+<span class="lineNum">     281 </span>            : // already exists. The number will be incremented until a pathname is found
+<span class="lineNum">     282 </span>            : // that does not already exist.
+<span class="lineNum">     283 </span>            : // Examples: 'dir/foo_test.xml' or 'dir/foo_test_1.xml'.
+<span class="lineNum">     284 </span>            : // There could be a race condition if two or more processes are calling this
+<span class="lineNum">     285 </span>            : // function at the same time -- they could both pick the same filename.
+<span class="lineNum">     286 </span><span class="lineNoCov">          0 : FilePath FilePath::GenerateUniqueFileName(const FilePath&amp; directory,</span>
+<span class="lineNum">     287 </span>            :                                           const FilePath&amp; base_name,
+<span class="lineNum">     288 </span>            :                                           const char* extension) {
+<span class="lineNum">     289 </span>            :   FilePath full_pathname;
+<span class="lineNum">     290 </span><span class="lineNoCov">          0 :   int number = 0;</span>
+<span class="lineNum">     291 </span><span class="lineNoCov">          0 :   do {</span>
+<span class="lineNum">     292 </span><span class="lineNoCov">          0 :     full_pathname.Set(MakeFileName(directory, base_name, number++, extension));</span>
+<span class="lineNum">     293 </span>            :   } while (full_pathname.FileOrDirectoryExists());
+<span class="lineNum">     294 </span><span class="lineNoCov">          0 :   return full_pathname;</span>
+<span class="lineNum">     295 </span>            : }
+<span class="lineNum">     296 </span>            : 
+<span class="lineNum">     297 </span>            : // Returns true if FilePath ends with a path separator, which indicates that
+<a name="298"><span class="lineNum">     298 </span>            : // it is intended to represent a directory. Returns false otherwise.</a>
+<a name="299"><span class="lineNum">     299 </span>            : // This does NOT check that a directory (or file) actually exists.</a>
+<span class="lineNum">     300 </span><span class="lineNoCov">          0 : bool FilePath::IsDirectory() const {</span>
+<span class="lineNum">     301 </span><span class="lineNoCov">          0 :   return !pathname_.empty() &amp;&amp;</span>
+<span class="lineNum">     302 </span><span class="lineNoCov">          0 :          IsPathSeparator(pathname_.c_str()[pathname_.length() - 1]);</span>
+<span class="lineNum">     303 </span>            : }
+<span class="lineNum">     304 </span>            : 
+<span class="lineNum">     305 </span>            : // Create directories so that path exists. Returns true if successful or if
+<span class="lineNum">     306 </span>            : // the directories already exist; returns false if unable to create directories
+<span class="lineNum">     307 </span>            : // for any reason.
+<span class="lineNum">     308 </span><span class="lineNoCov">          0 : bool FilePath::CreateDirectoriesRecursively() const {</span>
+<span class="lineNum">     309 </span><span class="lineNoCov">          0 :   if (!this-&gt;IsDirectory()) {</span>
+<span class="lineNum">     310 </span>            :     return false;
+<span class="lineNum">     311 </span>            :   }
+<span class="lineNum">     312 </span>            : 
+<span class="lineNum">     313 </span><span class="lineNoCov">          0 :   if (pathname_.length() == 0 || this-&gt;DirectoryExists()) {</span>
+<span class="lineNum">     314 </span>            :     return true;
+<span class="lineNum">     315 </span>            :   }
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span><span class="lineNoCov">          0 :   const FilePath parent(this-&gt;RemoveTrailingPathSeparator().RemoveFileName());</span>
+<span class="lineNum">     318 </span><span class="lineNoCov">          0 :   return parent.CreateDirectoriesRecursively() &amp;&amp; this-&gt;CreateFolder();</span>
+<span class="lineNum">     319 </span>            : }
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span>            : // Create the directory so that path exists. Returns true if successful or
+<span class="lineNum">     322 </span>            : // if the directory already exists; returns false if unable to create the
+<a name="323"><span class="lineNum">     323 </span>            : // directory for any reason, including if the parent directory does not</a>
+<span class="lineNum">     324 </span>            : // exist. Not named &quot;CreateDirectory&quot; because that's a macro on Windows.
+<span class="lineNum">     325 </span><span class="lineNoCov">          0 : bool FilePath::CreateFolder() const {</span>
+<span class="lineNum">     326 </span>            : #if GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">     327 </span>            :   FilePath removed_sep(this-&gt;RemoveTrailingPathSeparator());
+<span class="lineNum">     328 </span>            :   LPCWSTR unicode = String::AnsiToUtf16(removed_sep.c_str());
+<span class="lineNum">     329 </span>            :   int result = CreateDirectory(unicode, NULL) ? 0 : -1;
+<span class="lineNum">     330 </span>            :   delete [] unicode;
+<span class="lineNum">     331 </span>            : #elif GTEST_OS_WINDOWS
+<span class="lineNum">     332 </span>            :   int result = _mkdir(pathname_.c_str());
+<span class="lineNum">     333 </span>            : #else
+<span class="lineNum">     334 </span><span class="lineNoCov">          0 :   int result = mkdir(pathname_.c_str(), 0777);</span>
+<span class="lineNum">     335 </span>            : #endif  // GTEST_OS_WINDOWS_MOBILE
+<span class="lineNum">     336 </span>            : 
+<span class="lineNum">     337 </span><span class="lineNoCov">          0 :   if (result == -1) {</span>
+<span class="lineNum">     338 </span><span class="lineNoCov">          0 :     return this-&gt;DirectoryExists();  // An error is OK if the directory exists.</span>
+<span class="lineNum">     339 </span>            :   }
+<span class="lineNum">     340 </span>            :   return true;  // No error.
+<span class="lineNum">     341 </span>            : }
+<span class="lineNum">     342 </span>            : 
+<span class="lineNum">     343 </span>            : // If input name has a trailing separator character, remove it and return the
+<span class="lineNum">     344 </span>            : // name, otherwise return the name string unmodified.
+<span class="lineNum">     345 </span>            : // On Windows platform, uses \ as the separator, other platforms use /.
+<span class="lineNum">     346 </span><span class="lineNoCov">          0 : FilePath FilePath::RemoveTrailingPathSeparator() const {</span>
+<span class="lineNum">     347 </span>            :   return IsDirectory()
+<span class="lineNum">     348 </span><span class="lineNoCov">          0 :       ? FilePath(pathname_.substr(0, pathname_.length() - 1))</span>
+<span class="lineNum">     349 </span><span class="lineNoCov">          0 :       : *this;</span>
+<span class="lineNum">     350 </span>            : }
+<span class="lineNum">     351 </span>            : 
+<span class="lineNum">     352 </span>            : // Removes any redundant separators that might be in the pathname.
+<span class="lineNum">     353 </span>            : // For example, &quot;bar///foo&quot; becomes &quot;bar/foo&quot;. Does not eliminate other
+<a name="354"><span class="lineNum">     354 </span>            : // redundancies that might be in a pathname involving &quot;.&quot; or &quot;..&quot;.</a>
+<span class="lineNum">     355 </span>            : // TODO(wan@google.com): handle Windows network shares (e.g. \\server\share).
+<span class="lineNum">     356 </span><span class="lineCov">          1 : void FilePath::Normalize() {</span>
+<span class="lineNum">     357 </span><span class="lineCov">          2 :   if (pathname_.c_str() == NULL) {</span>
+<span class="lineNum">     358 </span><span class="lineNoCov">          0 :     pathname_ = &quot;&quot;;</span>
+<span class="lineNum">     359 </span><span class="lineCov">          1 :     return;</span>
+<span class="lineNum">     360 </span>            :   }
+<span class="lineNum">     361 </span><span class="lineCov">          1 :   const char* src = pathname_.c_str();</span>
+<span class="lineNum">     362 </span><span class="lineCov">          2 :   char* const dest = new char[pathname_.length() + 1];</span>
+<span class="lineNum">     363 </span><span class="lineCov">          1 :   char* dest_ptr = dest;</span>
+<span class="lineNum">     364 </span><span class="lineCov">          2 :   memset(dest_ptr, 0, pathname_.length() + 1);</span>
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span><span class="lineCov">         41 :   while (*src != '\0') {</span>
+<span class="lineNum">     367 </span><span class="lineCov">         40 :     *dest_ptr = *src;</span>
+<span class="lineNum">     368 </span><span class="lineCov">         40 :     if (!IsPathSeparator(*src)) {</span>
+<span class="lineNum">     369 </span><span class="lineCov">         35 :       src++;</span>
+<span class="lineNum">     370 </span>            :     } else {
+<span class="lineNum">     371 </span>            : #if GTEST_HAS_ALT_PATH_SEP_
+<span class="lineNum">     372 </span>            :       if (*dest_ptr == kAlternatePathSeparator) {
+<span class="lineNum">     373 </span>            :         *dest_ptr = kPathSeparator;
+<span class="lineNum">     374 </span>            :       }
+<span class="lineNum">     375 </span>            : #endif
+<span class="lineNum">     376 </span><span class="lineCov">         10 :       while (IsPathSeparator(*src))</span>
+<span class="lineNum">     377 </span><span class="lineCov">          5 :         src++;</span>
+<span class="lineNum">     378 </span>            :     }
+<span class="lineNum">     379 </span><span class="lineCov">         40 :     dest_ptr++;</span>
+<span class="lineNum">     380 </span>            :   }
+<span class="lineNum">     381 </span><span class="lineCov">          1 :   *dest_ptr = '\0';</span>
+<span class="lineNum">     382 </span><span class="lineCov">          1 :   pathname_ = dest;</span>
+<span class="lineNum">     383 </span><span class="lineCov">          1 :   delete[] dest;</span>
+<span class="lineNum">     384 </span>            : }
+<span class="lineNum">     385 </span>            : 
+<span class="lineNum">     386 </span>            : }  // namespace internal
+<span class="lineNum">     387 </span>            : }  // namespace testing
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

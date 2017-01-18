@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/GUI/gridgui.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">src/GUI</a> - gridgui.cpp<span style="font-size: 80%;"> (source / <a href="gridgui.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryLo">11.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">8</td>
+            <td class="headerCovTableEntryLo">25.0 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;gridgui.h&quot;</a>
+<a name="2"><span class="lineNum">       2 </span>            : </a>
+<span class="lineNum">       3 </span>            : /**INITIALIZE PROPERTIES**/
+<span class="lineNum">       4 </span><span class="lineCov">          1 : const QPen GridGUI::PEN(QColor(255, 255, 255, 80));</span>
+<span class="lineNum">       5 </span>            : const int GridGUI::SIZE = 32;
+<span class="lineNum">       6 </span>            : 
+<span class="lineNum">       7 </span>            : /*!
+<span class="lineNum">       8 </span>            :  * \brief GridGUI::GridGUI.
+<span class="lineNum">       9 </span>            :  * \param width - Width of the grid.
+<span class="lineNum">      10 </span>            :  * \param height - Height of the grid.
+<a name="11"><span class="lineNum">      11 </span>            :  * \details Creates grid with given size.</a>
+<span class="lineNum">      12 </span>            :  */
+<span class="lineNum">      13 </span><span class="lineNoCov">          0 : GridGUI::GridGUI(unsigned int width, unsigned int height) :</span>
+<span class="lineNum">      14 </span><span class="lineNoCov">          0 :     Drawable(false), height(height), width(width) {</span>
+<a name="15"><span class="lineNum">      15 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span><span class="lineNoCov">          0 : GridGUI::~GridGUI() {</span>
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span>            : /*!
+<span class="lineNum">      22 </span>            :  * \brief GridGUI::draw.
+<span class="lineNum">      23 </span>            :  * \param painter - Reference to painter object.
+<span class="lineNum">      24 </span>            :  * \details Function draws lines using painter given as argument.
+<span class="lineNum">      25 </span>            :  * Lines, both vertical and horizontal, starts at 0, and are drawn with
+<a name="26"><span class="lineNum">      26 </span>            :  * equal spacing until next line would be further than size of grid.</a>
+<span class="lineNum">      27 </span>            :  */
+<span class="lineNum">      28 </span><span class="lineNoCov">          0 : void GridGUI::draw(QPainter &amp;painter) const {</span>
+<span class="lineNum">      29 </span><span class="lineNoCov">          0 :     painter.setPen(PEN);</span>
+<span class="lineNum">      30 </span><span class="lineNoCov">          0 :     for (int x = 0; x &lt; width; x += SIZE) {</span>
+<span class="lineNum">      31 </span><span class="lineNoCov">          0 :         painter.drawLine(x, 0, x, height);</span>
+<span class="lineNum">      32 </span>            :     }
+<span class="lineNum">      33 </span><span class="lineNoCov">          0 :     for (int y = 0; y &lt; height; y += SIZE) {</span>
+<span class="lineNum">      34 </span><span class="lineNoCov">          0 :         painter.drawLine(0, y, width, y);</span>
+<span class="lineNum">      35 </span>            :     }
+<a name="36"><span class="lineNum">      36 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span><span class="lineNoCov">          0 : void GridGUI::setTo(unsigned int x, unsigned int y) {</span>
+<span class="lineNum">      39 </span>            : 
+<a name="40"><span class="lineNum">      40 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      41 </span>            : 
+<a name="42"><span class="lineNum">      42 </span><span class="lineNoCov">          0 : bool GridGUI::intersects(QRect &amp;rectangle) const {</span></a>
+<span class="lineNum">      43 </span><span class="lineNoCov">          0 :     return false;</span>
+<span class="lineNum">      44 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

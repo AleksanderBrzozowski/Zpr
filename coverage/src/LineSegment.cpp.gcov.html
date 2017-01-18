@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/LineSegment.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - LineSegment.cpp<span style="font-size: 80%;"> (source / <a href="LineSegment.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntry">32</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //</a>
+<span class="lineNum">       2 </span>            : // Created by aleksander on 06.01.17.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span>            : #include &lt;stdexcept&gt;
+<span class="lineNum">       6 </span>            : #include &quot;LineSegment.h&quot;
+<a name="7"><span class="lineNum">       7 </span>            : </a>
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span><span class="lineCov">         48 : LineSegment::LineSegment(const Point &amp;pointA, const Point &amp;pointB) {</span>
+<span class="lineNum">      10 </span><span class="lineCov">         48 :     if (pointA == pointB)</span>
+<span class="lineNum">      11 </span><span class="lineCov">          2 :         throw std::invalid_argument(&quot;Points cannot be same&quot;);</span>
+<span class="lineNum">      12 </span><span class="lineCov">         47 :     a0 = pointB.getX() - pointA.getX();</span>
+<span class="lineNum">      13 </span><span class="lineCov">         47 :     a1 = pointB.getY() - pointA.getY();</span>
+<span class="lineNum">      14 </span><span class="lineCov">         47 :     b = pointA.getY() * a0 - pointA.getX() * a1;</span>
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span><span class="lineCov">         94 :     upperX = std::max(pointA.getX(), pointB.getX());</span>
+<span class="lineNum">      17 </span><span class="lineCov">         94 :     lowerX = std::min(pointA.getX(), pointB.getX());</span>
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span><span class="lineCov">         94 :     upperY = std::max(pointA.getY(), pointB.getY());</span>
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">         94 :     lowerY = std::min(pointA.getY(), pointB.getY());</span></a>
+<span class="lineNum">      21 </span><span class="lineCov">         47 : }</span>
+<span class="lineNum">      22 </span><span class="lineCov">         36 : std::pair&lt;float, float&gt; LineSegment::intersectionPoint(const LineSegment &amp;lineSegment) const {</span>
+<span class="lineNum">      23 </span><span class="lineCov">         36 :     int mainDet = calculateDet(a0, lineSegment.a0, a1, lineSegment.a1);</span>
+<span class="lineNum">      24 </span><span class="lineCov">         36 :     if(mainDet == 0)</span>
+<span class="lineNum">      25 </span><span class="lineCov">          8 :         throw std::invalid_argument(&quot;Lines have none or many common points&quot;);</span>
+<span class="lineNum">      26 </span><span class="lineCov">         32 :     int yDet = calculateDet(b, lineSegment.b, a1, lineSegment.a1);</span>
+<span class="lineNum">      27 </span><span class="lineCov">         32 :     int xDet = calculateDet(b, lineSegment.b, a0, lineSegment.a0);</span>
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span><span class="lineCov">         64 :     return std::pair&lt;float, float&gt;((float)xDet / mainDet, (float)yDet / mainDet);</span>
+<a name="30"><span class="lineNum">      30 </span>            : }</a>
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span><span class="lineCov">        140 : int LineSegment::calculateDet(int a00, int a10, int a01, int a11) const {</span>
+<span class="lineNum">      33 </span><span class="lineCov">        140 :     return a00 * a11 - a10 * a01;</span>
+<a name="34"><span class="lineNum">      34 </span>            : }</a>
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span><span class="lineCov">         33 : bool LineSegment::hasIntersection(const LineSegment &amp;lineSegment) const {</span>
+<span class="lineNum">      37 </span><span class="lineCov">         33 :     if(calculateDet(a0, lineSegment.a0, a1, lineSegment.a1) == 0){</span>
+<span class="lineNum">      38 </span><span class="lineCov">          7 :         if (calculateDet(a0, lineSegment.a0, b, lineSegment.b) == 0) {</span>
+<span class="lineNum">      39 </span>            :             //many solutions
+<span class="lineNum">      40 </span><span class="lineCov">         10 :             return isInBounds(lineSegment.upperX, lineSegment.upperY) ||</span>
+<span class="lineNum">      41 </span><span class="lineCov">          6 :                    isInBounds(lineSegment.lowerX, lineSegment.lowerY) ||</span>
+<span class="lineNum">      42 </span><span class="lineCov">         12 :                    lineSegment.isInBounds(this-&gt;upperX, this-&gt;upperY) ||</span>
+<span class="lineNum">      43 </span><span class="lineCov">          9 :                    lineSegment.isInBounds(this-&gt;lowerX, this-&gt;lowerY);</span>
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            :         }
+<span class="lineNum">      46 </span>            :         else //no solutions
+<span class="lineNum">      47 </span>            :             return false;
+<span class="lineNum">      48 </span>            :     }
+<span class="lineNum">      49 </span>            :     // one solution
+<span class="lineNum">      50 </span><span class="lineCov">         26 :     auto intersectPoint = intersectionPoint(lineSegment);</span>
+<span class="lineNum">      51 </span><span class="lineCov">         26 :     return isInBounds(intersectPoint.first, intersectPoint.second)</span>
+<span class="lineNum">      52 </span><span class="lineCov">         26 :             &amp;&amp; lineSegment.isInBounds(intersectPoint.first, intersectPoint.second);</span>
+<a name="53"><span class="lineNum">      53 </span>            : }</a>
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span><span class="lineCov">         49 : bool LineSegment::isInBounds(float x, float y) const{</span>
+<span class="lineNum">      56 </span><span class="lineCov">         49 :     return lowerX &lt;= x &amp;&amp; x &lt;= upperX &amp;&amp; lowerY &lt;= y &amp;&amp; y &lt;= upperY;</span>
+<span class="lineNum">      57 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

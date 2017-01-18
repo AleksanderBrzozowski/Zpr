@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/Map.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - Map.h<span style="font-size: 80%;"> (source / <a href="Map.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /**</a>
+<span class="lineNum">       2 </span>            :  * @file Map.h
+<span class="lineNum">       3 </span>            :  * @Author PiotrKuc (piotr.kuc29@gmail.com)
+<span class="lineNum">       4 </span>            :  * @date January, 2017
+<span class="lineNum">       5 </span>            :  * @brief Map class declaration
+<span class="lineNum">       6 </span>            :  *
+<span class="lineNum">       7 </span>            :  */
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            : #ifndef ZPR_MAP_H
+<span class="lineNum">      10 </span>            : #define ZPR_MAP_H
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            : #include &quot;MovableFactory.h&quot;
+<span class="lineNum">      14 </span>            : #include &quot;CrossFactory.h&quot;
+<span class="lineNum">      15 </span>            : #include &lt;thread&gt;
+<span class="lineNum">      16 </span>            : #include &lt;chrono&gt;
+<span class="lineNum">      17 </span>            : #include &lt;mutex&gt;
+<span class="lineNum">      18 </span>            : #include &quot;Types.h&quot;
+<span class="lineNum">      19 </span>            : #include &quot;Building.h&quot;
+<span class="lineNum">      20 </span>            : #include &quot;Facilities.h&quot;
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span>            : /**
+<span class="lineNum">      23 </span>            :  * @class Map
+<span class="lineNum">      24 </span>            :  * @brief Class allowing to create map and simulate traffics.
+<span class="lineNum">      25 </span>            :  * @details Contains crosses and movables factories allowing
+<span class="lineNum">      26 </span>            :  * GUI eassily creating map and threads to run the simulation
+<span class="lineNum">      27 </span>            :  * @class Map
+<a name="28"><span class="lineNum">      28 </span>            :  */</a>
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span><span class="lineCov">         12 : class Map {</span>
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : private:
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            :     MovableFactory movableFactory;      ///&lt;Object to make movables(humans and cars)
+<span class="lineNum">      35 </span>            :     CrossFactory crossFactory;          ///&lt;Object to make crosses
+<span class="lineNum">      36 </span>            :     Facilities facilities;              ///&lt;Object to make facilities(buildings and cameras)
+<span class="lineNum">      37 </span>            :     std::thread runningMovables;        ///&lt;thread refreshing movables; positions
+<span class="lineNum">      38 </span>            :     std::thread camerasScanning;        ///&lt;thread allowing cameras scanning
+<span class="lineNum">      39 </span>            :     bool runningMovablePermission;      ///&lt;permision for running the thread of movables moving
+<span class="lineNum">      40 </span>            :     bool cameraScanningPermission;      ///&lt;permision for cameras scanning
+<span class="lineNum">      41 </span>            :     std::mutex criticalSection;         ///&lt;mutex to make thread-safe methods
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : public:
+<span class="lineNum">      44 </span>            :     /*!
+<span class="lineNum">      45 </span>            :      * Empty constructor.
+<span class="lineNum">      46 </span>            :      */
+<span class="lineNum">      47 </span>            :     Map();
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            :     ///Creats new crosses between two points.
+<span class="lineNum">      50 </span>            :     bool createRoad(PtrToConstPoint, PtrToConstPoint);
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            :     ///Creating new car in simulation.
+<span class="lineNum">      53 </span>            :     void createCar(PtrToConstPoint, PtrToConstPoint, int);
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span>            :     ///Creating new human in simulation.
+<span class="lineNum">      56 </span>            :     void createHuman(PtrToConstPoint, PtrToConstPoint, int);
+<span class="lineNum">      57 </span>            :     /*!
+<span class="lineNum">      58 </span>            :      * Adds Building represented by arguments of function.
+<span class="lineNum">      59 </span>            :      * @param upperLeft     Point in the upper left of building
+<span class="lineNum">      60 </span>            :      * @param lowerRight    Point in the lower right of building
+<span class="lineNum">      61 </span>            :      * @return              Is building created
+<span class="lineNum">      62 </span>            :      */
+<span class="lineNum">      63 </span>            :     bool createBuilding(const Point &amp;upperLeft, const Point &amp;lowerRight);
+<span class="lineNum">      64 </span>            :     /*!
+<span class="lineNum">      65 </span>            :      * Adds Camera represented by arguments of function.
+<span class="lineNum">      66 </span>            :      * @param startPoint    Camera's start point
+<span class="lineNum">      67 </span>            :      * @param endPoint      Camera's end point
+<span class="lineNum">      68 </span>            :      * @param angle         Camera's angle
+<span class="lineNum">      69 </span>            :      * @param accuracy      Camera's accuracy
+<span class="lineNum">      70 </span>            :      */
+<span class="lineNum">      71 </span>            :     void createCamera(const Point &amp;startPoint, const Point &amp;endPoint, double angle);
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            :     ///Method runs cars and humans in new thread.
+<span class="lineNum">      74 </span>            :     void setRunningMovablePermission(bool);
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span>            :     ///Method runs cameras scanning in new thread.
+<span class="lineNum">      77 </span>            :     void setCameraScanningPermission(bool);
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            :     ///Movables' running in new thread.
+<span class="lineNum">      80 </span>            :     void runRunningMovables();
+<span class="lineNum">      81 </span>            :     void runCamerasScanning();
+<span class="lineNum">      82 </span>            : 
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            : };
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : #endif //ZPR_MAP_H
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

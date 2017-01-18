@@ -1,0 +1,1259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/src/gtest-internal-inl.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/src</a> - gtest-internal-inl.h<span style="font-size: 80%;"> (source / <a href="gtest-internal-inl.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">67</td>
+            <td class="headerCovTableEntry">195</td>
+            <td class="headerCovTableEntryLo">34.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">43</td>
+            <td class="headerCovTableEntryLo">11.6 %</td>
+          </tr>
+          <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2005, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : // Utility functions and classes used by the Google C++ testing framework.
+<span class="lineNum">      31 </span>            : //
+<span class="lineNum">      32 </span>            : // Author: wan@google.com (Zhanyong Wan)
+<span class="lineNum">      33 </span>            : //
+<span class="lineNum">      34 </span>            : // This file contains purely Google Test's internal implementation.  Please
+<span class="lineNum">      35 </span>            : // DO NOT #INCLUDE IT IN A USER PROGRAM.
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : #ifndef GTEST_SRC_GTEST_INTERNAL_INL_H_
+<span class="lineNum">      38 </span>            : #define GTEST_SRC_GTEST_INTERNAL_INL_H_
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : // GTEST_IMPLEMENTATION_ is defined to 1 iff the current translation unit is
+<span class="lineNum">      41 </span>            : // part of Google Test's implementation; otherwise it's undefined.
+<span class="lineNum">      42 </span>            : #if !GTEST_IMPLEMENTATION_
+<span class="lineNum">      43 </span>            : // If this file is included from the user's code, just say no.
+<span class="lineNum">      44 </span>            : # error &quot;gtest-internal-inl.h is part of Google Test's internal implementation.&quot;
+<span class="lineNum">      45 </span>            : # error &quot;It must not be included except by Google Test itself.&quot;
+<span class="lineNum">      46 </span>            : #endif  // GTEST_IMPLEMENTATION_
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : #ifndef _WIN32_WCE
+<span class="lineNum">      49 </span>            : # include &lt;errno.h&gt;
+<span class="lineNum">      50 </span>            : #endif  // !_WIN32_WCE
+<span class="lineNum">      51 </span>            : #include &lt;stddef.h&gt;
+<span class="lineNum">      52 </span>            : #include &lt;stdlib.h&gt;  // For strtoll/_strtoul64/malloc/free.
+<span class="lineNum">      53 </span>            : #include &lt;string.h&gt;  // For memmove.
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">      56 </span>            : #include &lt;string&gt;
+<span class="lineNum">      57 </span>            : #include &lt;vector&gt;
+<span class="lineNum">      58 </span>            : 
+<span class="lineNum">      59 </span>            : #include &quot;gtest/internal/gtest-port.h&quot;
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : #if GTEST_CAN_STREAM_RESULTS_
+<span class="lineNum">      62 </span>            : # include &lt;arpa/inet.h&gt;  // NOLINT
+<span class="lineNum">      63 </span>            : # include &lt;netdb.h&gt;  // NOLINT
+<span class="lineNum">      64 </span>            : #endif
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span>            : #if GTEST_OS_WINDOWS
+<span class="lineNum">      67 </span>            : # include &lt;windows.h&gt;  // NOLINT
+<span class="lineNum">      68 </span>            : #endif  // GTEST_OS_WINDOWS
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            : #include &quot;gtest/gtest.h&quot;  // NOLINT
+<span class="lineNum">      71 </span>            : #include &quot;gtest/gtest-spi.h&quot;
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : namespace testing {
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            : // Declares the flags.
+<span class="lineNum">      76 </span>            : //
+<span class="lineNum">      77 </span>            : // We don't want the users to modify this flag in the code, but want
+<span class="lineNum">      78 </span>            : // Google Test's own unit tests to be able to access it. Therefore we
+<span class="lineNum">      79 </span>            : // declare it here as opposed to in gtest.h.
+<span class="lineNum">      80 </span>            : GTEST_DECLARE_bool_(death_test_use_fork);
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : namespace internal {
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            : // The value of GetTestTypeId() as seen from within the Google Test
+<span class="lineNum">      85 </span>            : // library.  This is solely for testing GetTestTypeId().
+<span class="lineNum">      86 </span>            : GTEST_API_ extern const TypeId kTestTypeIdInGoogleTest;
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            : // Names of the flags (needed for parsing Google Test flags).
+<span class="lineNum">      89 </span>            : const char kAlsoRunDisabledTestsFlag[] = &quot;also_run_disabled_tests&quot;;
+<span class="lineNum">      90 </span>            : const char kBreakOnFailureFlag[] = &quot;break_on_failure&quot;;
+<span class="lineNum">      91 </span>            : const char kCatchExceptionsFlag[] = &quot;catch_exceptions&quot;;
+<span class="lineNum">      92 </span>            : const char kColorFlag[] = &quot;color&quot;;
+<span class="lineNum">      93 </span>            : const char kFilterFlag[] = &quot;filter&quot;;
+<span class="lineNum">      94 </span>            : const char kListTestsFlag[] = &quot;list_tests&quot;;
+<span class="lineNum">      95 </span>            : const char kOutputFlag[] = &quot;output&quot;;
+<span class="lineNum">      96 </span>            : const char kPrintTimeFlag[] = &quot;print_time&quot;;
+<span class="lineNum">      97 </span>            : const char kRandomSeedFlag[] = &quot;random_seed&quot;;
+<span class="lineNum">      98 </span>            : const char kRepeatFlag[] = &quot;repeat&quot;;
+<span class="lineNum">      99 </span>            : const char kShuffleFlag[] = &quot;shuffle&quot;;
+<span class="lineNum">     100 </span>            : const char kStackTraceDepthFlag[] = &quot;stack_trace_depth&quot;;
+<span class="lineNum">     101 </span>            : const char kStreamResultToFlag[] = &quot;stream_result_to&quot;;
+<span class="lineNum">     102 </span>            : const char kThrowOnFailureFlag[] = &quot;throw_on_failure&quot;;
+<span class="lineNum">     103 </span>            : const char kFlagfileFlag[] = &quot;flagfile&quot;;
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span>            : // A valid random seed must be in [1, kMaxRandomSeed].
+<span class="lineNum">     106 </span>            : const int kMaxRandomSeed = 99999;
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span>            : // g_help_flag is true iff the --help flag or an equivalent form is
+<span class="lineNum">     109 </span>            : // specified on the command line.
+<span class="lineNum">     110 </span>            : GTEST_API_ extern bool g_help_flag;
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span>            : // Returns the current time in milliseconds.
+<span class="lineNum">     113 </span>            : GTEST_API_ TimeInMillis GetTimeInMillis();
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span>            : // Returns true iff Google Test should use colors in the output.
+<span class="lineNum">     116 </span>            : GTEST_API_ bool ShouldUseColor(bool stdout_is_tty);
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span>            : // Formats the given time in milliseconds as seconds.
+<span class="lineNum">     119 </span>            : GTEST_API_ std::string FormatTimeInMillisAsSeconds(TimeInMillis ms);
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span>            : // Converts the given time in milliseconds to a date string in the ISO 8601
+<span class="lineNum">     122 </span>            : // format, without the timezone information.  N.B.: due to the use the
+<span class="lineNum">     123 </span>            : // non-reentrant localtime() function, this function is not thread safe.  Do
+<span class="lineNum">     124 </span>            : // not use it in any code that can be called from multiple threads.
+<span class="lineNum">     125 </span>            : GTEST_API_ std::string FormatEpochTimeInMillisAsIso8601(TimeInMillis ms);
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span>            : // Parses a string for an Int32 flag, in the form of &quot;--flag=value&quot;.
+<span class="lineNum">     128 </span>            : //
+<span class="lineNum">     129 </span>            : // On success, stores the value of the flag in *value, and returns
+<span class="lineNum">     130 </span>            : // true.  On failure, returns false without changing *value.
+<span class="lineNum">     131 </span>            : GTEST_API_ bool ParseInt32Flag(
+<span class="lineNum">     132 </span>            :     const char* str, const char* flag, Int32* value);
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            : // Returns a random seed in range [1, kMaxRandomSeed] based on the
+<span class="lineNum">     135 </span>            : // given --gtest_random_seed flag value.
+<span class="lineNum">     136 </span>            : inline int GetRandomSeedFromFlag(Int32 random_seed_flag) {
+<span class="lineNum">     137 </span>            :   const unsigned int raw_seed = (random_seed_flag == 0) ?
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 :       static_cast&lt;unsigned int&gt;(GetTimeInMillis()) :</span>
+<span class="lineNum">     139 </span><span class="lineNoCov">          0 :       static_cast&lt;unsigned int&gt;(random_seed_flag);</span>
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            :   // Normalizes the actual seed to range [1, kMaxRandomSeed] such that
+<span class="lineNum">     142 </span>            :   // it's easy to type.
+<span class="lineNum">     143 </span>            :   const int normalized_seed =
+<span class="lineNum">     144 </span><span class="lineNoCov">          0 :       static_cast&lt;int&gt;((raw_seed - 1U) %</span>
+<span class="lineNum">     145 </span><span class="lineNoCov">          0 :                        static_cast&lt;unsigned int&gt;(kMaxRandomSeed)) + 1;</span>
+<span class="lineNum">     146 </span>            :   return normalized_seed;
+<span class="lineNum">     147 </span>            : }
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            : // Returns the first valid random seed after 'seed'.  The behavior is
+<a name="150"><span class="lineNum">     150 </span>            : // undefined if 'seed' is invalid.  The seed after kMaxRandomSeed is</a>
+<span class="lineNum">     151 </span>            : // considered to be 1.
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 : inline int GetNextRandomSeed(int seed) {</span>
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 :   GTEST_CHECK_(1 &lt;= seed &amp;&amp; seed &lt;= kMaxRandomSeed)</span>
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 :       &lt;&lt; &quot;Invalid random seed &quot; &lt;&lt; seed &lt;&lt; &quot; - must be in [1, &quot;</span>
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 :       &lt;&lt; kMaxRandomSeed &lt;&lt; &quot;].&quot;;</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :   const int next_seed = seed + 1;</span>
+<span class="lineNum">     157 </span><span class="lineNoCov">          0 :   return (next_seed &gt; kMaxRandomSeed) ? 1 : next_seed;</span>
+<span class="lineNum">     158 </span>            : }
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : // This class saves the values of all Google Test flags in its c'tor, and
+<span class="lineNum">     161 </span>            : // restores them in its d'tor.
+<span class="lineNum">     162 </span>            : class GTestFlagSaver {
+<a name="163"><span class="lineNum">     163 </span>            :  public:</a>
+<span class="lineNum">     164 </span>            :   // The c'tor.
+<span class="lineNum">     165 </span><span class="lineCov">        384 :   GTestFlagSaver() {</span>
+<span class="lineNum">     166 </span><span class="lineCov">         64 :     also_run_disabled_tests_ = GTEST_FLAG(also_run_disabled_tests);</span>
+<span class="lineNum">     167 </span><span class="lineCov">         64 :     break_on_failure_ = GTEST_FLAG(break_on_failure);</span>
+<span class="lineNum">     168 </span><span class="lineCov">         64 :     catch_exceptions_ = GTEST_FLAG(catch_exceptions);</span>
+<span class="lineNum">     169 </span><span class="lineCov">         64 :     color_ = GTEST_FLAG(color);</span>
+<span class="lineNum">     170 </span><span class="lineCov">         64 :     death_test_style_ = GTEST_FLAG(death_test_style);</span>
+<span class="lineNum">     171 </span><span class="lineCov">         64 :     death_test_use_fork_ = GTEST_FLAG(death_test_use_fork);</span>
+<span class="lineNum">     172 </span><span class="lineCov">         64 :     filter_ = GTEST_FLAG(filter);</span>
+<span class="lineNum">     173 </span><span class="lineCov">         64 :     internal_run_death_test_ = GTEST_FLAG(internal_run_death_test);</span>
+<span class="lineNum">     174 </span><span class="lineCov">         64 :     list_tests_ = GTEST_FLAG(list_tests);</span>
+<span class="lineNum">     175 </span><span class="lineCov">         64 :     output_ = GTEST_FLAG(output);</span>
+<span class="lineNum">     176 </span><span class="lineCov">         64 :     print_time_ = GTEST_FLAG(print_time);</span>
+<span class="lineNum">     177 </span><span class="lineCov">         64 :     random_seed_ = GTEST_FLAG(random_seed);</span>
+<span class="lineNum">     178 </span><span class="lineCov">         64 :     repeat_ = GTEST_FLAG(repeat);</span>
+<span class="lineNum">     179 </span><span class="lineCov">         64 :     shuffle_ = GTEST_FLAG(shuffle);</span>
+<span class="lineNum">     180 </span><span class="lineCov">         64 :     stack_trace_depth_ = GTEST_FLAG(stack_trace_depth);</span>
+<span class="lineNum">     181 </span><span class="lineCov">         64 :     stream_result_to_ = GTEST_FLAG(stream_result_to);</span>
+<span class="lineNum">     182 </span><span class="lineCov">         64 :     throw_on_failure_ = GTEST_FLAG(throw_on_failure);</span>
+<span class="lineNum">     183 </span><span class="lineCov">         64 :   }</span>
+<a name="184"><span class="lineNum">     184 </span>            : </a>
+<span class="lineNum">     185 </span>            :   // The d'tor is not virtual.  DO NOT INHERIT FROM THIS CLASS.
+<span class="lineNum">     186 </span><span class="lineCov">        448 :   ~GTestFlagSaver() {</span>
+<span class="lineNum">     187 </span><span class="lineCov">         64 :     GTEST_FLAG(also_run_disabled_tests) = also_run_disabled_tests_;</span>
+<span class="lineNum">     188 </span><span class="lineCov">         64 :     GTEST_FLAG(break_on_failure) = break_on_failure_;</span>
+<span class="lineNum">     189 </span><span class="lineCov">         64 :     GTEST_FLAG(catch_exceptions) = catch_exceptions_;</span>
+<span class="lineNum">     190 </span><span class="lineCov">         64 :     GTEST_FLAG(color) = color_;</span>
+<span class="lineNum">     191 </span><span class="lineCov">         64 :     GTEST_FLAG(death_test_style) = death_test_style_;</span>
+<span class="lineNum">     192 </span><span class="lineCov">         64 :     GTEST_FLAG(death_test_use_fork) = death_test_use_fork_;</span>
+<span class="lineNum">     193 </span><span class="lineCov">         64 :     GTEST_FLAG(filter) = filter_;</span>
+<span class="lineNum">     194 </span><span class="lineCov">         64 :     GTEST_FLAG(internal_run_death_test) = internal_run_death_test_;</span>
+<span class="lineNum">     195 </span><span class="lineCov">         64 :     GTEST_FLAG(list_tests) = list_tests_;</span>
+<span class="lineNum">     196 </span><span class="lineCov">         64 :     GTEST_FLAG(output) = output_;</span>
+<span class="lineNum">     197 </span><span class="lineCov">         64 :     GTEST_FLAG(print_time) = print_time_;</span>
+<span class="lineNum">     198 </span><span class="lineCov">         64 :     GTEST_FLAG(random_seed) = random_seed_;</span>
+<span class="lineNum">     199 </span><span class="lineCov">         64 :     GTEST_FLAG(repeat) = repeat_;</span>
+<span class="lineNum">     200 </span><span class="lineCov">         64 :     GTEST_FLAG(shuffle) = shuffle_;</span>
+<span class="lineNum">     201 </span><span class="lineCov">         64 :     GTEST_FLAG(stack_trace_depth) = stack_trace_depth_;</span>
+<span class="lineNum">     202 </span><span class="lineCov">         64 :     GTEST_FLAG(stream_result_to) = stream_result_to_;</span>
+<span class="lineNum">     203 </span><span class="lineCov">         64 :     GTEST_FLAG(throw_on_failure) = throw_on_failure_;</span>
+<span class="lineNum">     204 </span><span class="lineCov">         64 :   }</span>
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span>            :  private:
+<span class="lineNum">     207 </span>            :   // Fields for saving the original values of flags.
+<span class="lineNum">     208 </span>            :   bool also_run_disabled_tests_;
+<span class="lineNum">     209 </span>            :   bool break_on_failure_;
+<span class="lineNum">     210 </span>            :   bool catch_exceptions_;
+<span class="lineNum">     211 </span>            :   std::string color_;
+<span class="lineNum">     212 </span>            :   std::string death_test_style_;
+<span class="lineNum">     213 </span>            :   bool death_test_use_fork_;
+<span class="lineNum">     214 </span>            :   std::string filter_;
+<span class="lineNum">     215 </span>            :   std::string internal_run_death_test_;
+<span class="lineNum">     216 </span>            :   bool list_tests_;
+<span class="lineNum">     217 </span>            :   std::string output_;
+<span class="lineNum">     218 </span>            :   bool print_time_;
+<span class="lineNum">     219 </span>            :   internal::Int32 random_seed_;
+<span class="lineNum">     220 </span>            :   internal::Int32 repeat_;
+<span class="lineNum">     221 </span>            :   bool shuffle_;
+<span class="lineNum">     222 </span>            :   internal::Int32 stack_trace_depth_;
+<span class="lineNum">     223 </span>            :   std::string stream_result_to_;
+<span class="lineNum">     224 </span>            :   bool throw_on_failure_;
+<span class="lineNum">     225 </span>            : } GTEST_ATTRIBUTE_UNUSED_;
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            : // Converts a Unicode code point to a narrow string in UTF-8 encoding.
+<span class="lineNum">     228 </span>            : // code_point parameter is of type UInt32 because wchar_t may not be
+<span class="lineNum">     229 </span>            : // wide enough to contain a code point.
+<span class="lineNum">     230 </span>            : // If the code_point is not a valid Unicode code point
+<span class="lineNum">     231 </span>            : // (i.e. outside of Unicode range U+0 to U+10FFFF) it will be converted
+<span class="lineNum">     232 </span>            : // to &quot;(Invalid Unicode 0xXXXXXXXX)&quot;.
+<span class="lineNum">     233 </span>            : GTEST_API_ std::string CodePointToUtf8(UInt32 code_point);
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            : // Converts a wide string to a narrow string in UTF-8 encoding.
+<span class="lineNum">     236 </span>            : // The wide string is assumed to have the following encoding:
+<span class="lineNum">     237 </span>            : //   UTF-16 if sizeof(wchar_t) == 2 (on Windows, Cygwin, Symbian OS)
+<span class="lineNum">     238 </span>            : //   UTF-32 if sizeof(wchar_t) == 4 (on Linux)
+<span class="lineNum">     239 </span>            : // Parameter str points to a null-terminated wide string.
+<span class="lineNum">     240 </span>            : // Parameter num_chars may additionally limit the number
+<span class="lineNum">     241 </span>            : // of wchar_t characters processed. -1 is used when the entire string
+<span class="lineNum">     242 </span>            : // should be processed.
+<span class="lineNum">     243 </span>            : // If the string contains code points that are not valid Unicode code points
+<span class="lineNum">     244 </span>            : // (i.e. outside of Unicode range U+0 to U+10FFFF) they will be output
+<span class="lineNum">     245 </span>            : // as '(Invalid Unicode 0xXXXXXXXX)'. If the string is in UTF16 encoding
+<span class="lineNum">     246 </span>            : // and contains invalid UTF-16 surrogate pairs, values in those pairs
+<span class="lineNum">     247 </span>            : // will be encoded as individual Unicode characters from Basic Normal Plane.
+<span class="lineNum">     248 </span>            : GTEST_API_ std::string WideStringToUtf8(const wchar_t* str, int num_chars);
+<span class="lineNum">     249 </span>            : 
+<span class="lineNum">     250 </span>            : // Reads the GTEST_SHARD_STATUS_FILE environment variable, and creates the file
+<span class="lineNum">     251 </span>            : // if the variable is present. If a file already exists at this location, this
+<span class="lineNum">     252 </span>            : // function will write over it. If the variable is present, but the file cannot
+<span class="lineNum">     253 </span>            : // be created, prints an error and exits.
+<span class="lineNum">     254 </span>            : void WriteToShardStatusFileIfNeeded();
+<span class="lineNum">     255 </span>            : 
+<span class="lineNum">     256 </span>            : // Checks whether sharding is enabled by examining the relevant
+<span class="lineNum">     257 </span>            : // environment variable values. If the variables are present,
+<span class="lineNum">     258 </span>            : // but inconsistent (e.g., shard_index &gt;= total_shards), prints
+<span class="lineNum">     259 </span>            : // an error and exits. If in_subprocess_for_death_test, sharding is
+<span class="lineNum">     260 </span>            : // disabled because it must only be applied to the original test
+<span class="lineNum">     261 </span>            : // process. Otherwise, we could filter out death tests we intended to execute.
+<span class="lineNum">     262 </span>            : GTEST_API_ bool ShouldShard(const char* total_shards_str,
+<span class="lineNum">     263 </span>            :                             const char* shard_index_str,
+<span class="lineNum">     264 </span>            :                             bool in_subprocess_for_death_test);
+<span class="lineNum">     265 </span>            : 
+<span class="lineNum">     266 </span>            : // Parses the environment variable var as an Int32. If it is unset,
+<span class="lineNum">     267 </span>            : // returns default_val. If it is not an Int32, prints an error and
+<span class="lineNum">     268 </span>            : // and aborts.
+<span class="lineNum">     269 </span>            : GTEST_API_ Int32 Int32FromEnvOrDie(const char* env_var, Int32 default_val);
+<span class="lineNum">     270 </span>            : 
+<span class="lineNum">     271 </span>            : // Given the total number of shards, the shard index, and the test id,
+<span class="lineNum">     272 </span>            : // returns true iff the test should be run on this shard. The test id is
+<span class="lineNum">     273 </span>            : // some arbitrary but unique non-negative integer assigned to each test
+<span class="lineNum">     274 </span>            : // method. Assumes that 0 &lt;= shard_index &lt; total_shards.
+<span class="lineNum">     275 </span>            : GTEST_API_ bool ShouldRunTestOnShard(
+<span class="lineNum">     276 </span>            :     int total_shards, int shard_index, int test_id);
+<span class="lineNum">     277 </span>            : 
+<span class="lineNum">     278 </span>            : // STL container utilities.
+<span class="lineNum">     279 </span>            : 
+<span class="lineNum">     280 </span>            : // Returns the number of elements in the given container that satisfy
+<span class="lineNum">     281 </span>            : // the given predicate.
+<span class="lineNum">     282 </span>            : template &lt;class Container, typename Predicate&gt;
+<span class="lineNum">     283 </span><span class="lineCov">       1172 : inline int CountIf(const Container&amp; c, Predicate predicate) {</span>
+<span class="lineNum">     284 </span>            :   // Implemented as an explicit loop since std::count_if() in libCstd on
+<span class="lineNum">     285 </span>            :   // Solaris has a non-standard signature.
+<span class="lineNum">     286 </span><span class="lineCov">        268 :   int count = 0;</span>
+<span class="lineNum">     287 </span><span class="lineCov">       3248 :   for (typename Container::const_iterator it = c.begin(); it != c.end(); ++it) {</span>
+<span class="lineNum">     288 </span><span class="lineCov">        636 :     if (predicate(*it))</span>
+<span class="lineNum">     289 </span><span class="lineCov">        350 :       ++count;</span>
+<span class="lineNum">     290 </span>            :   }
+<span class="lineNum">     291 </span>            :   return count;
+<span class="lineNum">     292 </span>            : }
+<span class="lineNum">     293 </span>            : 
+<span class="lineNum">     294 </span>            : // Applies a function/functor to each element in the container.
+<span class="lineNum">     295 </span>            : template &lt;class Container, typename Functor&gt;
+<span class="lineNum">     296 </span><span class="lineCov">         34 : void ForEach(const Container&amp; c, Functor functor) {</span>
+<span class="lineNum">     297 </span><span class="lineCov">         34 :   std::for_each(c.begin(), c.end(), functor);</span>
+<span class="lineNum">     298 </span>            : }
+<span class="lineNum">     299 </span>            : 
+<span class="lineNum">     300 </span>            : // Returns the i-th element of the vector, or default_value if i is not
+<a name="301"><span class="lineNum">     301 </span>            : // in range [0, v.size()).</a>
+<span class="lineNum">     302 </span>            : template &lt;typename E&gt;
+<span class="lineNum">     303 </span><span class="lineCov">        158 : inline E GetElementOr(const std::vector&lt;E&gt;&amp; v, int i, E default_value) {</span>
+<span class="lineNum">     304 </span><span class="lineCov">        395 :   return (i &lt; 0 || i &gt;= static_cast&lt;int&gt;(v.size())) ? default_value : v[i];</span>
+<span class="lineNum">     305 </span>            : }
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span>            : // Performs an in-place shuffle of a range of the vector's elements.
+<span class="lineNum">     308 </span>            : // 'begin' and 'end' are element indices as an STL-style range;
+<span class="lineNum">     309 </span>            : // i.e. [begin, end) are shuffled, where 'end' == size() means to
+<a name="310"><span class="lineNum">     310 </span>            : // shuffle to the end of the vector.</a>
+<span class="lineNum">     311 </span>            : template &lt;typename E&gt;
+<span class="lineNum">     312 </span><span class="lineNoCov">          0 : void ShuffleRange(internal::Random* random, int begin, int end,</span>
+<span class="lineNum">     313 </span><span class="lineNoCov">          0 :                   std::vector&lt;E&gt;* v) {</span>
+<span class="lineNum">     314 </span><span class="lineNoCov">          0 :   const int size = static_cast&lt;int&gt;(v-&gt;size());</span>
+<span class="lineNum">     315 </span><span class="lineNoCov">          0 :   GTEST_CHECK_(0 &lt;= begin &amp;&amp; begin &lt;= size)</span>
+<span class="lineNum">     316 </span><span class="lineNoCov">          0 :       &lt;&lt; &quot;Invalid shuffle range start &quot; &lt;&lt; begin &lt;&lt; &quot;: must be in range [0, &quot;</span>
+<span class="lineNum">     317 </span><span class="lineNoCov">          0 :       &lt;&lt; size &lt;&lt; &quot;].&quot;;</span>
+<span class="lineNum">     318 </span><span class="lineNoCov">          0 :   GTEST_CHECK_(begin &lt;= end &amp;&amp; end &lt;= size)</span>
+<span class="lineNum">     319 </span><span class="lineNoCov">          0 :       &lt;&lt; &quot;Invalid shuffle range finish &quot; &lt;&lt; end &lt;&lt; &quot;: must be in range [&quot;</span>
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 :       &lt;&lt; begin &lt;&lt; &quot;, &quot; &lt;&lt; size &lt;&lt; &quot;].&quot;;</span>
+<span class="lineNum">     321 </span>            : 
+<span class="lineNum">     322 </span>            :   // Fisher-Yates shuffle, from
+<span class="lineNum">     323 </span>            :   // http://en.wikipedia.org/wiki/Fisher-Yates_shuffle
+<span class="lineNum">     324 </span><span class="lineNoCov">          0 :   for (int range_width = end - begin; range_width &gt;= 2; range_width--) {</span>
+<span class="lineNum">     325 </span><span class="lineNoCov">          0 :     const int last_in_range = begin + range_width - 1;</span>
+<span class="lineNum">     326 </span><span class="lineNoCov">          0 :     const int selected = begin + random-&gt;Generate(range_width);</span>
+<span class="lineNum">     327 </span><span class="lineNoCov">          0 :     std::swap((*v)[selected], (*v)[last_in_range]);</span>
+<span class="lineNum">     328 </span>            :   }
+<span class="lineNum">     329 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     330 </span>            : 
+<span class="lineNum">     331 </span>            : // Performs an in-place shuffle of the vector's elements.
+<span class="lineNum">     332 </span>            : template &lt;typename E&gt;
+<span class="lineNum">     333 </span><span class="lineNoCov">          0 : inline void Shuffle(internal::Random* random, std::vector&lt;E&gt;* v) {</span>
+<span class="lineNum">     334 </span><span class="lineNoCov">          0 :   ShuffleRange(random, 0, static_cast&lt;int&gt;(v-&gt;size()), v);</span>
+<span class="lineNum">     335 </span>            : }
+<span class="lineNum">     336 </span>            : 
+<span class="lineNum">     337 </span>            : // A function for deleting an object.  Handy for being used as a
+<a name="338"><span class="lineNum">     338 </span>            : // functor.</a>
+<span class="lineNum">     339 </span>            : template &lt;typename T&gt;
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 : static void Delete(T* x) {</span>
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :   delete x;</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     343 </span>            : 
+<span class="lineNum">     344 </span>            : // A predicate that checks the key of a TestProperty against a known key.
+<span class="lineNum">     345 </span>            : //
+<span class="lineNum">     346 </span>            : // TestPropertyKeyIs is copyable.
+<span class="lineNum">     347 </span><span class="lineNoCov">          0 : class TestPropertyKeyIs {</span>
+<span class="lineNum">     348 </span>            :  public:
+<span class="lineNum">     349 </span>            :   // Constructor.
+<span class="lineNum">     350 </span>            :   //
+<span class="lineNum">     351 </span>            :   // TestPropertyKeyIs has NO default constructor.
+<span class="lineNum">     352 </span><span class="lineNoCov">          0 :   explicit TestPropertyKeyIs(const std::string&amp; key) : key_(key) {}</span>
+<span class="lineNum">     353 </span>            : 
+<span class="lineNum">     354 </span>            :   // Returns true iff the test name of test property matches on key_.
+<span class="lineNum">     355 </span>            :   bool operator()(const TestProperty&amp; test_property) const {
+<span class="lineNum">     356 </span><span class="lineNoCov">          0 :     return test_property.key() == key_;</span>
+<span class="lineNum">     357 </span>            :   }
+<span class="lineNum">     358 </span>            : 
+<span class="lineNum">     359 </span>            :  private:
+<span class="lineNum">     360 </span>            :   std::string key_;
+<span class="lineNum">     361 </span>            : };
+<span class="lineNum">     362 </span>            : 
+<span class="lineNum">     363 </span>            : // Class UnitTestOptions.
+<span class="lineNum">     364 </span>            : //
+<span class="lineNum">     365 </span>            : // This class contains functions for processing options the user
+<span class="lineNum">     366 </span>            : // specifies when running the tests.  It has only static members.
+<span class="lineNum">     367 </span>            : //
+<span class="lineNum">     368 </span>            : // In most cases, the user can specify an option using either an
+<span class="lineNum">     369 </span>            : // environment variable or a command line flag.  E.g. you can set the
+<span class="lineNum">     370 </span>            : // test filter using either GTEST_FILTER or --gtest_filter.  If both
+<span class="lineNum">     371 </span>            : // the variable and the flag are present, the latter overrides the
+<span class="lineNum">     372 </span>            : // former.
+<span class="lineNum">     373 </span>            : class GTEST_API_ UnitTestOptions {
+<span class="lineNum">     374 </span>            :  public:
+<span class="lineNum">     375 </span>            :   // Functions for processing the gtest_output flag.
+<span class="lineNum">     376 </span>            : 
+<span class="lineNum">     377 </span>            :   // Returns the output format, or &quot;&quot; for normal printed output.
+<span class="lineNum">     378 </span>            :   static std::string GetOutputFormat();
+<span class="lineNum">     379 </span>            : 
+<span class="lineNum">     380 </span>            :   // Returns the absolute path of the requested output file, or the
+<span class="lineNum">     381 </span>            :   // default (test_detail.xml in the original working directory) if
+<span class="lineNum">     382 </span>            :   // none was explicitly specified.
+<span class="lineNum">     383 </span>            :   static std::string GetAbsolutePathToOutputFile();
+<span class="lineNum">     384 </span>            : 
+<span class="lineNum">     385 </span>            :   // Functions for processing the gtest_filter flag.
+<span class="lineNum">     386 </span>            : 
+<span class="lineNum">     387 </span>            :   // Returns true iff the wildcard pattern matches the string.  The
+<span class="lineNum">     388 </span>            :   // first ':' or '\0' character in pattern marks the end of it.
+<span class="lineNum">     389 </span>            :   //
+<span class="lineNum">     390 </span>            :   // This recursive algorithm isn't very efficient, but is clear and
+<span class="lineNum">     391 </span>            :   // works well enough for matching test names, which are short.
+<span class="lineNum">     392 </span>            :   static bool PatternMatchesString(const char *pattern, const char *str);
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span>            :   // Returns true iff the user-specified filter matches the test case
+<span class="lineNum">     395 </span>            :   // name and the test name.
+<span class="lineNum">     396 </span>            :   static bool FilterMatchesTest(const std::string &amp;test_case_name,
+<span class="lineNum">     397 </span>            :                                 const std::string &amp;test_name);
+<span class="lineNum">     398 </span>            : 
+<span class="lineNum">     399 </span>            : #if GTEST_OS_WINDOWS
+<span class="lineNum">     400 </span>            :   // Function for supporting the gtest_catch_exception flag.
+<span class="lineNum">     401 </span>            : 
+<span class="lineNum">     402 </span>            :   // Returns EXCEPTION_EXECUTE_HANDLER if Google Test should handle the
+<span class="lineNum">     403 </span>            :   // given SEH exception, or EXCEPTION_CONTINUE_SEARCH otherwise.
+<span class="lineNum">     404 </span>            :   // This function is useful as an __except condition.
+<span class="lineNum">     405 </span>            :   static int GTestShouldProcessSEH(DWORD exception_code);
+<span class="lineNum">     406 </span>            : #endif  // GTEST_OS_WINDOWS
+<span class="lineNum">     407 </span>            : 
+<span class="lineNum">     408 </span>            :   // Returns true if &quot;name&quot; matches the ':' separated list of glob-style
+<span class="lineNum">     409 </span>            :   // filters in &quot;filter&quot;.
+<span class="lineNum">     410 </span>            :   static bool MatchesFilter(const std::string&amp; name, const char* filter);
+<span class="lineNum">     411 </span>            : };
+<span class="lineNum">     412 </span>            : 
+<span class="lineNum">     413 </span>            : // Returns the current application's name, removing directory path if that
+<span class="lineNum">     414 </span>            : // is present.  Used by UnitTestOptions::GetOutputFile.
+<span class="lineNum">     415 </span>            : GTEST_API_ FilePath GetCurrentExecutableName();
+<span class="lineNum">     416 </span>            : 
+<span class="lineNum">     417 </span>            : // The role interface for getting the OS stack trace as a string.
+<span class="lineNum">     418 </span>            : class OsStackTraceGetterInterface {
+<a name="419"><span class="lineNum">     419 </span>            :  public:</a>
+<span class="lineNum">     420 </span><span class="lineCov">          1 :   OsStackTraceGetterInterface() {}</span>
+<span class="lineNum">     421 </span><span class="lineNoCov">          0 :   virtual ~OsStackTraceGetterInterface() {}</span>
+<span class="lineNum">     422 </span>            : 
+<span class="lineNum">     423 </span>            :   // Returns the current OS stack trace as an std::string.  Parameters:
+<span class="lineNum">     424 </span>            :   //
+<span class="lineNum">     425 </span>            :   //   max_depth  - the maximum number of stack frames to be included
+<span class="lineNum">     426 </span>            :   //                in the trace.
+<span class="lineNum">     427 </span>            :   //   skip_count - the number of top frames to be skipped; doesn't count
+<span class="lineNum">     428 </span>            :   //                against max_depth.
+<span class="lineNum">     429 </span>            :   virtual string CurrentStackTrace(int max_depth, int skip_count) = 0;
+<span class="lineNum">     430 </span>            : 
+<span class="lineNum">     431 </span>            :   // UponLeavingGTest() should be called immediately before Google Test calls
+<span class="lineNum">     432 </span>            :   // user code. It saves some information about the current stack that
+<span class="lineNum">     433 </span>            :   // CurrentStackTrace() will use to find and hide Google Test stack frames.
+<span class="lineNum">     434 </span>            :   virtual void UponLeavingGTest() = 0;
+<span class="lineNum">     435 </span>            : 
+<span class="lineNum">     436 </span>            :   // This string is inserted in place of stack frames that are part of
+<span class="lineNum">     437 </span>            :   // Google Test's implementation.
+<span class="lineNum">     438 </span>            :   static const char* const kElidedFramesMarker;
+<span class="lineNum">     439 </span>            : 
+<span class="lineNum">     440 </span>            :  private:
+<span class="lineNum">     441 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(OsStackTraceGetterInterface);
+<span class="lineNum">     442 </span>            : };
+<span class="lineNum">     443 </span>            : 
+<span class="lineNum">     444 </span>            : // A working implementation of the OsStackTraceGetterInterface interface.
+<span class="lineNum">     445 </span><span class="lineNoCov">          0 : class OsStackTraceGetter : public OsStackTraceGetterInterface {</span>
+<span class="lineNum">     446 </span>            :  public:
+<span class="lineNum">     447 </span><span class="lineCov">          2 :   OsStackTraceGetter() {}</span>
+<span class="lineNum">     448 </span>            : 
+<span class="lineNum">     449 </span>            :   virtual string CurrentStackTrace(int max_depth, int skip_count);
+<span class="lineNum">     450 </span>            :   virtual void UponLeavingGTest();
+<span class="lineNum">     451 </span>            : 
+<span class="lineNum">     452 </span>            :  private:
+<span class="lineNum">     453 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(OsStackTraceGetter);
+<span class="lineNum">     454 </span>            : };
+<span class="lineNum">     455 </span>            : 
+<span class="lineNum">     456 </span>            : // Information about a Google Test trace point.
+<span class="lineNum">     457 </span><span class="lineNoCov">          0 : struct TraceInfo {</span>
+<span class="lineNum">     458 </span>            :   const char* file;
+<span class="lineNum">     459 </span>            :   int line;
+<span class="lineNum">     460 </span>            :   std::string message;
+<span class="lineNum">     461 </span>            : };
+<span class="lineNum">     462 </span>            : 
+<a name="463"><span class="lineNum">     463 </span>            : // This is the default global test part result reporter used in UnitTestImpl.</a>
+<span class="lineNum">     464 </span>            : // This class should only be used by UnitTestImpl.
+<span class="lineNum">     465 </span><span class="lineNoCov">          0 : class DefaultGlobalTestPartResultReporter</span>
+<span class="lineNum">     466 </span>            :   : public TestPartResultReporterInterface {
+<span class="lineNum">     467 </span>            :  public:
+<span class="lineNum">     468 </span>            :   explicit DefaultGlobalTestPartResultReporter(UnitTestImpl* unit_test);
+<span class="lineNum">     469 </span>            :   // Implements the TestPartResultReporterInterface. Reports the test part
+<span class="lineNum">     470 </span>            :   // result in the current test.
+<span class="lineNum">     471 </span>            :   virtual void ReportTestPartResult(const TestPartResult&amp; result);
+<span class="lineNum">     472 </span>            : 
+<span class="lineNum">     473 </span>            :  private:
+<span class="lineNum">     474 </span>            :   UnitTestImpl* const unit_test_;
+<span class="lineNum">     475 </span>            : 
+<span class="lineNum">     476 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(DefaultGlobalTestPartResultReporter);
+<span class="lineNum">     477 </span>            : };
+<span class="lineNum">     478 </span>            : 
+<a name="479"><span class="lineNum">     479 </span>            : // This is the default per thread test part result reporter used in</a>
+<span class="lineNum">     480 </span>            : // UnitTestImpl. This class should only be used by UnitTestImpl.
+<span class="lineNum">     481 </span><span class="lineNoCov">          0 : class DefaultPerThreadTestPartResultReporter</span>
+<span class="lineNum">     482 </span>            :     : public TestPartResultReporterInterface {
+<span class="lineNum">     483 </span>            :  public:
+<span class="lineNum">     484 </span>            :   explicit DefaultPerThreadTestPartResultReporter(UnitTestImpl* unit_test);
+<span class="lineNum">     485 </span>            :   // Implements the TestPartResultReporterInterface. The implementation just
+<span class="lineNum">     486 </span>            :   // delegates to the current global test part result reporter of *unit_test_.
+<span class="lineNum">     487 </span>            :   virtual void ReportTestPartResult(const TestPartResult&amp; result);
+<span class="lineNum">     488 </span>            : 
+<span class="lineNum">     489 </span>            :  private:
+<span class="lineNum">     490 </span>            :   UnitTestImpl* const unit_test_;
+<span class="lineNum">     491 </span>            : 
+<span class="lineNum">     492 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(DefaultPerThreadTestPartResultReporter);
+<span class="lineNum">     493 </span>            : };
+<span class="lineNum">     494 </span>            : 
+<span class="lineNum">     495 </span>            : // The private implementation of the UnitTest class.  We don't protect
+<span class="lineNum">     496 </span>            : // the methods under a mutex, as this class is not accessible by a
+<span class="lineNum">     497 </span>            : // user and the UnitTest class that delegates work to this class does
+<span class="lineNum">     498 </span>            : // proper locking.
+<span class="lineNum">     499 </span>            : class GTEST_API_ UnitTestImpl {
+<span class="lineNum">     500 </span>            :  public:
+<span class="lineNum">     501 </span>            :   explicit UnitTestImpl(UnitTest* parent);
+<span class="lineNum">     502 </span>            :   virtual ~UnitTestImpl();
+<span class="lineNum">     503 </span>            : 
+<span class="lineNum">     504 </span>            :   // There are two different ways to register your own TestPartResultReporter.
+<span class="lineNum">     505 </span>            :   // You can register your own repoter to listen either only for test results
+<span class="lineNum">     506 </span>            :   // from the current thread or for results from all threads.
+<span class="lineNum">     507 </span>            :   // By default, each per-thread test result repoter just passes a new
+<span class="lineNum">     508 </span>            :   // TestPartResult to the global test result reporter, which registers the
+<span class="lineNum">     509 </span>            :   // test part result for the currently running test.
+<span class="lineNum">     510 </span>            : 
+<span class="lineNum">     511 </span>            :   // Returns the global test part result reporter.
+<span class="lineNum">     512 </span>            :   TestPartResultReporterInterface* GetGlobalTestPartResultReporter();
+<span class="lineNum">     513 </span>            : 
+<span class="lineNum">     514 </span>            :   // Sets the global test part result reporter.
+<span class="lineNum">     515 </span>            :   void SetGlobalTestPartResultReporter(
+<span class="lineNum">     516 </span>            :       TestPartResultReporterInterface* reporter);
+<span class="lineNum">     517 </span>            : 
+<span class="lineNum">     518 </span>            :   // Returns the test part result reporter for the current thread.
+<span class="lineNum">     519 </span>            :   TestPartResultReporterInterface* GetTestPartResultReporterForCurrentThread();
+<span class="lineNum">     520 </span>            : 
+<span class="lineNum">     521 </span>            :   // Sets the test part result reporter for the current thread.
+<span class="lineNum">     522 </span>            :   void SetTestPartResultReporterForCurrentThread(
+<span class="lineNum">     523 </span>            :       TestPartResultReporterInterface* reporter);
+<span class="lineNum">     524 </span>            : 
+<span class="lineNum">     525 </span>            :   // Gets the number of successful test cases.
+<span class="lineNum">     526 </span>            :   int successful_test_case_count() const;
+<span class="lineNum">     527 </span>            : 
+<span class="lineNum">     528 </span>            :   // Gets the number of failed test cases.
+<span class="lineNum">     529 </span>            :   int failed_test_case_count() const;
+<span class="lineNum">     530 </span>            : 
+<span class="lineNum">     531 </span>            :   // Gets the number of all test cases.
+<span class="lineNum">     532 </span>            :   int total_test_case_count() const;
+<span class="lineNum">     533 </span>            : 
+<span class="lineNum">     534 </span>            :   // Gets the number of all test cases that contain at least one test
+<span class="lineNum">     535 </span>            :   // that should run.
+<span class="lineNum">     536 </span>            :   int test_case_to_run_count() const;
+<span class="lineNum">     537 </span>            : 
+<span class="lineNum">     538 </span>            :   // Gets the number of successful tests.
+<span class="lineNum">     539 </span>            :   int successful_test_count() const;
+<span class="lineNum">     540 </span>            : 
+<span class="lineNum">     541 </span>            :   // Gets the number of failed tests.
+<span class="lineNum">     542 </span>            :   int failed_test_count() const;
+<span class="lineNum">     543 </span>            : 
+<span class="lineNum">     544 </span>            :   // Gets the number of disabled tests that will be reported in the XML report.
+<span class="lineNum">     545 </span>            :   int reportable_disabled_test_count() const;
+<span class="lineNum">     546 </span>            : 
+<span class="lineNum">     547 </span>            :   // Gets the number of disabled tests.
+<span class="lineNum">     548 </span>            :   int disabled_test_count() const;
+<span class="lineNum">     549 </span>            : 
+<span class="lineNum">     550 </span>            :   // Gets the number of tests to be printed in the XML report.
+<span class="lineNum">     551 </span>            :   int reportable_test_count() const;
+<span class="lineNum">     552 </span>            : 
+<span class="lineNum">     553 </span>            :   // Gets the number of all tests.
+<span class="lineNum">     554 </span>            :   int total_test_count() const;
+<span class="lineNum">     555 </span>            : 
+<span class="lineNum">     556 </span>            :   // Gets the number of tests that should run.
+<span class="lineNum">     557 </span>            :   int test_to_run_count() const;
+<span class="lineNum">     558 </span>            : 
+<span class="lineNum">     559 </span>            :   // Gets the time of the test program start, in ms from the start of the
+<span class="lineNum">     560 </span>            :   // UNIX epoch.
+<span class="lineNum">     561 </span>            :   TimeInMillis start_timestamp() const { return start_timestamp_; }
+<span class="lineNum">     562 </span>            : 
+<span class="lineNum">     563 </span>            :   // Gets the elapsed time, in milliseconds.
+<span class="lineNum">     564 </span>            :   TimeInMillis elapsed_time() const { return elapsed_time_; }
+<span class="lineNum">     565 </span>            : 
+<span class="lineNum">     566 </span>            :   // Returns true iff the unit test passed (i.e. all test cases passed).
+<span class="lineNum">     567 </span><span class="lineCov">          2 :   bool Passed() const { return !Failed(); }</span>
+<span class="lineNum">     568 </span>            : 
+<a name="569"><span class="lineNum">     569 </span>            :   // Returns true iff the unit test failed (i.e. some test case failed</a>
+<span class="lineNum">     570 </span>            :   // or something outside of all tests failed).
+<span class="lineNum">     571 </span><span class="lineCov">          2 :   bool Failed() const {</span>
+<span class="lineNum">     572 </span><span class="lineCov">          2 :     return failed_test_case_count() &gt; 0 || ad_hoc_test_result()-&gt;Failed();</span>
+<span class="lineNum">     573 </span>            :   }
+<span class="lineNum">     574 </span>            : 
+<span class="lineNum">     575 </span>            :   // Gets the i-th test case among all the test cases. i can range from 0 to
+<span class="lineNum">     576 </span>            :   // total_test_case_count() - 1. If i is not in that range, returns NULL.
+<span class="lineNum">     577 </span><span class="lineNoCov">          0 :   const TestCase* GetTestCase(int i) const {</span>
+<span class="lineNum">     578 </span><span class="lineNoCov">          0 :     const int index = GetElementOr(test_case_indices_, i, -1);</span>
+<span class="lineNum">     579 </span><span class="lineNoCov">          0 :     return index &lt; 0 ? NULL : test_cases_[i];</span>
+<span class="lineNum">     580 </span>            :   }
+<span class="lineNum">     581 </span>            : 
+<span class="lineNum">     582 </span>            :   // Gets the i-th test case among all the test cases. i can range from 0 to
+<span class="lineNum">     583 </span>            :   // total_test_case_count() - 1. If i is not in that range, returns NULL.
+<span class="lineNum">     584 </span><span class="lineCov">         15 :   TestCase* GetMutableTestCase(int i) {</span>
+<span class="lineNum">     585 </span><span class="lineCov">         30 :     const int index = GetElementOr(test_case_indices_, i, -1);</span>
+<span class="lineNum">     586 </span><span class="lineCov">         30 :     return index &lt; 0 ? NULL : test_cases_[index];</span>
+<span class="lineNum">     587 </span>            :   }
+<span class="lineNum">     588 </span>            : 
+<span class="lineNum">     589 </span>            :   // Provides access to the event listener list.
+<span class="lineNum">     590 </span>            :   TestEventListeners* listeners() { return &amp;listeners_; }
+<span class="lineNum">     591 </span>            : 
+<span class="lineNum">     592 </span>            :   // Returns the TestResult for the test that's currently running, or
+<span class="lineNum">     593 </span>            :   // the TestResult for the ad hoc test if no test is running.
+<span class="lineNum">     594 </span>            :   TestResult* current_test_result();
+<span class="lineNum">     595 </span>            : 
+<span class="lineNum">     596 </span>            :   // Returns the TestResult for the ad hoc test.
+<span class="lineNum">     597 </span>            :   const TestResult* ad_hoc_test_result() const { return &amp;ad_hoc_test_result_; }
+<span class="lineNum">     598 </span>            : 
+<span class="lineNum">     599 </span>            :   // Sets the OS stack trace getter.
+<span class="lineNum">     600 </span>            :   //
+<span class="lineNum">     601 </span>            :   // Does nothing if the input and the current OS stack trace getter
+<span class="lineNum">     602 </span>            :   // are the same; otherwise, deletes the old getter and makes the
+<span class="lineNum">     603 </span>            :   // input the current getter.
+<span class="lineNum">     604 </span>            :   void set_os_stack_trace_getter(OsStackTraceGetterInterface* getter);
+<span class="lineNum">     605 </span>            : 
+<span class="lineNum">     606 </span>            :   // Returns the current OS stack trace getter if it is not NULL;
+<span class="lineNum">     607 </span>            :   // otherwise, creates an OsStackTraceGetter, makes it the current
+<span class="lineNum">     608 </span>            :   // getter, and returns it.
+<span class="lineNum">     609 </span>            :   OsStackTraceGetterInterface* os_stack_trace_getter();
+<span class="lineNum">     610 </span>            : 
+<span class="lineNum">     611 </span>            :   // Returns the current OS stack trace as an std::string.
+<span class="lineNum">     612 </span>            :   //
+<span class="lineNum">     613 </span>            :   // The maximum number of stack frames to be included is specified by
+<span class="lineNum">     614 </span>            :   // the gtest_stack_trace_depth flag.  The skip_count parameter
+<span class="lineNum">     615 </span>            :   // specifies the number of top frames to be skipped, which doesn't
+<span class="lineNum">     616 </span>            :   // count against the number of frames to be included.
+<span class="lineNum">     617 </span>            :   //
+<span class="lineNum">     618 </span>            :   // For example, if Foo() calls Bar(), which in turn calls
+<span class="lineNum">     619 </span>            :   // CurrentOsStackTraceExceptTop(1), Foo() will be included in the
+<span class="lineNum">     620 </span>            :   // trace but Bar() and CurrentOsStackTraceExceptTop() won't.
+<span class="lineNum">     621 </span>            :   std::string CurrentOsStackTraceExceptTop(int skip_count) GTEST_NO_INLINE_;
+<span class="lineNum">     622 </span>            : 
+<span class="lineNum">     623 </span>            :   // Finds and returns a TestCase with the given name.  If one doesn't
+<span class="lineNum">     624 </span>            :   // exist, creates one and returns it.
+<span class="lineNum">     625 </span>            :   //
+<span class="lineNum">     626 </span>            :   // Arguments:
+<span class="lineNum">     627 </span>            :   //
+<span class="lineNum">     628 </span>            :   //   test_case_name: name of the test case
+<span class="lineNum">     629 </span>            :   //   type_param:     the name of the test's type parameter, or NULL if
+<span class="lineNum">     630 </span>            :   //                   this is not a typed or a type-parameterized test.
+<span class="lineNum">     631 </span>            :   //   set_up_tc:      pointer to the function that sets up the test case
+<span class="lineNum">     632 </span>            :   //   tear_down_tc:   pointer to the function that tears down the test case
+<span class="lineNum">     633 </span>            :   TestCase* GetTestCase(const char* test_case_name,
+<span class="lineNum">     634 </span>            :                         const char* type_param,
+<span class="lineNum">     635 </span>            :                         Test::SetUpTestCaseFunc set_up_tc,
+<span class="lineNum">     636 </span>            :                         Test::TearDownTestCaseFunc tear_down_tc);
+<span class="lineNum">     637 </span>            : 
+<span class="lineNum">     638 </span>            :   // Adds a TestInfo to the unit test.
+<span class="lineNum">     639 </span>            :   //
+<span class="lineNum">     640 </span>            :   // Arguments:
+<span class="lineNum">     641 </span>            :   //
+<span class="lineNum">     642 </span>            :   //   set_up_tc:    pointer to the function that sets up the test case
+<a name="643"><span class="lineNum">     643 </span>            :   //   tear_down_tc: pointer to the function that tears down the test case</a>
+<span class="lineNum">     644 </span>            :   //   test_info:    the TestInfo object
+<span class="lineNum">     645 </span><span class="lineCov">         64 :   void AddTestInfo(Test::SetUpTestCaseFunc set_up_tc,</span>
+<span class="lineNum">     646 </span>            :                    Test::TearDownTestCaseFunc tear_down_tc,
+<span class="lineNum">     647 </span>            :                    TestInfo* test_info) {
+<span class="lineNum">     648 </span>            :     // In order to support thread-safe death tests, we need to
+<span class="lineNum">     649 </span>            :     // remember the original working directory when the test program
+<span class="lineNum">     650 </span>            :     // was first invoked.  We cannot do this in RUN_ALL_TESTS(), as
+<span class="lineNum">     651 </span>            :     // the user may have changed the current directory before calling
+<span class="lineNum">     652 </span>            :     // RUN_ALL_TESTS().  Therefore we capture the current directory in
+<span class="lineNum">     653 </span>            :     // AddTestInfo(), which is called to register a TEST or TEST_F
+<span class="lineNum">     654 </span>            :     // before main() is reached.
+<span class="lineNum">     655 </span><span class="lineCov">        128 :     if (original_working_dir_.IsEmpty()) {</span>
+<span class="lineNum">     656 </span><span class="lineCov">          2 :       original_working_dir_.Set(FilePath::GetCurrentDir());</span>
+<span class="lineNum">     657 </span><span class="lineCov">          2 :       GTEST_CHECK_(!original_working_dir_.IsEmpty())</span>
+<span class="lineNum">     658 </span><span class="lineNoCov">          0 :           &lt;&lt; &quot;Failed to get the current working directory.&quot;;</span>
+<span class="lineNum">     659 </span>            :     }
+<span class="lineNum">     660 </span>            : 
+<span class="lineNum">     661 </span>            :     GetTestCase(test_info-&gt;test_case_name(),
+<span class="lineNum">     662 </span>            :                 test_info-&gt;type_param(),
+<span class="lineNum">     663 </span>            :                 set_up_tc,
+<span class="lineNum">     664 </span><span class="lineCov">        128 :                 tear_down_tc)-&gt;AddTestInfo(test_info);</span>
+<span class="lineNum">     665 </span><span class="lineCov">         64 :   }</span>
+<span class="lineNum">     666 </span>            : 
+<span class="lineNum">     667 </span>            : #if GTEST_HAS_PARAM_TEST
+<span class="lineNum">     668 </span>            :   // Returns ParameterizedTestCaseRegistry object used to keep track of
+<span class="lineNum">     669 </span>            :   // value-parameterized tests and instantiate and register them.
+<span class="lineNum">     670 </span>            :   internal::ParameterizedTestCaseRegistry&amp; parameterized_test_registry() {
+<span class="lineNum">     671 </span>            :     return parameterized_test_registry_;
+<span class="lineNum">     672 </span>            :   }
+<span class="lineNum">     673 </span>            : #endif  // GTEST_HAS_PARAM_TEST
+<span class="lineNum">     674 </span>            : 
+<span class="lineNum">     675 </span>            :   // Sets the TestCase object for the test that's currently running.
+<span class="lineNum">     676 </span>            :   void set_current_test_case(TestCase* a_current_test_case) {
+<span class="lineNum">     677 </span><span class="lineCov">         30 :     current_test_case_ = a_current_test_case;</span>
+<span class="lineNum">     678 </span>            :   }
+<span class="lineNum">     679 </span>            : 
+<span class="lineNum">     680 </span>            :   // Sets the TestInfo object for the test that's currently running.  If
+<span class="lineNum">     681 </span>            :   // current_test_info is NULL, the assertion results will be stored in
+<span class="lineNum">     682 </span>            :   // ad_hoc_test_result_.
+<span class="lineNum">     683 </span>            :   void set_current_test_info(TestInfo* a_current_test_info) {
+<span class="lineNum">     684 </span><span class="lineCov">        128 :     current_test_info_ = a_current_test_info;</span>
+<span class="lineNum">     685 </span>            :   }
+<span class="lineNum">     686 </span>            : 
+<span class="lineNum">     687 </span>            :   // Registers all parameterized tests defined using TEST_P and
+<span class="lineNum">     688 </span>            :   // INSTANTIATE_TEST_CASE_P, creating regular tests for each test/parameter
+<span class="lineNum">     689 </span>            :   // combination. This method can be called more then once; it has guards
+<span class="lineNum">     690 </span>            :   // protecting from registering the tests more then once.  If
+<span class="lineNum">     691 </span>            :   // value-parameterized tests are disabled, RegisterParameterizedTests is
+<span class="lineNum">     692 </span>            :   // present but does nothing.
+<span class="lineNum">     693 </span>            :   void RegisterParameterizedTests();
+<span class="lineNum">     694 </span>            : 
+<span class="lineNum">     695 </span>            :   // Runs all tests in this UnitTest object, prints the result, and
+<span class="lineNum">     696 </span>            :   // returns true if all tests are successful.  If any exception is
+<span class="lineNum">     697 </span>            :   // thrown during a test, this test is considered to be failed, but
+<span class="lineNum">     698 </span>            :   // the rest of the tests will still be run.
+<span class="lineNum">     699 </span>            :   bool RunAllTests();
+<span class="lineNum">     700 </span>            : 
+<span class="lineNum">     701 </span>            :   // Clears the results of all tests, except the ad hoc tests.
+<span class="lineNum">     702 </span>            :   void ClearNonAdHocTestResult() {
+<span class="lineNum">     703 </span><span class="lineCov">          1 :     ForEach(test_cases_, TestCase::ClearTestCaseResult);</span>
+<span class="lineNum">     704 </span>            :   }
+<span class="lineNum">     705 </span>            : 
+<span class="lineNum">     706 </span>            :   // Clears the results of ad-hoc test assertions.
+<span class="lineNum">     707 </span>            :   void ClearAdHocTestResult() {
+<span class="lineNum">     708 </span>            :     ad_hoc_test_result_.Clear();
+<span class="lineNum">     709 </span>            :   }
+<span class="lineNum">     710 </span>            : 
+<span class="lineNum">     711 </span>            :   // Adds a TestProperty to the current TestResult object when invoked in a
+<span class="lineNum">     712 </span>            :   // context of a test or a test case, or to the global property set. If the
+<span class="lineNum">     713 </span>            :   // result already contains a property with the same key, the value will be
+<span class="lineNum">     714 </span>            :   // updated.
+<span class="lineNum">     715 </span>            :   void RecordProperty(const TestProperty&amp; test_property);
+<span class="lineNum">     716 </span>            : 
+<span class="lineNum">     717 </span>            :   enum ReactionToSharding {
+<span class="lineNum">     718 </span>            :     HONOR_SHARDING_PROTOCOL,
+<span class="lineNum">     719 </span>            :     IGNORE_SHARDING_PROTOCOL
+<span class="lineNum">     720 </span>            :   };
+<span class="lineNum">     721 </span>            : 
+<span class="lineNum">     722 </span>            :   // Matches the full name of each test against the user-specified
+<span class="lineNum">     723 </span>            :   // filter to decide whether the test should run, then records the
+<span class="lineNum">     724 </span>            :   // result in each TestCase and TestInfo object.
+<span class="lineNum">     725 </span>            :   // If shard_tests == HONOR_SHARDING_PROTOCOL, further filters tests
+<span class="lineNum">     726 </span>            :   // based on sharding variables in the environment.
+<span class="lineNum">     727 </span>            :   // Returns the number of tests that should run.
+<span class="lineNum">     728 </span>            :   int FilterTests(ReactionToSharding shard_tests);
+<span class="lineNum">     729 </span>            : 
+<span class="lineNum">     730 </span>            :   // Prints the names of the tests matching the user-specified filter flag.
+<span class="lineNum">     731 </span>            :   void ListTestsMatchingFilter();
+<span class="lineNum">     732 </span>            : 
+<span class="lineNum">     733 </span>            :   const TestCase* current_test_case() const { return current_test_case_; }
+<span class="lineNum">     734 </span>            :   TestInfo* current_test_info() { return current_test_info_; }
+<span class="lineNum">     735 </span>            :   const TestInfo* current_test_info() const { return current_test_info_; }
+<span class="lineNum">     736 </span>            : 
+<span class="lineNum">     737 </span>            :   // Returns the vector of environments that need to be set-up/torn-down
+<span class="lineNum">     738 </span>            :   // before/after the tests are run.
+<span class="lineNum">     739 </span>            :   std::vector&lt;Environment*&gt;&amp; environments() { return environments_; }
+<span class="lineNum">     740 </span>            : 
+<span class="lineNum">     741 </span>            :   // Getters for the per-thread Google Test trace stack.
+<span class="lineNum">     742 </span>            :   std::vector&lt;TraceInfo&gt;&amp; gtest_trace_stack() {
+<span class="lineNum">     743 </span><span class="lineNoCov">          0 :     return *(gtest_trace_stack_.pointer());</span>
+<span class="lineNum">     744 </span>            :   }
+<span class="lineNum">     745 </span>            :   const std::vector&lt;TraceInfo&gt;&amp; gtest_trace_stack() const {
+<span class="lineNum">     746 </span>            :     return gtest_trace_stack_.get();
+<span class="lineNum">     747 </span>            :   }
+<span class="lineNum">     748 </span>            : 
+<span class="lineNum">     749 </span>            : #if GTEST_HAS_DEATH_TEST
+<span class="lineNum">     750 </span>            :   void InitDeathTestSubprocessControlInfo() {
+<span class="lineNum">     751 </span><span class="lineCov">          1 :     internal_run_death_test_flag_.reset(ParseInternalRunDeathTestFlag());</span>
+<span class="lineNum">     752 </span>            :   }
+<span class="lineNum">     753 </span>            :   // Returns a pointer to the parsed --gtest_internal_run_death_test
+<span class="lineNum">     754 </span>            :   // flag, or NULL if that flag was not specified.
+<span class="lineNum">     755 </span>            :   // This information is useful only in a death test child process.
+<span class="lineNum">     756 </span>            :   // Must not be called before a call to InitGoogleTest.
+<span class="lineNum">     757 </span>            :   const InternalRunDeathTestFlag* internal_run_death_test_flag() const {
+<span class="lineNum">     758 </span><span class="lineNoCov">          0 :     return internal_run_death_test_flag_.get();</span>
+<span class="lineNum">     759 </span>            :   }
+<span class="lineNum">     760 </span>            : 
+<span class="lineNum">     761 </span>            :   // Returns a pointer to the current death test factory.
+<span class="lineNum">     762 </span>            :   internal::DeathTestFactory* death_test_factory() {
+<span class="lineNum">     763 </span><span class="lineNoCov">          0 :     return death_test_factory_.get();</span>
+<span class="lineNum">     764 </span>            :   }
+<span class="lineNum">     765 </span>            : 
+<span class="lineNum">     766 </span>            :   void SuppressTestEventsIfInSubprocess();
+<span class="lineNum">     767 </span>            : 
+<span class="lineNum">     768 </span>            :   friend class ReplaceDeathTestFactory;
+<span class="lineNum">     769 </span>            : #endif  // GTEST_HAS_DEATH_TEST
+<span class="lineNum">     770 </span>            : 
+<span class="lineNum">     771 </span>            :   // Initializes the event listener performing XML output as specified by
+<span class="lineNum">     772 </span>            :   // UnitTestOptions. Must not be called before InitGoogleTest.
+<span class="lineNum">     773 </span>            :   void ConfigureXmlOutput();
+<span class="lineNum">     774 </span>            : 
+<span class="lineNum">     775 </span>            : #if GTEST_CAN_STREAM_RESULTS_
+<span class="lineNum">     776 </span>            :   // Initializes the event listener for streaming test results to a socket.
+<span class="lineNum">     777 </span>            :   // Must not be called before InitGoogleTest.
+<span class="lineNum">     778 </span>            :   void ConfigureStreamingOutput();
+<span class="lineNum">     779 </span>            : #endif
+<span class="lineNum">     780 </span>            : 
+<span class="lineNum">     781 </span>            :   // Performs initialization dependent upon flag values obtained in
+<span class="lineNum">     782 </span>            :   // ParseGoogleTestFlagsOnly.  Is called from InitGoogleTest after the call to
+<span class="lineNum">     783 </span>            :   // ParseGoogleTestFlagsOnly.  In case a user neglects to call InitGoogleTest
+<span class="lineNum">     784 </span>            :   // this function is also called from RunAllTests.  Since this function can be
+<span class="lineNum">     785 </span>            :   // called more than once, it has to be idempotent.
+<span class="lineNum">     786 </span>            :   void PostFlagParsingInit();
+<span class="lineNum">     787 </span>            : 
+<span class="lineNum">     788 </span>            :   // Gets the random seed used at the start of the current test iteration.
+<span class="lineNum">     789 </span>            :   int random_seed() const { return random_seed_; }
+<span class="lineNum">     790 </span>            : 
+<span class="lineNum">     791 </span>            :   // Gets the random number generator.
+<span class="lineNum">     792 </span>            :   internal::Random* random() { return &amp;random_; }
+<span class="lineNum">     793 </span>            : 
+<span class="lineNum">     794 </span>            :   // Shuffles all test cases, and the tests within each test case,
+<span class="lineNum">     795 </span>            :   // making sure that death tests are still run first.
+<span class="lineNum">     796 </span>            :   void ShuffleTests();
+<span class="lineNum">     797 </span>            : 
+<span class="lineNum">     798 </span>            :   // Restores the test cases and tests to their order before the first shuffle.
+<span class="lineNum">     799 </span>            :   void UnshuffleTests();
+<span class="lineNum">     800 </span>            : 
+<span class="lineNum">     801 </span>            :   // Returns the value of GTEST_FLAG(catch_exceptions) at the moment
+<span class="lineNum">     802 </span>            :   // UnitTest::Run() starts.
+<span class="lineNum">     803 </span>            :   bool catch_exceptions() const { return catch_exceptions_; }
+<span class="lineNum">     804 </span>            : 
+<span class="lineNum">     805 </span>            :  private:
+<span class="lineNum">     806 </span>            :   friend class ::testing::UnitTest;
+<span class="lineNum">     807 </span>            : 
+<span class="lineNum">     808 </span>            :   // Used by UnitTest::Run() to capture the state of
+<span class="lineNum">     809 </span>            :   // GTEST_FLAG(catch_exceptions) at the moment it starts.
+<span class="lineNum">     810 </span><span class="lineCov">          1 :   void set_catch_exceptions(bool value) { catch_exceptions_ = value; }</span>
+<span class="lineNum">     811 </span>            : 
+<span class="lineNum">     812 </span>            :   // The UnitTest object that owns this implementation object.
+<span class="lineNum">     813 </span>            :   UnitTest* const parent_;
+<span class="lineNum">     814 </span>            : 
+<span class="lineNum">     815 </span>            :   // The working directory when the first TEST() or TEST_F() was
+<span class="lineNum">     816 </span>            :   // executed.
+<span class="lineNum">     817 </span>            :   internal::FilePath original_working_dir_;
+<span class="lineNum">     818 </span>            : 
+<span class="lineNum">     819 </span>            :   // The default test part result reporters.
+<span class="lineNum">     820 </span>            :   DefaultGlobalTestPartResultReporter default_global_test_part_result_reporter_;
+<span class="lineNum">     821 </span>            :   DefaultPerThreadTestPartResultReporter
+<span class="lineNum">     822 </span>            :       default_per_thread_test_part_result_reporter_;
+<span class="lineNum">     823 </span>            : 
+<span class="lineNum">     824 </span>            :   // Points to (but doesn't own) the global test part result reporter.
+<span class="lineNum">     825 </span>            :   TestPartResultReporterInterface* global_test_part_result_repoter_;
+<span class="lineNum">     826 </span>            : 
+<span class="lineNum">     827 </span>            :   // Protects read and write access to global_test_part_result_reporter_.
+<span class="lineNum">     828 </span>            :   internal::Mutex global_test_part_result_reporter_mutex_;
+<span class="lineNum">     829 </span>            : 
+<span class="lineNum">     830 </span>            :   // Points to (but doesn't own) the per-thread test part result reporter.
+<span class="lineNum">     831 </span>            :   internal::ThreadLocal&lt;TestPartResultReporterInterface*&gt;
+<span class="lineNum">     832 </span>            :       per_thread_test_part_result_reporter_;
+<span class="lineNum">     833 </span>            : 
+<span class="lineNum">     834 </span>            :   // The vector of environments that need to be set-up/torn-down
+<span class="lineNum">     835 </span>            :   // before/after the tests are run.
+<span class="lineNum">     836 </span>            :   std::vector&lt;Environment*&gt; environments_;
+<span class="lineNum">     837 </span>            : 
+<span class="lineNum">     838 </span>            :   // The vector of TestCases in their original order.  It owns the
+<span class="lineNum">     839 </span>            :   // elements in the vector.
+<span class="lineNum">     840 </span>            :   std::vector&lt;TestCase*&gt; test_cases_;
+<span class="lineNum">     841 </span>            : 
+<span class="lineNum">     842 </span>            :   // Provides a level of indirection for the test case list to allow
+<span class="lineNum">     843 </span>            :   // easy shuffling and restoring the test case order.  The i-th
+<span class="lineNum">     844 </span>            :   // element of this vector is the index of the i-th test case in the
+<span class="lineNum">     845 </span>            :   // shuffled order.
+<span class="lineNum">     846 </span>            :   std::vector&lt;int&gt; test_case_indices_;
+<span class="lineNum">     847 </span>            : 
+<span class="lineNum">     848 </span>            : #if GTEST_HAS_PARAM_TEST
+<span class="lineNum">     849 </span>            :   // ParameterizedTestRegistry object used to register value-parameterized
+<span class="lineNum">     850 </span>            :   // tests.
+<span class="lineNum">     851 </span>            :   internal::ParameterizedTestCaseRegistry parameterized_test_registry_;
+<span class="lineNum">     852 </span>            : 
+<span class="lineNum">     853 </span>            :   // Indicates whether RegisterParameterizedTests() has been called already.
+<span class="lineNum">     854 </span>            :   bool parameterized_tests_registered_;
+<span class="lineNum">     855 </span>            : #endif  // GTEST_HAS_PARAM_TEST
+<span class="lineNum">     856 </span>            : 
+<span class="lineNum">     857 </span>            :   // Index of the last death test case registered.  Initially -1.
+<span class="lineNum">     858 </span>            :   int last_death_test_case_;
+<span class="lineNum">     859 </span>            : 
+<span class="lineNum">     860 </span>            :   // This points to the TestCase for the currently running test.  It
+<span class="lineNum">     861 </span>            :   // changes as Google Test goes through one test case after another.
+<span class="lineNum">     862 </span>            :   // When no test is running, this is set to NULL and Google Test
+<span class="lineNum">     863 </span>            :   // stores assertion results in ad_hoc_test_result_.  Initially NULL.
+<span class="lineNum">     864 </span>            :   TestCase* current_test_case_;
+<span class="lineNum">     865 </span>            : 
+<span class="lineNum">     866 </span>            :   // This points to the TestInfo for the currently running test.  It
+<span class="lineNum">     867 </span>            :   // changes as Google Test goes through one test after another.  When
+<span class="lineNum">     868 </span>            :   // no test is running, this is set to NULL and Google Test stores
+<span class="lineNum">     869 </span>            :   // assertion results in ad_hoc_test_result_.  Initially NULL.
+<span class="lineNum">     870 </span>            :   TestInfo* current_test_info_;
+<span class="lineNum">     871 </span>            : 
+<span class="lineNum">     872 </span>            :   // Normally, a user only writes assertions inside a TEST or TEST_F,
+<span class="lineNum">     873 </span>            :   // or inside a function called by a TEST or TEST_F.  Since Google
+<span class="lineNum">     874 </span>            :   // Test keeps track of which test is current running, it can
+<span class="lineNum">     875 </span>            :   // associate such an assertion with the test it belongs to.
+<span class="lineNum">     876 </span>            :   //
+<span class="lineNum">     877 </span>            :   // If an assertion is encountered when no TEST or TEST_F is running,
+<span class="lineNum">     878 </span>            :   // Google Test attributes the assertion result to an imaginary &quot;ad hoc&quot;
+<span class="lineNum">     879 </span>            :   // test, and records the result in ad_hoc_test_result_.
+<span class="lineNum">     880 </span>            :   TestResult ad_hoc_test_result_;
+<span class="lineNum">     881 </span>            : 
+<span class="lineNum">     882 </span>            :   // The list of event listeners that can be used to track events inside
+<span class="lineNum">     883 </span>            :   // Google Test.
+<span class="lineNum">     884 </span>            :   TestEventListeners listeners_;
+<span class="lineNum">     885 </span>            : 
+<span class="lineNum">     886 </span>            :   // The OS stack trace getter.  Will be deleted when the UnitTest
+<span class="lineNum">     887 </span>            :   // object is destructed.  By default, an OsStackTraceGetter is used,
+<span class="lineNum">     888 </span>            :   // but the user can set this field to use a custom getter if that is
+<span class="lineNum">     889 </span>            :   // desired.
+<span class="lineNum">     890 </span>            :   OsStackTraceGetterInterface* os_stack_trace_getter_;
+<span class="lineNum">     891 </span>            : 
+<span class="lineNum">     892 </span>            :   // True iff PostFlagParsingInit() has been called.
+<span class="lineNum">     893 </span>            :   bool post_flag_parse_init_performed_;
+<span class="lineNum">     894 </span>            : 
+<span class="lineNum">     895 </span>            :   // The random number seed used at the beginning of the test run.
+<span class="lineNum">     896 </span>            :   int random_seed_;
+<span class="lineNum">     897 </span>            : 
+<span class="lineNum">     898 </span>            :   // Our random number generator.
+<span class="lineNum">     899 </span>            :   internal::Random random_;
+<span class="lineNum">     900 </span>            : 
+<span class="lineNum">     901 </span>            :   // The time of the test program start, in ms from the start of the
+<span class="lineNum">     902 </span>            :   // UNIX epoch.
+<span class="lineNum">     903 </span>            :   TimeInMillis start_timestamp_;
+<span class="lineNum">     904 </span>            : 
+<span class="lineNum">     905 </span>            :   // How long the test took to run, in milliseconds.
+<span class="lineNum">     906 </span>            :   TimeInMillis elapsed_time_;
+<span class="lineNum">     907 </span>            : 
+<span class="lineNum">     908 </span>            : #if GTEST_HAS_DEATH_TEST
+<span class="lineNum">     909 </span>            :   // The decomposed components of the gtest_internal_run_death_test flag,
+<span class="lineNum">     910 </span>            :   // parsed when RUN_ALL_TESTS is called.
+<span class="lineNum">     911 </span>            :   internal::scoped_ptr&lt;InternalRunDeathTestFlag&gt; internal_run_death_test_flag_;
+<span class="lineNum">     912 </span>            :   internal::scoped_ptr&lt;internal::DeathTestFactory&gt; death_test_factory_;
+<span class="lineNum">     913 </span>            : #endif  // GTEST_HAS_DEATH_TEST
+<span class="lineNum">     914 </span>            : 
+<span class="lineNum">     915 </span>            :   // A per-thread stack of traces created by the SCOPED_TRACE() macro.
+<span class="lineNum">     916 </span>            :   internal::ThreadLocal&lt;std::vector&lt;TraceInfo&gt; &gt; gtest_trace_stack_;
+<span class="lineNum">     917 </span>            : 
+<span class="lineNum">     918 </span>            :   // The value of GTEST_FLAG(catch_exceptions) at the moment RunAllTests()
+<span class="lineNum">     919 </span>            :   // starts.
+<span class="lineNum">     920 </span>            :   bool catch_exceptions_;
+<span class="lineNum">     921 </span>            : 
+<span class="lineNum">     922 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(UnitTestImpl);
+<span class="lineNum">     923 </span>            : };  // class UnitTestImpl
+<span class="lineNum">     924 </span>            : 
+<span class="lineNum">     925 </span>            : // Convenience function for accessing the global UnitTest
+<span class="lineNum">     926 </span>            : // implementation object.
+<span class="lineNum">     927 </span>            : inline UnitTestImpl* GetUnitTestImpl() {
+<span class="lineNum">     928 </span><span class="lineCov">        752 :   return UnitTest::GetInstance()-&gt;impl();</span>
+<span class="lineNum">     929 </span>            : }
+<span class="lineNum">     930 </span>            : 
+<span class="lineNum">     931 </span>            : #if GTEST_USES_SIMPLE_RE
+<span class="lineNum">     932 </span>            : 
+<span class="lineNum">     933 </span>            : // Internal helper functions for implementing the simple regular
+<span class="lineNum">     934 </span>            : // expression matcher.
+<span class="lineNum">     935 </span>            : GTEST_API_ bool IsInSet(char ch, const char* str);
+<span class="lineNum">     936 </span>            : GTEST_API_ bool IsAsciiDigit(char ch);
+<span class="lineNum">     937 </span>            : GTEST_API_ bool IsAsciiPunct(char ch);
+<span class="lineNum">     938 </span>            : GTEST_API_ bool IsRepeat(char ch);
+<span class="lineNum">     939 </span>            : GTEST_API_ bool IsAsciiWhiteSpace(char ch);
+<span class="lineNum">     940 </span>            : GTEST_API_ bool IsAsciiWordChar(char ch);
+<span class="lineNum">     941 </span>            : GTEST_API_ bool IsValidEscape(char ch);
+<span class="lineNum">     942 </span>            : GTEST_API_ bool AtomMatchesChar(bool escaped, char pattern, char ch);
+<span class="lineNum">     943 </span>            : GTEST_API_ bool ValidateRegex(const char* regex);
+<span class="lineNum">     944 </span>            : GTEST_API_ bool MatchRegexAtHead(const char* regex, const char* str);
+<span class="lineNum">     945 </span>            : GTEST_API_ bool MatchRepetitionAndRegexAtHead(
+<span class="lineNum">     946 </span>            :     bool escaped, char ch, char repeat, const char* regex, const char* str);
+<span class="lineNum">     947 </span>            : GTEST_API_ bool MatchRegexAnywhere(const char* regex, const char* str);
+<span class="lineNum">     948 </span>            : 
+<span class="lineNum">     949 </span>            : #endif  // GTEST_USES_SIMPLE_RE
+<span class="lineNum">     950 </span>            : 
+<span class="lineNum">     951 </span>            : // Parses the command line for Google Test flags, without initializing
+<span class="lineNum">     952 </span>            : // other parts of Google Test.
+<span class="lineNum">     953 </span>            : GTEST_API_ void ParseGoogleTestFlagsOnly(int* argc, char** argv);
+<span class="lineNum">     954 </span>            : GTEST_API_ void ParseGoogleTestFlagsOnly(int* argc, wchar_t** argv);
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span>            : #if GTEST_HAS_DEATH_TEST
+<span class="lineNum">     957 </span>            : 
+<span class="lineNum">     958 </span>            : // Returns the message describing the last system error, regardless of the
+<span class="lineNum">     959 </span>            : // platform.
+<span class="lineNum">     960 </span>            : GTEST_API_ std::string GetLastErrnoDescription();
+<span class="lineNum">     961 </span>            : 
+<span class="lineNum">     962 </span>            : // Attempts to parse a string into a positive integer pointed to by the
+<span class="lineNum">     963 </span>            : // number parameter.  Returns true if that is possible.
+<span class="lineNum">     964 </span>            : // GTEST_HAS_DEATH_TEST implies that we have ::std::string, so we can use
+<a name="965"><span class="lineNum">     965 </span>            : // it here.</a>
+<span class="lineNum">     966 </span>            : template &lt;typename Integer&gt;
+<span class="lineNum">     967 </span><span class="lineNoCov">          0 : bool ParseNaturalNumber(const ::std::string&amp; str, Integer* number) {</span>
+<span class="lineNum">     968 </span>            :   // Fail fast if the given string does not begin with a digit;
+<span class="lineNum">     969 </span>            :   // this bypasses strtoXXX's &quot;optional leading whitespace and plus
+<span class="lineNum">     970 </span>            :   // or minus sign&quot; semantics, which are undesirable here.
+<span class="lineNum">     971 </span><span class="lineNoCov">          0 :   if (str.empty() || !IsDigit(str[0])) {</span>
+<span class="lineNum">     972 </span>            :     return false;
+<span class="lineNum">     973 </span>            :   }
+<span class="lineNum">     974 </span><span class="lineNoCov">          0 :   errno = 0;</span>
+<span class="lineNum">     975 </span>            : 
+<span class="lineNum">     976 </span>            :   char* end;
+<span class="lineNum">     977 </span>            :   // BiggestConvertible is the largest integer type that system-provided
+<span class="lineNum">     978 </span>            :   // string-to-number conversion routines can return.
+<span class="lineNum">     979 </span>            : 
+<span class="lineNum">     980 </span>            : # if GTEST_OS_WINDOWS &amp;&amp; !defined(__GNUC__)
+<span class="lineNum">     981 </span>            : 
+<span class="lineNum">     982 </span>            :   // MSVC and C++ Builder define __int64 instead of the standard long long.
+<span class="lineNum">     983 </span>            :   typedef unsigned __int64 BiggestConvertible;
+<span class="lineNum">     984 </span>            :   const BiggestConvertible parsed = _strtoui64(str.c_str(), &amp;end, 10);
+<span class="lineNum">     985 </span>            : 
+<span class="lineNum">     986 </span>            : # else
+<span class="lineNum">     987 </span>            : 
+<span class="lineNum">     988 </span>            :   typedef unsigned long long BiggestConvertible;  // NOLINT
+<span class="lineNum">     989 </span><span class="lineNoCov">          0 :   const BiggestConvertible parsed = strtoull(str.c_str(), &amp;end, 10);</span>
+<span class="lineNum">     990 </span>            : 
+<span class="lineNum">     991 </span>            : # endif  // GTEST_OS_WINDOWS &amp;&amp; !defined(__GNUC__)
+<span class="lineNum">     992 </span>            : 
+<span class="lineNum">     993 </span><span class="lineNoCov">          0 :   const bool parse_success = *end == '\0' &amp;&amp; errno == 0;</span>
+<span class="lineNum">     994 </span>            : 
+<span class="lineNum">     995 </span>            :   // TODO(vladl@google.com): Convert this to compile time assertion when it is
+<span class="lineNum">     996 </span>            :   // available.
+<span class="lineNum">     997 </span>            :   GTEST_CHECK_(sizeof(Integer) &lt;= sizeof(parsed));
+<span class="lineNum">     998 </span>            : 
+<span class="lineNum">     999 </span><span class="lineNoCov">          0 :   const Integer result = static_cast&lt;Integer&gt;(parsed);</span>
+<span class="lineNum">    1000 </span><span class="lineNoCov">          0 :   if (parse_success &amp;&amp; static_cast&lt;BiggestConvertible&gt;(result) == parsed) {</span>
+<span class="lineNum">    1001 </span><span class="lineNoCov">          0 :     *number = result;</span>
+<span class="lineNum">    1002 </span><span class="lineNoCov">          0 :     return true;</span>
+<span class="lineNum">    1003 </span>            :   }
+<span class="lineNum">    1004 </span>            :   return false;
+<span class="lineNum">    1005 </span>            : }
+<span class="lineNum">    1006 </span>            : #endif  // GTEST_HAS_DEATH_TEST
+<span class="lineNum">    1007 </span>            : 
+<span class="lineNum">    1008 </span>            : // TestResult contains some private methods that should be hidden from
+<span class="lineNum">    1009 </span>            : // Google Test user but are required for testing. This class allow our tests
+<span class="lineNum">    1010 </span>            : // to access them.
+<span class="lineNum">    1011 </span>            : //
+<span class="lineNum">    1012 </span>            : // This class is supplied only for the purpose of testing Google Test's own
+<span class="lineNum">    1013 </span>            : // constructs. Do not use it in user tests, either directly or indirectly.
+<span class="lineNum">    1014 </span>            : class TestResultAccessor {
+<span class="lineNum">    1015 </span>            :  public:
+<span class="lineNum">    1016 </span>            :   static void RecordProperty(TestResult* test_result,
+<span class="lineNum">    1017 </span>            :                              const std::string&amp; xml_element,
+<span class="lineNum">    1018 </span>            :                              const TestProperty&amp; property) {
+<span class="lineNum">    1019 </span>            :     test_result-&gt;RecordProperty(xml_element, property);
+<span class="lineNum">    1020 </span>            :   }
+<span class="lineNum">    1021 </span>            : 
+<span class="lineNum">    1022 </span>            :   static void ClearTestPartResults(TestResult* test_result) {
+<span class="lineNum">    1023 </span>            :     test_result-&gt;ClearTestPartResults();
+<span class="lineNum">    1024 </span>            :   }
+<span class="lineNum">    1025 </span>            : 
+<span class="lineNum">    1026 </span>            :   static const std::vector&lt;testing::TestPartResult&gt;&amp; test_part_results(
+<span class="lineNum">    1027 </span>            :       const TestResult&amp; test_result) {
+<span class="lineNum">    1028 </span>            :     return test_result.test_part_results();
+<span class="lineNum">    1029 </span>            :   }
+<span class="lineNum">    1030 </span>            : };
+<span class="lineNum">    1031 </span>            : 
+<span class="lineNum">    1032 </span>            : #if GTEST_CAN_STREAM_RESULTS_
+<a name="1033"><span class="lineNum">    1033 </span>            : </a>
+<span class="lineNum">    1034 </span>            : // Streams test results to the given port on the given host machine.
+<span class="lineNum">    1035 </span><span class="lineNoCov">          0 : class GTEST_API_ StreamingListener : public EmptyTestEventListener {</span>
+<a name="1036"><span class="lineNum">    1036 </span>            :  public:</a>
+<span class="lineNum">    1037 </span>            :   // Abstract base class for writing strings to a socket.
+<a name="1038"><span class="lineNum">    1038 </span><span class="lineNoCov">          0 :   class AbstractSocketWriter {</span></a>
+<span class="lineNum">    1039 </span>            :    public:
+<span class="lineNum">    1040 </span><span class="lineNoCov">          0 :     virtual ~AbstractSocketWriter() {}</span>
+<span class="lineNum">    1041 </span>            : 
+<span class="lineNum">    1042 </span>            :     // Sends a string to the socket.
+<span class="lineNum">    1043 </span>            :     virtual void Send(const string&amp; message) = 0;
+<a name="1044"><span class="lineNum">    1044 </span>            : </a>
+<span class="lineNum">    1045 </span>            :     // Closes the socket.
+<span class="lineNum">    1046 </span><span class="lineNoCov">          0 :     virtual void CloseConnection() {}</span>
+<a name="1047"><span class="lineNum">    1047 </span>            : </a>
+<span class="lineNum">    1048 </span>            :     // Sends a string and a newline to the socket.
+<span class="lineNum">    1049 </span><span class="lineNoCov">          0 :     void SendLn(const string&amp; message) {</span>
+<span class="lineNum">    1050 </span><span class="lineNoCov">          0 :       Send(message + &quot;\n&quot;);</span>
+<span class="lineNum">    1051 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1052 </span>            :   };
+<span class="lineNum">    1053 </span>            : 
+<span class="lineNum">    1054 </span>            :   // Concrete class for actually writing strings to a socket.
+<span class="lineNum">    1055 </span>            :   class SocketWriter : public AbstractSocketWriter {
+<span class="lineNum">    1056 </span>            :    public:
+<span class="lineNum">    1057 </span><span class="lineNoCov">          0 :     SocketWriter(const string&amp; host, const string&amp; port)</span>
+<span class="lineNum">    1058 </span><span class="lineNoCov">          0 :         : sockfd_(-1), host_name_(host), port_num_(port) {</span>
+<span class="lineNum">    1059 </span><span class="lineNoCov">          0 :       MakeConnection();</span>
+<a name="1060"><span class="lineNum">    1060 </span><span class="lineNoCov">          0 :     }</span></a>
+<span class="lineNum">    1061 </span>            : 
+<span class="lineNum">    1062 </span><span class="lineNoCov">          0 :     virtual ~SocketWriter() {</span>
+<span class="lineNum">    1063 </span><span class="lineNoCov">          0 :       if (sockfd_ != -1)</span>
+<span class="lineNum">    1064 </span><span class="lineNoCov">          0 :         CloseConnection();</span>
+<span class="lineNum">    1065 </span><span class="lineNoCov">          0 :     }</span>
+<a name="1066"><span class="lineNum">    1066 </span>            : </a>
+<span class="lineNum">    1067 </span>            :     // Sends a string to the socket.
+<span class="lineNum">    1068 </span><span class="lineNoCov">          0 :     virtual void Send(const string&amp; message) {</span>
+<span class="lineNum">    1069 </span><span class="lineNoCov">          0 :       GTEST_CHECK_(sockfd_ != -1)</span>
+<span class="lineNum">    1070 </span><span class="lineNoCov">          0 :           &lt;&lt; &quot;Send() can be called only when there is a connection.&quot;;</span>
+<span class="lineNum">    1071 </span>            : 
+<span class="lineNum">    1072 </span><span class="lineNoCov">          0 :       const int len = static_cast&lt;int&gt;(message.length());</span>
+<span class="lineNum">    1073 </span><span class="lineNoCov">          0 :       if (write(sockfd_, message.c_str(), len) != len) {</span>
+<span class="lineNum">    1074 </span><span class="lineNoCov">          0 :         GTEST_LOG_(WARNING)</span>
+<span class="lineNum">    1075 </span><span class="lineNoCov">          0 :             &lt;&lt; &quot;stream_result_to: failed to stream to &quot;</span>
+<span class="lineNum">    1076 </span><span class="lineNoCov">          0 :             &lt;&lt; host_name_ &lt;&lt; &quot;:&quot; &lt;&lt; port_num_;</span>
+<span class="lineNum">    1077 </span>            :       }
+<span class="lineNum">    1078 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1079 </span>            : 
+<span class="lineNum">    1080 </span>            :    private:
+<span class="lineNum">    1081 </span>            :     // Creates a client socket and connects to the server.
+<span class="lineNum">    1082 </span>            :     void MakeConnection();
+<a name="1083"><span class="lineNum">    1083 </span>            : </a>
+<span class="lineNum">    1084 </span>            :     // Closes the socket.
+<span class="lineNum">    1085 </span><span class="lineNoCov">          0 :     void CloseConnection() {</span>
+<span class="lineNum">    1086 </span><span class="lineNoCov">          0 :       GTEST_CHECK_(sockfd_ != -1)</span>
+<span class="lineNum">    1087 </span><span class="lineNoCov">          0 :           &lt;&lt; &quot;CloseConnection() can be called only when there is a connection.&quot;;</span>
+<span class="lineNum">    1088 </span>            : 
+<span class="lineNum">    1089 </span><span class="lineNoCov">          0 :       close(sockfd_);</span>
+<span class="lineNum">    1090 </span><span class="lineNoCov">          0 :       sockfd_ = -1;</span>
+<span class="lineNum">    1091 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1092 </span>            : 
+<span class="lineNum">    1093 </span>            :     int sockfd_;  // socket file descriptor
+<span class="lineNum">    1094 </span>            :     const string host_name_;
+<span class="lineNum">    1095 </span>            :     const string port_num_;
+<span class="lineNum">    1096 </span>            : 
+<span class="lineNum">    1097 </span>            :     GTEST_DISALLOW_COPY_AND_ASSIGN_(SocketWriter);
+<span class="lineNum">    1098 </span>            :   };  // class SocketWriter
+<span class="lineNum">    1099 </span>            : 
+<span class="lineNum">    1100 </span>            :   // Escapes '=', '&amp;', '%', and '\n' characters in str as &quot;%xx&quot;.
+<a name="1101"><span class="lineNum">    1101 </span>            :   static string UrlEncode(const char* str);</a>
+<span class="lineNum">    1102 </span>            : 
+<span class="lineNum">    1103 </span><span class="lineNoCov">          0 :   StreamingListener(const string&amp; host, const string&amp; port)</span>
+<span class="lineNum">    1104 </span><span class="lineNoCov">          0 :       : socket_writer_(new SocketWriter(host, port)) { Start(); }</span>
+<span class="lineNum">    1105 </span>            : 
+<span class="lineNum">    1106 </span>            :   explicit StreamingListener(AbstractSocketWriter* socket_writer)
+<a name="1107"><span class="lineNum">    1107 </span>            :       : socket_writer_(socket_writer) { Start(); }</a>
+<span class="lineNum">    1108 </span>            : 
+<span class="lineNum">    1109 </span><span class="lineNoCov">          0 :   void OnTestProgramStart(const UnitTest&amp; /* unit_test */) {</span>
+<span class="lineNum">    1110 </span><span class="lineNoCov">          0 :     SendLn(&quot;event=TestProgramStart&quot;);</span>
+<span class="lineNum">    1111 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">    1112 </span>            : 
+<span class="lineNum">    1113 </span><span class="lineNoCov">          0 :   void OnTestProgramEnd(const UnitTest&amp; unit_test) {</span>
+<span class="lineNum">    1114 </span>            :     // Note that Google Test current only report elapsed time for each
+<span class="lineNum">    1115 </span>            :     // test iteration, not for the entire test program.
+<span class="lineNum">    1116 </span><span class="lineNoCov">          0 :     SendLn(&quot;event=TestProgramEnd&amp;passed=&quot; + FormatBool(unit_test.Passed()));</span>
+<span class="lineNum">    1117 </span>            : 
+<span class="lineNum">    1118 </span>            :     // Notify the streaming server to stop.
+<span class="lineNum">    1119 </span><span class="lineNoCov">          0 :     socket_writer_-&gt;CloseConnection();</span>
+<a name="1120"><span class="lineNum">    1120 </span><span class="lineNoCov">          0 :   }</span></a>
+<span class="lineNum">    1121 </span>            : 
+<span class="lineNum">    1122 </span><span class="lineNoCov">          0 :   void OnTestIterationStart(const UnitTest&amp; /* unit_test */, int iteration) {</span>
+<span class="lineNum">    1123 </span><span class="lineNoCov">          0 :     SendLn(&quot;event=TestIterationStart&amp;iteration=&quot; +</span>
+<span class="lineNum">    1124 </span>            :            StreamableToString(iteration));
+<span class="lineNum">    1125 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">    1126 </span>            : 
+<span class="lineNum">    1127 </span><span class="lineNoCov">          0 :   void OnTestIterationEnd(const UnitTest&amp; unit_test, int /* iteration */) {</span>
+<span class="lineNum">    1128 </span><span class="lineNoCov">          0 :     SendLn(&quot;event=TestIterationEnd&amp;passed=&quot; +</span>
+<span class="lineNum">    1129 </span><span class="lineNoCov">          0 :            FormatBool(unit_test.Passed()) + &quot;&amp;elapsed_time=&quot; +</span>
+<span class="lineNum">    1130 </span><span class="lineNoCov">          0 :            StreamableToString(unit_test.elapsed_time()) + &quot;ms&quot;);</span>
+<a name="1131"><span class="lineNum">    1131 </span><span class="lineNoCov">          0 :   }</span></a>
+<span class="lineNum">    1132 </span>            : 
+<span class="lineNum">    1133 </span><span class="lineNoCov">          0 :   void OnTestCaseStart(const TestCase&amp; test_case) {</span>
+<span class="lineNum">    1134 </span><span class="lineNoCov">          0 :     SendLn(std::string(&quot;event=TestCaseStart&amp;name=&quot;) + test_case.name());</span>
+<a name="1135"><span class="lineNum">    1135 </span><span class="lineNoCov">          0 :   }</span></a>
+<span class="lineNum">    1136 </span>            : 
+<span class="lineNum">    1137 </span><span class="lineNoCov">          0 :   void OnTestCaseEnd(const TestCase&amp; test_case) {</span>
+<span class="lineNum">    1138 </span><span class="lineNoCov">          0 :     SendLn(&quot;event=TestCaseEnd&amp;passed=&quot; + FormatBool(test_case.Passed())</span>
+<span class="lineNum">    1139 </span><span class="lineNoCov">          0 :            + &quot;&amp;elapsed_time=&quot; + StreamableToString(test_case.elapsed_time())</span>
+<span class="lineNum">    1140 </span><span class="lineNoCov">          0 :            + &quot;ms&quot;);</span>
+<a name="1141"><span class="lineNum">    1141 </span><span class="lineNoCov">          0 :   }</span></a>
+<span class="lineNum">    1142 </span>            : 
+<span class="lineNum">    1143 </span><span class="lineNoCov">          0 :   void OnTestStart(const TestInfo&amp; test_info) {</span>
+<span class="lineNum">    1144 </span><span class="lineNoCov">          0 :     SendLn(std::string(&quot;event=TestStart&amp;name=&quot;) + test_info.name());</span>
+<a name="1145"><span class="lineNum">    1145 </span><span class="lineNoCov">          0 :   }</span></a>
+<span class="lineNum">    1146 </span>            : 
+<span class="lineNum">    1147 </span><span class="lineNoCov">          0 :   void OnTestEnd(const TestInfo&amp; test_info) {</span>
+<span class="lineNum">    1148 </span><span class="lineNoCov">          0 :     SendLn(&quot;event=TestEnd&amp;passed=&quot; +</span>
+<span class="lineNum">    1149 </span><span class="lineNoCov">          0 :            FormatBool((test_info.result())-&gt;Passed()) +</span>
+<span class="lineNum">    1150 </span><span class="lineNoCov">          0 :            &quot;&amp;elapsed_time=&quot; +</span>
+<span class="lineNum">    1151 </span><span class="lineNoCov">          0 :            StreamableToString((test_info.result())-&gt;elapsed_time()) + &quot;ms&quot;);</span>
+<a name="1152"><span class="lineNum">    1152 </span><span class="lineNoCov">          0 :   }</span></a>
+<span class="lineNum">    1153 </span>            : 
+<span class="lineNum">    1154 </span><span class="lineNoCov">          0 :   void OnTestPartResult(const TestPartResult&amp; test_part_result) {</span>
+<span class="lineNum">    1155 </span><span class="lineNoCov">          0 :     const char* file_name = test_part_result.file_name();</span>
+<span class="lineNum">    1156 </span><span class="lineNoCov">          0 :     if (file_name == NULL)</span>
+<span class="lineNum">    1157 </span><span class="lineNoCov">          0 :       file_name = &quot;&quot;;</span>
+<span class="lineNum">    1158 </span><span class="lineNoCov">          0 :     SendLn(&quot;event=TestPartResult&amp;file=&quot; + UrlEncode(file_name) +</span>
+<span class="lineNum">    1159 </span><span class="lineNoCov">          0 :            &quot;&amp;line=&quot; + StreamableToString(test_part_result.line_number()) +</span>
+<span class="lineNum">    1160 </span><span class="lineNoCov">          0 :            &quot;&amp;message=&quot; + UrlEncode(test_part_result.message()));</span>
+<span class="lineNum">    1161 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">    1162 </span>            : 
+<a name="1163"><span class="lineNum">    1163 </span>            :  private:</a>
+<span class="lineNum">    1164 </span>            :   // Sends the given message and a newline to the socket.
+<span class="lineNum">    1165 </span><span class="lineNoCov">          0 :   void SendLn(const string&amp; message) { socket_writer_-&gt;SendLn(message); }</span>
+<span class="lineNum">    1166 </span>            : 
+<span class="lineNum">    1167 </span>            :   // Called at the start of streaming to notify the receiver what
+<span class="lineNum">    1168 </span>            :   // protocol we are using.
+<span class="lineNum">    1169 </span><span class="lineNoCov">          0 :   void Start() { SendLn(&quot;gtest_streaming_protocol_version=1.0&quot;); }</span>
+<span class="lineNum">    1170 </span>            : 
+<span class="lineNum">    1171 </span><span class="lineNoCov">          0 :   string FormatBool(bool value) { return value ? &quot;1&quot; : &quot;0&quot;; }</span>
+<span class="lineNum">    1172 </span>            : 
+<span class="lineNum">    1173 </span>            :   const scoped_ptr&lt;AbstractSocketWriter&gt; socket_writer_;
+<span class="lineNum">    1174 </span>            : 
+<span class="lineNum">    1175 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(StreamingListener);
+<span class="lineNum">    1176 </span>            : };  // class StreamingListener
+<span class="lineNum">    1177 </span>            : 
+<span class="lineNum">    1178 </span>            : #endif  // GTEST_CAN_STREAM_RESULTS_
+<span class="lineNum">    1179 </span>            : 
+<span class="lineNum">    1180 </span>            : }  // namespace internal
+<span class="lineNum">    1181 </span>            : }  // namespace testing
+<span class="lineNum">    1182 </span>            : 
+<span class="lineNum">    1183 </span>            : #endif  // GTEST_SRC_GTEST_INTERNAL_INL_H_
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

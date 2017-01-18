@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/src/gtest-printers.cc</title>
+  <link rel="stylesheet" type="text/css" href="../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/src</a> - gtest-printers.cc<span style="font-size: 80%;"> (source / <a href="gtest-printers.cc.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">120</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">23</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2007, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Author: wan@google.com (Zhanyong Wan)
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : // Google Test - The Google C++ Testing Framework
+<span class="lineNum">      33 </span>            : //
+<span class="lineNum">      34 </span>            : // This file implements a universal value printer that can print a
+<span class="lineNum">      35 </span>            : // value of any type T:
+<span class="lineNum">      36 </span>            : //
+<span class="lineNum">      37 </span>            : //   void ::testing::internal::UniversalPrinter&lt;T&gt;::Print(value, ostream_ptr);
+<span class="lineNum">      38 </span>            : //
+<span class="lineNum">      39 </span>            : // It uses the &lt;&lt; operator when possible, and prints the bytes in the
+<span class="lineNum">      40 </span>            : // object otherwise.  A user can override its behavior for a class
+<span class="lineNum">      41 </span>            : // type Foo by defining either operator&lt;&lt;(::std::ostream&amp;, const Foo&amp;)
+<span class="lineNum">      42 </span>            : // or void PrintTo(const Foo&amp;, ::std::ostream*) in the namespace that
+<span class="lineNum">      43 </span>            : // defines Foo.
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : #include &quot;gtest/gtest-printers.h&quot;
+<span class="lineNum">      46 </span>            : #include &lt;ctype.h&gt;
+<span class="lineNum">      47 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">      48 </span>            : #include &lt;cwchar&gt;
+<span class="lineNum">      49 </span>            : #include &lt;ostream&gt;  // NOLINT
+<span class="lineNum">      50 </span>            : #include &lt;string&gt;
+<span class="lineNum">      51 </span>            : #include &quot;gtest/internal/gtest-port.h&quot;
+<span class="lineNum">      52 </span>            : 
+<span class="lineNum">      53 </span>            : namespace testing {
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span>            : namespace {
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span>            : using ::std::ostream;
+<span class="lineNum">      58 </span>            : 
+<span class="lineNum">      59 </span>            : // Prints a segment of bytes in the given object.
+<span class="lineNum">      60 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_MEMORY_
+<a name="61"><span class="lineNum">      61 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_</a>
+<span class="lineNum">      62 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_THREAD_
+<span class="lineNum">      63 </span><span class="lineNoCov">          0 : void PrintByteSegmentInObjectTo(const unsigned char* obj_bytes, size_t start,</span>
+<span class="lineNum">      64 </span>            :                                 size_t count, ostream* os) {
+<span class="lineNum">      65 </span><span class="lineNoCov">          0 :   char text[5] = &quot;&quot;;</span>
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :   for (size_t i = 0; i != count; i++) {</span>
+<span class="lineNum">      67 </span><span class="lineNoCov">          0 :     const size_t j = start + i;</span>
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :     if (i != 0) {</span>
+<span class="lineNum">      69 </span>            :       // Organizes the bytes into groups of 2 for easy parsing by
+<span class="lineNum">      70 </span>            :       // human.
+<span class="lineNum">      71 </span><span class="lineNoCov">          0 :       if ((j % 2) == 0)</span>
+<span class="lineNum">      72 </span>            :         *os &lt;&lt; ' ';
+<span class="lineNum">      73 </span>            :       else
+<span class="lineNum">      74 </span>            :         *os &lt;&lt; '-';
+<span class="lineNum">      75 </span>            :     }
+<span class="lineNum">      76 </span><span class="lineNoCov">          0 :     GTEST_SNPRINTF_(text, sizeof(text), &quot;%02X&quot;, obj_bytes[j]);</span>
+<span class="lineNum">      77 </span><span class="lineNoCov">          0 :     *os &lt;&lt; text;</span>
+<span class="lineNum">      78 </span>            :   }
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 : }</span>
+<a name="80"><span class="lineNum">      80 </span>            : </a>
+<span class="lineNum">      81 </span>            : // Prints the bytes in the given value to the given ostream.
+<span class="lineNum">      82 </span><span class="lineNoCov">          0 : void PrintBytesInObjectToImpl(const unsigned char* obj_bytes, size_t count,</span>
+<span class="lineNum">      83 </span>            :                               ostream* os) {
+<span class="lineNum">      84 </span>            :   // Tells the user how big the object is.
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 :   *os &lt;&lt; count &lt;&lt; &quot;-byte object &lt;&quot;;</span>
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span><span class="lineNoCov">          0 :   const size_t kThreshold = 132;</span>
+<span class="lineNum">      88 </span><span class="lineNoCov">          0 :   const size_t kChunkSize = 64;</span>
+<span class="lineNum">      89 </span>            :   // If the object size is bigger than kThreshold, we'll have to omit
+<span class="lineNum">      90 </span>            :   // some details by printing only the first and the last kChunkSize
+<span class="lineNum">      91 </span>            :   // bytes.
+<span class="lineNum">      92 </span>            :   // TODO(wan): let the user control the threshold using a flag.
+<span class="lineNum">      93 </span><span class="lineNoCov">          0 :   if (count &lt; kThreshold) {</span>
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 :     PrintByteSegmentInObjectTo(obj_bytes, 0, count, os);</span>
+<span class="lineNum">      95 </span>            :   } else {
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 :     PrintByteSegmentInObjectTo(obj_bytes, 0, kChunkSize, os);</span>
+<span class="lineNum">      97 </span><span class="lineNoCov">          0 :     *os &lt;&lt; &quot; ... &quot;;</span>
+<span class="lineNum">      98 </span>            :     // Rounds up to 2-byte boundary.
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 :     const size_t resume_pos = (count - kChunkSize + 1)/2*2;</span>
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :     PrintByteSegmentInObjectTo(obj_bytes, resume_pos, count - resume_pos, os);</span>
+<span class="lineNum">     101 </span>            :   }
+<span class="lineNum">     102 </span><span class="lineNoCov">          0 :   *os &lt;&lt; &quot;&gt;&quot;;</span>
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span>            : }  // namespace
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span>            : namespace internal2 {
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            : // Delegates to PrintBytesInObjectToImpl() to print the bytes in the
+<span class="lineNum">     110 </span>            : // given object.  The delegation simplifies the implementation, which
+<span class="lineNum">     111 </span>            : // uses the &lt;&lt; operator and thus is easier done outside of the
+<a name="112"><span class="lineNum">     112 </span>            : // ::testing::internal namespace, which contains a &lt;&lt; operator that</a>
+<span class="lineNum">     113 </span>            : // sometimes conflicts with the one in STL.
+<span class="lineNum">     114 </span><span class="lineNoCov">          0 : void PrintBytesInObjectTo(const unsigned char* obj_bytes, size_t count,</span>
+<span class="lineNum">     115 </span>            :                           ostream* os) {
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :   PrintBytesInObjectToImpl(obj_bytes, count, os);</span>
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : }  // namespace internal2
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span>            : namespace internal {
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span>            : // Depending on the value of a char (or wchar_t), we print it in one
+<span class="lineNum">     124 </span>            : // of three formats:
+<span class="lineNum">     125 </span>            : //   - as is if it's a printable ASCII (e.g. 'a', '2', ' '),
+<span class="lineNum">     126 </span>            : //   - as a hexidecimal escape sequence (e.g. '\x7F'), or
+<span class="lineNum">     127 </span>            : //   - as a special escape sequence (e.g. '\r', '\n').
+<span class="lineNum">     128 </span>            : enum CharFormat {
+<span class="lineNum">     129 </span>            :   kAsIs,
+<span class="lineNum">     130 </span>            :   kHexEscape,
+<span class="lineNum">     131 </span>            :   kSpecialEscape
+<span class="lineNum">     132 </span>            : };
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            : // Returns true if c is a printable ASCII character.  We test the
+<span class="lineNum">     135 </span>            : // value of c directly instead of calling isprint(), which is buggy on
+<a name="136"><span class="lineNum">     136 </span>            : // Windows Mobile.</a>
+<span class="lineNum">     137 </span>            : inline bool IsPrintableAscii(wchar_t c) {
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 :   return 0x20 &lt;= c &amp;&amp; c &lt;= 0x7E;</span>
+<span class="lineNum">     139 </span>            : }
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : // Prints a wide or narrow char c as a character literal without the
+<span class="lineNum">     142 </span>            : // quotes, escaping it when necessary; returns how c was formatted.
+<span class="lineNum">     143 </span>            : // The template argument UnsignedChar is the unsigned version of Char,
+<span class="lineNum">     144 </span>            : // which is the type of c.
+<span class="lineNum">     145 </span>            : template &lt;typename UnsignedChar, typename Char&gt;
+<span class="lineNum">     146 </span><span class="lineNoCov">          0 : static CharFormat PrintAsCharLiteralTo(Char c, ostream* os) {</span>
+<span class="lineNum">     147 </span><span class="lineNoCov">          0 :   switch (static_cast&lt;wchar_t&gt;(c)) {</span>
+<span class="lineNum">     148 </span>            :     case L'\0':
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\0&quot;;</span>
+<span class="lineNum">     150 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     151 </span>            :     case L'\'':
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\'&quot;;</span>
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     154 </span>            :     case L'\\':
+<span class="lineNum">     155 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\\\&quot;;</span>
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     157 </span>            :     case L'\a':
+<span class="lineNum">     158 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\a&quot;;</span>
+<span class="lineNum">     159 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     160 </span>            :     case L'\b':
+<span class="lineNum">     161 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\b&quot;;</span>
+<span class="lineNum">     162 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     163 </span>            :     case L'\f':
+<span class="lineNum">     164 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\f&quot;;</span>
+<span class="lineNum">     165 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     166 </span>            :     case L'\n':
+<span class="lineNum">     167 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\n&quot;;</span>
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     169 </span>            :     case L'\r':
+<span class="lineNum">     170 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\r&quot;;</span>
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     172 </span>            :     case L'\t':
+<span class="lineNum">     173 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\t&quot;;</span>
+<span class="lineNum">     174 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     175 </span>            :     case L'\v':
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\v&quot;;</span>
+<span class="lineNum">     177 </span><span class="lineNoCov">          0 :       break;</span>
+<span class="lineNum">     178 </span>            :     default:
+<span class="lineNum">     179 </span><span class="lineNoCov">          0 :       if (IsPrintableAscii(c)) {</span>
+<span class="lineNum">     180 </span><span class="lineNoCov">          0 :         *os &lt;&lt; static_cast&lt;char&gt;(c);</span>
+<span class="lineNum">     181 </span><span class="lineNoCov">          0 :         return kAsIs;</span>
+<span class="lineNum">     182 </span>            :       } else {
+<span class="lineNum">     183 </span><span class="lineNoCov">          0 :         *os &lt;&lt; &quot;\\x&quot; + String::FormatHexInt(static_cast&lt;UnsignedChar&gt;(c));</span>
+<span class="lineNum">     184 </span><span class="lineNoCov">          0 :         return kHexEscape;</span>
+<span class="lineNum">     185 </span>            :       }
+<span class="lineNum">     186 </span>            :   }
+<span class="lineNum">     187 </span>            :   return kSpecialEscape;
+<span class="lineNum">     188 </span>            : }
+<span class="lineNum">     189 </span>            : 
+<a name="190"><span class="lineNum">     190 </span>            : // Prints a wchar_t c as if it's part of a string literal, escaping it when</a>
+<span class="lineNum">     191 </span>            : // necessary; returns how c was formatted.
+<span class="lineNum">     192 </span><span class="lineNoCov">          0 : static CharFormat PrintAsStringLiteralTo(wchar_t c, ostream* os) {</span>
+<span class="lineNum">     193 </span><span class="lineNoCov">          0 :   switch (c) {</span>
+<span class="lineNum">     194 </span>            :     case L'\'':
+<span class="lineNum">     195 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;'&quot;;</span>
+<span class="lineNum">     196 </span><span class="lineNoCov">          0 :       return kAsIs;</span>
+<span class="lineNum">     197 </span>            :     case L'&quot;':
+<span class="lineNum">     198 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\\\&quot;&quot;;</span>
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 :       return kSpecialEscape;</span>
+<span class="lineNum">     200 </span>            :     default:
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :       return PrintAsCharLiteralTo&lt;wchar_t&gt;(c, os);</span>
+<span class="lineNum">     202 </span>            :   }
+<span class="lineNum">     203 </span>            : }
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span>            : // Prints a char c as if it's part of a string literal, escaping it when
+<span class="lineNum">     206 </span>            : // necessary; returns how c was formatted.
+<a name="207"><span class="lineNum">     207 </span>            : static CharFormat PrintAsStringLiteralTo(char c, ostream* os) {</a>
+<span class="lineNum">     208 </span>            :   return PrintAsStringLiteralTo(
+<span class="lineNum">     209 </span><span class="lineNoCov">          0 :       static_cast&lt;wchar_t&gt;(static_cast&lt;unsigned char&gt;(c)), os);</span>
+<span class="lineNum">     210 </span>            : }
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            : // Prints a wide or narrow character c and its code.  '\0' is printed
+<span class="lineNum">     213 </span>            : // as &quot;'\\0'&quot;, other unprintable characters are also properly escaped
+<span class="lineNum">     214 </span>            : // using the standard C++ escape sequence.  The template argument
+<a name="215"><span class="lineNum">     215 </span>            : // UnsignedChar is the unsigned version of Char, which is the type of c.</a>
+<span class="lineNum">     216 </span>            : template &lt;typename UnsignedChar, typename Char&gt;
+<span class="lineNum">     217 </span><span class="lineNoCov">          0 : void PrintCharAndCodeTo(Char c, ostream* os) {</span>
+<span class="lineNum">     218 </span>            :   // First, print c as a literal in the most readable form we can find.
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :   *os &lt;&lt; ((sizeof(c) &gt; 1) ? &quot;L'&quot; : &quot;'&quot;);</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :   const CharFormat format = PrintAsCharLiteralTo&lt;UnsignedChar&gt;(c, os);</span>
+<span class="lineNum">     221 </span><span class="lineNoCov">          0 :   *os &lt;&lt; &quot;'&quot;;</span>
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span>            :   // To aid user debugging, we also print c's code in decimal, unless
+<span class="lineNum">     224 </span>            :   // it's 0 (in which case c was printed as '\\0', making the code
+<span class="lineNum">     225 </span>            :   // obvious).
+<span class="lineNum">     226 </span><span class="lineNoCov">          0 :   if (c == 0)</span>
+<span class="lineNum">     227 </span><span class="lineNoCov">          0 :     return;</span>
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :   *os &lt;&lt; &quot; (&quot; &lt;&lt; static_cast&lt;int&gt;(c);</span>
+<span class="lineNum">     229 </span>            : 
+<span class="lineNum">     230 </span>            :   // For more convenience, we print c's code again in hexidecimal,
+<span class="lineNum">     231 </span>            :   // unless c was already printed in the form '\x##' or the code is in
+<span class="lineNum">     232 </span>            :   // [1, 9].
+<span class="lineNum">     233 </span><span class="lineNoCov">          0 :   if (format == kHexEscape || (1 &lt;= c &amp;&amp; c &lt;= 9)) {</span>
+<span class="lineNum">     234 </span>            :     // Do nothing.
+<span class="lineNum">     235 </span>            :   } else {
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :     *os &lt;&lt; &quot;, 0x&quot; &lt;&lt; String::FormatHexInt(static_cast&lt;UnsignedChar&gt;(c));</span>
+<span class="lineNum">     237 </span>            :   }
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 :   *os &lt;&lt; &quot;)&quot;;</span>
+<a name="239"><span class="lineNum">     239 </span>            : }</a>
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span><span class="lineNoCov">          0 : void PrintTo(unsigned char c, ::std::ostream* os) {</span>
+<a name="242"><span class="lineNum">     242 </span><span class="lineNoCov">          0 :   PrintCharAndCodeTo&lt;unsigned char&gt;(c, os);</span></a>
+<span class="lineNum">     243 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     244 </span><span class="lineNoCov">          0 : void PrintTo(signed char c, ::std::ostream* os) {</span>
+<span class="lineNum">     245 </span><span class="lineNoCov">          0 :   PrintCharAndCodeTo&lt;unsigned char&gt;(c, os);</span>
+<span class="lineNum">     246 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     247 </span>            : 
+<a name="248"><span class="lineNum">     248 </span>            : // Prints a wchar_t as a symbol if it is printable or as its internal</a>
+<span class="lineNum">     249 </span>            : // code otherwise and also as its code.  L'\0' is printed as &quot;L'\\0'&quot;.
+<span class="lineNum">     250 </span><span class="lineNoCov">          0 : void PrintTo(wchar_t wc, ostream* os) {</span>
+<span class="lineNum">     251 </span><span class="lineNoCov">          0 :   PrintCharAndCodeTo&lt;wchar_t&gt;(wc, os);</span>
+<span class="lineNum">     252 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     253 </span>            : 
+<span class="lineNum">     254 </span>            : // Prints the given array of characters to the ostream.  CharType must be either
+<span class="lineNum">     255 </span>            : // char or wchar_t.
+<span class="lineNum">     256 </span>            : // The array starts at begin, the length is len, it may include '\0' characters
+<span class="lineNum">     257 </span>            : // and may not be NUL-terminated.
+<span class="lineNum">     258 </span>            : template &lt;typename CharType&gt;
+<span class="lineNum">     259 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_MEMORY_
+<a name="260"><span class="lineNum">     260 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_</a>
+<span class="lineNum">     261 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_THREAD_
+<span class="lineNum">     262 </span><span class="lineNoCov">          0 : static void PrintCharsAsStringTo(</span>
+<span class="lineNum">     263 </span>            :     const CharType* begin, size_t len, ostream* os) {
+<span class="lineNum">     264 </span><span class="lineNoCov">          0 :   const char* const kQuoteBegin = sizeof(CharType) == 1 ? &quot;\&quot;&quot; : &quot;L\&quot;&quot;;</span>
+<span class="lineNum">     265 </span><span class="lineNoCov">          0 :   *os &lt;&lt; kQuoteBegin;</span>
+<span class="lineNum">     266 </span><span class="lineNoCov">          0 :   bool is_previous_hex = false;</span>
+<span class="lineNum">     267 </span><span class="lineNoCov">          0 :   for (size_t index = 0; index &lt; len; ++index) {</span>
+<span class="lineNum">     268 </span><span class="lineNoCov">          0 :     const CharType cur = begin[index];</span>
+<span class="lineNum">     269 </span><span class="lineNoCov">          0 :     if (is_previous_hex &amp;&amp; IsXDigit(cur)) {</span>
+<span class="lineNum">     270 </span>            :       // Previous character is of '\x..' form and this character can be
+<span class="lineNum">     271 </span>            :       // interpreted as another hexadecimal digit in its number. Break string to
+<span class="lineNum">     272 </span>            :       // disambiguate.
+<span class="lineNum">     273 </span><span class="lineNoCov">          0 :       *os &lt;&lt; &quot;\&quot; &quot; &lt;&lt; kQuoteBegin;</span>
+<span class="lineNum">     274 </span>            :     }
+<span class="lineNum">     275 </span><span class="lineNoCov">          0 :     is_previous_hex = PrintAsStringLiteralTo(cur, os) == kHexEscape;</span>
+<span class="lineNum">     276 </span>            :   }
+<span class="lineNum">     277 </span><span class="lineNoCov">          0 :   *os &lt;&lt; &quot;\&quot;&quot;;</span>
+<span class="lineNum">     278 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     279 </span>            : 
+<span class="lineNum">     280 </span>            : // Prints a (const) char/wchar_t array of 'len' elements, starting at address
+<span class="lineNum">     281 </span>            : // 'begin'.  CharType must be either char or wchar_t.
+<span class="lineNum">     282 </span>            : template &lt;typename CharType&gt;
+<span class="lineNum">     283 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_MEMORY_
+<a name="284"><span class="lineNum">     284 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_</a>
+<span class="lineNum">     285 </span>            : GTEST_ATTRIBUTE_NO_SANITIZE_THREAD_
+<span class="lineNum">     286 </span><span class="lineNoCov">          0 : static void UniversalPrintCharArray(</span>
+<span class="lineNum">     287 </span>            :     const CharType* begin, size_t len, ostream* os) {
+<span class="lineNum">     288 </span>            :   // The code
+<span class="lineNum">     289 </span>            :   //   const char kFoo[] = &quot;foo&quot;;
+<span class="lineNum">     290 </span>            :   // generates an array of 4, not 3, elements, with the last one being '\0'.
+<span class="lineNum">     291 </span>            :   //
+<span class="lineNum">     292 </span>            :   // Therefore when printing a char array, we don't print the last element if
+<span class="lineNum">     293 </span>            :   // it's '\0', such that the output matches the string literal as it's
+<span class="lineNum">     294 </span>            :   // written in the source code.
+<span class="lineNum">     295 </span><span class="lineNoCov">          0 :   if (len &gt; 0 &amp;&amp; begin[len - 1] == '\0') {</span>
+<span class="lineNum">     296 </span><span class="lineNoCov">          0 :     PrintCharsAsStringTo(begin, len - 1, os);</span>
+<span class="lineNum">     297 </span><span class="lineNoCov">          0 :     return;</span>
+<span class="lineNum">     298 </span>            :   }
+<span class="lineNum">     299 </span>            : 
+<span class="lineNum">     300 </span>            :   // If, however, the last element in the array is not '\0', e.g.
+<span class="lineNum">     301 </span>            :   //    const char kFoo[] = { 'f', 'o', 'o' };
+<span class="lineNum">     302 </span>            :   // we must print the entire array.  We also print a message to indicate
+<span class="lineNum">     303 </span>            :   // that the array is not NUL-terminated.
+<span class="lineNum">     304 </span><span class="lineNoCov">          0 :   PrintCharsAsStringTo(begin, len, os);</span>
+<span class="lineNum">     305 </span><span class="lineNoCov">          0 :   *os &lt;&lt; &quot; (no terminating NUL)&quot;;</span>
+<span class="lineNum">     306 </span>            : }
+<a name="307"><span class="lineNum">     307 </span>            : </a>
+<span class="lineNum">     308 </span>            : // Prints a (const) char array of 'len' elements, starting at address 'begin'.
+<span class="lineNum">     309 </span><span class="lineNoCov">          0 : void UniversalPrintArray(const char* begin, size_t len, ostream* os) {</span>
+<span class="lineNum">     310 </span><span class="lineNoCov">          0 :   UniversalPrintCharArray(begin, len, os);</span>
+<span class="lineNum">     311 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     312 </span>            : 
+<a name="313"><span class="lineNum">     313 </span>            : // Prints a (const) wchar_t array of 'len' elements, starting at address</a>
+<span class="lineNum">     314 </span>            : // 'begin'.
+<span class="lineNum">     315 </span><span class="lineNoCov">          0 : void UniversalPrintArray(const wchar_t* begin, size_t len, ostream* os) {</span>
+<span class="lineNum">     316 </span><span class="lineNoCov">          0 :   UniversalPrintCharArray(begin, len, os);</span>
+<span class="lineNum">     317 </span><span class="lineNoCov">          0 : }</span>
+<a name="318"><span class="lineNum">     318 </span>            : </a>
+<span class="lineNum">     319 </span>            : // Prints the given C string to the ostream.
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 : void PrintTo(const char* s, ostream* os) {</span>
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 :   if (s == NULL) {</span>
+<span class="lineNum">     322 </span><span class="lineNoCov">          0 :     *os &lt;&lt; &quot;NULL&quot;;</span>
+<span class="lineNum">     323 </span>            :   } else {
+<span class="lineNum">     324 </span><span class="lineNoCov">          0 :     *os &lt;&lt; ImplicitCast_&lt;const void*&gt;(s) &lt;&lt; &quot; pointing to &quot;;</span>
+<span class="lineNum">     325 </span><span class="lineNoCov">          0 :     PrintCharsAsStringTo(s, strlen(s), os);</span>
+<span class="lineNum">     326 </span>            :   }
+<span class="lineNum">     327 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span>            : // MSVC compiler can be configured to define whar_t as a typedef
+<span class="lineNum">     330 </span>            : // of unsigned short. Defining an overload for const wchar_t* in that case
+<span class="lineNum">     331 </span>            : // would cause pointers to unsigned shorts be printed as wide strings,
+<span class="lineNum">     332 </span>            : // possibly accessing more memory than intended and causing invalid
+<span class="lineNum">     333 </span>            : // memory accesses. MSVC defines _NATIVE_WCHAR_T_DEFINED symbol when
+<span class="lineNum">     334 </span>            : // wchar_t is implemented as a native type.
+<a name="335"><span class="lineNum">     335 </span>            : #if !defined(_MSC_VER) || defined(_NATIVE_WCHAR_T_DEFINED)</a>
+<span class="lineNum">     336 </span>            : // Prints the given wide C string to the ostream.
+<span class="lineNum">     337 </span><span class="lineNoCov">          0 : void PrintTo(const wchar_t* s, ostream* os) {</span>
+<span class="lineNum">     338 </span><span class="lineNoCov">          0 :   if (s == NULL) {</span>
+<span class="lineNum">     339 </span><span class="lineNoCov">          0 :     *os &lt;&lt; &quot;NULL&quot;;</span>
+<span class="lineNum">     340 </span>            :   } else {
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :     *os &lt;&lt; ImplicitCast_&lt;const void*&gt;(s) &lt;&lt; &quot; pointing to &quot;;</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 :     PrintCharsAsStringTo(s, std::wcslen(s), os);</span>
+<span class="lineNum">     343 </span>            :   }
+<span class="lineNum">     344 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     345 </span>            : #endif  // wchar_t is native
+<span class="lineNum">     346 </span>            : 
+<span class="lineNum">     347 </span>            : // Prints a ::string object.
+<span class="lineNum">     348 </span>            : #if GTEST_HAS_GLOBAL_STRING
+<span class="lineNum">     349 </span>            : void PrintStringTo(const ::string&amp; s, ostream* os) {
+<span class="lineNum">     350 </span>            :   PrintCharsAsStringTo(s.data(), s.size(), os);
+<span class="lineNum">     351 </span>            : }
+<a name="352"><span class="lineNum">     352 </span>            : #endif  // GTEST_HAS_GLOBAL_STRING</a>
+<span class="lineNum">     353 </span>            : 
+<span class="lineNum">     354 </span><span class="lineNoCov">          0 : void PrintStringTo(const ::std::string&amp; s, ostream* os) {</span>
+<span class="lineNum">     355 </span><span class="lineNoCov">          0 :   PrintCharsAsStringTo(s.data(), s.size(), os);</span>
+<span class="lineNum">     356 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span>            : // Prints a ::wstring object.
+<span class="lineNum">     359 </span>            : #if GTEST_HAS_GLOBAL_WSTRING
+<span class="lineNum">     360 </span>            : void PrintWideStringTo(const ::wstring&amp; s, ostream* os) {
+<span class="lineNum">     361 </span>            :   PrintCharsAsStringTo(s.data(), s.size(), os);
+<span class="lineNum">     362 </span>            : }
+<span class="lineNum">     363 </span>            : #endif  // GTEST_HAS_GLOBAL_WSTRING
+<a name="364"><span class="lineNum">     364 </span>            : </a>
+<span class="lineNum">     365 </span>            : #if GTEST_HAS_STD_WSTRING
+<span class="lineNum">     366 </span><span class="lineNoCov">          0 : void PrintWideStringTo(const ::std::wstring&amp; s, ostream* os) {</span>
+<span class="lineNum">     367 </span><span class="lineNoCov">          0 :   PrintCharsAsStringTo(s.data(), s.size(), os);</span>
+<span class="lineNum">     368 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     369 </span>            : #endif  // GTEST_HAS_STD_WSTRING
+<span class="lineNum">     370 </span>            : 
+<span class="lineNum">     371 </span>            : }  // namespace internal
+<span class="lineNum">     372 </span>            : 
+<span class="lineNum">     373 </span>            : }  // namespace testing
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

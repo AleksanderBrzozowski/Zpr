@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/GUI/roadgui.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">src/GUI</a> - roadgui.cpp<span style="font-size: 80%;"> (source / <a href="roadgui.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">77</td>
+            <td class="headerCovTableEntryLo">7.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntryLo">13.3 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;roadgui.h&quot;</a>
+<span class="lineNum">       2 </span>            : 
+<span class="lineNum">       3 </span>            : /**PROPERTIES INITIALIZE**/
+<span class="lineNum">       4 </span>            : const int RoadGUI::PEN_WIDTH = 0;
+<span class="lineNum">       5 </span>            : const Qt::PenStyle RoadGUI::PEN_STYLE = Qt::SolidLine;
+<span class="lineNum">       6 </span>            : const Qt::PenCapStyle RoadGUI::PEN_CAP = Qt::SquareCap;
+<span class="lineNum">       7 </span>            : const Qt::PenJoinStyle RoadGUI::PEN_JOIN = Qt::RoundJoin;
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            : const QColor RoadGUI::PEN_COLOR = QColor(100, 100, 100, 0);
+<a name="10"><span class="lineNum">      10 </span>            : const QColor RoadGUI::GHOST_PEN_COLOR = QColor(100, 100, 100, 0);</a>
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span><span class="lineCov">          1 : const QPen RoadGUI::PEN(PEN_COLOR, PEN_WIDTH, PEN_STYLE, PEN_CAP, PEN_JOIN);</span>
+<span class="lineNum">      13 </span><span class="lineCov">          1 : const QPen RoadGUI::GHOST_PEN(GHOST_PEN_COLOR, PEN_WIDTH, PEN_STYLE, PEN_CAP, PEN_JOIN);</span>
+<span class="lineNum">      14 </span>            : 
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            : const Qt::BrushStyle RoadGUI::BRUSH_STYLE = Qt::SolidPattern;
+<span class="lineNum">      17 </span>            : const QColor RoadGUI::BRUSH_COLOR = QColor(72, 72, 59);
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            : const QColor RoadGUI::GHOST_BRUSH_COLOR = QColor(72, 72, 59, 127);
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span><span class="lineCov">          1 : const QBrush RoadGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);</span>
+<span class="lineNum">      22 </span><span class="lineCov">          1 : const QBrush RoadGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);</span>
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            : const unsigned int RoadGUI::SIDEWALK_WIDTH = 8;
+<span class="lineNum">      25 </span>            : const QColor RoadGUI::SIDEWALK_BRUSH_COLOR = QColor(155, 155, 132);
+<span class="lineNum">      26 </span><span class="lineCov">          1 : const QBrush RoadGUI::SIDEWALK_BRUSH(SIDEWALK_BRUSH_COLOR, BRUSH_STYLE);</span>
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : /*!
+<span class="lineNum">      29 </span>            :  * \brief RoadGUI::RoadGUI. Constructor.
+<span class="lineNum">      30 </span>            :  * \param firstPoint - One end of the road.
+<span class="lineNum">      31 </span>            :  * \param secondPoint - Other end of the road.
+<span class="lineNum">      32 </span>            :  * \param ghost - Bool flag tells whether object is ghost object.
+<span class="lineNum">      33 </span>            :  * \details Constructs object based on two points given as arguments.
+<span class="lineNum">      34 </span>            :  * Line created by points doesn't have to be horizontal or vertical.
+<span class="lineNum">      35 </span>            :  * Road is going to be made horizontal or vertical based on difference
+<a name="36"><span class="lineNum">      36 </span>            :  * between points (dx &gt; dy).</a>
+<span class="lineNum">      37 </span>            :  */
+<span class="lineNum">      38 </span><span class="lineNoCov">          0 : RoadGUI::RoadGUI(Point firstPoint, Point secondPoint, bool ghost):</span>
+<span class="lineNum">      39 </span><span class="lineNoCov">          0 :     Drawable(ghost) {</span>
+<span class="lineNum">      40 </span><span class="lineNoCov">          0 :     setRectangle(firstPoint, secondPoint);</span>
+<span class="lineNum">      41 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : /*!
+<span class="lineNum">      44 </span>            :  * \brief RoadGUI::RoadGUI. Constructor.
+<span class="lineNum">      45 </span>            :  * \param point - Point.
+<a name="46"><span class="lineNum">      46 </span>            :  * \details Creates temporary ghost road being just a square.</a>
+<span class="lineNum">      47 </span>            :  */
+<span class="lineNum">      48 </span><span class="lineNoCov">          0 : RoadGUI::RoadGUI(Point point) : Drawable(true) {</span>
+<span class="lineNum">      49 </span><span class="lineNoCov">          0 :     setRectangle(point);</span>
+<a name="50"><span class="lineNum">      50 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span><span class="lineNoCov">          0 : RoadGUI::~RoadGUI() {</span>
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            : /*!
+<span class="lineNum">      57 </span>            :  * \brief RoadGUI::setRectangle.
+<span class="lineNum">      58 </span>            :  * \param first - One end of the road.
+<span class="lineNum">      59 </span>            :  * \param second - Other end of the road.
+<span class="lineNum">      60 </span>            :  * \details Function sets road to be between two given points.
+<span class="lineNum">      61 </span>            :  * Line created by points doesn't have to be horizontal or vertical.
+<span class="lineNum">      62 </span>            :  * Road is going to be made horizontal or vertical based on difference
+<a name="63"><span class="lineNum">      63 </span>            :  * between points (dx &gt; dy).</a>
+<span class="lineNum">      64 </span>            :  */
+<span class="lineNum">      65 </span><span class="lineNoCov">          0 : void RoadGUI::setRectangle(Point first, Point second) {</span>
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :     int diffX = second.getX() - first.getX();</span>
+<span class="lineNum">      67 </span><span class="lineNoCov">          0 :     int diffY = second.getY() - first.getY();</span>
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :     if (abs(diffX) &lt; abs(diffY)) {</span>
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 :         vertical = true;</span>
+<span class="lineNum">      71 </span><span class="lineNoCov">          0 :         if (diffY &lt;= 0) {</span>
+<span class="lineNum">      72 </span><span class="lineNoCov">          0 :             start = first;</span>
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 :             end = Point(first.getX(), second.getY());</span>
+<span class="lineNum">      74 </span>            :         } else {
+<span class="lineNum">      75 </span><span class="lineNoCov">          0 :             start = Point(first.getX(), second.getY());</span>
+<span class="lineNum">      76 </span><span class="lineNoCov">          0 :             end = first;</span>
+<span class="lineNum">      77 </span>            :         }
+<span class="lineNum">      78 </span>            :     } else {
+<span class="lineNum">      79 </span><span class="lineNoCov">          0 :         vertical = false;</span>
+<span class="lineNum">      80 </span><span class="lineNoCov">          0 :         if (diffX &gt;= 0) {</span>
+<span class="lineNum">      81 </span><span class="lineNoCov">          0 :             start = first;</span>
+<span class="lineNum">      82 </span><span class="lineNoCov">          0 :             end = Point(second.getX(), first.getY());</span>
+<span class="lineNum">      83 </span>            :         } else {
+<span class="lineNum">      84 </span><span class="lineNoCov">          0 :             start = Point(second.getX(), first.getY());</span>
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 :             end = first;</span>
+<span class="lineNum">      86 </span>            :         }
+<span class="lineNum">      87 </span>            :     }
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span>            :     roadRect = QRect(
+<span class="lineNum">      90 </span><span class="lineNoCov">          0 :                 QPoint(start.getX() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH),</span>
+<span class="lineNum">      91 </span><span class="lineNoCov">          0 :                                        start.getY() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH)),</span>
+<span class="lineNum">      92 </span><span class="lineNoCov">          0 :                 QPoint(end.getX() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH),</span>
+<span class="lineNum">      93 </span><span class="lineNoCov">          0 :                                      end.getY() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH))</span>
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 :                 );</span>
+<span class="lineNum">      95 </span>            :     sidewalkRect = QRect(
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 :                 QPoint(start.getX() - GridGUI::SIZE/2,</span>
+<span class="lineNum">      97 </span><span class="lineNoCov">          0 :                                        start.getY() + GridGUI::SIZE/2),</span>
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :                 QPoint(end.getX() + GridGUI::SIZE/2,</span>
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 :                                      end.getY() - GridGUI::SIZE/2)</span>
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :                 );</span>
+<span class="lineNum">     101 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span>            : /*!
+<span class="lineNum">     104 </span>            :  * \brief RoadGUI::adjustPoints.
+<span class="lineNum">     105 </span>            :  * \param first - Reference to first point.
+<span class="lineNum">     106 </span>            :  * \param second - Reference to second point.
+<span class="lineNum">     107 </span>            :  * \details Function takes reference to two points and sets them in line
+<span class="lineNum">     108 </span>            :  * parallel to horizontal or vertical, based on difference between these
+<a name="109"><span class="lineNum">     109 </span>            :  * points (dx &gt; dy).</a>
+<span class="lineNum">     110 </span>            :  */
+<span class="lineNum">     111 </span><span class="lineNoCov">          0 : void RoadGUI::adjustPoints(Point&amp; first, Point&amp; second) {</span>
+<span class="lineNum">     112 </span><span class="lineNoCov">          0 :     int diffX = second.getX() - first.getX();</span>
+<span class="lineNum">     113 </span><span class="lineNoCov">          0 :     int diffY = second.getY() - first.getY();</span>
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span><span class="lineNoCov">          0 :     if (abs(diffX) &lt; abs(diffY)) {</span>
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :         second.setX(first.getX());</span>
+<span class="lineNum">     117 </span>            :     } else {
+<span class="lineNum">     118 </span><span class="lineNoCov">          0 :         second.setY(first.getY());</span>
+<span class="lineNum">     119 </span>            :     }
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span>            : /*!
+<span class="lineNum">     124 </span>            :  * \brief RoadGUI::setRectangle.
+<span class="lineNum">     125 </span>            :  * \param point - Point of new road.
+<a name="126"><span class="lineNum">     126 </span>            :  * \details Function sets temporary ghost road in point given as argument.</a>
+<span class="lineNum">     127 </span>            :  */
+<span class="lineNum">     128 </span><span class="lineNoCov">          0 : void RoadGUI::setRectangle(Point point) {</span>
+<span class="lineNum">     129 </span><span class="lineNoCov">          0 :     roadRect = QRect(QPoint(point.getX() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH),</span>
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :                             point.getY() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH)),</span>
+<span class="lineNum">     131 </span><span class="lineNoCov">          0 :                      QPoint(point.getX() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH),</span>
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :                             point.getY() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH))</span>
+<span class="lineNum">     133 </span><span class="lineNoCov">          0 :                      );</span>
+<span class="lineNum">     134 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span>            : /*!
+<span class="lineNum">     137 </span>            :  * \brief RoadGUI::drawSidewalk.
+<span class="lineNum">     138 </span>            :  * \param painter - Reference to painter object.
+<span class="lineNum">     139 </span>            :  * \details Function draws sidewalk using painter given as an argument.
+<span class="lineNum">     140 </span>            :  * It uses brushes, and pens defined in object. Ghost roads doesnt have
+<a name="141"><span class="lineNum">     141 </span>            :  * sidewalks.</a>
+<span class="lineNum">     142 </span>            :  */
+<span class="lineNum">     143 </span><span class="lineNoCov">          0 : void RoadGUI::drawSidewalk(QPainter &amp;painter) const {</span>
+<span class="lineNum">     144 </span><span class="lineNoCov">          0 :     painter.setPen(PEN);</span>
+<span class="lineNum">     145 </span><span class="lineNoCov">          0 :     painter.setBrush(SIDEWALK_BRUSH);</span>
+<span class="lineNum">     146 </span><span class="lineNoCov">          0 :     painter.drawRect(sidewalkRect);</span>
+<span class="lineNum">     147 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            : /*!
+<span class="lineNum">     150 </span>            :  * \brief RoadGUI::draw
+<span class="lineNum">     151 </span>            :  * \param painter - Reference to painter object.
+<span class="lineNum">     152 </span>            :  * \details Function draws object using painter given as an argument.
+<span class="lineNum">     153 </span>            :  * It uses brushes, and pens defined in object, and base its choice on
+<a name="154"><span class="lineNum">     154 </span>            :  * whether it is ghost object or not.</a>
+<span class="lineNum">     155 </span>            :  */
+<span class="lineNum">     156 </span><span class="lineNoCov">          0 : void RoadGUI::draw(QPainter &amp;painter) const {</span>
+<span class="lineNum">     157 </span><span class="lineNoCov">          0 :     if(!isGhost()) {</span>
+<span class="lineNum">     158 </span><span class="lineNoCov">          0 :         painter.setPen(PEN);</span>
+<span class="lineNum">     159 </span><span class="lineNoCov">          0 :         painter.setBrush(BRUSH);</span>
+<span class="lineNum">     160 </span>            :     } else {
+<span class="lineNum">     161 </span><span class="lineNoCov">          0 :         painter.setPen(GHOST_PEN);</span>
+<span class="lineNum">     162 </span><span class="lineNoCov">          0 :         painter.setBrush(GHOST_BRUSH);</span>
+<span class="lineNum">     163 </span>            :     }
+<span class="lineNum">     164 </span><span class="lineNoCov">          0 :     painter.drawRect(roadRect);</span>
+<span class="lineNum">     165 </span><span class="lineNoCov">          0 : }</span>
+<a name="166"><span class="lineNum">     166 </span>            : </a>
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 : void RoadGUI::setTo(unsigned int x, unsigned int y) {</span>
+<span class="lineNum">     169 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span>            : /*!
+<span class="lineNum">     172 </span>            :  * \brief RoadGUI::isVertical.
+<a name="173"><span class="lineNum">     173 </span>            :  * \return Returns flag whether function is vertical or not</a>
+<span class="lineNum">     174 </span>            :  */
+<span class="lineNum">     175 </span><span class="lineNoCov">          0 : bool RoadGUI::isVertical() const {</span>
+<span class="lineNum">     176 </span><span class="lineNoCov">          0 :     return vertical;</span>
+<span class="lineNum">     177 </span>            : }
+<span class="lineNum">     178 </span>            : 
+<span class="lineNum">     179 </span>            : /*!
+<span class="lineNum">     180 </span>            :  * \brief RoadGUI::getEnds.
+<a name="181"><span class="lineNum">     181 </span>            :  * \return Returns tuple with two ends of road.</a>
+<span class="lineNum">     182 </span>            :  */
+<span class="lineNum">     183 </span><span class="lineNoCov">          0 : std::tuple&lt;Point, Point&gt; RoadGUI::getEnds() const {</span>
+<span class="lineNum">     184 </span><span class="lineNoCov">          0 :     return std::make_tuple(start, end);</span>
+<span class="lineNum">     185 </span>            : }
+<span class="lineNum">     186 </span>            : 
+<span class="lineNum">     187 </span>            : /*!
+<span class="lineNum">     188 </span>            :  * \brief RoadGUI::intersects.
+<span class="lineNum">     189 </span>            :  * \param rectangle - QRect object that is being checked for intersection.
+<span class="lineNum">     190 </span>            :  * \return Bool value whether rectangles intersects.
+<span class="lineNum">     191 </span>            :  * \details Function checks whether current road's (not including sight range)
+<a name="192"><span class="lineNum">     192 </span>            :  * rectangle intersects rectangle given as argument and returns bool value.</a>
+<span class="lineNum">     193 </span>            :  */
+<a name="194"><span class="lineNum">     194 </span><span class="lineNoCov">          0 : bool RoadGUI::intersects(QRect &amp;rectangle) const {</span></a>
+<span class="lineNum">     195 </span><span class="lineNoCov">          0 :     return roadRect.intersects(rectangle);</span>
+<span class="lineNum">     196 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - test/googletest/googletest/include/gtest/gtest-test-part.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../index.html">top level</a> - <a href="index.html">test/googletest/googletest/include/gtest</a> - gtest-test-part.h<span style="font-size: 80%;"> (source / <a href="gtest-test-part.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryLo">9.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // Copyright 2008, Google Inc.</a>
+<span class="lineNum">       2 </span>            : // All rights reserved.
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : // Redistribution and use in source and binary forms, with or without
+<span class="lineNum">       5 </span>            : // modification, are permitted provided that the following conditions are
+<span class="lineNum">       6 </span>            : // met:
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //     * Redistributions of source code must retain the above copyright
+<span class="lineNum">       9 </span>            : // notice, this list of conditions and the following disclaimer.
+<span class="lineNum">      10 </span>            : //     * Redistributions in binary form must reproduce the above
+<span class="lineNum">      11 </span>            : // copyright notice, this list of conditions and the following disclaimer
+<span class="lineNum">      12 </span>            : // in the documentation and/or other materials provided with the
+<span class="lineNum">      13 </span>            : // distribution.
+<span class="lineNum">      14 </span>            : //     * Neither the name of Google Inc. nor the names of its
+<span class="lineNum">      15 </span>            : // contributors may be used to endorse or promote products derived from
+<span class="lineNum">      16 </span>            : // this software without specific prior written permission.
+<span class="lineNum">      17 </span>            : //
+<span class="lineNum">      18 </span>            : // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+<span class="lineNum">      19 </span>            : // &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+<span class="lineNum">      20 </span>            : // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+<span class="lineNum">      21 </span>            : // A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+<span class="lineNum">      22 </span>            : // OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+<span class="lineNum">      23 </span>            : // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+<span class="lineNum">      24 </span>            : // LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+<span class="lineNum">      25 </span>            : // DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+<span class="lineNum">      26 </span>            : // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+<span class="lineNum">      27 </span>            : // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+<span class="lineNum">      28 </span>            : // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+<span class="lineNum">      29 </span>            : //
+<span class="lineNum">      30 </span>            : // Author: mheule@google.com (Markus Heule)
+<span class="lineNum">      31 </span>            : //
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : #ifndef GTEST_INCLUDE_GTEST_GTEST_TEST_PART_H_
+<span class="lineNum">      34 </span>            : #define GTEST_INCLUDE_GTEST_GTEST_TEST_PART_H_
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : #include &lt;iosfwd&gt;
+<span class="lineNum">      37 </span>            : #include &lt;vector&gt;
+<span class="lineNum">      38 </span>            : #include &quot;gtest/internal/gtest-internal.h&quot;
+<span class="lineNum">      39 </span>            : #include &quot;gtest/internal/gtest-string.h&quot;
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            : namespace testing {
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : // A copyable object representing the result of a test part (i.e. an
+<span class="lineNum">      44 </span>            : // assertion or an explicit FAIL(), ADD_FAILURE(), or SUCCESS()).
+<a name="45"><span class="lineNum">      45 </span>            : //</a>
+<span class="lineNum">      46 </span>            : // Don't inherit from TestPartResult as its destructor is not virtual.
+<span class="lineNum">      47 </span><span class="lineNoCov">          0 : class GTEST_API_ TestPartResult {</span>
+<span class="lineNum">      48 </span>            :  public:
+<span class="lineNum">      49 </span>            :   // The possible outcomes of a test part (i.e. an assertion or an
+<span class="lineNum">      50 </span>            :   // explicit SUCCEED(), FAIL(), or ADD_FAILURE()).
+<span class="lineNum">      51 </span>            :   enum Type {
+<span class="lineNum">      52 </span>            :     kSuccess,          // Succeeded.
+<span class="lineNum">      53 </span>            :     kNonFatalFailure,  // Failed but the test can continue.
+<span class="lineNum">      54 </span>            :     kFatalFailure      // Failed and the test should be terminated.
+<span class="lineNum">      55 </span>            :   };
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span>            :   // C'tor.  TestPartResult does NOT have a default constructor.
+<a name="58"><span class="lineNum">      58 </span>            :   // Always use this constructor (with parameters) to create a</a>
+<span class="lineNum">      59 </span>            :   // TestPartResult object.
+<span class="lineNum">      60 </span><span class="lineNoCov">          0 :   TestPartResult(Type a_type,</span>
+<span class="lineNum">      61 </span>            :                  const char* a_file_name,
+<span class="lineNum">      62 </span>            :                  int a_line_number,
+<span class="lineNum">      63 </span>            :                  const char* a_message)
+<span class="lineNum">      64 </span>            :       : type_(a_type),
+<span class="lineNum">      65 </span>            :         file_name_(a_file_name == NULL ? &quot;&quot; : a_file_name),
+<span class="lineNum">      66 </span>            :         line_number_(a_line_number),
+<span class="lineNum">      67 </span>            :         summary_(ExtractSummary(a_message)),
+<span class="lineNum">      68 </span><span class="lineNoCov">          0 :         message_(a_message) {</span>
+<span class="lineNum">      69 </span><span class="lineNoCov">          0 :   }</span>
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            :   // Gets the outcome of the test part.
+<span class="lineNum">      72 </span>            :   Type type() const { return type_; }
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span>            :   // Gets the name of the source file where the test part took place, or
+<span class="lineNum">      75 </span>            :   // NULL if it's unknown.
+<span class="lineNum">      76 </span>            :   const char* file_name() const {
+<span class="lineNum">      77 </span><span class="lineNoCov">          0 :     return file_name_.empty() ? NULL : file_name_.c_str();</span>
+<span class="lineNum">      78 </span>            :   }
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span>            :   // Gets the line in the source file where the test part took place,
+<span class="lineNum">      81 </span>            :   // or -1 if it's unknown.
+<span class="lineNum">      82 </span>            :   int line_number() const { return line_number_; }
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            :   // Gets the summary of the failure message.
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 :   const char* summary() const { return summary_.c_str(); }</span>
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :   // Gets the message associated with the test part.
+<span class="lineNum">      88 </span><span class="lineNoCov">          0 :   const char* message() const { return message_.c_str(); }</span>
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            :   // Returns true iff the test part passed.
+<span class="lineNum">      91 </span>            :   bool passed() const { return type_ == kSuccess; }
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span>            :   // Returns true iff the test part failed.
+<span class="lineNum">      94 </span>            :   bool failed() const { return type_ != kSuccess; }
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            :   // Returns true iff the test part non-fatally failed.
+<span class="lineNum">      97 </span><span class="lineNoCov">          0 :   bool nonfatally_failed() const { return type_ == kNonFatalFailure; }</span>
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span>            :   // Returns true iff the test part fatally failed.
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :   bool fatally_failed() const { return type_ == kFatalFailure; }</span>
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span>            :  private:
+<span class="lineNum">     103 </span>            :   Type type_;
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span>            :   // Gets the summary of the failure message by omitting the stack
+<span class="lineNum">     106 </span>            :   // trace in it.
+<span class="lineNum">     107 </span>            :   static std::string ExtractSummary(const char* message);
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            :   // The name of the source file where the test part took place, or
+<span class="lineNum">     110 </span>            :   // &quot;&quot; if the source file is unknown.
+<span class="lineNum">     111 </span>            :   std::string file_name_;
+<span class="lineNum">     112 </span>            :   // The line in the source file where the test part took place, or -1
+<span class="lineNum">     113 </span>            :   // if the line number is unknown.
+<span class="lineNum">     114 </span>            :   int line_number_;
+<span class="lineNum">     115 </span>            :   std::string summary_;  // The test failure summary.
+<span class="lineNum">     116 </span>            :   std::string message_;  // The test failure message.
+<span class="lineNum">     117 </span>            : };
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : // Prints a TestPartResult object.
+<span class="lineNum">     120 </span>            : std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const TestPartResult&amp; result);
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            : // An array of TestPartResult objects.
+<span class="lineNum">     123 </span>            : //
+<span class="lineNum">     124 </span>            : // Don't inherit from TestPartResultArray as its destructor is not
+<span class="lineNum">     125 </span>            : // virtual.
+<span class="lineNum">     126 </span>            : class GTEST_API_ TestPartResultArray {
+<span class="lineNum">     127 </span>            :  public:
+<span class="lineNum">     128 </span>            :   TestPartResultArray() {}
+<span class="lineNum">     129 </span>            : 
+<span class="lineNum">     130 </span>            :   // Appends the given TestPartResult to the array.
+<span class="lineNum">     131 </span>            :   void Append(const TestPartResult&amp; result);
+<span class="lineNum">     132 </span>            : 
+<span class="lineNum">     133 </span>            :   // Returns the TestPartResult at the given index (0-based).
+<span class="lineNum">     134 </span>            :   const TestPartResult&amp; GetTestPartResult(int index) const;
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span>            :   // Returns the number of TestPartResult objects in the array.
+<span class="lineNum">     137 </span>            :   int size() const;
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span>            :  private:
+<span class="lineNum">     140 </span>            :   std::vector&lt;TestPartResult&gt; array_;
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(TestPartResultArray);
+<span class="lineNum">     143 </span>            : };
+<span class="lineNum">     144 </span>            : 
+<span class="lineNum">     145 </span>            : // This interface knows how to report a test part result.
+<a name="146"><span class="lineNum">     146 </span><span class="lineCov">          2 : class TestPartResultReporterInterface {</span></a>
+<span class="lineNum">     147 </span>            :  public:
+<span class="lineNum">     148 </span><span class="lineNoCov">          0 :   virtual ~TestPartResultReporterInterface() {}</span>
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            :   virtual void ReportTestPartResult(const TestPartResult&amp; result) = 0;
+<span class="lineNum">     151 </span>            : };
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span>            : namespace internal {
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span>            : // This helper class is used by {ASSERT|EXPECT}_NO_FATAL_FAILURE to check if a
+<span class="lineNum">     156 </span>            : // statement generates new fatal failures. To do so it registers itself as the
+<span class="lineNum">     157 </span>            : // current test part result reporter. Besides checking if fatal failures were
+<span class="lineNum">     158 </span>            : // reported, it only delegates the reporting to the former result reporter.
+<span class="lineNum">     159 </span>            : // The original result reporter is restored in the destructor.
+<span class="lineNum">     160 </span>            : // INTERNAL IMPLEMENTATION - DO NOT USE IN A USER PROGRAM.
+<span class="lineNum">     161 </span>            : class GTEST_API_ HasNewFatalFailureHelper
+<span class="lineNum">     162 </span>            :     : public TestPartResultReporterInterface {
+<span class="lineNum">     163 </span>            :  public:
+<span class="lineNum">     164 </span>            :   HasNewFatalFailureHelper();
+<span class="lineNum">     165 </span>            :   virtual ~HasNewFatalFailureHelper();
+<span class="lineNum">     166 </span>            :   virtual void ReportTestPartResult(const TestPartResult&amp; result);
+<span class="lineNum">     167 </span>            :   bool has_new_fatal_failure() const { return has_new_fatal_failure_; }
+<span class="lineNum">     168 </span>            :  private:
+<span class="lineNum">     169 </span>            :   bool has_new_fatal_failure_;
+<span class="lineNum">     170 </span>            :   TestPartResultReporterInterface* original_reporter_;
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span>            :   GTEST_DISALLOW_COPY_AND_ASSIGN_(HasNewFatalFailureHelper);
+<span class="lineNum">     173 </span>            : };
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span>            : }  // namespace internal
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span>            : }  // namespace testing
+<span class="lineNum">     178 </span>            : 
+<span class="lineNum">     179 </span>            : #endif  // GTEST_INCLUDE_GTEST_GTEST_TEST_PART_H_
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

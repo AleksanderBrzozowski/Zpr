@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/GUI/eventinterpreter.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">src/GUI</a> - eventinterpreter.cpp<span style="font-size: 80%;"> (source / <a href="eventinterpreter.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">130</td>
+            <td class="headerCovTableEntryLo">0.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryLo">18.2 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;eventinterpreter.h&quot;</a>
+<span class="lineNum">       2 </span>            : #include &quot;mainwindow.h&quot;
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            : /*!
+<span class="lineNum">       5 </span>            :  * \brief EventInterpreter::EventInterpreter.
+<a name="6"><span class="lineNum">       6 </span>            :  * \details Constructor. Initiats object's fields.</a>
+<span class="lineNum">       7 </span>            :  */
+<span class="lineNum">       8 </span><span class="lineNoCov">          0 : EventInterpreter::EventInterpreter() : currentOption(Option::doNothing), anchorValid(false) {</span>
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span>            : /*!
+<span class="lineNum">      13 </span>            :  * \brief EventInterpreter::setCurrentOption.
+<span class="lineNum">      14 </span>            :  * \param option - Option to be set. Its type is EventInterpreter::Option.
+<span class="lineNum">      15 </span>            :  * \return Shared pointer to appropriate ghost object to be drawn.
+<span class="lineNum">      16 </span>            :  * \details Object will set current option unless there isn't valid pointer
+<span class="lineNum">      17 </span>            :  * to map object. If pointer to map is invalid it won't take any effect.
+<span class="lineNum">      18 </span>            :  * Function also sets pointer to appropriate ghost object, so it can be changed
+<span class="lineNum">      19 </span>            :  * due to mouse/keyboard events. It also returns this ghost object as shared pointer
+<span class="lineNum">      20 </span>            :  * casted Drawable object, so MapArea object can draw it.
+<span class="lineNum">      21 </span>            :  */
+<span class="lineNum">      22 </span><span class="lineNoCov">          0 : std::shared_ptr&lt;Drawable&gt; EventInterpreter::setCurrentOption(Option option) {</span>
+<span class="lineNum">      23 </span><span class="lineNoCov">          0 :     if (map == nullptr)</span>
+<span class="lineNum">      24 </span><span class="lineNoCov">          0 :         currentOption = Option::doNothing;</span>
+<span class="lineNum">      25 </span>            :     else
+<span class="lineNum">      26 </span><span class="lineNoCov">          0 :         currentOption = option;</span>
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span><span class="lineNoCov">          0 :     anchorValid = false;</span>
+<span class="lineNum">      29 </span><span class="lineNoCov">          0 :     switch(option) {</span>
+<span class="lineNum">      30 </span>            :     case Option::setRoad:
+<span class="lineNum">      31 </span><span class="lineNoCov">          0 :         ghostRoad = std::shared_ptr&lt;RoadGUI&gt;(new RoadGUI(Point(-50, -50)));</span>
+<span class="lineNum">      32 </span><span class="lineNoCov">          0 :         return ghostRoad;</span>
+<span class="lineNum">      33 </span>            :         break;
+<span class="lineNum">      34 </span>            :     case Option::setCar:
+<span class="lineNum">      35 </span><span class="lineNoCov">          0 :         ghostObject = std::shared_ptr&lt;Drawable&gt;(new CarGUI(-50, -50, false, true));</span>
+<span class="lineNum">      36 </span><span class="lineNoCov">          0 :         return ghostObject;</span>
+<span class="lineNum">      37 </span>            :         break;
+<span class="lineNum">      38 </span>            :     case Option::setFastCar:
+<span class="lineNum">      39 </span><span class="lineNoCov">          0 :         ghostObject = std::shared_ptr&lt;Drawable&gt;(new CarGUI(-50, -50, true, true));</span>
+<span class="lineNum">      40 </span><span class="lineNoCov">          0 :         return ghostObject;</span>
+<span class="lineNum">      41 </span>            :         break;
+<span class="lineNum">      42 </span>            :     case Option::setBuilding:
+<span class="lineNum">      43 </span><span class="lineNoCov">          0 :         ghostObject = std::shared_ptr&lt;Drawable&gt;(new BuildingGUI(-50, -50, GridGUI::SIZE,</span>
+<span class="lineNum">      44 </span><span class="lineNoCov">          0 :                                                                GridGUI::SIZE, true));</span>
+<span class="lineNum">      45 </span><span class="lineNoCov">          0 :         return ghostObject;</span>
+<span class="lineNum">      46 </span>            :         break;
+<span class="lineNum">      47 </span>            :     case Option::setCamera:
+<span class="lineNum">      48 </span><span class="lineNoCov">          0 :         ghostCamera = std::shared_ptr&lt;CameraGUI&gt;(new CameraGUI(-50, -50, CameraGUI::DEFAULT_SPAN,</span>
+<span class="lineNum">      49 </span>            :                                                               CameraGUI::DEFAULT_ANGLE,
+<span class="lineNum">      50 </span><span class="lineNoCov">          0 :                                                               0, true));</span>
+<span class="lineNum">      51 </span><span class="lineNoCov">          0 :         return ghostCamera;</span>
+<span class="lineNum">      52 </span>            :         break;
+<span class="lineNum">      53 </span>            :     case Option::setHuman:
+<span class="lineNum">      54 </span><span class="lineNoCov">          0 :         ghostObject = std::shared_ptr&lt;Drawable&gt;(new PplGUI(-50, -50, true));</span>
+<span class="lineNum">      55 </span><span class="lineNoCov">          0 :         return ghostObject;</span>
+<span class="lineNum">      56 </span>            :         break;
+<span class="lineNum">      57 </span>            :     case Option::doNothing:
+<span class="lineNum">      58 </span>            :     default:
+<span class="lineNum">      59 </span><span class="lineNoCov">          0 :         ghostObject.reset();</span>
+<span class="lineNum">      60 </span><span class="lineNoCov">          0 :         ghostRoad.reset();</span>
+<span class="lineNum">      61 </span><span class="lineNoCov">          0 :         ghostCamera.reset();</span>
+<span class="lineNum">      62 </span><span class="lineNoCov">          0 :         MainWindow::getInstance().resetLabel();</span>
+<span class="lineNum">      63 </span><span class="lineNoCov">          0 :         return std::shared_ptr&lt;Drawable&gt;(nullptr);</span>
+<span class="lineNum">      64 </span>            :         break;
+<span class="lineNum">      65 </span>            :     }
+<span class="lineNum">      66 </span>            : }
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            : /*!
+<span class="lineNum">      69 </span>            :  * \brief EventInterpreter::getCurrentOption.
+<a name="70"><span class="lineNum">      70 </span>            :  * \return Returns current option.</a>
+<span class="lineNum">      71 </span>            :  */
+<span class="lineNum">      72 </span><span class="lineNoCov">          0 : EventInterpreter::Option EventInterpreter::getCurrentOption() {</span>
+<span class="lineNum">      73 </span><span class="lineNoCov">          0 :     return currentOption;</span>
+<span class="lineNum">      74 </span>            : }
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span>            : /*!
+<span class="lineNum">      77 </span>            :  * \brief EventInterpreter::mouseClicked.
+<span class="lineNum">      78 </span>            :  * \param x - mouse position X.
+<span class="lineNum">      79 </span>            :  * \param y - mouse position Y.
+<span class="lineNum">      80 </span>            :  * \details Interprets mouse click events. It is based on current option and whether
+<span class="lineNum">      81 </span>            :  * anchor point is valid. Unless current tool needs only one point to be created,
+<span class="lineNum">      82 </span>            :  * first click sets anchor field, and second calls function to construct object that
+<span class="lineNum">      83 </span>            :  * takes two points in constructor.
+<span class="lineNum">      84 </span>            :  */
+<span class="lineNum">      85 </span><span class="lineNoCov">          0 : void EventInterpreter::mouseClicked(int x, int y) {</span>
+<span class="lineNum">      86 </span><span class="lineNoCov">          0 :     Point point(x, y);</span>
+<span class="lineNum">      87 </span><span class="lineNoCov">          0 :     switch(currentOption) {</span>
+<span class="lineNum">      88 </span>            :     case Option::setRoad:
+<span class="lineNum">      89 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">      90 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">      91 </span><span class="lineNoCov">          0 :             anchor = point;</span>
+<span class="lineNum">      92 </span><span class="lineNoCov">          0 :             anchorValid = true;</span>
+<span class="lineNum">      93 </span>            :         } else {
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 :             RoadGUI::adjustPoints(anchor, point);</span>
+<span class="lineNum">      95 </span><span class="lineNoCov">          0 :             PtrToConstPoint srcPtr = std::make_shared&lt;Point&gt;(anchor.getX(), anchor.getY());</span>
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 :             PtrToConstPoint dstPtr = std::make_shared&lt;Point&gt;(point.getX(), point.getY());</span>
+<span class="lineNum">      97 </span><span class="lineNoCov">          0 :             if (map-&gt;createRoad(srcPtr, dstPtr))</span>
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :                 emit roadCreated(new RoadGUI(anchor, point));</span>
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 :             anchorValid = false;</span>
+<span class="lineNum">     100 </span>            :         }
+<span class="lineNum">     101 </span>            :         break;
+<span class="lineNum">     102 </span>            :     case Option::setCar:
+<span class="lineNum">     103 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     104 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     105 </span><span class="lineNoCov">          0 :             anchor = point;</span>
+<span class="lineNum">     106 </span><span class="lineNoCov">          0 :             anchorValid = true;</span>
+<span class="lineNum">     107 </span>            :         } else {
+<span class="lineNum">     108 </span><span class="lineNoCov">          0 :             PtrToConstPoint srcPtr = std::make_shared&lt;Point&gt;(anchor.getX(), anchor.getY());</span>
+<span class="lineNum">     109 </span><span class="lineNoCov">          0 :             PtrToConstPoint dstPtr = std::make_shared&lt;Point&gt;(point.getX(), point.getY());</span>
+<span class="lineNum">     110 </span><span class="lineNoCov">          0 :             map-&gt;createCar(srcPtr, dstPtr, CarGUI::CAR_SPEED);</span>
+<span class="lineNum">     111 </span><span class="lineNoCov">          0 :             anchorValid = false;</span>
+<span class="lineNum">     112 </span>            :         }
+<span class="lineNum">     113 </span>            :         break;
+<span class="lineNum">     114 </span>            :     case Option::setFastCar:
+<span class="lineNum">     115 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     118 </span><span class="lineNoCov">          0 :             anchor = point;</span>
+<span class="lineNum">     119 </span><span class="lineNoCov">          0 :             anchorValid = true;</span>
+<span class="lineNum">     120 </span>            :         } else {
+<span class="lineNum">     121 </span><span class="lineNoCov">          0 :             PtrToConstPoint srcPtr = std::make_shared&lt;Point&gt;(anchor.getX(), anchor.getY());</span>
+<span class="lineNum">     122 </span><span class="lineNoCov">          0 :             PtrToConstPoint dstPtr = std::make_shared&lt;Point&gt;(point.getX(), point.getY());</span>
+<span class="lineNum">     123 </span><span class="lineNoCov">          0 :             map-&gt;createCar(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);</span>
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 :             anchorValid = false;</span>
+<span class="lineNum">     125 </span>            :         }
+<span class="lineNum">     126 </span>            :         break;
+<span class="lineNum">     127 </span>            :     case Option::setBuilding:
+<span class="lineNum">     128 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     129 </span><span class="lineNoCov">          0 :         if (map-&gt;createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2),</span>
+<span class="lineNum">     130 </span><span class="lineNoCov">          0 :                             Point(point.getX() + GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2)))</span>
+<span class="lineNum">     131 </span><span class="lineNoCov">          0 :             emit drawableCreated(new BuildingGUI(point.getX(), point.getY()));</span>
+<span class="lineNum">     132 </span><span class="lineNoCov">          0 :         anchorValid = false;</span>
+<span class="lineNum">     133 </span><span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     134 </span>            :     case Option::setHuman:
+<span class="lineNum">     135 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     136 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     137 </span><span class="lineNoCov">          0 :             anchor = point;</span>
+<span class="lineNum">     138 </span><span class="lineNoCov">          0 :             anchorValid = true;</span>
+<span class="lineNum">     139 </span>            :         } else {
+<span class="lineNum">     140 </span><span class="lineNoCov">          0 :             PtrToConstPoint srcPtr = std::make_shared&lt;Point&gt;(anchor.getX(), anchor.getY());</span>
+<span class="lineNum">     141 </span><span class="lineNoCov">          0 :             PtrToConstPoint dstPtr = std::make_shared&lt;Point&gt;(point.getX(), point.getY());</span>
+<span class="lineNum">     142 </span><span class="lineNoCov">          0 :             map-&gt;createHuman(srcPtr, dstPtr, PplGUI::SPEED);</span>
+<span class="lineNum">     143 </span><span class="lineNoCov">          0 :             anchorValid = false;</span>
+<span class="lineNum">     144 </span>            :         }
+<span class="lineNum">     145 </span>            :         break;
+<span class="lineNum">     146 </span>            :     case Option::setCamera:
+<span class="lineNum">     147 </span><span class="lineNoCov">          0 :         snapToGridIntersect(point);</span>
+<span class="lineNum">     148 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 :             anchor = point;</span>
+<span class="lineNum">     150 </span><span class="lineNoCov">          0 :             anchorValid = true;</span>
+<span class="lineNum">     151 </span>            :         } else {
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 :             map-&gt;createCamera(anchor, point, ghostCamera-&gt;getSpan()/16);</span>
+<span class="lineNum">     153 </span><span class="lineNoCov">          0 :             emit cameraCreated(new CameraGUI(anchor, point, ghostCamera-&gt;getSpan()));</span>
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 :             anchorValid = false;</span>
+<span class="lineNum">     155 </span>            :         }
+<span class="lineNum">     156 </span>            :         break;
+<span class="lineNum">     157 </span>            :     case Option::doNothing:
+<span class="lineNum">     158 </span>            :     default:
+<span class="lineNum">     159 </span><span class="lineNoCov">          0 :         anchorValid = false;</span>
+<span class="lineNum">     160 </span><span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     161 </span>            :     }
+<a name="162"><span class="lineNum">     162 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span><span class="lineNoCov">          0 : void EventInterpreter::steerCamera(int keyCode) {</span>
+<span class="lineNum">     165 </span><span class="lineNoCov">          0 :     if (currentOption != Option::setCamera)</span>
+<span class="lineNum">     166 </span><span class="lineNoCov">          0 :         return;</span>
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 :     switch (keyCode) {</span>
+<span class="lineNum">     169 </span>            :     case Qt::Key_Left:
+<span class="lineNum">     170 </span><span class="lineNoCov">          0 :                 ghostCamera-&gt;decSpan();</span>
+<span class="lineNum">     171 </span><span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     172 </span>            :     case Qt::Key_Right:
+<span class="lineNum">     173 </span><span class="lineNoCov">          0 :                 ghostCamera-&gt;incSpan();</span>
+<span class="lineNum">     174 </span><span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">     175 </span>            :     default:
+<span class="lineNum">     176 </span>            :         break;
+<span class="lineNum">     177 </span>            :     }
+<span class="lineNum">     178 </span>            : }
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span>            : /*!
+<span class="lineNum">     181 </span>            :  * \brief EventInterpreter::snapToGridCenter.
+<span class="lineNum">     182 </span>            :  * \param point - point to be snapped.
+<span class="lineNum">     183 </span>            :  * \details Function takes reference to point as an argument and modifies
+<a name="184"><span class="lineNum">     184 </span>            :  * it so it will be in the center of the grid piece point is in.</a>
+<span class="lineNum">     185 </span>            :  */
+<span class="lineNum">     186 </span><span class="lineNoCov">          0 : void EventInterpreter::snapToGridCenter(Point &amp;point) const {</span>
+<span class="lineNum">     187 </span><span class="lineNoCov">          0 :     int x = point.getX() / GridGUI::SIZE;</span>
+<span class="lineNum">     188 </span><span class="lineNoCov">          0 :     int y = point.getY() / GridGUI::SIZE;</span>
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 :     point.setX(x * GridGUI::SIZE + GridGUI::SIZE/2);</span>
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :     point.setY(y * GridGUI::SIZE + GridGUI::SIZE/2);</span>
+<span class="lineNum">     191 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span>            : /*!
+<span class="lineNum">     194 </span>            :  * \brief EventInterpreter::snapToGridIntersect.
+<span class="lineNum">     195 </span>            :  * \param point - point to be snapped.
+<span class="lineNum">     196 </span>            :  * \details Function takes reference to point as an argument and modifies
+<a name="197"><span class="lineNum">     197 </span>            :  * it so it will be on the closest intersect of grid lines.</a>
+<span class="lineNum">     198 </span>            :  */
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 : void EventInterpreter::snapToGridIntersect(Point &amp;point) const {</span>
+<span class="lineNum">     200 </span><span class="lineNoCov">          0 :     double x = static_cast&lt;double&gt;(point.getX()) / static_cast&lt;double&gt;(GridGUI::SIZE);</span>
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 :     double y = static_cast&lt;double&gt;(point.getY()) / static_cast&lt;double&gt;(GridGUI::SIZE);</span>
+<span class="lineNum">     202 </span><span class="lineNoCov">          0 :     point.setX(round(x) * GridGUI::SIZE);</span>
+<span class="lineNum">     203 </span><span class="lineNoCov">          0 :     point.setY(round(y) * GridGUI::SIZE);</span>
+<span class="lineNum">     204 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span>            : /*!
+<span class="lineNum">     207 </span>            :  * \brief EventInterpreter::mouseMoved.
+<span class="lineNum">     208 </span>            :  * \param x - mouse position X.
+<span class="lineNum">     209 </span>            :  * \param y - mouse position Y.
+<span class="lineNum">     210 </span>            :  * \details Function called when mouse is moved. It takes current mouse position as
+<span class="lineNum">     211 </span>            :  * arguments. Depending on current option and validity of anchor point. It modifies
+<span class="lineNum">     212 </span>            :  * currently shown ghost object, so it will look the same as would object when mouse
+<a name="213"><span class="lineNum">     213 </span>            :  * is clicked now.</a>
+<span class="lineNum">     214 </span>            :  */
+<span class="lineNum">     215 </span><span class="lineNoCov">          0 : void EventInterpreter::mouseMoved(int x, int y) {</span>
+<span class="lineNum">     216 </span><span class="lineNoCov">          0 :     Point point(x, y);</span>
+<span class="lineNum">     217 </span><span class="lineNoCov">          0 :     switch(currentOption) {</span>
+<span class="lineNum">     218 </span>            :     case Option::setRoad:
+<span class="lineNum">     219 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     220 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     221 </span><span class="lineNoCov">          0 :             ghostRoad-&gt;setRectangle(point);</span>
+<span class="lineNum">     222 </span>            :         } else {
+<span class="lineNum">     223 </span><span class="lineNoCov">          0 :             ghostRoad-&gt;setRectangle(anchor, point);</span>
+<span class="lineNum">     224 </span>            :         }
+<span class="lineNum">     225 </span>            :         break;
+<span class="lineNum">     226 </span>            :     case Option::setFastCar:
+<span class="lineNum">     227 </span>            :     case Option::setCar:
+<span class="lineNum">     228 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     229 </span><span class="lineNoCov">          0 :         ghostObject-&gt;setTo(x, y);</span>
+<span class="lineNum">     230 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     231 </span><span class="lineNoCov">          0 :             ghostObject-&gt;setTo(point.getX(), point.getY());</span>
+<span class="lineNum">     232 </span>            :         } else {
+<span class="lineNum">     233 </span><span class="lineNoCov">          0 :             ghostObject-&gt;setTo(anchor.getX(), anchor.getY());</span>
+<span class="lineNum">     234 </span>            :         }
+<span class="lineNum">     235 </span>            :         break;
+<span class="lineNum">     236 </span>            :     case Option::setCamera:
+<span class="lineNum">     237 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     238 </span><span class="lineNoCov">          0 :             snapToGridIntersect(point);</span>
+<span class="lineNum">     239 </span><span class="lineNoCov">          0 :             ghostCamera-&gt;setRectangle(point);</span>
+<span class="lineNum">     240 </span>            :         } else {
+<span class="lineNum">     241 </span><span class="lineNoCov">          0 :             ghostCamera-&gt;setRectangle(anchor, point);</span>
+<span class="lineNum">     242 </span>            :         }
+<span class="lineNum">     243 </span>            :         break;
+<span class="lineNum">     244 </span>            :         break;
+<span class="lineNum">     245 </span>            :     case Option::setBuilding:
+<span class="lineNum">     246 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     247 </span><span class="lineNoCov">          0 :         ghostObject-&gt;setTo(point.getX(), point.getY());</span>
+<span class="lineNum">     248 </span>            :         break;
+<span class="lineNum">     249 </span>            :     case Option::setHuman:
+<span class="lineNum">     250 </span><span class="lineNoCov">          0 :         snapToGridCenter(point);</span>
+<span class="lineNum">     251 </span><span class="lineNoCov">          0 :         ghostObject-&gt;setTo(x, y);</span>
+<span class="lineNum">     252 </span><span class="lineNoCov">          0 :         if (!anchorValid) {</span>
+<span class="lineNum">     253 </span><span class="lineNoCov">          0 :             ghostObject-&gt;setTo(point.getX(), point.getY());</span>
+<span class="lineNum">     254 </span>            :         } else {
+<span class="lineNum">     255 </span><span class="lineNoCov">          0 :             ghostObject-&gt;setTo(anchor.getX(), anchor.getY());</span>
+<span class="lineNum">     256 </span>            :         }
+<span class="lineNum">     257 </span>            :         break;
+<span class="lineNum">     258 </span>            :     case Option::doNothing:
+<span class="lineNum">     259 </span>            :     default:
+<span class="lineNum">     260 </span>            :         break;
+<span class="lineNum">     261 </span>            :     }
+<span class="lineNum">     262 </span>            : 
+<span class="lineNum">     263 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span>            : /*!
+<span class="lineNum">     266 </span>            :  * \brief EventInterpreter::setMap.
+<span class="lineNum">     267 </span>            :  * \param map - shared pointer to map object.
+<span class="lineNum">     268 </span>            :  * \details Function sets object's pointer to map object. Map is used to notify
+<span class="lineNum">     269 </span>            :  * app's model about user input. Without it any input won't change anything, but
+<span class="lineNum">     270 </span>            :  * objects can still be drawn on map area by calling appropriate functions.
+<span class="lineNum">     271 </span>            :  */
+<a name="272"><span class="lineNum">     272 </span><span class="lineNoCov">          0 : void EventInterpreter::setMap(std::shared_ptr&lt;Map&gt; map) {</span></a>
+<span class="lineNum">     273 </span><span class="lineNoCov">          0 :     this-&gt;map = map;</span>
+<span class="lineNum">     274 </span><span class="lineCov">          3 : }</span>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

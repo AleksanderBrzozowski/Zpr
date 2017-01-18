@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - src/Camera.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - Camera.h<span style="font-size: 80%;"> (source / <a href="Camera.h.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2017-01-18</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntryHi">-</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #ifndef ZPR_CAMERA_H</a>
+<span class="lineNum">       2 </span>            : #define ZPR_CAMERA_H
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span>            : #include &quot;Point.h&quot;
+<span class="lineNum">       6 </span>            : #include &quot;Types.h&quot;
+<span class="lineNum">       7 </span>            : #include &lt;vector&gt;
+<span class="lineNum">       8 </span>            : 
+<span class="lineNum">       9 </span>            : /*!
+<span class="lineNum">      10 </span>            :  * This class represents Camera as point, angle and ray.
+<span class="lineNum">      11 </span>            :  * Camera stores seen cars and humans.
+<span class="lineNum">      12 </span>            :  * @author Aleksander Brzozowski
+<span class="lineNum">      13 </span>            :  */
+<span class="lineNum">      14 </span><span class="lineCov">          6 : class Camera {</span>
+<span class="lineNum">      15 </span>            : public:
+<span class="lineNum">      16 </span>            :     /*!
+<span class="lineNum">      17 </span>            :      * Constructs camera.
+<span class="lineNum">      18 </span>            :      * @param startPoint    Point where camera stands
+<span class="lineNum">      19 </span>            :      * @param endPoint
+<span class="lineNum">      20 </span>            :      * @param angle         Visible angle
+<span class="lineNum">      21 </span>            :      * @param accuracy      Camera's accuracy, higher accuracy generates preciser visible points
+<span class="lineNum">      22 </span>            :      */
+<span class="lineNum">      23 </span>            :     Camera(const Point &amp;startPoint, const Point &amp;endPoint, double angle, int accuracy);
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span>            :     /*!
+<span class="lineNum">      26 </span>            :      * Checks whether a point is in camera's range.
+<span class="lineNum">      27 </span>            :      * @param point Checked point
+<span class="lineNum">      28 </span>            :      * @return      Is in camera range
+<span class="lineNum">      29 </span>            :      */
+<span class="lineNum">      30 </span>            :     bool isInRange(const Point &amp;point);
+<span class="lineNum">      31 </span>            :     /*!
+<span class="lineNum">      32 </span>            :      * Checks whether a point is in camera's angle.
+<span class="lineNum">      33 </span>            :      * @param point Checked point
+<span class="lineNum">      34 </span>            :      * @return      Is in camera angle
+<span class="lineNum">      35 </span>            :      */
+<span class="lineNum">      36 </span>            :     bool isInAngle(const Point &amp;point);
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            :     /*!
+<span class="lineNum">      39 </span>            :      * Adds car to camera's seen cars.
+<span class="lineNum">      40 </span>            :      * @param car Car to be added
+<span class="lineNum">      41 </span>            :      */
+<span class="lineNum">      42 </span>            :     void addSeenCar(PtrConstCar car);
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span>            :     const std::vector&lt;PtrToConstPoint&gt; &amp;getSeenCars() const;
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            :     /*!
+<span class="lineNum">      47 </span>            :      * Adds human to camera's seen humans.
+<span class="lineNum">      48 </span>            :      * @param human Human to be added
+<span class="lineNum">      49 </span>            :      */
+<span class="lineNum">      50 </span>            :     void addSeenHuman(PtrConstHuman human);
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            :     const std::vector&lt;PtrToConstPoint&gt; &amp;getSeenHumans() const;
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            :     const Point &amp;getStartPoint() const;
+<span class="lineNum">      55 </span>            :     /*!
+<span class="lineNum">      56 </span>            :      * Clears all seen cars and humans by camera.
+<span class="lineNum">      57 </span>            :      */
+<span class="lineNum">      58 </span>            :     void clearSeenMovables();
+<span class="lineNum">      59 </span>            : private:
+<span class="lineNum">      60 </span>            :     const Point startPoint;
+<span class="lineNum">      61 </span>            :     const Point endPoint;
+<span class="lineNum">      62 </span>            :     const int accuracy;
+<span class="lineNum">      63 </span>            :     int raySquare;
+<span class="lineNum">      64 </span>            :     double upperAngle;
+<span class="lineNum">      65 </span>            :     double lowerAngle;
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span>            :     std::vector&lt;PtrToConstPoint&gt; seenCars;
+<span class="lineNum">      68 </span>            :     std::vector&lt;PtrToConstPoint&gt; seenHumans;
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            :     int distanceSquare(const Point &amp;point, const Point &amp;point1);
+<span class="lineNum">      71 </span>            : };
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : #endif //ZPR_CAMERA_H
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
