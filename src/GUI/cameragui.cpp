@@ -7,8 +7,8 @@ const unsigned int CameraGUI::MIN_RANGE = 100;
 const unsigned int CameraGUI::MAX_SPAN = 180;
 const unsigned int CameraGUI::MIN_SPAN = 10;
 
-const unsigned int CameraGUI::DEFAULT_SPAN = 60;
-const unsigned int CameraGUI::DEFAULT_ANGLE = -DEFAULT_SPAN/2;
+const int CameraGUI::DEFAULT_SPAN = 60;
+const int CameraGUI::DEFAULT_ANGLE = -DEFAULT_SPAN/2;
 const unsigned int CameraGUI::DEFAULT_RANGE = 200;
 
 const int CameraGUI::CAM_PEN_WIDTH = 2;
@@ -161,7 +161,7 @@ void CameraGUI::decRange() {
  * Limits are defined in object.
  */
 void CameraGUI::incRange() {
-	if (rngRect.width() < 2 * MAX_RANGE) {
+	if (static_cast<unsigned int>(rngRect.width()) < 2 * MAX_RANGE) {
 		int x1;
 		int y1;
 		int x2;
