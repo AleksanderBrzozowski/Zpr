@@ -167,10 +167,10 @@ void Map::runCamerasScanning() {
         facilities.scan(cars, humans);
         criticalSection.unlock();
         for (const PtrCamera &camera : facilities.getCameras()) {
-            for(const PtrConstCar &car : camera->getSeenCars())
-                std::cout << "I see car: " << car->getActualPoint() << std::endl;
-            for(const PtrConstHuman &human : camera->getSeenHumans())
-                std::cout << "I see human: " << human->getActualPoint() << std::endl;
+            for(const PtrToConstPoint &point : camera->getSeenCars())
+                std::cout << "I see car: " << point << std::endl;
+            for(const PtrToConstPoint &point : camera->getSeenHumans())
+                std::cout << "I see human: " << point << std::endl;
         }
         std::this_thread::sleep_for (MainWindow::CAMERA_SCAN_FREQ);
     }

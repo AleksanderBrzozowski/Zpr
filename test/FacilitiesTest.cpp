@@ -33,8 +33,8 @@ TEST_F(FacilitiesTest, SeenMovables) {
 
     facilities.scan(cars, humans);
 
-    ASSERT_EQ(cars[0], facilities.getCameras()[0]->getSeenCars()[0]);
-    ASSERT_EQ(humans[0], facilities.getCameras()[0]->getSeenHumans()[0]);
+    ASSERT_EQ(cars[0]->getActualPoint(), *(facilities.getCameras()[0]->getSeenCars()[0]));
+    ASSERT_EQ(humans[0]->getActualPoint(), *(facilities.getCameras()[0]->getSeenHumans()[0]));
 }
 
 

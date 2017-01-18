@@ -40,13 +40,16 @@ public:
      * @param car Car to be added
      */
     void addSeenCar(PtrConstCar car);
-    const std::vector<PtrConstCar> &getSeenCars() const;
+
+    const std::vector<PtrToConstPoint> &getSeenCars() const;
+
     /*!
      * Adds human to camera's seen humans.
      * @param human Human to be added
      */
     void addSeenHuman(PtrConstHuman human);
-    const std::vector<PtrConstHuman> &getSeenHumans() const;
+
+    const std::vector<PtrToConstPoint> &getSeenHumans() const;
 
     const Point &getStartPoint() const;
     /*!
@@ -61,8 +64,8 @@ private:
     double upperAngle;
     double lowerAngle;
 
-    std::vector<PtrConstCar> seenCars;
-    std::vector<PtrConstHuman> seenHumans;
+    std::vector<PtrToConstPoint> seenCars;
+    std::vector<PtrToConstPoint> seenHumans;
 
     int distanceSquare(const Point &point, const Point &point1);
 };
