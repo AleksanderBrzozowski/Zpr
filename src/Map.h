@@ -41,6 +41,11 @@ private:
     std::mutex criticalSection;         ///<mutex to make thread-safe methods
 
 public:
+    /*!
+     * Empty constructor.
+     */
+    Map();
+
     ///Creats new crosses between two points.
     bool createRoad(PtrToConstPoint, PtrToConstPoint);
 

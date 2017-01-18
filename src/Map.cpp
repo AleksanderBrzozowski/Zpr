@@ -9,6 +9,11 @@
 #include "Map.h"
 #include <GUI/mainwindow.h>
 
+Map::Map() {
+    runningMovablePermission = false;
+    cameraScanningPermission = false;
+}
+
 /**
  * Calls creating methods in object of MovableFactory type.
  * @param startingPoint as shared_ptr to Point
@@ -145,6 +150,7 @@ void Map::runRunningMovables(){
     }
 }
 
+
 /**
  * Calls creating methods in object of MovableFactory type.
  * @param src as shared_ptr on Point type object
@@ -158,7 +164,6 @@ void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
     criticalSection.unlock();
 }
 
-
 void Map::runCamerasScanning() {
     while (cameraScanningPermission) {
         criticalSection.lock();
@@ -168,9 +173,9 @@ void Map::runCamerasScanning() {
         criticalSection.unlock();
         for (const PtrCamera &camera : facilities.getCameras()) {
             for(const PtrToConstPoint &point : camera->getSeenCars())
-                std::cout << "I see car: " << point << std::endl;
+                std::cout << "I see car: " << *point << std::endl;
             for(const PtrToConstPoint &point : camera->getSeenHumans())
-                std::cout << "I see human: " << point << std::endl;
+                std::cout << "I see human: " << *point << std::endl;
         }
         std::this_thread::sleep_for (MainWindow::CAMERA_SCAN_FREQ);
     }
