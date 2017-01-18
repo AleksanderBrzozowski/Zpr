@@ -15,10 +15,11 @@ private:
     int x,y;
 public:
     /*!
-     * Constructs vector between two points.
+     * Constructs vector between two points that have same x or y.
      * Normalizes vector to 1.
      * Possible vectors are:
      * [-1, 0], [1, 0], [0, -1], [0, 1], [0, 0].
+     * @throw std::invalid_argument When points don't have same x or y
      * @param begin First point
      * @param end   Second point
      */

@@ -16,6 +16,7 @@ class LineSegment {
 public:
     /*!
      * Constructs LineSegment.
+     * @throw std::invalid_argument when points are same
      * @param pointA First point of line segment
      * @param pointB Second point of line segment
      */
