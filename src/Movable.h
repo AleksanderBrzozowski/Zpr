@@ -8,7 +8,7 @@
 #include "Types.h"
 
 /*!
- * Represents object that can move
+ * Represents object that can move.
  * @author Aleksander Brzozowski
  */
 class Movable {
@@ -35,7 +35,6 @@ private:
 
 /*!
  * Represents car.
- * @extends Movable
  * @author Aleksander Brzozowski
  */
 class Car : public Movable{
@@ -57,7 +56,6 @@ public:
 
 /*!
  * Represents human.
- * @extends Movable
  * @author Aleksander Brzozowski
  */
 class Human : public Movable{
