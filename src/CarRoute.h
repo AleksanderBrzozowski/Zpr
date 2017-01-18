@@ -1,7 +1,3 @@
-//
-// Created by Aleksander on 12.12.2016.
-//
-
 #ifndef ZPR_CARROUTE_H
 #define ZPR_CARROUTE_H
 
@@ -11,8 +7,16 @@
 #include "Route.h"
 #include "Types.h"
 
+/*!
+ * Represents route for car
+ * @author Aleksander Brzozowski
+ */
 class CarRoute : public Route {
 public:
+    /*!
+    * Constructs HumanRoute.
+    * @param points Points to fallow by route.
+    */
     CarRoute(const std::vector<PtrToConstPoint> &points);
     virtual ~CarRoute();
 
