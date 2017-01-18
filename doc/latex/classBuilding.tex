@@ -1,0 +1,62 @@
+\hypertarget{classBuilding}{\section{Building Class Reference}
+\label{classBuilding}\index{Building@{Building}}
+}
+
+
+{\ttfamily \#include $<$Building.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBuilding_a2545fd4b3c7520bb3e61360fa2b1e9b5}{Building} (const \hyperlink{classPoint}{Point} \&upper\-Left, const \hyperlink{classPoint}{Point} \&lower\-Right)
+\item 
+bool \hyperlink{classBuilding_a8036a838fdbed60a9440a3d6bc6215e0}{has\-Intersection} (const \hyperlink{classLineSegment}{Line\-Segment} \&line\-Segment) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class represents building as rectangle. \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classBuilding_a2545fd4b3c7520bb3e61360fa2b1e9b5}{\index{Building@{Building}!Building@{Building}}
+\index{Building@{Building}!Building@{Building}}
+\subsubsection[{Building}]{\setlength{\rightskip}{0pt plus 5cm}Building\-::\-Building (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{upper\-Left, }
+\item[{const {\bf Point} \&}]{lower\-Right}
+\end{DoxyParamCaption}
+)}}\label{classBuilding_a2545fd4b3c7520bb3e61360fa2b1e9b5}
+Constructs building using two points of rectangle's diagonal. 
+\begin{DoxyParams}{Parameters}
+{\em upper\-Left} & \hyperlink{classPoint}{Point} in the upper left of rectangle \\
+\hline
+{\em lower\-Right} & \hyperlink{classPoint}{Point} in the lower right of rectangle \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classBuilding_a8036a838fdbed60a9440a3d6bc6215e0}{\index{Building@{Building}!has\-Intersection@{has\-Intersection}}
+\index{has\-Intersection@{has\-Intersection}!Building@{Building}}
+\subsubsection[{has\-Intersection}]{\setlength{\rightskip}{0pt plus 5cm}bool Building\-::has\-Intersection (
+\begin{DoxyParamCaption}
+\item[{const {\bf Line\-Segment} \&}]{line\-Segment}
+\end{DoxyParamCaption}
+) const}}\label{classBuilding_a8036a838fdbed60a9440a3d6bc6215e0}
+Checks whether line segment has intersection inside building. 
+\begin{DoxyParams}{Parameters}
+{\em line\-Segment} & Line segment to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Is line intersection inside building 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Building.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Building.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,318 @@
+\hypertarget{classRoadGUI}{\section{Road\-G\-U\-I Class Reference}
+\label{classRoadGUI}\index{Road\-G\-U\-I@{Road\-G\-U\-I}}
+}
+
+
+The \hyperlink{classRoadGUI}{Road\-G\-U\-I} class. Class holds info about look of roads in G\-U\-I.  
+
+
+
+
+{\ttfamily \#include $<$roadgui.\-h$>$}
+
+
+
+Inheritance diagram for Road\-G\-U\-I\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{classRoadGUI__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Road\-G\-U\-I\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{classRoadGUI__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRoadGUI_acfdd2c56d642c80612b54f6a0fa05cc5}{Road\-G\-U\-I} (\hyperlink{classPoint}{Point} begin, \hyperlink{classPoint}{Point} end, bool ghost=false)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_acfdd2c56d642c80612b54f6a0fa05cc5}{Road\-G\-U\-I\-::\-Road\-G\-U\-I}. Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classRoadGUI_af093d97dcb41ce7d13d6ca37245ab5ac}{Road\-G\-U\-I} (\hyperlink{classPoint}{Point} point)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_acfdd2c56d642c80612b54f6a0fa05cc5}{Road\-G\-U\-I\-::\-Road\-G\-U\-I}. Constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classRoadGUI_a7cff0e8608cff8223f41b4a266fcb4b2}{draw} (Q\-Painter \&) const override
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_a7cff0e8608cff8223f41b4a266fcb4b2}{Road\-G\-U\-I\-::draw}. \end{DoxyCompactList}\item 
+\hypertarget{classRoadGUI_aa1e823a3c4afcc07fb64b9c984eddb50}{void {\bfseries set\-To} (unsigned int x, unsigned int y) override}\label{classRoadGUI_aa1e823a3c4afcc07fb64b9c984eddb50}
+
+\item 
+bool \hyperlink{classRoadGUI_a32b9692ed94d6efe1d194f7ba35af7c5}{intersects} (Q\-Rect \&rectangle) const override
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_a32b9692ed94d6efe1d194f7ba35af7c5}{Road\-G\-U\-I\-::intersects}. \end{DoxyCompactList}\item 
+void \hyperlink{classRoadGUI_aad20fd36c29dedd57ed07cce3c391677}{set\-Rectangle} (\hyperlink{classPoint}{Point} first, \hyperlink{classPoint}{Point} second)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_aad20fd36c29dedd57ed07cce3c391677}{Road\-G\-U\-I\-::set\-Rectangle}. \end{DoxyCompactList}\item 
+void \hyperlink{classRoadGUI_a9ba81129f297df4ea1f0cc47e68a21f5}{set\-Rectangle} (\hyperlink{classPoint}{Point} point)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_aad20fd36c29dedd57ed07cce3c391677}{Road\-G\-U\-I\-::set\-Rectangle}. \end{DoxyCompactList}\item 
+void \hyperlink{classRoadGUI_a4c9c5617846bdcf4033bc36cdab72ea2}{draw\-Sidewalk} (Q\-Painter \&) const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_a4c9c5617846bdcf4033bc36cdab72ea2}{Road\-G\-U\-I\-::draw\-Sidewalk}. \end{DoxyCompactList}\item 
+bool \hyperlink{classRoadGUI_a6d2d17128a1aa200bc312778761be70a}{is\-Vertical} () const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_a6d2d17128a1aa200bc312778761be70a}{Road\-G\-U\-I\-::is\-Vertical}. \end{DoxyCompactList}\item 
+std\-::tuple$<$ \hyperlink{classPoint}{Point}, \hyperlink{classPoint}{Point} $>$ \hyperlink{classRoadGUI_a8fc09e0061ce1e02be7a17e27861abd3}{get\-Ends} () const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_a8fc09e0061ce1e02be7a17e27861abd3}{Road\-G\-U\-I\-::get\-Ends}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{classRoadGUI_ab990a1e8cba81b3da4dc4154239dcab4}{adjust\-Points} (\hyperlink{classPoint}{Point} \&first, \hyperlink{classPoint}{Point} \&second)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classRoadGUI_ab990a1e8cba81b3da4dc4154239dcab4}{Road\-G\-U\-I\-::adjust\-Points}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \hyperlink{classRoadGUI_a998dae57fd63610094da9e39f13c61c1}{P\-E\-N\-\_\-\-W\-I\-D\-T\-H} = 0
+\item 
+\hypertarget{classRoadGUI_ab9a0928afa237bd89691076633cf2991}{static const Qt\-::\-Pen\-Style {\bfseries P\-E\-N\-\_\-\-S\-T\-Y\-L\-E} = Qt\-::\-Solid\-Line}\label{classRoadGUI_ab9a0928afa237bd89691076633cf2991}
+
+\item 
+\hypertarget{classRoadGUI_a9ebf1722a441634ecb875611ac4a67f1}{static const Qt\-::\-Pen\-Cap\-Style {\bfseries P\-E\-N\-\_\-\-C\-A\-P} = Qt\-::\-Square\-Cap}\label{classRoadGUI_a9ebf1722a441634ecb875611ac4a67f1}
+
+\item 
+\hypertarget{classRoadGUI_aaa2a0fb2b5e6a0222428eb2fab48ea20}{static const Qt\-::\-Pen\-Join\-Style {\bfseries P\-E\-N\-\_\-\-J\-O\-I\-N} = Qt\-::\-Round\-Join}\label{classRoadGUI_aaa2a0fb2b5e6a0222428eb2fab48ea20}
+
+\item 
+\hypertarget{classRoadGUI_a2d69709533ad02ce74400b7354bc7b20}{static const Q\-Color {\bfseries P\-E\-N\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(100, 100, 100, 0)}\label{classRoadGUI_a2d69709533ad02ce74400b7354bc7b20}
+
+\item 
+\hypertarget{classRoadGUI_afcae87f471384ff5ed4b9539b3e42e0d}{static const Q\-Color {\bfseries G\-H\-O\-S\-T\-\_\-\-P\-E\-N\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(100, 100, 100, 0)}\label{classRoadGUI_afcae87f471384ff5ed4b9539b3e42e0d}
+
+\item 
+\hypertarget{classRoadGUI_aaad4b7b5899c833fe78c60a7583ccbfc}{static const Q\-Pen {\bfseries P\-E\-N}}\label{classRoadGUI_aaad4b7b5899c833fe78c60a7583ccbfc}
+
+\item 
+\hypertarget{classRoadGUI_a967cb8f74565726887990dc748fca996}{static const Q\-Pen {\bfseries G\-H\-O\-S\-T\-\_\-\-P\-E\-N}}\label{classRoadGUI_a967cb8f74565726887990dc748fca996}
+
+\item 
+\hypertarget{classRoadGUI_a53dc510ed73ce2310670ba56a60387d9}{static const Qt\-::\-Brush\-Style {\bfseries B\-R\-U\-S\-H\-\_\-\-S\-T\-Y\-L\-E} = Qt\-::\-Solid\-Pattern}\label{classRoadGUI_a53dc510ed73ce2310670ba56a60387d9}
+
+\item 
+\hypertarget{classRoadGUI_aab9d1e45204227a7deb5be52f8f2a698}{static const Q\-Color {\bfseries B\-R\-U\-S\-H\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(72, 72, 59)}\label{classRoadGUI_aab9d1e45204227a7deb5be52f8f2a698}
+
+\item 
+\hypertarget{classRoadGUI_af38f8106a9e1b0f7dc60fe6719b79034}{static const Q\-Color {\bfseries G\-H\-O\-S\-T\-\_\-\-B\-R\-U\-S\-H\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(72, 72, 59, 127)}\label{classRoadGUI_af38f8106a9e1b0f7dc60fe6719b79034}
+
+\item 
+\hypertarget{classRoadGUI_a1bac52c458cdf4ea063345186bd59a88}{static const Q\-Brush {\bfseries B\-R\-U\-S\-H}}\label{classRoadGUI_a1bac52c458cdf4ea063345186bd59a88}
+
+\item 
+\hypertarget{classRoadGUI_a0c717e32cd1bea3c52a840f3915c7785}{static const Q\-Brush {\bfseries G\-H\-O\-S\-T\-\_\-\-B\-R\-U\-S\-H}}\label{classRoadGUI_a0c717e32cd1bea3c52a840f3915c7785}
+
+\item 
+\hypertarget{classRoadGUI_aaea72d54185d2dd5226f71ffe12b17a8}{static const Q\-Color {\bfseries S\-I\-D\-E\-W\-A\-L\-K\-\_\-\-B\-R\-U\-S\-H\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(155, 155, 132)}\label{classRoadGUI_aaea72d54185d2dd5226f71ffe12b17a8}
+
+\item 
+\hypertarget{classRoadGUI_a1a0d50da26147c147851f0ce7e4becde}{static const Q\-Brush {\bfseries S\-I\-D\-E\-W\-A\-L\-K\-\_\-\-B\-R\-U\-S\-H}}\label{classRoadGUI_a1a0d50da26147c147851f0ce7e4becde}
+
+\item 
+\hypertarget{classRoadGUI_a2ebb95704c366ffb0bd8d2dcd0380b27}{static const unsigned int {\bfseries S\-I\-D\-E\-W\-A\-L\-K\-\_\-\-W\-I\-D\-T\-H} = 8}\label{classRoadGUI_a2ebb95704c366ffb0bd8d2dcd0380b27}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classRoadGUI}{Road\-G\-U\-I} class. Class holds info about look of roads in G\-U\-I. 
+
+Class holds information necessary to draw road object on screen. It implements virtual function draw. It additionally has function draw\-Sidewalk, so sidewalks can be drawn below all roads. Without caling this function, sidewalks won't appear. It also holds all information about how roads and sidewalks are supposed to look. \begin{DoxyAuthor}{Author}
+Pawel Rybak 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classRoadGUI_acfdd2c56d642c80612b54f6a0fa05cc5}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!Road\-G\-U\-I@{Road\-G\-U\-I}}
+\index{Road\-G\-U\-I@{Road\-G\-U\-I}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{Road\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}Road\-G\-U\-I\-::\-Road\-G\-U\-I (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{first\-Point, }
+\item[{{\bf Point}}]{second\-Point, }
+\item[{bool}]{ghost = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classRoadGUI_acfdd2c56d642c80612b54f6a0fa05cc5}
+
+
+\hyperlink{classRoadGUI_acfdd2c56d642c80612b54f6a0fa05cc5}{Road\-G\-U\-I\-::\-Road\-G\-U\-I}. Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em first\-Point} & -\/ One end of the road. \\
+\hline
+{\em second\-Point} & -\/ Other end of the road. \\
+\hline
+{\em ghost} & -\/ Bool flag tells whether object is ghost object.\\
+\hline
+\end{DoxyParams}
+Constructs object based on two points given as arguments. Line created by points doesn't have to be horizontal or vertical. Road is going to be made horizontal or vertical based on difference between points (dx $>$ dy). \hypertarget{classRoadGUI_af093d97dcb41ce7d13d6ca37245ab5ac}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!Road\-G\-U\-I@{Road\-G\-U\-I}}
+\index{Road\-G\-U\-I@{Road\-G\-U\-I}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{Road\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}Road\-G\-U\-I\-::\-Road\-G\-U\-I (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{point}
+\end{DoxyParamCaption}
+)}}\label{classRoadGUI_af093d97dcb41ce7d13d6ca37245ab5ac}
+
+
+\hyperlink{classRoadGUI_acfdd2c56d642c80612b54f6a0fa05cc5}{Road\-G\-U\-I\-::\-Road\-G\-U\-I}. Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ \hyperlink{classPoint}{Point}.\\
+\hline
+\end{DoxyParams}
+Creates temporary ghost road being just a square. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classRoadGUI_ab990a1e8cba81b3da4dc4154239dcab4}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!adjust\-Points@{adjust\-Points}}
+\index{adjust\-Points@{adjust\-Points}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{adjust\-Points}]{\setlength{\rightskip}{0pt plus 5cm}void Road\-G\-U\-I\-::adjust\-Points (
+\begin{DoxyParamCaption}
+\item[{{\bf Point} \&}]{first, }
+\item[{{\bf Point} \&}]{second}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classRoadGUI_ab990a1e8cba81b3da4dc4154239dcab4}
+
+
+\hyperlink{classRoadGUI_ab990a1e8cba81b3da4dc4154239dcab4}{Road\-G\-U\-I\-::adjust\-Points}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em first} & -\/ Reference to first point. \\
+\hline
+{\em second} & -\/ Reference to second point.\\
+\hline
+\end{DoxyParams}
+Function takes reference to two points and sets them in line parallel to horizontal or vertical, based on difference between these points (dx $>$ dy). \hypertarget{classRoadGUI_a7cff0e8608cff8223f41b4a266fcb4b2}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!draw@{draw}}
+\index{draw@{draw}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void Road\-G\-U\-I\-::draw (
+\begin{DoxyParamCaption}
+\item[{Q\-Painter \&}]{painter}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}}\label{classRoadGUI_a7cff0e8608cff8223f41b4a266fcb4b2}
+
+
+\hyperlink{classRoadGUI_a7cff0e8608cff8223f41b4a266fcb4b2}{Road\-G\-U\-I\-::draw}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em painter} & -\/ Reference to painter object.\\
+\hline
+\end{DoxyParams}
+Function draws object using painter given as an argument. It uses brushes, and pens defined in object, and base its choice on whether it is ghost object or not. 
+
+Implements \hyperlink{classDrawable}{Drawable}.
+
+\hypertarget{classRoadGUI_a4c9c5617846bdcf4033bc36cdab72ea2}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!draw\-Sidewalk@{draw\-Sidewalk}}
+\index{draw\-Sidewalk@{draw\-Sidewalk}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{draw\-Sidewalk}]{\setlength{\rightskip}{0pt plus 5cm}void Road\-G\-U\-I\-::draw\-Sidewalk (
+\begin{DoxyParamCaption}
+\item[{Q\-Painter \&}]{painter}
+\end{DoxyParamCaption}
+) const}}\label{classRoadGUI_a4c9c5617846bdcf4033bc36cdab72ea2}
+
+
+\hyperlink{classRoadGUI_a4c9c5617846bdcf4033bc36cdab72ea2}{Road\-G\-U\-I\-::draw\-Sidewalk}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em painter} & -\/ Reference to painter object.\\
+\hline
+\end{DoxyParams}
+Function draws sidewalk using painter given as an argument. It uses brushes, and pens defined in object. Ghost roads doesnt have sidewalks. \hypertarget{classRoadGUI_a8fc09e0061ce1e02be7a17e27861abd3}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!get\-Ends@{get\-Ends}}
+\index{get\-Ends@{get\-Ends}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{get\-Ends}]{\setlength{\rightskip}{0pt plus 5cm}std\-::tuple$<$ {\bf Point}, {\bf Point} $>$ Road\-G\-U\-I\-::get\-Ends (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classRoadGUI_a8fc09e0061ce1e02be7a17e27861abd3}
+
+
+\hyperlink{classRoadGUI_a8fc09e0061ce1e02be7a17e27861abd3}{Road\-G\-U\-I\-::get\-Ends}. 
+
+\begin{DoxyReturn}{Returns}
+Returns tuple with two ends of road. 
+\end{DoxyReturn}
+\hypertarget{classRoadGUI_a32b9692ed94d6efe1d194f7ba35af7c5}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!intersects@{intersects}}
+\index{intersects@{intersects}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{intersects}]{\setlength{\rightskip}{0pt plus 5cm}bool Road\-G\-U\-I\-::intersects (
+\begin{DoxyParamCaption}
+\item[{Q\-Rect \&}]{rectangle}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}}\label{classRoadGUI_a32b9692ed94d6efe1d194f7ba35af7c5}
+
+
+\hyperlink{classRoadGUI_a32b9692ed94d6efe1d194f7ba35af7c5}{Road\-G\-U\-I\-::intersects}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rectangle} & -\/ Q\-Rect object that is being checked for intersection. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Bool value whether rectangles intersects.
+\end{DoxyReturn}
+Function checks whether current road's (not including sight range) rectangle intersects rectangle given as argument and returns bool value. 
+
+Implements \hyperlink{classDrawable}{Drawable}.
+
+\hypertarget{classRoadGUI_a6d2d17128a1aa200bc312778761be70a}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!is\-Vertical@{is\-Vertical}}
+\index{is\-Vertical@{is\-Vertical}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{is\-Vertical}]{\setlength{\rightskip}{0pt plus 5cm}bool Road\-G\-U\-I\-::is\-Vertical (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classRoadGUI_a6d2d17128a1aa200bc312778761be70a}
+
+
+\hyperlink{classRoadGUI_a6d2d17128a1aa200bc312778761be70a}{Road\-G\-U\-I\-::is\-Vertical}. 
+
+\begin{DoxyReturn}{Returns}
+Returns flag whether function is vertical or not 
+\end{DoxyReturn}
+\hypertarget{classRoadGUI_aad20fd36c29dedd57ed07cce3c391677}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!set\-Rectangle@{set\-Rectangle}}
+\index{set\-Rectangle@{set\-Rectangle}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{set\-Rectangle}]{\setlength{\rightskip}{0pt plus 5cm}void Road\-G\-U\-I\-::set\-Rectangle (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{first, }
+\item[{{\bf Point}}]{second}
+\end{DoxyParamCaption}
+)}}\label{classRoadGUI_aad20fd36c29dedd57ed07cce3c391677}
+
+
+\hyperlink{classRoadGUI_aad20fd36c29dedd57ed07cce3c391677}{Road\-G\-U\-I\-::set\-Rectangle}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em first} & -\/ One end of the road. \\
+\hline
+{\em second} & -\/ Other end of the road.\\
+\hline
+\end{DoxyParams}
+Function sets road to be between two given points. Line created by points doesn't have to be horizontal or vertical. Road is going to be made horizontal or vertical based on difference between points (dx $>$ dy). \hypertarget{classRoadGUI_a9ba81129f297df4ea1f0cc47e68a21f5}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!set\-Rectangle@{set\-Rectangle}}
+\index{set\-Rectangle@{set\-Rectangle}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{set\-Rectangle}]{\setlength{\rightskip}{0pt plus 5cm}void Road\-G\-U\-I\-::set\-Rectangle (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{point}
+\end{DoxyParamCaption}
+)}}\label{classRoadGUI_a9ba81129f297df4ea1f0cc47e68a21f5}
+
+
+\hyperlink{classRoadGUI_aad20fd36c29dedd57ed07cce3c391677}{Road\-G\-U\-I\-::set\-Rectangle}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ \hyperlink{classPoint}{Point} of new road.\\
+\hline
+\end{DoxyParams}
+Function sets temporary ghost road in point given as argument. 
+
+\subsection{Member Data Documentation}
+\hypertarget{classRoadGUI_a998dae57fd63610094da9e39f13c61c1}{\index{Road\-G\-U\-I@{Road\-G\-U\-I}!P\-E\-N\-\_\-\-W\-I\-D\-T\-H@{P\-E\-N\-\_\-\-W\-I\-D\-T\-H}}
+\index{P\-E\-N\-\_\-\-W\-I\-D\-T\-H@{P\-E\-N\-\_\-\-W\-I\-D\-T\-H}!RoadGUI@{Road\-G\-U\-I}}
+\subsubsection[{P\-E\-N\-\_\-\-W\-I\-D\-T\-H}]{\setlength{\rightskip}{0pt plus 5cm}const int Road\-G\-U\-I\-::\-P\-E\-N\-\_\-\-W\-I\-D\-T\-H = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{classRoadGUI_a998dae57fd63610094da9e39f13c61c1}
+P\-R\-O\-P\-E\-R\-T\-I\-E\-S
+
+P\-R\-O\-P\-E\-R\-T\-I\-E\-S I\-N\-I\-T\-I\-A\-L\-I\-Z\-E 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/roadgui.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/roadgui.\-cpp\end{DoxyCompactItemize}

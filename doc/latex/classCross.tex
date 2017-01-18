@@ -1,0 +1,125 @@
+\hypertarget{classCross}{\section{Cross Class Reference}
+\label{classCross}\index{Cross@{Cross}}
+}
+
+
+\hyperlink{classCross}{Cross} represents vertices in the graph that describes map.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classCross_a286bbd27e501b06c9989761815e4d150}{\hyperlink{classCross_a286bbd27e501b06c9989761815e4d150}{Cross} (Ptr\-To\-Const\-Point)}\label{classCross_a286bbd27e501b06c9989761815e4d150}
+
+\begin{DoxyCompactList}\small\item\em Contructor for \hyperlink{classCross}{Cross}. \end{DoxyCompactList}\item 
+Ptr\-Cross \hyperlink{classCross_a1e34c8d8207885c31fccc057e459eca0}{get\-Not\-Visited\-Neighbours} () const 
+\begin{DoxyCompactList}\small\item\em Get this cross' neighbour that wasn't be used so far. \end{DoxyCompactList}\item 
+void \hyperlink{classCross_a9a0803c662e8a9ebbeb25d2fb30b60d3}{add\-Neighbour} (Ptr\-Cross)
+\begin{DoxyCompactList}\small\item\em Adding new neighbour and deciding if the new neighbour is on the north, east, west or south. \end{DoxyCompactList}\item 
+bool \hyperlink{classCross_a707bf409f962936051ca4a35b086a1f6}{set\-Visited} (const bool \&)
+\begin{DoxyCompactList}\small\item\em Changes the was\-Visited parameter by the finding route algorithm. \end{DoxyCompactList}\item 
+\hypertarget{classCross_af04ae2fbefce9e2313e5cf172268635f}{bool {\bfseries get\-Visited} () const }\label{classCross_af04ae2fbefce9e2313e5cf172268635f}
+
+\item 
+\hypertarget{classCross_aa39b988d467b0d30ea71a7d2b3d36d43}{Ptr\-To\-Const\-Point {\bfseries get\-Position} () const }\label{classCross_aa39b988d467b0d30ea71a7d2b3d36d43}
+
+\item 
+\hypertarget{classCross_a25d38a1bcec3d88abfebed83e82cb133}{Ptr\-Cross {\bfseries get\-North\-Neighbour} () const }\label{classCross_a25d38a1bcec3d88abfebed83e82cb133}
+
+\item 
+\hypertarget{classCross_a1ddc074f996a3a36e2115be9c2b2aaf6}{Ptr\-Cross {\bfseries get\-South\-Neighbour} () const }\label{classCross_a1ddc074f996a3a36e2115be9c2b2aaf6}
+
+\item 
+\hypertarget{classCross_a8b83732b772b40341d5d08dad811f06a}{Ptr\-Cross {\bfseries get\-East\-Neighbour} () const }\label{classCross_a8b83732b772b40341d5d08dad811f06a}
+
+\item 
+\hypertarget{classCross_acec37a52c615de69566791de4d803fae}{Ptr\-Cross {\bfseries get\-West\-Neighbour} () const }\label{classCross_acec37a52c615de69566791de4d803fae}
+
+\item 
+bool \hyperlink{classCross_acf6cd8ddf999668bbd36a741902b72db}{operator==} (const \hyperlink{classCross}{Cross} \&rhs) const 
+\item 
+bool \hyperlink{classCross_a3895cda7b42236c090175a67cbd3f56c}{operator!=} (const \hyperlink{classCross}{Cross} \&rhs) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classCross}{Cross} represents vertices in the graph that describes map. 
+
+Each cross has it's neighbours and parameter that says if it was already used by the finding route algorithm and shouldn't be used again. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classCross_a9a0803c662e8a9ebbeb25d2fb30b60d3}{\index{Cross@{Cross}!add\-Neighbour@{add\-Neighbour}}
+\index{add\-Neighbour@{add\-Neighbour}!Cross@{Cross}}
+\subsubsection[{add\-Neighbour}]{\setlength{\rightskip}{0pt plus 5cm}void Cross\-::add\-Neighbour (
+\begin{DoxyParamCaption}
+\item[{Ptr\-Cross}]{cr}
+\end{DoxyParamCaption}
+)}}\label{classCross_a9a0803c662e8a9ebbeb25d2fb30b60d3}
+
+
+Adding new neighbour and deciding if the new neighbour is on the north, east, west or south. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cr} & -\/ new neighbour. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCross_a1e34c8d8207885c31fccc057e459eca0}{\index{Cross@{Cross}!get\-Not\-Visited\-Neighbours@{get\-Not\-Visited\-Neighbours}}
+\index{get\-Not\-Visited\-Neighbours@{get\-Not\-Visited\-Neighbours}!Cross@{Cross}}
+\subsubsection[{get\-Not\-Visited\-Neighbours}]{\setlength{\rightskip}{0pt plus 5cm}Ptr\-Cross Cross\-::get\-Not\-Visited\-Neighbours (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classCross_a1e34c8d8207885c31fccc057e459eca0}
+
+
+Get this cross' neighbour that wasn't be used so far. 
+
+\begin{DoxyReturn}{Returns}
+not visited neighbour of this cross. 
+\end{DoxyReturn}
+\hypertarget{classCross_a3895cda7b42236c090175a67cbd3f56c}{\index{Cross@{Cross}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!Cross@{Cross}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool Cross\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Cross} \&}]{rhs}
+\end{DoxyParamCaption}
+) const}}\label{classCross_a3895cda7b42236c090175a67cbd3f56c}
+\begin{DoxyReturn}{Returns}
+Returns true if two crosses have different positions. 
+\end{DoxyReturn}
+\hypertarget{classCross_acf6cd8ddf999668bbd36a741902b72db}{\index{Cross@{Cross}!operator==@{operator==}}
+\index{operator==@{operator==}!Cross@{Cross}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Cross\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Cross} \&}]{rhs}
+\end{DoxyParamCaption}
+) const}}\label{classCross_acf6cd8ddf999668bbd36a741902b72db}
+\begin{DoxyReturn}{Returns}
+Returns true if two crosses have the same position. 
+\end{DoxyReturn}
+\hypertarget{classCross_a707bf409f962936051ca4a35b086a1f6}{\index{Cross@{Cross}!set\-Visited@{set\-Visited}}
+\index{set\-Visited@{set\-Visited}!Cross@{Cross}}
+\subsubsection[{set\-Visited}]{\setlength{\rightskip}{0pt plus 5cm}bool Cross\-::set\-Visited (
+\begin{DoxyParamCaption}
+\item[{const bool \&}]{was\-Visited}
+\end{DoxyParamCaption}
+)}}\label{classCross_a707bf409f962936051ca4a35b086a1f6}
+
+
+Changes the was\-Visited parameter by the finding route algorithm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em was\-Visited} & -\/ describes if the cross was used by the finding route algorithm and cannot be reused. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the new value of was\-Visited parameter. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{Cross_8h}{Cross.\-h}\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{Cross_8cpp}{Cross.\-cpp}\end{DoxyCompactItemize}

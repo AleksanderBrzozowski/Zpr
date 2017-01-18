@@ -1,0 +1,85 @@
+\hypertarget{classRouteVector}{\section{Route\-Vector Class Reference}
+\label{classRouteVector}\index{Route\-Vector@{Route\-Vector}}
+}
+
+
+{\ttfamily \#include $<$Route\-Vector.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRouteVector_a08a0cdeb28a7f4de7d4be94da30debd7}{Route\-Vector} (const \hyperlink{classPoint}{Point} \&begin, const \hyperlink{classPoint}{Point} \&end)
+\item 
+\hyperlink{classRouteVector_ac3796e8702b7dba67eac66bfc1cb6b3b}{Route\-Vector} ()
+\item 
+\hyperlink{classRouteVector_a9dc4fc2b73469b6a9261036877262722}{Route\-Vector} (int x, int y)
+\item 
+\hypertarget{classRouteVector_a8971cddddcfa0be5fd1430ac516a69f3}{bool {\bfseries operator==} (const \hyperlink{classRouteVector}{Route\-Vector} \&rhs) const }\label{classRouteVector_a8971cddddcfa0be5fd1430ac516a69f3}
+
+\item 
+\hypertarget{classRouteVector_acc459698bbd65ed871c4b5a13466f11f}{bool {\bfseries operator!=} (const \hyperlink{classRouteVector}{Route\-Vector} \&rhs) const }\label{classRouteVector_acc459698bbd65ed871c4b5a13466f11f}
+
+\item 
+\hypertarget{classRouteVector_adf1ea492130b9f73ee1f45f4dc80b092}{int {\bfseries get\-X} () const }\label{classRouteVector_adf1ea492130b9f73ee1f45f4dc80b092}
+
+\item 
+\hypertarget{classRouteVector_a077707d02a8a63d9cdd9783e16dc8097}{int {\bfseries get\-Y} () const }\label{classRouteVector_a077707d02a8a63d9cdd9783e16dc8097}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Represents vector. \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classRouteVector_a08a0cdeb28a7f4de7d4be94da30debd7}{\index{Route\-Vector@{Route\-Vector}!Route\-Vector@{Route\-Vector}}
+\index{Route\-Vector@{Route\-Vector}!RouteVector@{Route\-Vector}}
+\subsubsection[{Route\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}Route\-Vector\-::\-Route\-Vector (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{begin, }
+\item[{const {\bf Point} \&}]{end}
+\end{DoxyParamCaption}
+)}}\label{classRouteVector_a08a0cdeb28a7f4de7d4be94da30debd7}
+Constructs vector between two points that have same x or y. Normalizes vector to 1. Possible vectors are\-: \mbox{[}-\/1, 0\mbox{]}, \mbox{[}1, 0\mbox{]}, \mbox{[}0, -\/1\mbox{]}, \mbox{[}0, 1\mbox{]}, \mbox{[}0, 0\mbox{]}. 
+\begin{DoxyExceptions}{Exceptions}
+{\em std\-::invalid\-\_\-argument} & When points don't have same x or y \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parameters}
+{\em begin} & First point \\
+\hline
+{\em end} & Second point \\
+\hline
+\end{DoxyParams}
+\hypertarget{classRouteVector_ac3796e8702b7dba67eac66bfc1cb6b3b}{\index{Route\-Vector@{Route\-Vector}!Route\-Vector@{Route\-Vector}}
+\index{Route\-Vector@{Route\-Vector}!RouteVector@{Route\-Vector}}
+\subsubsection[{Route\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}Route\-Vector\-::\-Route\-Vector (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classRouteVector_ac3796e8702b7dba67eac66bfc1cb6b3b}
+Constructs \mbox{[}0, 0\mbox{]} vector. \hypertarget{classRouteVector_a9dc4fc2b73469b6a9261036877262722}{\index{Route\-Vector@{Route\-Vector}!Route\-Vector@{Route\-Vector}}
+\index{Route\-Vector@{Route\-Vector}!RouteVector@{Route\-Vector}}
+\subsubsection[{Route\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}Route\-Vector\-::\-Route\-Vector (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{classRouteVector_a9dc4fc2b73469b6a9261036877262722}
+Constructs vector using passed x and y \mbox{[}x, y\mbox{]}. 
+\begin{DoxyParams}{Parameters}
+{\em x} & Vector's x \\
+\hline
+{\em y} & Vector's y \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Route\-Vector.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Route\-Vector.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,194 @@
+\hypertarget{classMainWindow}{\section{Main\-Window Class Reference}
+\label{classMainWindow}\index{Main\-Window@{Main\-Window}}
+}
+
+
+The \hyperlink{classMainWindow}{Main\-Window} class.  
+
+
+
+
+{\ttfamily \#include $<$mainwindow.\-h$>$}
+
+
+
+Inheritance diagram for Main\-Window\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classMainWindow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Main\-Window\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classMainWindow__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classMainWindow_a9907ff1d21c9e2cc7078a2b5ba043b52}{set\-Map} (std\-::shared\-\_\-ptr$<$ \hyperlink{classMap}{Map} $>$ map)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_a9907ff1d21c9e2cc7078a2b5ba043b52}{Main\-Window\-::set\-Map}. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a8a2dbcb697f105c012e3ca3704d95b77}{set\-Car} (const unsigned int id, const unsigned int x, const unsigned int y, const bool fast=false)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_a8a2dbcb697f105c012e3ca3704d95b77}{Main\-Window\-::set\-Car}. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a41c3fa9c4208016244cfc988ec0967ca}{set\-Ppl} (const unsigned int id, const unsigned int x, const unsigned int y)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_a41c3fa9c4208016244cfc988ec0967ca}{Main\-Window\-::set\-Ppl}. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a3ec289e870edc7413a1e03245eee4e1a}{remove\-Object} (const unsigned int id)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_a3ec289e870edc7413a1e03245eee4e1a}{Main\-Window\-::remove\-Object}. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_ab27297114529e4c16d6d8d7a54927a0e}{refresh} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_ab27297114529e4c16d6d8d7a54927a0e}{Main\-Window\-::refresh}. \end{DoxyCompactList}\item 
+void \hyperlink{classMainWindow_a5912f1655918f9f941280fc900695594}{reset\-Label} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_a5912f1655918f9f941280fc900695594}{Main\-Window\-::reset\-Label}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classMainWindow}{Main\-Window} \& \hyperlink{classMainWindow_a17b66394011720014a82ed3457a48bd3}{get\-Instance} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_a17b66394011720014a82ed3457a48bd3}{Main\-Window\-::get\-Instance}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classMainWindow_ac52c27e88f64214983e13638b1c73e80}{static const \\*
+std\-::chrono\-::milliseconds \hyperlink{classMainWindow_ac52c27e88f64214983e13638b1c73e80}{R\-E\-F\-R\-E\-S\-H\-\_\-\-T\-I\-M\-E} = std\-::chrono\-::milliseconds(50)}\label{classMainWindow_ac52c27e88f64214983e13638b1c73e80}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_ac52c27e88f64214983e13638b1c73e80}{Main\-Window\-::\-R\-E\-F\-R\-E\-S\-H\-\_\-\-T\-I\-M\-E}. Time between cars movement. \end{DoxyCompactList}\item 
+\hypertarget{classMainWindow_a1e3a4f8c96328a2f84b8382649d04967}{static const std\-::chrono\-::seconds \hyperlink{classMainWindow_a1e3a4f8c96328a2f84b8382649d04967}{C\-A\-M\-E\-R\-A\-\_\-\-S\-C\-A\-N\-\_\-\-F\-R\-E\-Q} = std\-::chrono\-::seconds(1)}\label{classMainWindow_a1e3a4f8c96328a2f84b8382649d04967}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMainWindow_a1e3a4f8c96328a2f84b8382649d04967}{Main\-Window\-::\-C\-A\-M\-E\-R\-A\-\_\-\-S\-C\-A\-N\-\_\-\-F\-R\-E\-Q}. Time between camera scans. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classMainWindow}{Main\-Window} class. 
+
+Class is a facade for G\-U\-I part of project. It provides methods to set objects to pointed position, remove them and refresh the rendered area. Class is singleton, so only way to access it is through appropriate method. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classMainWindow_a17b66394011720014a82ed3457a48bd3}{\index{Main\-Window@{Main\-Window}!get\-Instance@{get\-Instance}}
+\index{get\-Instance@{get\-Instance}!MainWindow@{Main\-Window}}
+\subsubsection[{get\-Instance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Main\-Window} \& Main\-Window\-::get\-Instance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classMainWindow_a17b66394011720014a82ed3457a48bd3}
+
+
+\hyperlink{classMainWindow_a17b66394011720014a82ed3457a48bd3}{Main\-Window\-::get\-Instance}. 
+
+\begin{DoxyReturn}{Returns}
+Returns instance of \hyperlink{classMainWindow}{Main\-Window} object. Only way to create that object. 
+\end{DoxyReturn}
+\hypertarget{classMainWindow_ab27297114529e4c16d6d8d7a54927a0e}{\index{Main\-Window@{Main\-Window}!refresh@{refresh}}
+\index{refresh@{refresh}!MainWindow@{Main\-Window}}
+\subsubsection[{refresh}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::refresh (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMainWindow_ab27297114529e4c16d6d8d7a54927a0e}
+
+
+\hyperlink{classMainWindow_ab27297114529e4c16d6d8d7a54927a0e}{Main\-Window\-::refresh}. 
+
+Refreshes rendered area. Render area doesn't refresh itself, so it can be done only when needed. \hypertarget{classMainWindow_a3ec289e870edc7413a1e03245eee4e1a}{\index{Main\-Window@{Main\-Window}!remove\-Object@{remove\-Object}}
+\index{remove\-Object@{remove\-Object}!MainWindow@{Main\-Window}}
+\subsubsection[{remove\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::remove\-Object (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{id}
+\end{DoxyParamCaption}
+)}}\label{classMainWindow_a3ec289e870edc7413a1e03245eee4e1a}
+
+
+\hyperlink{classMainWindow_a3ec289e870edc7413a1e03245eee4e1a}{Main\-Window\-::remove\-Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ object I\-D.\\
+\hline
+\end{DoxyParams}
+Removes object from list of object that are being redrawn. Supposed to be called when object doesn't exist anymore. \hypertarget{classMainWindow_a5912f1655918f9f941280fc900695594}{\index{Main\-Window@{Main\-Window}!reset\-Label@{reset\-Label}}
+\index{reset\-Label@{reset\-Label}!MainWindow@{Main\-Window}}
+\subsubsection[{reset\-Label}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::reset\-Label (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMainWindow_a5912f1655918f9f941280fc900695594}
+
+
+\hyperlink{classMainWindow_a5912f1655918f9f941280fc900695594}{Main\-Window\-::reset\-Label}. 
+
+Sets status label to say that no option is chosen and advise to choose one. \hypertarget{classMainWindow_a8a2dbcb697f105c012e3ca3704d95b77}{\index{Main\-Window@{Main\-Window}!set\-Car@{set\-Car}}
+\index{set\-Car@{set\-Car}!MainWindow@{Main\-Window}}
+\subsubsection[{set\-Car}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::set\-Car (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{id, }
+\item[{const unsigned int}]{x, }
+\item[{const unsigned int}]{y, }
+\item[{const bool}]{fast = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classMainWindow_a8a2dbcb697f105c012e3ca3704d95b77}
+
+
+\hyperlink{classMainWindow_a8a2dbcb697f105c012e3ca3704d95b77}{Main\-Window\-::set\-Car}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ car I\-D. \\
+\hline
+{\em x} & -\/ position X. \\
+\hline
+{\em y} & -\/ position Y. \\
+\hline
+{\em fast} & -\/ flag says if car is fast car or not. false by default.\\
+\hline
+\end{DoxyParams}
+Sets car to appropriate position, and specify type of car being set. \hypertarget{classMainWindow_a9907ff1d21c9e2cc7078a2b5ba043b52}{\index{Main\-Window@{Main\-Window}!set\-Map@{set\-Map}}
+\index{set\-Map@{set\-Map}!MainWindow@{Main\-Window}}
+\subsubsection[{set\-Map}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::set\-Map (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf Map} $>$}]{map}
+\end{DoxyParamCaption}
+)}}\label{classMainWindow_a9907ff1d21c9e2cc7078a2b5ba043b52}
+
+
+\hyperlink{classMainWindow_a9907ff1d21c9e2cc7078a2b5ba043b52}{Main\-Window\-::set\-Map}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & \\
+\hline
+\end{DoxyParams}
+Sets map object to allow pass user-\/generated events to model. Without map any user input won't take any affect. \begin{DoxySeeAlso}{See Also}
+\hyperlink{classEventInterpreter_a6ca1d621b8ef0297675be928b996ae8b}{Event\-Interpreter\-::set\-Map}. 
+\end{DoxySeeAlso}
+\hypertarget{classMainWindow_a41c3fa9c4208016244cfc988ec0967ca}{\index{Main\-Window@{Main\-Window}!set\-Ppl@{set\-Ppl}}
+\index{set\-Ppl@{set\-Ppl}!MainWindow@{Main\-Window}}
+\subsubsection[{set\-Ppl}]{\setlength{\rightskip}{0pt plus 5cm}void Main\-Window\-::set\-Ppl (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{id, }
+\item[{const unsigned int}]{x, }
+\item[{const unsigned int}]{y}
+\end{DoxyParamCaption}
+)}}\label{classMainWindow_a41c3fa9c4208016244cfc988ec0967ca}
+
+
+\hyperlink{classMainWindow_a41c3fa9c4208016244cfc988ec0967ca}{Main\-Window\-::set\-Ppl}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ person I\-D. \\
+\hline
+{\em x} & -\/ position X. \\
+\hline
+{\em y} & -\/ position Y.\\
+\hline
+\end{DoxyParams}
+Sets person to appropriate position, so it can be repainted where it actually is. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/mainwindow.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/mainwindow.\-cpp\end{DoxyCompactItemize}

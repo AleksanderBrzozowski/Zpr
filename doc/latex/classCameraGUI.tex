@@ -1,0 +1,458 @@
+\hypertarget{classCameraGUI}{\section{Camera\-G\-U\-I Class Reference}
+\label{classCameraGUI}\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}}
+}
+
+
+The \hyperlink{classCameraGUI}{Camera\-G\-U\-I} class. Class holds info about look of camera in G\-U\-I.  
+
+
+
+
+{\ttfamily \#include $<$cameragui.\-h$>$}
+
+
+
+Inheritance diagram for Camera\-G\-U\-I\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classCameraGUI__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Camera\-G\-U\-I\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{classCameraGUI__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{Camera\-G\-U\-I} (unsigned int x, unsigned int y, unsigned int span, int angle, unsigned int range, bool ghost=false)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{Camera\-G\-U\-I\-::\-Camera\-G\-U\-I}. Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classCameraGUI_a847265abc60ee2011e460e20f8e17930}{Camera\-G\-U\-I} (\hyperlink{classPoint}{Point} position, \hyperlink{classPoint}{Point} range, int span, bool ghost=false)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{Camera\-G\-U\-I\-::\-Camera\-G\-U\-I}. Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classCameraGUI_aee52d51f94af00b5f70673d36bb7f8df}{Camera\-G\-U\-I} (\hyperlink{classPoint}{Point} position)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{Camera\-G\-U\-I\-::\-Camera\-G\-U\-I}. Constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_ac2f1343cecf2469c4112bc3efe122b1f}{set\-Rectangle} (\hyperlink{classPoint}{Point} point)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_ac2f1343cecf2469c4112bc3efe122b1f}{Camera\-G\-U\-I\-::set\-Rectangle}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_a9c7dedccd547b24aeea2275b81964dd5}{set\-Rectangle} (\hyperlink{classPoint}{Point} first, \hyperlink{classPoint}{Point} second)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_ac2f1343cecf2469c4112bc3efe122b1f}{Camera\-G\-U\-I\-::set\-Rectangle}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_a56c36908fcf541131711a96be0d19bf2}{draw} (Q\-Painter \&) const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a56c36908fcf541131711a96be0d19bf2}{Camera\-G\-U\-I\-::draw}. \end{DoxyCompactList}\item 
+\hypertarget{classCameraGUI_a70a05a7d985c73ddc47f4967c4b7de19}{void {\bfseries set\-To} (unsigned int x, unsigned int y) override}\label{classCameraGUI_a70a05a7d985c73ddc47f4967c4b7de19}
+
+\item 
+bool \hyperlink{classCameraGUI_a9a7be75113cbe6618df95d29a7184ae9}{intersects} (Q\-Rect \&rectangle) const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a9a7be75113cbe6618df95d29a7184ae9}{Camera\-G\-U\-I\-::intersects}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_a899d0ba69e44e61bd8f993e70dd8bf58}{dec\-Range} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a899d0ba69e44e61bd8f993e70dd8bf58}{Camera\-G\-U\-I\-::dec\-Range}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_ae5a54018d6985ac4fae5f69e49e54a80}{inc\-Range} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_ae5a54018d6985ac4fae5f69e49e54a80}{Camera\-G\-U\-I\-::inc\-Range}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_a9bd87784914772edd3fea9d12b5119c7}{rot\-Clockwise} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a9bd87784914772edd3fea9d12b5119c7}{Camera\-G\-U\-I\-::rot\-Clockwise}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_a0ba57c92828cd8ee6aa4b1af2b42e4a7}{rot\-Counterclockwise} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a0ba57c92828cd8ee6aa4b1af2b42e4a7}{Camera\-G\-U\-I\-::rot\-Counterclockwise}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_a525f57d02a5324bb4e55bfa13001bd9e}{inc\-Span} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a525f57d02a5324bb4e55bfa13001bd9e}{Camera\-G\-U\-I\-::inc\-Span}. \end{DoxyCompactList}\item 
+void \hyperlink{classCameraGUI_a626ff2fa3927c2292e16187e1ecef422}{dec\-Span} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a626ff2fa3927c2292e16187e1ecef422}{Camera\-G\-U\-I\-::dec\-Span}. \end{DoxyCompactList}\item 
+int \hyperlink{classCameraGUI_a6e3b89ea4a94a7ad90ab295556173be5}{get\-Span} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a6e3b89ea4a94a7ad90ab295556173be5}{Camera\-G\-U\-I\-::get\-Span}. \end{DoxyCompactList}\item 
+int \hyperlink{classCameraGUI_a948fc684449338f3f0d4c4e02692234b}{get\-Angle} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a948fc684449338f3f0d4c4e02692234b}{Camera\-G\-U\-I\-::get\-Angle}. \end{DoxyCompactList}\item 
+int \hyperlink{classCameraGUI_a3da1bc7c4ab1c7d56f918dd21873a862}{get\-Range} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCameraGUI_a3da1bc7c4ab1c7d56f918dd21873a862}{Camera\-G\-U\-I\-::get\-Range}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const unsigned int \hyperlink{classCameraGUI_a3bfd5efeeb6e8474ff4d1106440ca1ab}{C\-A\-M\-\_\-\-R\-A\-D\-I\-U\-S} = 8
+\item 
+\hypertarget{classCameraGUI_a7f8ecb7208f8d6256f5eeb18db936244}{static const unsigned int {\bfseries M\-A\-X\-\_\-\-R\-A\-N\-G\-E} = 5 $\ast$ Grid\-G\-U\-I\-::\-S\-I\-Z\-E}\label{classCameraGUI_a7f8ecb7208f8d6256f5eeb18db936244}
+
+\item 
+\hypertarget{classCameraGUI_adc4a994ad297cfff1e76c1e00bced733}{static const unsigned int {\bfseries M\-I\-N\-\_\-\-R\-A\-N\-G\-E} = 100}\label{classCameraGUI_adc4a994ad297cfff1e76c1e00bced733}
+
+\item 
+\hypertarget{classCameraGUI_a0bab41ff4cf14b5b7e3256a780792fd1}{static const unsigned int {\bfseries M\-A\-X\-\_\-\-S\-P\-A\-N} = 180}\label{classCameraGUI_a0bab41ff4cf14b5b7e3256a780792fd1}
+
+\item 
+\hypertarget{classCameraGUI_ab92e05091879d7af4c710be042bea717}{static const unsigned int {\bfseries M\-I\-N\-\_\-\-S\-P\-A\-N} = 10}\label{classCameraGUI_ab92e05091879d7af4c710be042bea717}
+
+\item 
+\hypertarget{classCameraGUI_a4757b83877c8a4dcc70d1025df24fb9f}{static const int {\bfseries D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-P\-A\-N} = 60}\label{classCameraGUI_a4757b83877c8a4dcc70d1025df24fb9f}
+
+\item 
+\hypertarget{classCameraGUI_a9562f728089b5066cb0fd5e09b64dcaa}{static const int {\bfseries D\-E\-F\-A\-U\-L\-T\-\_\-\-A\-N\-G\-L\-E} = -\/D\-E\-F\-A\-U\-L\-T\-\_\-\-S\-P\-A\-N/2}\label{classCameraGUI_a9562f728089b5066cb0fd5e09b64dcaa}
+
+\item 
+\hypertarget{classCameraGUI_a1870cb9bfe4d69423954af5153b5e6dc}{static const unsigned int {\bfseries D\-E\-F\-A\-U\-L\-T\-\_\-\-R\-A\-N\-G\-E} = 200}\label{classCameraGUI_a1870cb9bfe4d69423954af5153b5e6dc}
+
+\item 
+\hypertarget{classCameraGUI_ad29d1cc52182c76904726d279082a4eb}{static const int {\bfseries C\-A\-M\-\_\-\-P\-E\-N\-\_\-\-W\-I\-D\-T\-H} = 2}\label{classCameraGUI_ad29d1cc52182c76904726d279082a4eb}
+
+\item 
+\hypertarget{classCameraGUI_ac202b5df044399e3ccf1c41181f0c390}{static const Qt\-::\-Pen\-Style {\bfseries C\-A\-M\-\_\-\-P\-E\-N\-\_\-\-S\-T\-Y\-L\-E} = Qt\-::\-Solid\-Line}\label{classCameraGUI_ac202b5df044399e3ccf1c41181f0c390}
+
+\item 
+\hypertarget{classCameraGUI_a2e99509394c107afdb1de6167a137de2}{static const Qt\-::\-Pen\-Cap\-Style {\bfseries C\-A\-M\-\_\-\-P\-E\-N\-\_\-\-C\-A\-P} = Qt\-::\-Square\-Cap}\label{classCameraGUI_a2e99509394c107afdb1de6167a137de2}
+
+\item 
+\hypertarget{classCameraGUI_ab6ebad56d837fb8a910dff37b075127f}{static const Qt\-::\-Pen\-Join\-Style {\bfseries C\-A\-M\-\_\-\-P\-E\-N\-\_\-\-J\-O\-I\-N} = Qt\-::\-Round\-Join}\label{classCameraGUI_ab6ebad56d837fb8a910dff37b075127f}
+
+\item 
+\hypertarget{classCameraGUI_adcbeae7987dad32eae5d7532c4057ac1}{static const Q\-Color {\bfseries C\-A\-M\-\_\-\-P\-E\-N\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(0, 0, 0)}\label{classCameraGUI_adcbeae7987dad32eae5d7532c4057ac1}
+
+\item 
+\hypertarget{classCameraGUI_a0d3c759a8f5c7e781bbb307b1cc2adf6}{static const Q\-Color {\bfseries G\-H\-O\-S\-T\-\_\-\-C\-A\-M\-\_\-\-P\-E\-N\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(0, 0, 0, 127)}\label{classCameraGUI_a0d3c759a8f5c7e781bbb307b1cc2adf6}
+
+\item 
+\hypertarget{classCameraGUI_a298a8aa3eacaf56edeb881be5ad09f96}{static const Q\-Pen {\bfseries C\-A\-M\-\_\-\-P\-E\-N}}\label{classCameraGUI_a298a8aa3eacaf56edeb881be5ad09f96}
+
+\item 
+\hypertarget{classCameraGUI_ad6cb3916341cedc82c1c110487a20e8a}{static const Q\-Pen {\bfseries G\-H\-O\-S\-T\-\_\-\-C\-A\-M\-\_\-\-P\-E\-N}}\label{classCameraGUI_ad6cb3916341cedc82c1c110487a20e8a}
+
+\item 
+\hypertarget{classCameraGUI_a5dae39bcabadb82d30643023e694df53}{static const Qt\-::\-Brush\-Style {\bfseries C\-A\-M\-\_\-\-B\-R\-U\-S\-H\-\_\-\-S\-T\-Y\-L\-E} = Qt\-::\-Solid\-Pattern}\label{classCameraGUI_a5dae39bcabadb82d30643023e694df53}
+
+\item 
+\hypertarget{classCameraGUI_acb2690e862c3a4910494b41d10c71673}{static const Q\-Color {\bfseries C\-A\-M\-\_\-\-B\-R\-U\-S\-H\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(103, 74, 158)}\label{classCameraGUI_acb2690e862c3a4910494b41d10c71673}
+
+\item 
+\hypertarget{classCameraGUI_a0fffcb81bdb6e757d8b22eb0fc300d63}{static const Q\-Color {\bfseries G\-H\-O\-S\-T\-\_\-\-C\-A\-M\-\_\-\-B\-R\-U\-S\-H\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(103, 74, 158, 127)}\label{classCameraGUI_a0fffcb81bdb6e757d8b22eb0fc300d63}
+
+\item 
+\hypertarget{classCameraGUI_a098d01461f680aff5b47d09235e6748a}{static const Q\-Brush {\bfseries C\-A\-M\-\_\-\-B\-R\-U\-S\-H}}\label{classCameraGUI_a098d01461f680aff5b47d09235e6748a}
+
+\item 
+\hypertarget{classCameraGUI_ae939ce3f55739a8b8d9cf9b6740da91d}{static const Q\-Brush {\bfseries G\-H\-O\-S\-T\-\_\-\-C\-A\-M\-\_\-\-B\-R\-U\-S\-H}}\label{classCameraGUI_ae939ce3f55739a8b8d9cf9b6740da91d}
+
+\item 
+\hypertarget{classCameraGUI_af5a35c36f4043bd723778f4488009b35}{static const int {\bfseries R\-N\-G\-\_\-\-P\-E\-N\-\_\-\-W\-I\-D\-T\-H} = 0}\label{classCameraGUI_af5a35c36f4043bd723778f4488009b35}
+
+\item 
+\hypertarget{classCameraGUI_af9e000abeddf2a871e2d5ef4d08773bf}{static const Qt\-::\-Pen\-Style {\bfseries R\-N\-G\-\_\-\-P\-E\-N\-\_\-\-S\-T\-Y\-L\-E} = Qt\-::\-Solid\-Line}\label{classCameraGUI_af9e000abeddf2a871e2d5ef4d08773bf}
+
+\item 
+\hypertarget{classCameraGUI_a042cca0636bb39244a0a689af8f62b17}{static const Qt\-::\-Pen\-Cap\-Style {\bfseries R\-N\-G\-\_\-\-P\-E\-N\-\_\-\-C\-A\-P} = Qt\-::\-Square\-Cap}\label{classCameraGUI_a042cca0636bb39244a0a689af8f62b17}
+
+\item 
+\hypertarget{classCameraGUI_a6d4f35cefc63050d44b5a1271059653c}{static const Qt\-::\-Pen\-Join\-Style {\bfseries R\-N\-G\-\_\-\-P\-E\-N\-\_\-\-J\-O\-I\-N} = Qt\-::\-Round\-Join}\label{classCameraGUI_a6d4f35cefc63050d44b5a1271059653c}
+
+\item 
+\hypertarget{classCameraGUI_aec90c5accd29fffeb8735551d6f66f23}{static const Q\-Color {\bfseries R\-N\-G\-\_\-\-P\-E\-N\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(0, 0, 0, 0)}\label{classCameraGUI_aec90c5accd29fffeb8735551d6f66f23}
+
+\item 
+\hypertarget{classCameraGUI_a4d24939af4bb409df6b89b0cb974074c}{static const Q\-Color {\bfseries G\-H\-O\-S\-T\-\_\-\-R\-N\-G\-\_\-\-P\-E\-N\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(0, 0, 0, 0)}\label{classCameraGUI_a4d24939af4bb409df6b89b0cb974074c}
+
+\item 
+\hypertarget{classCameraGUI_a2ad79374ad1db2e7fe7364b262825851}{static const Q\-Pen {\bfseries R\-N\-G\-\_\-\-P\-E\-N}}\label{classCameraGUI_a2ad79374ad1db2e7fe7364b262825851}
+
+\item 
+\hypertarget{classCameraGUI_a67439a62df649c6f76b0663dc3d14c09}{static const Q\-Pen {\bfseries G\-H\-O\-S\-T\-\_\-\-R\-N\-G\-\_\-\-P\-E\-N}}\label{classCameraGUI_a67439a62df649c6f76b0663dc3d14c09}
+
+\item 
+\hypertarget{classCameraGUI_a01530501f6b9e651ac94000aeb94ea1f}{static const Qt\-::\-Brush\-Style {\bfseries R\-N\-G\-\_\-\-B\-R\-U\-S\-H\-\_\-\-S\-T\-Y\-L\-E} = Qt\-::\-Solid\-Pattern}\label{classCameraGUI_a01530501f6b9e651ac94000aeb94ea1f}
+
+\item 
+\hypertarget{classCameraGUI_acc2e2bc371644b94c99d1c9d35688048}{static const Q\-Color {\bfseries R\-N\-G\-\_\-\-B\-R\-U\-S\-H\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(177, 156, 217, 127)}\label{classCameraGUI_acc2e2bc371644b94c99d1c9d35688048}
+
+\item 
+\hypertarget{classCameraGUI_a8689b5f981805945dd4c1c251e7065e5}{static const Q\-Color {\bfseries G\-H\-O\-S\-T\-\_\-\-R\-N\-G\-\_\-\-B\-R\-U\-S\-H\-\_\-\-C\-O\-L\-O\-R} = Q\-Color(177, 156, 217, 64)}\label{classCameraGUI_a8689b5f981805945dd4c1c251e7065e5}
+
+\item 
+\hypertarget{classCameraGUI_a1f46ce78c9696e44e1330f591df3f5c4}{static const Q\-Brush {\bfseries R\-N\-G\-\_\-\-B\-R\-U\-S\-H}}\label{classCameraGUI_a1f46ce78c9696e44e1330f591df3f5c4}
+
+\item 
+\hypertarget{classCameraGUI_a3fd5e88f6a785f92bec36a9bb783eee9}{static const Q\-Brush {\bfseries G\-H\-O\-S\-T\-\_\-\-R\-N\-G\-\_\-\-B\-R\-U\-S\-H}}\label{classCameraGUI_a3fd5e88f6a785f92bec36a9bb783eee9}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classCameraGUI}{Camera\-G\-U\-I} class. Class holds info about look of camera in G\-U\-I. 
+
+Class holds information necessary to draw camera in G\-U\-I. It implements virtual function from base class, so it wil be drawn poperly. It has also function that allows io move it and differ its range of sight. Function holds all information about the look of the camera on screen. \begin{DoxyAuthor}{Author}
+Pawel Rybak 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!Camera\-G\-U\-I@{Camera\-G\-U\-I}}
+\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{Camera\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}Camera\-G\-U\-I\-::\-Camera\-G\-U\-I (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{x, }
+\item[{unsigned int}]{y, }
+\item[{unsigned int}]{span, }
+\item[{int}]{angle, }
+\item[{unsigned int}]{range, }
+\item[{bool}]{ghost = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}
+
+
+\hyperlink{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{Camera\-G\-U\-I\-::\-Camera\-G\-U\-I}. Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ Position X of camera. \\
+\hline
+{\em y} & -\/ Position Y of camera. \\
+\hline
+{\em span} & -\/ camera's sight span. Unit is 1/16th of a degree. \\
+\hline
+{\em angle} & -\/ Direction of camera's sigh. Angle 0 is bottom of sight starts paralell to x axis to the left. Increasing turns it counterclockwise. Unit is 1/16th of a degree. \\
+\hline
+{\em range} & -\/ \hyperlink{classCamera}{Camera}'s range of view. \\
+\hline
+{\em ghost} & -\/ Boolean tells whether object is ghost object or not.\\
+\hline
+\end{DoxyParams}
+Constructor creates camera object centered at point X, Y given as parameters. \hypertarget{classCameraGUI_a847265abc60ee2011e460e20f8e17930}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!Camera\-G\-U\-I@{Camera\-G\-U\-I}}
+\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{Camera\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}Camera\-G\-U\-I\-::\-Camera\-G\-U\-I (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{position, }
+\item[{{\bf Point}}]{range, }
+\item[{int}]{span, }
+\item[{bool}]{ghost = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a847265abc60ee2011e460e20f8e17930}
+
+
+\hyperlink{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{Camera\-G\-U\-I\-::\-Camera\-G\-U\-I}. Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & -\/ Position of a camera. \\
+\hline
+{\em range} & -\/ \hyperlink{classPoint}{Point} where camera's range ends. \\
+\hline
+{\em span} & -\/ cmaera's cpan. Unit is 1/16th of a degree. \\
+\hline
+{\em ghost} & -\/ Boolean tells whether object is ghost object or not.\\
+\hline
+\end{DoxyParams}
+Constructor creates camera a given point with range ending and another point given as argument. \hypertarget{classCameraGUI_aee52d51f94af00b5f70673d36bb7f8df}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!Camera\-G\-U\-I@{Camera\-G\-U\-I}}
+\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{Camera\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}Camera\-G\-U\-I\-::\-Camera\-G\-U\-I (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{position}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_aee52d51f94af00b5f70673d36bb7f8df}
+
+
+\hyperlink{classCameraGUI_a076ea3f14aace383a31d4cd835310a49}{Camera\-G\-U\-I\-::\-Camera\-G\-U\-I}. Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & -\/ Position of a camera.\\
+\hline
+\end{DoxyParams}
+Constructor creates camera centered at a position given as parameter. It's range of view is set to zero. Object constructed with that function is always ghost object. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classCameraGUI_a899d0ba69e44e61bd8f993e70dd8bf58}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!dec\-Range@{dec\-Range}}
+\index{dec\-Range@{dec\-Range}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{dec\-Range}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::dec\-Range (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a899d0ba69e44e61bd8f993e70dd8bf58}
+
+
+\hyperlink{classCameraGUI_a899d0ba69e44e61bd8f993e70dd8bf58}{Camera\-G\-U\-I\-::dec\-Range}. 
+
+Decrements range by 10 pixels unless it is minimum already. Limits are defined in object. \hypertarget{classCameraGUI_a626ff2fa3927c2292e16187e1ecef422}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!dec\-Span@{dec\-Span}}
+\index{dec\-Span@{dec\-Span}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{dec\-Span}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::dec\-Span (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a626ff2fa3927c2292e16187e1ecef422}
+
+
+\hyperlink{classCameraGUI_a626ff2fa3927c2292e16187e1ecef422}{Camera\-G\-U\-I\-::dec\-Span}. 
+
+Decrements camera's view span by 1 degree unless it is minimum already. Limits are defined in object. \hypertarget{classCameraGUI_a56c36908fcf541131711a96be0d19bf2}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!draw@{draw}}
+\index{draw@{draw}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::draw (
+\begin{DoxyParamCaption}
+\item[{Q\-Painter \&}]{painter}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classCameraGUI_a56c36908fcf541131711a96be0d19bf2}
+
+
+\hyperlink{classCameraGUI_a56c36908fcf541131711a96be0d19bf2}{Camera\-G\-U\-I\-::draw}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em painter} & -\/ Reference to painter object.\\
+\hline
+\end{DoxyParams}
+Function draws object using painter given as an argument. It uses brushes, and pens defined in object, and base its choice on whether it is ghost object or not. 
+
+Implements \hyperlink{classDrawable}{Drawable}.
+
+\hypertarget{classCameraGUI_a948fc684449338f3f0d4c4e02692234b}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!get\-Angle@{get\-Angle}}
+\index{get\-Angle@{get\-Angle}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{get\-Angle}]{\setlength{\rightskip}{0pt plus 5cm}int Camera\-G\-U\-I\-::get\-Angle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a948fc684449338f3f0d4c4e02692234b}
+
+
+\hyperlink{classCameraGUI_a948fc684449338f3f0d4c4e02692234b}{Camera\-G\-U\-I\-::get\-Angle}. 
+
+\begin{DoxyReturn}{Returns}
+Returns current angle. Unit is 1/16th of degree. 
+\end{DoxyReturn}
+\hypertarget{classCameraGUI_a3da1bc7c4ab1c7d56f918dd21873a862}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!get\-Range@{get\-Range}}
+\index{get\-Range@{get\-Range}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{get\-Range}]{\setlength{\rightskip}{0pt plus 5cm}int Camera\-G\-U\-I\-::get\-Range (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a3da1bc7c4ab1c7d56f918dd21873a862}
+
+
+\hyperlink{classCameraGUI_a3da1bc7c4ab1c7d56f918dd21873a862}{Camera\-G\-U\-I\-::get\-Range}. 
+
+\begin{DoxyReturn}{Returns}
+Returns current range. Units are pixels. 
+\end{DoxyReturn}
+\hypertarget{classCameraGUI_a6e3b89ea4a94a7ad90ab295556173be5}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!get\-Span@{get\-Span}}
+\index{get\-Span@{get\-Span}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{get\-Span}]{\setlength{\rightskip}{0pt plus 5cm}int Camera\-G\-U\-I\-::get\-Span (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a6e3b89ea4a94a7ad90ab295556173be5}
+
+
+\hyperlink{classCameraGUI_a6e3b89ea4a94a7ad90ab295556173be5}{Camera\-G\-U\-I\-::get\-Span}. 
+
+\begin{DoxyReturn}{Returns}
+Returns current span. Unit is 1/16th of degree. 
+\end{DoxyReturn}
+\hypertarget{classCameraGUI_ae5a54018d6985ac4fae5f69e49e54a80}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!inc\-Range@{inc\-Range}}
+\index{inc\-Range@{inc\-Range}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{inc\-Range}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::inc\-Range (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_ae5a54018d6985ac4fae5f69e49e54a80}
+
+
+\hyperlink{classCameraGUI_ae5a54018d6985ac4fae5f69e49e54a80}{Camera\-G\-U\-I\-::inc\-Range}. 
+
+Increments range by 10 pixels unless it is maximum already. Limits are defined in object. \hypertarget{classCameraGUI_a525f57d02a5324bb4e55bfa13001bd9e}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!inc\-Span@{inc\-Span}}
+\index{inc\-Span@{inc\-Span}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{inc\-Span}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::inc\-Span (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a525f57d02a5324bb4e55bfa13001bd9e}
+
+
+\hyperlink{classCameraGUI_a525f57d02a5324bb4e55bfa13001bd9e}{Camera\-G\-U\-I\-::inc\-Span}. 
+
+Increments camera's view span by 1 degree unless it is maximum already. Limits are defined in object. \hypertarget{classCameraGUI_a9a7be75113cbe6618df95d29a7184ae9}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!intersects@{intersects}}
+\index{intersects@{intersects}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{intersects}]{\setlength{\rightskip}{0pt plus 5cm}bool Camera\-G\-U\-I\-::intersects (
+\begin{DoxyParamCaption}
+\item[{Q\-Rect \&}]{rectangle}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classCameraGUI_a9a7be75113cbe6618df95d29a7184ae9}
+
+
+\hyperlink{classCameraGUI_a9a7be75113cbe6618df95d29a7184ae9}{Camera\-G\-U\-I\-::intersects}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rectangle} & -\/ Q\-Rect object that is being checked for intersection. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Bool value whether rectangles intersects.
+\end{DoxyReturn}
+Function checks whether current camera's (not including sight range) rectangle intersects rectangle given as argument and returns bool value. 
+
+Implements \hyperlink{classDrawable}{Drawable}.
+
+\hypertarget{classCameraGUI_a9bd87784914772edd3fea9d12b5119c7}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!rot\-Clockwise@{rot\-Clockwise}}
+\index{rot\-Clockwise@{rot\-Clockwise}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{rot\-Clockwise}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::rot\-Clockwise (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a9bd87784914772edd3fea9d12b5119c7}
+
+
+\hyperlink{classCameraGUI_a9bd87784914772edd3fea9d12b5119c7}{Camera\-G\-U\-I\-::rot\-Clockwise}. 
+
+Rotates camera's view by 1 degree clockwise. \hypertarget{classCameraGUI_a0ba57c92828cd8ee6aa4b1af2b42e4a7}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!rot\-Counterclockwise@{rot\-Counterclockwise}}
+\index{rot\-Counterclockwise@{rot\-Counterclockwise}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{rot\-Counterclockwise}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::rot\-Counterclockwise (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a0ba57c92828cd8ee6aa4b1af2b42e4a7}
+
+
+\hyperlink{classCameraGUI_a0ba57c92828cd8ee6aa4b1af2b42e4a7}{Camera\-G\-U\-I\-::rot\-Counterclockwise}. 
+
+Rotates camera's view by 1 degree counterclockwise. \hypertarget{classCameraGUI_ac2f1343cecf2469c4112bc3efe122b1f}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!set\-Rectangle@{set\-Rectangle}}
+\index{set\-Rectangle@{set\-Rectangle}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{set\-Rectangle}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::set\-Rectangle (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{point}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_ac2f1343cecf2469c4112bc3efe122b1f}
+
+
+\hyperlink{classCameraGUI_ac2f1343cecf2469c4112bc3efe122b1f}{Camera\-G\-U\-I\-::set\-Rectangle}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ New location of camera.\\
+\hline
+\end{DoxyParams}
+Sets camera to given point and resets its range to 0. \hypertarget{classCameraGUI_a9c7dedccd547b24aeea2275b81964dd5}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!set\-Rectangle@{set\-Rectangle}}
+\index{set\-Rectangle@{set\-Rectangle}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{set\-Rectangle}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-G\-U\-I\-::set\-Rectangle (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{first, }
+\item[{{\bf Point}}]{second}
+\end{DoxyParamCaption}
+)}}\label{classCameraGUI_a9c7dedccd547b24aeea2275b81964dd5}
+
+
+\hyperlink{classCameraGUI_ac2f1343cecf2469c4112bc3efe122b1f}{Camera\-G\-U\-I\-::set\-Rectangle}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em first} & -\/ New location of camera. \\
+\hline
+{\em second} & -\/ Furthest point seen by camera.\\
+\hline
+\end{DoxyParams}
+Sets camera to point given as first parameter. It's range is given by second parameter. 
+
+\subsection{Member Data Documentation}
+\hypertarget{classCameraGUI_a3bfd5efeeb6e8474ff4d1106440ca1ab}{\index{Camera\-G\-U\-I@{Camera\-G\-U\-I}!C\-A\-M\-\_\-\-R\-A\-D\-I\-U\-S@{C\-A\-M\-\_\-\-R\-A\-D\-I\-U\-S}}
+\index{C\-A\-M\-\_\-\-R\-A\-D\-I\-U\-S@{C\-A\-M\-\_\-\-R\-A\-D\-I\-U\-S}!CameraGUI@{Camera\-G\-U\-I}}
+\subsubsection[{C\-A\-M\-\_\-\-R\-A\-D\-I\-U\-S}]{\setlength{\rightskip}{0pt plus 5cm}const unsigned int Camera\-G\-U\-I\-::\-C\-A\-M\-\_\-\-R\-A\-D\-I\-U\-S = 8\hspace{0.3cm}{\ttfamily [static]}}}\label{classCameraGUI_a3bfd5efeeb6e8474ff4d1106440ca1ab}
+P\-R\-O\-P\-E\-R\-T\-I\-E\-S 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/cameragui.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/cameragui.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,101 @@
+\hypertarget{classPoint}{\section{Point Class Reference}
+\label{classPoint}\index{Point@{Point}}
+}
+
+
+{\ttfamily \#include $<$Point.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPoint_a001c4958c310b248f5c26037aea38a9c}{Point} (int x, int y)
+\item 
+\hyperlink{classPoint_ad92f2337b839a94ce97dcdb439b4325a}{Point} ()
+\item 
+\hyperlink{classPoint_a53534941e7bcb3c6d3af84d58a542899}{Point} (const \hyperlink{classPoint}{Point} \&point)
+\item 
+\hypertarget{classPoint_abe622fffc8785b0c2e06cdac681b9837}{int {\bfseries get\-X} () const }\label{classPoint_abe622fffc8785b0c2e06cdac681b9837}
+
+\item 
+\hypertarget{classPoint_acdc86ab607b2ae8415152883e2629015}{void {\bfseries set\-X} (int x)}\label{classPoint_acdc86ab607b2ae8415152883e2629015}
+
+\item 
+\hypertarget{classPoint_a10f31e48e2dbc22e3660ca769b8d5d65}{int {\bfseries get\-Y} () const }\label{classPoint_a10f31e48e2dbc22e3660ca769b8d5d65}
+
+\item 
+\hypertarget{classPoint_afccad787a359f062efc1af5e935a99ba}{void {\bfseries set\-Y} (int y)}\label{classPoint_afccad787a359f062efc1af5e935a99ba}
+
+\item 
+\hypertarget{classPoint_a381c5b2ac13d8a3966f5225f94fff6fa}{bool {\bfseries operator==} (const \hyperlink{classPoint}{Point} \&rhs) const }\label{classPoint_a381c5b2ac13d8a3966f5225f94fff6fa}
+
+\item 
+\hypertarget{classPoint_aa85f211e55420f0f622a77920581732a}{bool {\bfseries operator!=} (const \hyperlink{classPoint}{Point} \&rhs) const }\label{classPoint_aa85f211e55420f0f622a77920581732a}
+
+\item 
+\hypertarget{classPoint_aaea5d476866984dc521991e606040b52}{\hyperlink{classPoint}{Point} \& {\bfseries operator-\/=} (const \hyperlink{classPoint}{Point} \&rhs)}\label{classPoint_aaea5d476866984dc521991e606040b52}
+
+\item 
+\hypertarget{classPoint_a7421422b4e45c5569b9a0e981a7ab735}{\hyperlink{classPoint}{Point} \& {\bfseries operator+=} (const \hyperlink{classPoint}{Point} \&rhs)}\label{classPoint_a7421422b4e45c5569b9a0e981a7ab735}
+
+\item 
+\hypertarget{classPoint_a15d86ccf688d17948f2d16634151bd24}{const \hyperlink{classPoint}{Point} {\bfseries operator-\/} (const \hyperlink{classPoint}{Point} \&rhs) const }\label{classPoint_a15d86ccf688d17948f2d16634151bd24}
+
+\item 
+\hypertarget{classPoint_afad60ddeb82566a93079071e5802147c}{const \hyperlink{classPoint}{Point} {\bfseries operator+} (const \hyperlink{classPoint}{Point} \&rhs) const }\label{classPoint_afad60ddeb82566a93079071e5802147c}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPoint_a97713abf198b35c58044f2c4d04a19ea}{std\-::ostream \& {\bfseries operator$<$$<$} (std\-::ostream \&os, const \hyperlink{classPoint}{Point} \&point)}\label{classPoint_a97713abf198b35c58044f2c4d04a19ea}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Represents 2-\/\-D point. \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPoint_a001c4958c310b248f5c26037aea38a9c}{\index{Point@{Point}!Point@{Point}}
+\index{Point@{Point}!Point@{Point}}
+\subsubsection[{Point}]{\setlength{\rightskip}{0pt plus 5cm}Point\-::\-Point (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{classPoint_a001c4958c310b248f5c26037aea38a9c}
+Constructs point using passed x and y (x, y). 
+\begin{DoxyParams}{Parameters}
+{\em x} & \hyperlink{classPoint}{Point}'s x \\
+\hline
+{\em y} & \hyperlink{classPoint}{Point}'s y \\
+\hline
+\end{DoxyParams}
+\hypertarget{classPoint_ad92f2337b839a94ce97dcdb439b4325a}{\index{Point@{Point}!Point@{Point}}
+\index{Point@{Point}!Point@{Point}}
+\subsubsection[{Point}]{\setlength{\rightskip}{0pt plus 5cm}Point\-::\-Point (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classPoint_ad92f2337b839a94ce97dcdb439b4325a}
+Constructs point (0, 0) \hypertarget{classPoint_a53534941e7bcb3c6d3af84d58a542899}{\index{Point@{Point}!Point@{Point}}
+\index{Point@{Point}!Point@{Point}}
+\subsubsection[{Point}]{\setlength{\rightskip}{0pt plus 5cm}Point\-::\-Point (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+)}}\label{classPoint_a53534941e7bcb3c6d3af84d58a542899}
+Constructs shallow copy of passed point. 
+\begin{DoxyParams}{Parameters}
+{\em point} & Used point to create copy \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Point.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Point.\-cpp\end{DoxyCompactItemize}

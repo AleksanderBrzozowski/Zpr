@@ -1,0 +1,226 @@
+\hypertarget{classCrossFactory}{\section{Cross\-Factory Class Reference}
+\label{classCrossFactory}\index{Cross\-Factory@{Cross\-Factory}}
+}
+
+
+Factory creating crosses from given roads.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Ptr\-Cross \hyperlink{classCrossFactory_a20b57828696dfc9e8a2f3384d5d29bae}{find\-Cross\-By\-Point} (const Ptr\-To\-Const\-Point \&) const 
+\begin{DoxyCompactList}\small\item\em Find the cross that has the same position as the given point as the argument. \end{DoxyCompactList}\item 
+Ptr\-Cross \hyperlink{classCrossFactory_accdbbd63f5a76a62269e1dde580b72b7}{create\-New\-Cross} (const Ptr\-To\-Const\-Point \&)
+\begin{DoxyCompactList}\small\item\em Creating new cross if it doesn't exist. \end{DoxyCompactList}\item 
+void \hyperlink{classCrossFactory_aee15c59ec2656c5cc422a889c30d4581}{create\-Road} (const Ptr\-To\-Const\-Point \&, const Ptr\-To\-Const\-Point \&)
+\begin{DoxyCompactList}\small\item\em Updating crosses, creating new crosses from the given road. \end{DoxyCompactList}\item 
+void \hyperlink{classCrossFactory_ae8ac0c74d33e41161119e56e9995243e}{vert\-Crossed\-Road} (const Ptr\-To\-Const\-Point \&, const Ptr\-To\-Const\-Point \&)
+\begin{DoxyCompactList}\small\item\em Updates crosses if new road crosses the existed one verticaly. \end{DoxyCompactList}\item 
+void \hyperlink{classCrossFactory_ae1ea5359b31f09f76510c90e9b4552e5}{horiz\-Crossed\-Road} (const Ptr\-To\-Const\-Point \&, const Ptr\-To\-Const\-Point \&)
+\begin{DoxyCompactList}\small\item\em Updates crosses if new road crosses the existed one horizontaly. \end{DoxyCompactList}\item 
+void \hyperlink{classCrossFactory_aabc61b3a89fc71f7758780135c599e97}{two\-Horiz\-Roads} (const Ptr\-To\-Const\-Point \&, const Ptr\-To\-Const\-Point \&)
+\begin{DoxyCompactList}\small\item\em Updates crosses if new road hide the existing, both roads are horizontaly. \end{DoxyCompactList}\item 
+void \hyperlink{classCrossFactory_ac699978962ee263fb01c189891cb4a9b}{two\-Vert\-Roads} (const Ptr\-To\-Const\-Point \&, const Ptr\-To\-Const\-Point \&)
+\begin{DoxyCompactList}\small\item\em Updates crosses if new road hide the existing, both roads are verticaly. \end{DoxyCompactList}\item 
+\hypertarget{classCrossFactory_ae413173adae2b63cb79c6ac13aaa99d5}{std\-::vector$<$ Ptr\-Cross $>$ \& {\bfseries get\-Crosses} ()}\label{classCrossFactory_ae413173adae2b63cb79c6ac13aaa99d5}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{classCrossFactory_a38f0b619437d1d866da32739aecb85eb}{cmp\-Cross\-X} (const Ptr\-Cross \&, const Ptr\-Cross \&)
+\begin{DoxyCompactList}\small\item\em X value of cross position comparator for sorting. \end{DoxyCompactList}\item 
+static bool \hyperlink{classCrossFactory_ac3f69512a614ed1f57c7595bd21f10c1}{cmp\-Cross\-Y} (const Ptr\-Cross \&, const Ptr\-Cross \&)
+\begin{DoxyCompactList}\small\item\em Y value of cross position comparator for sorting. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Factory creating crosses from given roads. 
+
+Factory is able to create new crosses and update their neighbours. If new road crosses the road that already exists, new crosses at the crosses are created and neighbours are updated. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classCrossFactory_a38f0b619437d1d866da32739aecb85eb}{\index{Cross\-Factory@{Cross\-Factory}!cmp\-Cross\-X@{cmp\-Cross\-X}}
+\index{cmp\-Cross\-X@{cmp\-Cross\-X}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{cmp\-Cross\-X}]{\setlength{\rightskip}{0pt plus 5cm}bool Cross\-Factory\-::cmp\-Cross\-X (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-Cross \&}]{cr1, }
+\item[{const Ptr\-Cross \&}]{cr2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classCrossFactory_a38f0b619437d1d866da32739aecb85eb}
+
+
+X value of cross position comparator for sorting. 
+
+Returns true if cross1 is nearer left. If both crosses have the same x, returns true if cross1 has smaller y than cross2. 
+\begin{DoxyParams}{Parameters}
+{\em cr1} & -\/ first cross. \\
+\hline
+{\em cr2} & -\/ second cross. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if x value of cross 1 is smaller than x value of cross 2, if both x values are the same, returns true if y value of cross 1 is smaller. 
+\end{DoxyReturn}
+\hypertarget{classCrossFactory_ac3f69512a614ed1f57c7595bd21f10c1}{\index{Cross\-Factory@{Cross\-Factory}!cmp\-Cross\-Y@{cmp\-Cross\-Y}}
+\index{cmp\-Cross\-Y@{cmp\-Cross\-Y}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{cmp\-Cross\-Y}]{\setlength{\rightskip}{0pt plus 5cm}bool Cross\-Factory\-::cmp\-Cross\-Y (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-Cross \&}]{cr1, }
+\item[{const Ptr\-Cross \&}]{cr2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classCrossFactory_ac3f69512a614ed1f57c7595bd21f10c1}
+
+
+Y value of cross position comparator for sorting. 
+
+Returns true if cross1 is nearer top. If both crosses have the same y, returns true if cross1 has smaller x than cross2. 
+\begin{DoxyParams}{Parameters}
+{\em cr1} & -\/ first cross. \\
+\hline
+{\em cr2} & -\/ second cross. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if y value of cross1 is smaller than y value of cross2, if both y values are the same, returns true if x value of cross1 is smaller. 
+\end{DoxyReturn}
+\hypertarget{classCrossFactory_accdbbd63f5a76a62269e1dde580b72b7}{\index{Cross\-Factory@{Cross\-Factory}!create\-New\-Cross@{create\-New\-Cross}}
+\index{create\-New\-Cross@{create\-New\-Cross}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{create\-New\-Cross}]{\setlength{\rightskip}{0pt plus 5cm}Ptr\-Cross Cross\-Factory\-::create\-New\-Cross (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-To\-Const\-Point \&}]{point}
+\end{DoxyParamCaption}
+)}}\label{classCrossFactory_accdbbd63f5a76a62269e1dde580b72b7}
+
+
+Creating new cross if it doesn't exist. 
+
+Checking if cross at given position already exists. If not creates new cross. 
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ point at which we want to create new cross. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cross at given point. 
+\end{DoxyReturn}
+\hypertarget{classCrossFactory_aee15c59ec2656c5cc422a889c30d4581}{\index{Cross\-Factory@{Cross\-Factory}!create\-Road@{create\-Road}}
+\index{create\-Road@{create\-Road}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{create\-Road}]{\setlength{\rightskip}{0pt plus 5cm}void Cross\-Factory\-::create\-Road (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-To\-Const\-Point \&}]{begin, }
+\item[{const Ptr\-To\-Const\-Point \&}]{end}
+\end{DoxyParamCaption}
+)}}\label{classCrossFactory_aee15c59ec2656c5cc422a889c30d4581}
+
+
+Updating crosses, creating new crosses from the given road. 
+
+Reverses the begin and ending point of the road if the ending point is nearer top left corner of the map. Then calls methods if the new road is horizontal or vertical. 
+\begin{DoxyParams}{Parameters}
+{\em begin} & -\/ starting point of the new road. \\
+\hline
+{\em end} & -\/ ending point of the new road. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCrossFactory_a20b57828696dfc9e8a2f3384d5d29bae}{\index{Cross\-Factory@{Cross\-Factory}!find\-Cross\-By\-Point@{find\-Cross\-By\-Point}}
+\index{find\-Cross\-By\-Point@{find\-Cross\-By\-Point}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{find\-Cross\-By\-Point}]{\setlength{\rightskip}{0pt plus 5cm}Ptr\-Cross Cross\-Factory\-::find\-Cross\-By\-Point (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-To\-Const\-Point \&}]{point}
+\end{DoxyParamCaption}
+) const}}\label{classCrossFactory_a20b57828696dfc9e8a2f3384d5d29bae}
+
+
+Find the cross that has the same position as the given point as the argument. 
+
+Return cross that has the same position as given. 
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ given point to search. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cross that has the same point as given. 
+\end{DoxyReturn}
+\hypertarget{classCrossFactory_ae1ea5359b31f09f76510c90e9b4552e5}{\index{Cross\-Factory@{Cross\-Factory}!horiz\-Crossed\-Road@{horiz\-Crossed\-Road}}
+\index{horiz\-Crossed\-Road@{horiz\-Crossed\-Road}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{horiz\-Crossed\-Road}]{\setlength{\rightskip}{0pt plus 5cm}void Cross\-Factory\-::horiz\-Crossed\-Road (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-To\-Const\-Point \&}]{begin, }
+\item[{const Ptr\-To\-Const\-Point \&}]{end}
+\end{DoxyParamCaption}
+)}}\label{classCrossFactory_ae1ea5359b31f09f76510c90e9b4552e5}
+
+
+Updates crosses if new road crosses the existed one horizontaly. 
+
+This method creates new crosses if the new road crosses with the another roads. The new road is horizontal. At first, crosses are sorted. The first is cross that has the smallest x value of the position. Then we check each pair of cross and it's south neighbour, if the new road doesn't cross the road between these pair of crosses. If it crosses, new crosses are added and neighbours are updated. 
+\begin{DoxyParams}{Parameters}
+{\em begin} & -\/ point on the west of the new road. \\
+\hline
+{\em end} & -\/ point on the east of the new road. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCrossFactory_aabc61b3a89fc71f7758780135c599e97}{\index{Cross\-Factory@{Cross\-Factory}!two\-Horiz\-Roads@{two\-Horiz\-Roads}}
+\index{two\-Horiz\-Roads@{two\-Horiz\-Roads}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{two\-Horiz\-Roads}]{\setlength{\rightskip}{0pt plus 5cm}void Cross\-Factory\-::two\-Horiz\-Roads (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-To\-Const\-Point \&}]{begin, }
+\item[{const Ptr\-To\-Const\-Point \&}]{end}
+\end{DoxyParamCaption}
+)}}\label{classCrossFactory_aabc61b3a89fc71f7758780135c599e97}
+
+
+Updates crosses if new road hide the existing, both roads are horizontaly. 
+
+Check if two roads are horizontal and both of roads have the same y value. (If one road hides another road). At first crosses are sorted. First cross should has the smallest y value of the position. Then we look for the two crosses, between which the new road is being tried to set. If found, we create new crosses and update neighbours from the west to the east. 
+\begin{DoxyParams}{Parameters}
+{\em begin} & -\/ point on the west of the new road. \\
+\hline
+{\em end} & -\/ point on the east of the new road. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCrossFactory_ac699978962ee263fb01c189891cb4a9b}{\index{Cross\-Factory@{Cross\-Factory}!two\-Vert\-Roads@{two\-Vert\-Roads}}
+\index{two\-Vert\-Roads@{two\-Vert\-Roads}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{two\-Vert\-Roads}]{\setlength{\rightskip}{0pt plus 5cm}void Cross\-Factory\-::two\-Vert\-Roads (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-To\-Const\-Point \&}]{begin, }
+\item[{const Ptr\-To\-Const\-Point \&}]{end}
+\end{DoxyParamCaption}
+)}}\label{classCrossFactory_ac699978962ee263fb01c189891cb4a9b}
+
+
+Updates crosses if new road hide the existing, both roads are verticaly. 
+
+Check if two roads are vertical and both of roads have the same x value. (If one road hides another road). At first crosses are sorted. First cross should has the smallest x value of the position Then we look for the two crosses, between which the new road is being tried to set. If found, we create new crosses and update neighbours from the north to the south. 
+\begin{DoxyParams}{Parameters}
+{\em begin} & -\/ point on the north of the new road. \\
+\hline
+{\em end} & -\/ point on the south of the new road. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCrossFactory_ae8ac0c74d33e41161119e56e9995243e}{\index{Cross\-Factory@{Cross\-Factory}!vert\-Crossed\-Road@{vert\-Crossed\-Road}}
+\index{vert\-Crossed\-Road@{vert\-Crossed\-Road}!CrossFactory@{Cross\-Factory}}
+\subsubsection[{vert\-Crossed\-Road}]{\setlength{\rightskip}{0pt plus 5cm}void Cross\-Factory\-::vert\-Crossed\-Road (
+\begin{DoxyParamCaption}
+\item[{const Ptr\-To\-Const\-Point \&}]{begin, }
+\item[{const Ptr\-To\-Const\-Point \&}]{end}
+\end{DoxyParamCaption}
+)}}\label{classCrossFactory_ae8ac0c74d33e41161119e56e9995243e}
+
+
+Updates crosses if new road crosses the existed one verticaly. 
+
+This method creates new crosses if the new road crosses with the another roads. The new road is vertical. At first, crosses are sorted. The first is cross that has the smallest y value of the position. Then we check each pair of cross and it's east neighbour, if the new road doesn't cross the road between these pair of crosses. If it crosses, new crosses are added and neighbours are updated. 
+\begin{DoxyParams}{Parameters}
+{\em begin} & -\/ point on the north of the new road. \\
+\hline
+{\em end} & -\/ point on the south of the new road. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{CrossFactory_8h}{Cross\-Factory.\-h}\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{CrossFactory_8cpp}{Cross\-Factory.\-cpp}\end{DoxyCompactItemize}

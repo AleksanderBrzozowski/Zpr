@@ -1,0 +1,4 @@
+<map id="MovableFactoryTest" name="MovableFactoryTest">
+<area shape="rect" id="node3" href="$classCrossFactory.html" title="Factory creating crosses from given roads. " alt="" coords="77,5,179,32"/>
+<area shape="rect" id="node4" href="$classMovableFactory.html" title="Factory of movables (cars and humans) with algorithms to finding routes. " alt="" coords="203,5,317,32"/>
+</map>

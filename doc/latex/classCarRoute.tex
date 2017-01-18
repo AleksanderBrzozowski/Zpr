@@ -1,0 +1,94 @@
+\hypertarget{classCarRoute}{\section{Car\-Route Class Reference}
+\label{classCarRoute}\index{Car\-Route@{Car\-Route}}
+}
+
+
+{\ttfamily \#include $<$Car\-Route.\-h$>$}
+
+
+
+Inheritance diagram for Car\-Route\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{classCarRoute__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Car\-Route\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{classCarRoute__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCarRoute_aa2fb96df759188781a2b534b533cf62b}{Car\-Route} (const std\-::vector$<$ Ptr\-To\-Const\-Point $>$ \&points)
+\item 
+bool \hyperlink{classCarRoute_a48a60e9054bcb3b775f4a56b50c0d79d}{next\-Point} () override
+\item 
+bool \hyperlink{classCarRoute_a4d8589aeb5b9accd189756dda8b618c6}{is\-End} () override
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Represents route for car. \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classCarRoute_aa2fb96df759188781a2b534b533cf62b}{\index{Car\-Route@{Car\-Route}!Car\-Route@{Car\-Route}}
+\index{Car\-Route@{Car\-Route}!CarRoute@{Car\-Route}}
+\subsubsection[{Car\-Route}]{\setlength{\rightskip}{0pt plus 5cm}Car\-Route\-::\-Car\-Route (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ Ptr\-To\-Const\-Point $>$ \&}]{points}
+\end{DoxyParamCaption}
+)}}\label{classCarRoute_aa2fb96df759188781a2b534b533cf62b}
+Constructs \hyperlink{classHumanRoute}{Human\-Route}. 
+\begin{DoxyParams}{Parameters}
+{\em points} & Points to fallow by route \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classCarRoute_a4d8589aeb5b9accd189756dda8b618c6}{\index{Car\-Route@{Car\-Route}!is\-End@{is\-End}}
+\index{is\-End@{is\-End}!CarRoute@{Car\-Route}}
+\subsubsection[{is\-End}]{\setlength{\rightskip}{0pt plus 5cm}bool Car\-Route\-::is\-End (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}}\label{classCarRoute_a4d8589aeb5b9accd189756dda8b618c6}
+Checks is it end of \hyperlink{classRoute}{Route}. \begin{DoxyReturn}{Returns}
+is end of \hyperlink{classRoute}{Route} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classRoute_a0e1d104b56c768549f1b4fe4b575a6f5}{Route}.
+
+\hypertarget{classCarRoute_a48a60e9054bcb3b775f4a56b50c0d79d}{\index{Car\-Route@{Car\-Route}!next\-Point@{next\-Point}}
+\index{next\-Point@{next\-Point}!CarRoute@{Car\-Route}}
+\subsubsection[{next\-Point}]{\setlength{\rightskip}{0pt plus 5cm}bool Car\-Route\-::next\-Point (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}}\label{classCarRoute_a48a60e9054bcb3b775f4a56b50c0d79d}
+Switches to the next point of route. \begin{DoxyReturn}{Returns}
+Is next point of route 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classRoute_a27bb16170420801b5c191e9aea0134f1}{Route}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Car\-Route.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Car\-Route.\-cpp\end{DoxyCompactItemize}

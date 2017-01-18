@@ -1,0 +1,329 @@
+\hypertarget{classMapArea}{\section{Map\-Area Class Reference}
+\label{classMapArea}\index{Map\-Area@{Map\-Area}}
+}
+
+
+The \hyperlink{classMapArea}{Map\-Area} class. Object responsible for drawing objects on screen.  
+
+
+
+
+{\ttfamily \#include $<$maparea.\-h$>$}
+
+
+
+Inheritance diagram for Map\-Area\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=134pt]{classMapArea__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Map\-Area\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=134pt]{classMapArea__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classMapArea_a1b2849d172c0941b3af68920dfd368de}{void \hyperlink{classMapArea_a1b2849d172c0941b3af68920dfd368de}{toggle\-Grid} ()}\label{classMapArea_a1b2849d172c0941b3af68920dfd368de}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a1b2849d172c0941b3af68920dfd368de}{Map\-Area\-::toggle\-Grid}. Toggles flag, whether grid is supposed to be drawn. After that map area is being redrawn. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_a71861f7055ae8107b8d69373c2629c5d}{register\-Road} (\hyperlink{classRoadGUI}{Road\-G\-U\-I} $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a71861f7055ae8107b8d69373c2629c5d}{Map\-Area\-::register\-Road}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_ace67fcedbc4d657eff057f0e67a22623}{register\-Drawable} (\hyperlink{classDrawable}{Drawable} $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_ace67fcedbc4d657eff057f0e67a22623}{Map\-Area\-::register\-Drawable}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_ae50597953aea6204e9ab271dcf5b6154}{register\-Camera} (\hyperlink{classCameraGUI}{Camera\-G\-U\-I} $\ast$)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_ae50597953aea6204e9ab271dcf5b6154}{Map\-Area\-::register\-Camera}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMapArea_aa1d27adefb4286cbb63b095e45fd0da1}{Map\-Area} (Q\-Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_aa1d27adefb4286cbb63b095e45fd0da1}{Map\-Area\-::\-Map\-Area}. Constructor. Sets all variables. \end{DoxyCompactList}\item 
+\hyperlink{classMapArea_a152c1aef862f93dd421b9026adf31e55}{$\sim$\-Map\-Area} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a152c1aef862f93dd421b9026adf31e55}{Map\-Area\-::$\sim$\-Map\-Area}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_a00e8f999f6b70df9ef14c008b53847a4}{set\-Car} (const unsigned int id, const unsigned int x, const unsigned int y, const bool fast)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a00e8f999f6b70df9ef14c008b53847a4}{Map\-Area\-::set\-Car}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_aa8d4d168a443d9e209aa4c689f87b877}{set\-Ppl} (const unsigned int id, const unsigned int x, const unsigned int y)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_aa8d4d168a443d9e209aa4c689f87b877}{Map\-Area\-::set\-Ppl}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_a801312b76510e621be21e1afdf4c7941}{remove\-Object} (const unsigned int id)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a801312b76510e621be21e1afdf4c7941}{Map\-Area\-::remove\-Object}. \end{DoxyCompactList}\item 
+\hypertarget{classMapArea_a1904534216c0232380154ff88772cfe1}{void {\bfseries create\-Road} (\hyperlink{classPoint}{Point} end1, \hyperlink{classPoint}{Point} end2)}\label{classMapArea_a1904534216c0232380154ff88772cfe1}
+
+\item 
+\hypertarget{classMapArea_a1f1fdfea7ebfa23044ce5a1de1f59103}{void {\bfseries snap\-To\-Grid} (\hyperlink{classPoint}{Point} \&point)}\label{classMapArea_a1f1fdfea7ebfa23044ce5a1de1f59103}
+
+\item 
+void \hyperlink{classMapArea_aa4606f2ca69c765208a00eb60631c2c6}{set\-Current\-Option} (\hyperlink{classEventInterpreter_a1b63d40701a33e256a8cbbf44c6be8d2}{Event\-Interpreter\-::\-Option} option)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_aa4606f2ca69c765208a00eb60631c2c6}{Map\-Area\-::set\-Current\-Option}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_a09a8e74bb39226421fb8ce2673e33949}{set\-Map} (std\-::shared\-\_\-ptr$<$ \hyperlink{classMap}{Map} $>$ map)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a09a8e74bb39226421fb8ce2673e33949}{Map\-Area\-::set\-Map}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_a48f8eeda7ca7922cfa1b4d443d086c22}{mouse\-Release\-Event} (Q\-Mouse\-Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a48f8eeda7ca7922cfa1b4d443d086c22}{Map\-Area\-::mouse\-Release\-Event}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_a8f69f04bde503830f393505d9249d75d}{mouse\-Move\-Event} (Q\-Mouse\-Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_a8f69f04bde503830f393505d9249d75d}{Map\-Area\-::mouse\-Move\-Event}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_aa8cf9ced7e4c3a4a7336eb8c8e43086e}{paint\-Event} (Q\-Paint\-Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_aa8cf9ced7e4c3a4a7336eb8c8e43086e}{Map\-Area\-::paint\-Event}. \end{DoxyCompactList}\item 
+void \hyperlink{classMapArea_ac3eab2d89eb976b0c4b06e8c032a54bd}{key\-Press\-Event} (Q\-Key\-Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em \hyperlink{classMapArea_ac3eab2d89eb976b0c4b06e8c032a54bd}{Map\-Area\-::key\-Press\-Event}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classMapArea}{Map\-Area} class. Object responsible for drawing objects on screen. 
+
+Object represents main widget in application. It is sandbox that intercepts user actions and draw everything that has graphical representation. It is mainly operated with mouse. Due to that all mouse movements and clicks are intercepted by object. Apart from that also keys 'escape', and arrows left and right are intercepted. Rest of keyboard events are sent to base class Q\-Widget. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMapArea_aa1d27adefb4286cbb63b095e45fd0da1}{\index{Map\-Area@{Map\-Area}!Map\-Area@{Map\-Area}}
+\index{Map\-Area@{Map\-Area}!MapArea@{Map\-Area}}
+\subsubsection[{Map\-Area}]{\setlength{\rightskip}{0pt plus 5cm}Map\-Area\-::\-Map\-Area (
+\begin{DoxyParamCaption}
+\item[{Q\-Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}}\label{classMapArea_aa1d27adefb4286cbb63b095e45fd0da1}
+
+
+\hyperlink{classMapArea_aa1d27adefb4286cbb63b095e45fd0da1}{Map\-Area\-::\-Map\-Area}. Constructor. Sets all variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & -\/ pointer to parent object.\\
+\hline
+\end{DoxyParams}
+Constructor initiates variables and connects signals from \hyperlink{classEventInterpreter}{Event\-Interpreter} to slots. Its parameter is pointer to parent object which is connected with Qt's way of coordinating objects life span. This object will be deleted by parent's destructor. \hypertarget{classMapArea_a152c1aef862f93dd421b9026adf31e55}{\index{Map\-Area@{Map\-Area}!$\sim$\-Map\-Area@{$\sim$\-Map\-Area}}
+\index{$\sim$\-Map\-Area@{$\sim$\-Map\-Area}!MapArea@{Map\-Area}}
+\subsubsection[{$\sim$\-Map\-Area}]{\setlength{\rightskip}{0pt plus 5cm}Map\-Area\-::$\sim$\-Map\-Area (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMapArea_a152c1aef862f93dd421b9026adf31e55}
+
+
+\hyperlink{classMapArea_a152c1aef862f93dd421b9026adf31e55}{Map\-Area\-::$\sim$\-Map\-Area}. 
+
+Destructor clears vectors of objects that are graphic representation of objects in app. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classMapArea_ac3eab2d89eb976b0c4b06e8c032a54bd}{\index{Map\-Area@{Map\-Area}!key\-Press\-Event@{key\-Press\-Event}}
+\index{key\-Press\-Event@{key\-Press\-Event}!MapArea@{Map\-Area}}
+\subsubsection[{key\-Press\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::key\-Press\-Event (
+\begin{DoxyParamCaption}
+\item[{Q\-Key\-Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}}}\label{classMapArea_ac3eab2d89eb976b0c4b06e8c032a54bd}
+
+
+\hyperlink{classMapArea_ac3eab2d89eb976b0c4b06e8c032a54bd}{Map\-Area\-::key\-Press\-Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & -\/ pointer to object with info about event that called method.\\
+\hline
+\end{DoxyParams}
+Method inherited from base class. It intercepts key press events. If pressed key is left/right arrow or escape appropriate interpeter oprions are called. Otherwise event is passed to base object. Before exit map area is being redrawn. \hypertarget{classMapArea_a8f69f04bde503830f393505d9249d75d}{\index{Map\-Area@{Map\-Area}!mouse\-Move\-Event@{mouse\-Move\-Event}}
+\index{mouse\-Move\-Event@{mouse\-Move\-Event}!MapArea@{Map\-Area}}
+\subsubsection[{mouse\-Move\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::mouse\-Move\-Event (
+\begin{DoxyParamCaption}
+\item[{Q\-Mouse\-Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}}}\label{classMapArea_a8f69f04bde503830f393505d9249d75d}
+
+
+\hyperlink{classMapArea_a8f69f04bde503830f393505d9249d75d}{Map\-Area\-::mouse\-Move\-Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & -\/ pointer to object with info about event that called method.\\
+\hline
+\end{DoxyParams}
+Method inherited from base class. It intercepts all events of moving mouse and send that info to appropriate class to interpret that. Before exit map area is being redrawn. \hypertarget{classMapArea_a48f8eeda7ca7922cfa1b4d443d086c22}{\index{Map\-Area@{Map\-Area}!mouse\-Release\-Event@{mouse\-Release\-Event}}
+\index{mouse\-Release\-Event@{mouse\-Release\-Event}!MapArea@{Map\-Area}}
+\subsubsection[{mouse\-Release\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::mouse\-Release\-Event (
+\begin{DoxyParamCaption}
+\item[{Q\-Mouse\-Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}}}\label{classMapArea_a48f8eeda7ca7922cfa1b4d443d086c22}
+
+
+\hyperlink{classMapArea_a48f8eeda7ca7922cfa1b4d443d086c22}{Map\-Area\-::mouse\-Release\-Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & -\/ pointer to object with info about event that called method.\\
+\hline
+\end{DoxyParams}
+Method inherited from base class. It intercepts all events of releasing left mouse button and send that info to appropriate class to interpret that. If clicked button isn't R\-M\-B then event is sent up to base class to be interpreted. \hypertarget{classMapArea_aa8cf9ced7e4c3a4a7336eb8c8e43086e}{\index{Map\-Area@{Map\-Area}!paint\-Event@{paint\-Event}}
+\index{paint\-Event@{paint\-Event}!MapArea@{Map\-Area}}
+\subsubsection[{paint\-Event}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::paint\-Event (
+\begin{DoxyParamCaption}
+\item[{Q\-Paint\-Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}}}\label{classMapArea_aa8cf9ced7e4c3a4a7336eb8c8e43086e}
+
+
+\hyperlink{classMapArea_aa8cf9ced7e4c3a4a7336eb8c8e43086e}{Map\-Area\-::paint\-Event}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & -\/ pointer to object with info about event that called method.\\
+\hline
+\end{DoxyParams}
+Method inherited from base class. It creates painter and iterates through object's lists of drawable objects and calls theirs draw method. \hypertarget{classMapArea_ae50597953aea6204e9ab271dcf5b6154}{\index{Map\-Area@{Map\-Area}!register\-Camera@{register\-Camera}}
+\index{register\-Camera@{register\-Camera}!MapArea@{Map\-Area}}
+\subsubsection[{register\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::register\-Camera (
+\begin{DoxyParamCaption}
+\item[{{\bf Camera\-G\-U\-I} $\ast$}]{cam}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classMapArea_ae50597953aea6204e9ab271dcf5b6154}
+
+
+\hyperlink{classMapArea_ae50597953aea6204e9ab271dcf5b6154}{Map\-Area\-::register\-Camera}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cam} & -\/ pointer to \hyperlink{classCameraGUI}{Camera\-G\-U\-I} object.\\
+\hline
+\end{DoxyParams}
+Function adds new camera to the list of cameras to be drawn. Pointer to camera is passed as argument. Before exit map area is redrawn. Function is a slot, so it is called by signal in \hyperlink{classEventInterpreter}{Event\-Interpreter} object. \hypertarget{classMapArea_ace67fcedbc4d657eff057f0e67a22623}{\index{Map\-Area@{Map\-Area}!register\-Drawable@{register\-Drawable}}
+\index{register\-Drawable@{register\-Drawable}!MapArea@{Map\-Area}}
+\subsubsection[{register\-Drawable}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::register\-Drawable (
+\begin{DoxyParamCaption}
+\item[{{\bf Drawable} $\ast$}]{drawable}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classMapArea_ace67fcedbc4d657eff057f0e67a22623}
+
+
+\hyperlink{classMapArea_ace67fcedbc4d657eff057f0e67a22623}{Map\-Area\-::register\-Drawable}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em drawable} & -\/ pointer to \hyperlink{classDrawable}{Drawable} object.\\
+\hline
+\end{DoxyParams}
+Function adds new drawable object to list of objects to be drawn. Pointer to \hyperlink{classDrawable}{Drawable} object is being passed as argument. Before exiting map area is being redrawn. Function is a slot, so it is called by signal in \hyperlink{classEventInterpreter}{Event\-Interpreter} object. \hypertarget{classMapArea_a71861f7055ae8107b8d69373c2629c5d}{\index{Map\-Area@{Map\-Area}!register\-Road@{register\-Road}}
+\index{register\-Road@{register\-Road}!MapArea@{Map\-Area}}
+\subsubsection[{register\-Road}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::register\-Road (
+\begin{DoxyParamCaption}
+\item[{{\bf Road\-G\-U\-I} $\ast$}]{road}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}}\label{classMapArea_a71861f7055ae8107b8d69373c2629c5d}
+
+
+\hyperlink{classMapArea_a71861f7055ae8107b8d69373c2629c5d}{Map\-Area\-::register\-Road}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em road} & -\/ pointer to \hyperlink{classRoadGUI}{Road\-G\-U\-I} object.\\
+\hline
+\end{DoxyParams}
+Function adds new road to the list of roads to be drawn. Pointer to \hyperlink{classRoadGUI}{Road\-G\-U\-I} object is passed as argument. Before exiting map area is redrawn. Function is a slot, so it is called by signal in \hyperlink{classEventInterpreter}{Event\-Interpreter} object. \hypertarget{classMapArea_a801312b76510e621be21e1afdf4c7941}{\index{Map\-Area@{Map\-Area}!remove\-Object@{remove\-Object}}
+\index{remove\-Object@{remove\-Object}!MapArea@{Map\-Area}}
+\subsubsection[{remove\-Object}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::remove\-Object (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{id}
+\end{DoxyParamCaption}
+)}}\label{classMapArea_a801312b76510e621be21e1afdf4c7941}
+
+
+\hyperlink{classMapArea_a801312b76510e621be21e1afdf4c7941}{Map\-Area\-::remove\-Object}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ object I\-D.\\
+\hline
+\end{DoxyParams}
+Method removes movable object with given I\-D from list of redrawn objects. \hyperlink{classMovable}{Movable} object is either \hyperlink{classHuman}{Human} or \hyperlink{classCar}{Car}. If object with given I\-D does not exist, function does nothing. \hypertarget{classMapArea_a00e8f999f6b70df9ef14c008b53847a4}{\index{Map\-Area@{Map\-Area}!set\-Car@{set\-Car}}
+\index{set\-Car@{set\-Car}!MapArea@{Map\-Area}}
+\subsubsection[{set\-Car}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::set\-Car (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{id, }
+\item[{const unsigned int}]{x, }
+\item[{const unsigned int}]{y, }
+\item[{const bool}]{fast}
+\end{DoxyParamCaption}
+)}}\label{classMapArea_a00e8f999f6b70df9ef14c008b53847a4}
+
+
+\hyperlink{classMapArea_a00e8f999f6b70df9ef14c008b53847a4}{Map\-Area\-::set\-Car}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ car I\-D. \\
+\hline
+{\em x} & -\/ position X. \\
+\hline
+{\em y} & -\/ position Y. \\
+\hline
+{\em fast} & -\/ flag tells if car is fast car or not.\\
+\hline
+\end{DoxyParams}
+Method used to set graphic representation of car object to position corresponding with app's model state. If car with given I\-D doesn't exist it creates such. \hypertarget{classMapArea_aa4606f2ca69c765208a00eb60631c2c6}{\index{Map\-Area@{Map\-Area}!set\-Current\-Option@{set\-Current\-Option}}
+\index{set\-Current\-Option@{set\-Current\-Option}!MapArea@{Map\-Area}}
+\subsubsection[{set\-Current\-Option}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::set\-Current\-Option (
+\begin{DoxyParamCaption}
+\item[{{\bf Event\-Interpreter\-::\-Option}}]{option}
+\end{DoxyParamCaption}
+)}}\label{classMapArea_aa4606f2ca69c765208a00eb60631c2c6}
+
+
+\hyperlink{classMapArea_aa4606f2ca69c765208a00eb60631c2c6}{Map\-Area\-::set\-Current\-Option}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em option} & -\/ Option to be set.\\
+\hline
+\end{DoxyParams}
+Passes current tool that user want to use to \hyperlink{classEventInterpreter}{Event\-Interpreter} object, and sets appropriate ghost object that will be drawn. \hypertarget{classMapArea_a09a8e74bb39226421fb8ce2673e33949}{\index{Map\-Area@{Map\-Area}!set\-Map@{set\-Map}}
+\index{set\-Map@{set\-Map}!MapArea@{Map\-Area}}
+\subsubsection[{set\-Map}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::set\-Map (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf Map} $>$}]{map}
+\end{DoxyParamCaption}
+)}}\label{classMapArea_a09a8e74bb39226421fb8ce2673e33949}
+
+
+\hyperlink{classMapArea_a09a8e74bb39226421fb8ce2673e33949}{Map\-Area\-::set\-Map}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & -\/ Shared pointer to map object.\\
+\hline
+\end{DoxyParams}
+Function sets map object in \hyperlink{classEventInterpreter}{Event\-Interpreter} object \begin{DoxySeeAlso}{See Also}
+\hyperlink{classEventInterpreter_a6ca1d621b8ef0297675be928b996ae8b}{Event\-Interpreter\-::set\-Map}. 
+\end{DoxySeeAlso}
+\hypertarget{classMapArea_aa8d4d168a443d9e209aa4c689f87b877}{\index{Map\-Area@{Map\-Area}!set\-Ppl@{set\-Ppl}}
+\index{set\-Ppl@{set\-Ppl}!MapArea@{Map\-Area}}
+\subsubsection[{set\-Ppl}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-Area\-::set\-Ppl (
+\begin{DoxyParamCaption}
+\item[{const unsigned int}]{id, }
+\item[{const unsigned int}]{x, }
+\item[{const unsigned int}]{y}
+\end{DoxyParamCaption}
+)}}\label{classMapArea_aa8d4d168a443d9e209aa4c689f87b877}
+
+
+\hyperlink{classMapArea_aa8d4d168a443d9e209aa4c689f87b877}{Map\-Area\-::set\-Ppl}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & -\/ person I\-D. \\
+\hline
+{\em x} & -\/ position X. \\
+\hline
+{\em y} & -\/ position Y.\\
+\hline
+\end{DoxyParams}
+Method used to set graphic representation of human object to position corresponding with app's model state. If car with given I\-D doesn't exist it creates such. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/maparea.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/maparea.\-cpp\end{DoxyCompactItemize}

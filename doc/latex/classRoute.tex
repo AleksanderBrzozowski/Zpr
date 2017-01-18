@@ -1,0 +1,101 @@
+\hypertarget{classRoute}{\section{Route Class Reference}
+\label{classRoute}\index{Route@{Route}}
+}
+
+
+{\ttfamily \#include $<$Route.\-h$>$}
+
+
+
+Inheritance diagram for Route\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{classRoute__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classRouteVector}{Route\-Vector} \hyperlink{classRoute_aade7196ddcba6bc6191495992a3abbbe}{get\-Route\-Vector} (const \hyperlink{classPoint}{Point} \&point) const 
+\item 
+int \hyperlink{classRoute_a637b4390cd5b98be93d7481232bf173d}{get\-Distance} (const \hyperlink{classPoint}{Point} \&point) const 
+\item 
+virtual bool \hyperlink{classRoute_a27bb16170420801b5c191e9aea0134f1}{next\-Point} ()=0
+\item 
+virtual bool \hyperlink{classRoute_a0e1d104b56c768549f1b4fe4b575a6f5}{is\-End} ()=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class represents route(\-G\-P\-S). \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classRoute_a637b4390cd5b98be93d7481232bf173d}{\index{Route@{Route}!get\-Distance@{get\-Distance}}
+\index{get\-Distance@{get\-Distance}!Route@{Route}}
+\subsubsection[{get\-Distance}]{\setlength{\rightskip}{0pt plus 5cm}int Route\-::get\-Distance (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+) const}}\label{classRoute_a637b4390cd5b98be93d7481232bf173d}
+Computes distance between point and actual point of \hyperlink{classRoute}{Route}. 
+\begin{DoxyParams}{Parameters}
+{\em point} & \hyperlink{classPoint}{Point} to which distance will be computed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Distance between point and actual point of \hyperlink{classRoute}{Route} 
+\end{DoxyReturn}
+\hypertarget{classRoute_aade7196ddcba6bc6191495992a3abbbe}{\index{Route@{Route}!get\-Route\-Vector@{get\-Route\-Vector}}
+\index{get\-Route\-Vector@{get\-Route\-Vector}!Route@{Route}}
+\subsubsection[{get\-Route\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Route\-Vector} Route\-::get\-Route\-Vector (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+) const}}\label{classRoute_aade7196ddcba6bc6191495992a3abbbe}
+Computes vector between actual point of \hyperlink{classRoute}{Route} and passed point. 
+\begin{DoxyParams}{Parameters}
+{\em point} & \hyperlink{classPoint}{Point} to which vector will be computed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector to fallow 
+\end{DoxyReturn}
+\hypertarget{classRoute_a0e1d104b56c768549f1b4fe4b575a6f5}{\index{Route@{Route}!is\-End@{is\-End}}
+\index{is\-End@{is\-End}!Route@{Route}}
+\subsubsection[{is\-End}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Route\-::is\-End (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classRoute_a0e1d104b56c768549f1b4fe4b575a6f5}
+Checks is it end of \hyperlink{classRoute}{Route}. \begin{DoxyReturn}{Returns}
+is end of \hyperlink{classRoute}{Route} 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classCarRoute_a4d8589aeb5b9accd189756dda8b618c6}{Car\-Route}, and \hyperlink{classHumanRoute_aee549e955710a5217ba763d2320fb0ea}{Human\-Route}.
+
+\hypertarget{classRoute_a27bb16170420801b5c191e9aea0134f1}{\index{Route@{Route}!next\-Point@{next\-Point}}
+\index{next\-Point@{next\-Point}!Route@{Route}}
+\subsubsection[{next\-Point}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Route\-::next\-Point (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classRoute_a27bb16170420801b5c191e9aea0134f1}
+Switches to the next point of route. \begin{DoxyReturn}{Returns}
+Is next point of route 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classCarRoute_a48a60e9054bcb3b775f4a56b50c0d79d}{Car\-Route}, and \hyperlink{classHumanRoute_a89c5021044b130a2928eb933111bf390}{Human\-Route}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Route.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Route.\-cpp\end{DoxyCompactItemize}

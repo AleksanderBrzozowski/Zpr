@@ -1,0 +1,106 @@
+\hypertarget{classFacilities}{\section{Facilities Class Reference}
+\label{classFacilities}\index{Facilities@{Facilities}}
+}
+
+
+{\ttfamily \#include $<$Facilities.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classFacilities_a7a36af721fcaa3d8e7c4fbfc9000341c}{Facilities} ()
+\item 
+Ptr\-Building \hyperlink{classFacilities_a34c5c8682ad1ecd5b11ab9e50b59cd72}{add\-Building} (const \hyperlink{classPoint}{Point} \&upper\-Left, const \hyperlink{classPoint}{Point} \&lower\-Right)
+\item 
+Ptr\-Camera \hyperlink{classFacilities_a7258eef5cd708b6febf406f3474babad}{add\-Camera} (const \hyperlink{classPoint}{Point} \&start\-Point, const \hyperlink{classPoint}{Point} \&end\-Point, double angle, int accuracy)
+\item 
+void \hyperlink{classFacilities_a7432d9779e06c1303f25ffca7344a87b}{scan} (const std\-::vector$<$ Ptr\-Const\-Car $>$ \&cars, const std\-::vector$<$ Ptr\-Const\-Human $>$ \&humans)
+\item 
+\hypertarget{classFacilities_a15134d96222635cca4374a0e5aa7ea86}{const std\-::vector$<$ Ptr\-Camera $>$ \& {\bfseries get\-Cameras} () const }\label{classFacilities_a15134d96222635cca4374a0e5aa7ea86}
+
+\item 
+\hypertarget{classFacilities_aeaa02b61d7fe9a2c33829a203ae624df}{const std\-::vector$<$ Ptr\-Building $>$ \& {\bfseries get\-Buildings} () const }\label{classFacilities_aeaa02b61d7fe9a2c33829a203ae624df}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class stores buildings and cameras. Provides operations to add building, camera and scan cameras. \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classFacilities_a7a36af721fcaa3d8e7c4fbfc9000341c}{\index{Facilities@{Facilities}!Facilities@{Facilities}}
+\index{Facilities@{Facilities}!Facilities@{Facilities}}
+\subsubsection[{Facilities}]{\setlength{\rightskip}{0pt plus 5cm}Facilities\-::\-Facilities (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classFacilities_a7a36af721fcaa3d8e7c4fbfc9000341c}
+Empty constructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{classFacilities_a34c5c8682ad1ecd5b11ab9e50b59cd72}{\index{Facilities@{Facilities}!add\-Building@{add\-Building}}
+\index{add\-Building@{add\-Building}!Facilities@{Facilities}}
+\subsubsection[{add\-Building}]{\setlength{\rightskip}{0pt plus 5cm}Ptr\-Building Facilities\-::add\-Building (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{upper\-Left, }
+\item[{const {\bf Point} \&}]{lower\-Right}
+\end{DoxyParamCaption}
+)}}\label{classFacilities_a34c5c8682ad1ecd5b11ab9e50b59cd72}
+Adds \hyperlink{classBuilding}{Building} represented by arguments of function. 
+\begin{DoxyParams}{Parameters}
+{\em upper\-Left} & \hyperlink{classPoint}{Point} in the upper left of building \\
+\hline
+{\em lower\-Right} & \hyperlink{classPoint}{Point} in the lower right of building \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Created and added building 
+\end{DoxyReturn}
+\hypertarget{classFacilities_a7258eef5cd708b6febf406f3474babad}{\index{Facilities@{Facilities}!add\-Camera@{add\-Camera}}
+\index{add\-Camera@{add\-Camera}!Facilities@{Facilities}}
+\subsubsection[{add\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}Ptr\-Camera Facilities\-::add\-Camera (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{start\-Point, }
+\item[{const {\bf Point} \&}]{end\-Point, }
+\item[{double}]{angle, }
+\item[{int}]{accuracy}
+\end{DoxyParamCaption}
+)}}\label{classFacilities_a7258eef5cd708b6febf406f3474babad}
+Adds \hyperlink{classCamera}{Camera} represented by arguments of function. 
+\begin{DoxyParams}{Parameters}
+{\em start\-Point} & \hyperlink{classCamera}{Camera}'s start point \\
+\hline
+{\em end\-Point} & \hyperlink{classCamera}{Camera}'s end point \\
+\hline
+{\em angle} & \hyperlink{classCamera}{Camera}'s angle \\
+\hline
+{\em accuracy} & \hyperlink{classCamera}{Camera}'s accuracy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Created and added camera 
+\end{DoxyReturn}
+\hypertarget{classFacilities_a7432d9779e06c1303f25ffca7344a87b}{\index{Facilities@{Facilities}!scan@{scan}}
+\index{scan@{scan}!Facilities@{Facilities}}
+\subsubsection[{scan}]{\setlength{\rightskip}{0pt plus 5cm}void Facilities\-::scan (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ Ptr\-Const\-Car $>$ \&}]{cars, }
+\item[{const std\-::vector$<$ Ptr\-Const\-Human $>$ \&}]{humans}
+\end{DoxyParamCaption}
+)}}\label{classFacilities_a7432d9779e06c1303f25ffca7344a87b}
+Invokes scan on cameras using passed humans and cars. 
+\begin{DoxyParams}{Parameters}
+{\em cars} & Possible visible cars for cameras \\
+\hline
+{\em humans} & Possible visible humans for cameras \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Facilities.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Facilities.\-cpp\end{DoxyCompactItemize}

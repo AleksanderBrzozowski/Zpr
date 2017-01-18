@@ -1,0 +1,91 @@
+\hypertarget{classDrawable}{\section{Drawable Class Reference}
+\label{classDrawable}\index{Drawable@{Drawable}}
+}
+
+
+The \hyperlink{classDrawable}{Drawable} class.  
+
+
+
+
+{\ttfamily \#include $<$drawable.\-h$>$}
+
+
+
+Inheritance diagram for Drawable\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classDrawable__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDrawable_af63902e4fe7ec2aef7ad56eec0168822}{Drawable} (bool)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classDrawable_af63902e4fe7ec2aef7ad56eec0168822}{Drawable\-::\-Drawable}. Constructor. \end{DoxyCompactList}\item 
+\hypertarget{classDrawable_abf4d2776b43b2bd93710591926587934}{virtual \hyperlink{classDrawable_abf4d2776b43b2bd93710591926587934}{$\sim$\-Drawable} ()=0}\label{classDrawable_abf4d2776b43b2bd93710591926587934}
+
+\begin{DoxyCompactList}\small\item\em \hyperlink{classDrawable_abf4d2776b43b2bd93710591926587934}{Drawable\-::$\sim$\-Drawable}. Virtual destructor. \end{DoxyCompactList}\item 
+\hypertarget{classDrawable_ab5e74918b6cf0149cb192b9ec56556c1}{virtual void {\bfseries draw} (Q\-Painter \&) const =0}\label{classDrawable_ab5e74918b6cf0149cb192b9ec56556c1}
+
+\item 
+\hypertarget{classDrawable_a8fa095e72a5b0a60488ac977bf77a34b}{virtual void {\bfseries set\-To} (unsigned int x, unsigned int y)=0}\label{classDrawable_a8fa095e72a5b0a60488ac977bf77a34b}
+
+\item 
+\hypertarget{classDrawable_a81d6ed7b86df48ec36e731b377b066cf}{virtual bool {\bfseries intersects} (Q\-Rect \&rectangle) const =0}\label{classDrawable_a81d6ed7b86df48ec36e731b377b066cf}
+
+\item 
+bool \hyperlink{classDrawable_a631734def2897ecb976b725a5d4fd554}{is\-Ghost} () const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classDrawable_a631734def2897ecb976b725a5d4fd554}{Drawable\-::is\-Ghost}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classDrawable}{Drawable} class. 
+
+Base class for all the objects that represents objects drawn on screen. It has three purely virtual classes that needs to be implemented. Its main purpouse is to create common interface of drawing all objects that can be drawn. \begin{DoxyAuthor}{Author}
+Pawel Rybak 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classDrawable_af63902e4fe7ec2aef7ad56eec0168822}{\index{Drawable@{Drawable}!Drawable@{Drawable}}
+\index{Drawable@{Drawable}!Drawable@{Drawable}}
+\subsubsection[{Drawable}]{\setlength{\rightskip}{0pt plus 5cm}Drawable\-::\-Drawable (
+\begin{DoxyParamCaption}
+\item[{bool}]{ghost = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}\label{classDrawable_af63902e4fe7ec2aef7ad56eec0168822}
+
+
+\hyperlink{classDrawable_af63902e4fe7ec2aef7ad56eec0168822}{Drawable\-::\-Drawable}. Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ghost} & -\/ bool flag tells whether object is ghost object. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classDrawable_a631734def2897ecb976b725a5d4fd554}{\index{Drawable@{Drawable}!is\-Ghost@{is\-Ghost}}
+\index{is\-Ghost@{is\-Ghost}!Drawable@{Drawable}}
+\subsubsection[{is\-Ghost}]{\setlength{\rightskip}{0pt plus 5cm}bool Drawable\-::is\-Ghost (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classDrawable_a631734def2897ecb976b725a5d4fd554}
+
+
+\hyperlink{classDrawable_a631734def2897ecb976b725a5d4fd554}{Drawable\-::is\-Ghost}. 
+
+\begin{DoxyReturn}{Returns}
+boolean whether object is ghost object. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/drawable.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/drawable.\-cpp\end{DoxyCompactItemize}

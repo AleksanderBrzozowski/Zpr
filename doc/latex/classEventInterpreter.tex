@@ -1,0 +1,237 @@
+\hypertarget{classEventInterpreter}{\section{Event\-Interpreter Class Reference}
+\label{classEventInterpreter}\index{Event\-Interpreter@{Event\-Interpreter}}
+}
+
+
+The \hyperlink{classEventInterpreter}{Event\-Interpreter} class.  
+
+
+
+
+{\ttfamily \#include $<$eventinterpreter.\-h$>$}
+
+
+
+Inheritance diagram for Event\-Interpreter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{classEventInterpreter__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Event\-Interpreter\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{classEventInterpreter__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{classEventInterpreter_a1b63d40701a33e256a8cbbf44c6be8d2}{Option} \{ \\*
+{\bfseries set\-Road}, 
+{\bfseries set\-Car}, 
+{\bfseries set\-Fast\-Car}, 
+{\bfseries set\-Building}, 
+\\*
+{\bfseries set\-Camera}, 
+{\bfseries set\-Human}, 
+{\bfseries do\-Nothing}
+ \}
+\begin{DoxyCompactList}\small\item\em The Option enum. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classEventInterpreter_a58713917f8a69790e37a7f6b7c507876}{void {\bfseries road\-Created} (\hyperlink{classRoadGUI}{Road\-G\-U\-I} $\ast$)}\label{classEventInterpreter_a58713917f8a69790e37a7f6b7c507876}
+
+\item 
+\hypertarget{classEventInterpreter_a0920b5e9443c614e443b65a853d5e7f1}{void {\bfseries drawable\-Created} (\hyperlink{classDrawable}{Drawable} $\ast$)}\label{classEventInterpreter_a0920b5e9443c614e443b65a853d5e7f1}
+
+\item 
+\hypertarget{classEventInterpreter_a737c2f2f409b24fe35f8aab0e07af7dc}{void {\bfseries camera\-Created} (\hyperlink{classCameraGUI}{Camera\-G\-U\-I} $\ast$)}\label{classEventInterpreter_a737c2f2f409b24fe35f8aab0e07af7dc}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classEventInterpreter_ada70531370606873ff55e29a923a9096}{Event\-Interpreter} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_ada70531370606873ff55e29a923a9096}{Event\-Interpreter\-::\-Event\-Interpreter}. \end{DoxyCompactList}\item 
+void \hyperlink{classEventInterpreter_ad99704356fcdfbaa5982e463a6a27318}{mouse\-Moved} (int x, int y)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_ad99704356fcdfbaa5982e463a6a27318}{Event\-Interpreter\-::mouse\-Moved}. \end{DoxyCompactList}\item 
+void \hyperlink{classEventInterpreter_a74690162262290d519369630015f6cef}{mouse\-Clicked} (int x, int y)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_a74690162262290d519369630015f6cef}{Event\-Interpreter\-::mouse\-Clicked}. \end{DoxyCompactList}\item 
+\hypertarget{classEventInterpreter_aa977815c55a5eb97577aa5d1e73379cb}{void {\bfseries steer\-Camera} (int key\-Code)}\label{classEventInterpreter_aa977815c55a5eb97577aa5d1e73379cb}
+
+\item 
+void \hyperlink{classEventInterpreter_a6ca1d621b8ef0297675be928b996ae8b}{set\-Map} (std\-::shared\-\_\-ptr$<$ \hyperlink{classMap}{Map} $>$ map)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_a6ca1d621b8ef0297675be928b996ae8b}{Event\-Interpreter\-::set\-Map}. \end{DoxyCompactList}\item 
+void \hyperlink{classEventInterpreter_ae5b4f14200e6ce7202852306194ee767}{snap\-To\-Grid\-Center} (\hyperlink{classPoint}{Point} \&point) const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_ae5b4f14200e6ce7202852306194ee767}{Event\-Interpreter\-::snap\-To\-Grid\-Center}. \end{DoxyCompactList}\item 
+void \hyperlink{classEventInterpreter_a538d5fd0db5b5ffccb72381d889970a8}{snap\-To\-Grid\-Intersect} (\hyperlink{classPoint}{Point} \&point) const 
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_a538d5fd0db5b5ffccb72381d889970a8}{Event\-Interpreter\-::snap\-To\-Grid\-Intersect}. \end{DoxyCompactList}\item 
+std\-::shared\-\_\-ptr$<$ \hyperlink{classDrawable}{Drawable} $>$ \hyperlink{classEventInterpreter_aba8f008c996f9f73b5d3420ff1231869}{set\-Current\-Option} (\hyperlink{classEventInterpreter_a1b63d40701a33e256a8cbbf44c6be8d2}{Option} option)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_aba8f008c996f9f73b5d3420ff1231869}{Event\-Interpreter\-::set\-Current\-Option}. \end{DoxyCompactList}\item 
+\hyperlink{classEventInterpreter_a1b63d40701a33e256a8cbbf44c6be8d2}{Option} \hyperlink{classEventInterpreter_a9caa73a223dcaa65d1ec6e06398d9b61}{get\-Current\-Option} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classEventInterpreter_a9caa73a223dcaa65d1ec6e06398d9b61}{Event\-Interpreter\-::get\-Current\-Option}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classEventInterpreter}{Event\-Interpreter} class. 
+
+Object responsible for interpretating user input. It has field that remebers current tool chosen by user and using that can interpret maouse and keyboard events properly. 
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{classEventInterpreter_a1b63d40701a33e256a8cbbf44c6be8d2}{\index{Event\-Interpreter@{Event\-Interpreter}!Option@{Option}}
+\index{Option@{Option}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{Option}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Event\-Interpreter\-::\-Option}\hspace{0.3cm}{\ttfamily [strong]}}}\label{classEventInterpreter_a1b63d40701a33e256a8cbbf44c6be8d2}
+
+
+The Option enum. 
+
+Enum class describing current tool. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classEventInterpreter_ada70531370606873ff55e29a923a9096}{\index{Event\-Interpreter@{Event\-Interpreter}!Event\-Interpreter@{Event\-Interpreter}}
+\index{Event\-Interpreter@{Event\-Interpreter}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{Event\-Interpreter}]{\setlength{\rightskip}{0pt plus 5cm}Event\-Interpreter\-::\-Event\-Interpreter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classEventInterpreter_ada70531370606873ff55e29a923a9096}
+
+
+\hyperlink{classEventInterpreter_ada70531370606873ff55e29a923a9096}{Event\-Interpreter\-::\-Event\-Interpreter}. 
+
+Constructor. Initiats object's fields. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classEventInterpreter_a9caa73a223dcaa65d1ec6e06398d9b61}{\index{Event\-Interpreter@{Event\-Interpreter}!get\-Current\-Option@{get\-Current\-Option}}
+\index{get\-Current\-Option@{get\-Current\-Option}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{get\-Current\-Option}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Event\-Interpreter\-::\-Option} Event\-Interpreter\-::get\-Current\-Option (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classEventInterpreter_a9caa73a223dcaa65d1ec6e06398d9b61}
+
+
+\hyperlink{classEventInterpreter_a9caa73a223dcaa65d1ec6e06398d9b61}{Event\-Interpreter\-::get\-Current\-Option}. 
+
+\begin{DoxyReturn}{Returns}
+Returns current option. 
+\end{DoxyReturn}
+\hypertarget{classEventInterpreter_a74690162262290d519369630015f6cef}{\index{Event\-Interpreter@{Event\-Interpreter}!mouse\-Clicked@{mouse\-Clicked}}
+\index{mouse\-Clicked@{mouse\-Clicked}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{mouse\-Clicked}]{\setlength{\rightskip}{0pt plus 5cm}void Event\-Interpreter\-::mouse\-Clicked (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{classEventInterpreter_a74690162262290d519369630015f6cef}
+
+
+\hyperlink{classEventInterpreter_a74690162262290d519369630015f6cef}{Event\-Interpreter\-::mouse\-Clicked}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ mouse position X. \\
+\hline
+{\em y} & -\/ mouse position Y.\\
+\hline
+\end{DoxyParams}
+Interprets mouse click events. It is based on current option and whether anchor point is valid. Unless current tool needs only one point to be created, first click sets anchor field, and second calls function to construct object that takes two points in constructor. \hypertarget{classEventInterpreter_ad99704356fcdfbaa5982e463a6a27318}{\index{Event\-Interpreter@{Event\-Interpreter}!mouse\-Moved@{mouse\-Moved}}
+\index{mouse\-Moved@{mouse\-Moved}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{mouse\-Moved}]{\setlength{\rightskip}{0pt plus 5cm}void Event\-Interpreter\-::mouse\-Moved (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{classEventInterpreter_ad99704356fcdfbaa5982e463a6a27318}
+
+
+\hyperlink{classEventInterpreter_ad99704356fcdfbaa5982e463a6a27318}{Event\-Interpreter\-::mouse\-Moved}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & -\/ mouse position X. \\
+\hline
+{\em y} & -\/ mouse position Y.\\
+\hline
+\end{DoxyParams}
+Function called when mouse is moved. It takes current mouse position as arguments. Depending on current option and validity of anchor point. It modifies currently shown ghost object, so it will look the same as would object when mouse is clicked now. \hypertarget{classEventInterpreter_aba8f008c996f9f73b5d3420ff1231869}{\index{Event\-Interpreter@{Event\-Interpreter}!set\-Current\-Option@{set\-Current\-Option}}
+\index{set\-Current\-Option@{set\-Current\-Option}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{set\-Current\-Option}]{\setlength{\rightskip}{0pt plus 5cm}std\-::shared\-\_\-ptr$<$ {\bf Drawable} $>$ Event\-Interpreter\-::set\-Current\-Option (
+\begin{DoxyParamCaption}
+\item[{{\bf Option}}]{option}
+\end{DoxyParamCaption}
+)}}\label{classEventInterpreter_aba8f008c996f9f73b5d3420ff1231869}
+
+
+\hyperlink{classEventInterpreter_aba8f008c996f9f73b5d3420ff1231869}{Event\-Interpreter\-::set\-Current\-Option}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em option} & -\/ Option to be set. Its type is \hyperlink{classEventInterpreter_a1b63d40701a33e256a8cbbf44c6be8d2}{Event\-Interpreter\-::\-Option}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Shared pointer to appropriate ghost object to be drawn.
+\end{DoxyReturn}
+Object will set current option unless there isn't valid pointer to map object. If pointer to map is invalid it won't take any effect. Function also sets pointer to appropriate ghost object, so it can be changed due to mouse/keyboard events. It also returns this ghost object as shared pointer casted \hyperlink{classDrawable}{Drawable} object, so \hyperlink{classMapArea}{Map\-Area} object can draw it. \hypertarget{classEventInterpreter_a6ca1d621b8ef0297675be928b996ae8b}{\index{Event\-Interpreter@{Event\-Interpreter}!set\-Map@{set\-Map}}
+\index{set\-Map@{set\-Map}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{set\-Map}]{\setlength{\rightskip}{0pt plus 5cm}void Event\-Interpreter\-::set\-Map (
+\begin{DoxyParamCaption}
+\item[{std\-::shared\-\_\-ptr$<$ {\bf Map} $>$}]{map}
+\end{DoxyParamCaption}
+)}}\label{classEventInterpreter_a6ca1d621b8ef0297675be928b996ae8b}
+
+
+\hyperlink{classEventInterpreter_a6ca1d621b8ef0297675be928b996ae8b}{Event\-Interpreter\-::set\-Map}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & -\/ shared pointer to map object.\\
+\hline
+\end{DoxyParams}
+Function sets object's pointer to map object. \hyperlink{classMap}{Map} is used to notify app's model about user input. Without it any input won't change anything, but objects can still be drawn on map area by calling appropriate functions. \hypertarget{classEventInterpreter_ae5b4f14200e6ce7202852306194ee767}{\index{Event\-Interpreter@{Event\-Interpreter}!snap\-To\-Grid\-Center@{snap\-To\-Grid\-Center}}
+\index{snap\-To\-Grid\-Center@{snap\-To\-Grid\-Center}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{snap\-To\-Grid\-Center}]{\setlength{\rightskip}{0pt plus 5cm}void Event\-Interpreter\-::snap\-To\-Grid\-Center (
+\begin{DoxyParamCaption}
+\item[{{\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+) const}}\label{classEventInterpreter_ae5b4f14200e6ce7202852306194ee767}
+
+
+\hyperlink{classEventInterpreter_ae5b4f14200e6ce7202852306194ee767}{Event\-Interpreter\-::snap\-To\-Grid\-Center}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ point to be snapped.\\
+\hline
+\end{DoxyParams}
+Function takes reference to point as an argument and modifies it so it will be in the center of the grid piece point is in. \hypertarget{classEventInterpreter_a538d5fd0db5b5ffccb72381d889970a8}{\index{Event\-Interpreter@{Event\-Interpreter}!snap\-To\-Grid\-Intersect@{snap\-To\-Grid\-Intersect}}
+\index{snap\-To\-Grid\-Intersect@{snap\-To\-Grid\-Intersect}!EventInterpreter@{Event\-Interpreter}}
+\subsubsection[{snap\-To\-Grid\-Intersect}]{\setlength{\rightskip}{0pt plus 5cm}void Event\-Interpreter\-::snap\-To\-Grid\-Intersect (
+\begin{DoxyParamCaption}
+\item[{{\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+) const}}\label{classEventInterpreter_a538d5fd0db5b5ffccb72381d889970a8}
+
+
+\hyperlink{classEventInterpreter_a538d5fd0db5b5ffccb72381d889970a8}{Event\-Interpreter\-::snap\-To\-Grid\-Intersect}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em point} & -\/ point to be snapped.\\
+\hline
+\end{DoxyParams}
+Function takes reference to point as an argument and modifies it so it will be on the closest intersect of grid lines. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/eventinterpreter.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/eventinterpreter.\-cpp\end{DoxyCompactItemize}

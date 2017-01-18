@@ -1,0 +1,89 @@
+\hypertarget{classLineSegment}{\section{Line\-Segment Class Reference}
+\label{classLineSegment}\index{Line\-Segment@{Line\-Segment}}
+}
+
+
+{\ttfamily \#include $<$Line\-Segment.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLineSegment_aedf097c6e1e883c4afa3b73f506ec14a}{Line\-Segment} (const \hyperlink{classPoint}{Point} \&point\-A, const \hyperlink{classPoint}{Point} \&point\-B)
+\item 
+std\-::pair$<$ float, float $>$ \hyperlink{classLineSegment_a925e2e233b920ca5ddc28e6e069217d1}{intersection\-Point} (const \hyperlink{classLineSegment}{Line\-Segment} \&line\-Segment) const 
+\item 
+bool \hyperlink{classLineSegment_ac7c1a4f6079ce306b855d5d438abbcb7}{has\-Intersection} (const \hyperlink{classLineSegment}{Line\-Segment} \&line\-Segment) const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Represents segment line. Stores straight line equation\-: (y -\/ ya) $\ast$ (xb -\/ xa) -\/ (yb -\/ ya) $\ast$ (x -\/ xa) = 0 y $\ast$ (xb -\/ xa) -\/ x $\ast$ (yb -\/ ya) = ya $\ast$ (xb -\/ xa) -\/ xa $\ast$ (yb -\/ ya) and limits of segment line (x and y limits) \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classLineSegment_aedf097c6e1e883c4afa3b73f506ec14a}{\index{Line\-Segment@{Line\-Segment}!Line\-Segment@{Line\-Segment}}
+\index{Line\-Segment@{Line\-Segment}!LineSegment@{Line\-Segment}}
+\subsubsection[{Line\-Segment}]{\setlength{\rightskip}{0pt plus 5cm}Line\-Segment\-::\-Line\-Segment (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{point\-A, }
+\item[{const {\bf Point} \&}]{point\-B}
+\end{DoxyParamCaption}
+)}}\label{classLineSegment_aedf097c6e1e883c4afa3b73f506ec14a}
+Constructs \hyperlink{classLineSegment}{Line\-Segment}. 
+\begin{DoxyExceptions}{Exceptions}
+{\em std\-::invalid\-\_\-argument} & when points are same \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parameters}
+{\em point\-A} & First point of line segment \\
+\hline
+{\em point\-B} & Second point of line segment \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classLineSegment_ac7c1a4f6079ce306b855d5d438abbcb7}{\index{Line\-Segment@{Line\-Segment}!has\-Intersection@{has\-Intersection}}
+\index{has\-Intersection@{has\-Intersection}!LineSegment@{Line\-Segment}}
+\subsubsection[{has\-Intersection}]{\setlength{\rightskip}{0pt plus 5cm}bool Line\-Segment\-::has\-Intersection (
+\begin{DoxyParamCaption}
+\item[{const {\bf Line\-Segment} \&}]{line\-Segment}
+\end{DoxyParamCaption}
+) const}}\label{classLineSegment_ac7c1a4f6079ce306b855d5d438abbcb7}
+Checks whether line segments have intersection point. 
+\begin{DoxyParams}{Parameters}
+{\em line\-Segment} & Line segment to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Has line segments intersection point 
+\end{DoxyReturn}
+\hypertarget{classLineSegment_a925e2e233b920ca5ddc28e6e069217d1}{\index{Line\-Segment@{Line\-Segment}!intersection\-Point@{intersection\-Point}}
+\index{intersection\-Point@{intersection\-Point}!LineSegment@{Line\-Segment}}
+\subsubsection[{intersection\-Point}]{\setlength{\rightskip}{0pt plus 5cm}std\-::pair$<$ float, float $>$ Line\-Segment\-::intersection\-Point (
+\begin{DoxyParamCaption}
+\item[{const {\bf Line\-Segment} \&}]{line\-Segment}
+\end{DoxyParamCaption}
+) const}}\label{classLineSegment_a925e2e233b920ca5ddc28e6e069217d1}
+Computes intersection point of line segments. 
+\begin{DoxyExceptions}{Exceptions}
+{\em std\-::invalid\-\_\-argument} & when there isn't intersection point \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parameters}
+{\em line\-Segment} & Line segment used to compute intersection point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Intersection point as a pair of x and y (first x, second y) 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Line\-Segment.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Line\-Segment.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,207 @@
+\hypertarget{classMap}{\section{Map Class Reference}
+\label{classMap}\index{Map@{Map}}
+}
+
+
+Class allowing to create map and simulate traffics.  
+
+
+
+
+{\ttfamily \#include $<$Map.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMap_a0f5ad0fd4563497b4214038cbca8b582}{Map} ()
+\item 
+bool \hyperlink{classMap_a9e4f8c8c213327b8b82f22280a11bd97}{create\-Road} (Ptr\-To\-Const\-Point, Ptr\-To\-Const\-Point)
+\begin{DoxyCompactList}\small\item\em Creating new road and crosses from starting to ending point. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a84db9fe1c1159747bc76790e1a839d7e}{create\-Car} (Ptr\-To\-Const\-Point, Ptr\-To\-Const\-Point, int)
+\begin{DoxyCompactList}\small\item\em Calls creating methods in object of \hyperlink{classMovableFactory}{Movable\-Factory} type. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a1a7df4e0e2269ed6d0594217c268ecc5}{create\-Human} (Ptr\-To\-Const\-Point, Ptr\-To\-Const\-Point, int)
+\begin{DoxyCompactList}\small\item\em Calls creating methods in object of \hyperlink{classMovableFactory}{Movable\-Factory} type. \end{DoxyCompactList}\item 
+bool \hyperlink{classMap_a691b0f6188a75243bf9201716ec65dd8}{create\-Building} (const \hyperlink{classPoint}{Point} \&upper\-Left, const \hyperlink{classPoint}{Point} \&lower\-Right)
+\item 
+void \hyperlink{classMap_a30ca1fc5c2c5dca2d75f936ebcd0f069}{create\-Camera} (const \hyperlink{classPoint}{Point} \&start\-Point, const \hyperlink{classPoint}{Point} \&end\-Point, double angle)
+\item 
+void \hyperlink{classMap_afb929e0412a0a74f94221a6476647eaa}{set\-Running\-Movable\-Permission} (bool)
+\begin{DoxyCompactList}\small\item\em Running new thread for movables. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_a2cfa2043b101dfa956436a905794d9b5}{set\-Camera\-Scanning\-Permission} (bool)
+\begin{DoxyCompactList}\small\item\em Running new thread for cameras. \end{DoxyCompactList}\item 
+void \hyperlink{classMap_add4f93b254f5527945ae627db3878bae}{run\-Running\-Movables} ()
+\begin{DoxyCompactList}\small\item\em Main method for running movables thread. \end{DoxyCompactList}\item 
+\hypertarget{classMap_af5aea906aea8e3497f8300f06802270a}{void \hyperlink{classMap_af5aea906aea8e3497f8300f06802270a}{run\-Cameras\-Scanning} ()}\label{classMap_af5aea906aea8e3497f8300f06802270a}
+
+\begin{DoxyCompactList}\small\item\em Method runs cameras scanning in new thread. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class allowing to create map and simulate traffics. 
+
+Contains crosses and movables factories allowing G\-U\-I eassily creating map and threads to run the simulation 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classMap_a0f5ad0fd4563497b4214038cbca8b582}{\index{Map@{Map}!Map@{Map}}
+\index{Map@{Map}!Map@{Map}}
+\subsubsection[{Map}]{\setlength{\rightskip}{0pt plus 5cm}Map\-::\-Map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMap_a0f5ad0fd4563497b4214038cbca8b582}
+Empty constructor. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classMap_a691b0f6188a75243bf9201716ec65dd8}{\index{Map@{Map}!create\-Building@{create\-Building}}
+\index{create\-Building@{create\-Building}!Map@{Map}}
+\subsubsection[{create\-Building}]{\setlength{\rightskip}{0pt plus 5cm}bool Map\-::create\-Building (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{upper\-Left, }
+\item[{const {\bf Point} \&}]{lower\-Right}
+\end{DoxyParamCaption}
+)}}\label{classMap_a691b0f6188a75243bf9201716ec65dd8}
+Adds \hyperlink{classBuilding}{Building} represented by arguments of function. 
+\begin{DoxyParams}{Parameters}
+{\em upper\-Left} & \hyperlink{classPoint}{Point} in the upper left of building \\
+\hline
+{\em lower\-Right} & \hyperlink{classPoint}{Point} in the lower right of building \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Is building created 
+\end{DoxyReturn}
+\hypertarget{classMap_a30ca1fc5c2c5dca2d75f936ebcd0f069}{\index{Map@{Map}!create\-Camera@{create\-Camera}}
+\index{create\-Camera@{create\-Camera}!Map@{Map}}
+\subsubsection[{create\-Camera}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::create\-Camera (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{start\-Point, }
+\item[{const {\bf Point} \&}]{end\-Point, }
+\item[{double}]{angle}
+\end{DoxyParamCaption}
+)}}\label{classMap_a30ca1fc5c2c5dca2d75f936ebcd0f069}
+Adds \hyperlink{classCamera}{Camera} represented by arguments of function. 
+\begin{DoxyParams}{Parameters}
+{\em start\-Point} & \hyperlink{classCamera}{Camera}'s start point \\
+\hline
+{\em end\-Point} & \hyperlink{classCamera}{Camera}'s end point \\
+\hline
+{\em angle} & \hyperlink{classCamera}{Camera}'s angle \\
+\hline
+{\em accuracy} & \hyperlink{classCamera}{Camera}'s accuracy \\
+\hline
+\end{DoxyParams}
+\hypertarget{classMap_a84db9fe1c1159747bc76790e1a839d7e}{\index{Map@{Map}!create\-Car@{create\-Car}}
+\index{create\-Car@{create\-Car}!Map@{Map}}
+\subsubsection[{create\-Car}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::create\-Car (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{starting\-Point, }
+\item[{Ptr\-To\-Const\-Point}]{ending\-Point, }
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{classMap_a84db9fe1c1159747bc76790e1a839d7e}
+
+
+Calls creating methods in object of \hyperlink{classMovableFactory}{Movable\-Factory} type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em starting\-Point} & as shared\-\_\-ptr to \hyperlink{classPoint}{Point}. \\
+\hline
+{\em ending\-Point} & as shared\-\_\-ptr to \hyperlink{classPoint}{Point}. \\
+\hline
+{\em speed} & as integer argument. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classMap_a1a7df4e0e2269ed6d0594217c268ecc5}{\index{Map@{Map}!create\-Human@{create\-Human}}
+\index{create\-Human@{create\-Human}!Map@{Map}}
+\subsubsection[{create\-Human}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::create\-Human (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{src, }
+\item[{Ptr\-To\-Const\-Point}]{dst, }
+\item[{int}]{speed}
+\end{DoxyParamCaption}
+)}}\label{classMap_a1a7df4e0e2269ed6d0594217c268ecc5}
+
+
+Calls creating methods in object of \hyperlink{classMovableFactory}{Movable\-Factory} type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em src} & as shared\-\_\-ptr on \hyperlink{classPoint}{Point} type object, starting point. \\
+\hline
+{\em dst} & as shared\-\_\-ptr on \hyperlink{classPoint}{Point} type object, ending point. \\
+\hline
+{\em speed} & as integer argument, speed of human. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classMap_a9e4f8c8c213327b8b82f22280a11bd97}{\index{Map@{Map}!create\-Road@{create\-Road}}
+\index{create\-Road@{create\-Road}!Map@{Map}}
+\subsubsection[{create\-Road}]{\setlength{\rightskip}{0pt plus 5cm}bool Map\-::create\-Road (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{begin, }
+\item[{Ptr\-To\-Const\-Point}]{end}
+\end{DoxyParamCaption}
+)}}\label{classMap_a9e4f8c8c213327b8b82f22280a11bd97}
+
+
+Creating new road and crosses from starting to ending point. 
+
+Checking if road may be created (for example checking if none of buildings is between these two points). If not -\/$>$ method returns false. In other case\-: calling crosses creating methods from object of \hyperlink{classCrossFactory}{Cross\-Factory} type. 
+\begin{DoxyParams}{Parameters}
+{\em begin} & as shared\-\_\-ptr to \hyperlink{classPoint}{Point}. \\
+\hline
+{\em end} & as shared\-\_\-ptr to \hyperlink{classPoint}{Point}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool value. If true -\/$>$ new road was created. 
+\end{DoxyReturn}
+\hypertarget{classMap_add4f93b254f5527945ae627db3878bae}{\index{Map@{Map}!run\-Running\-Movables@{run\-Running\-Movables}}
+\index{run\-Running\-Movables@{run\-Running\-Movables}!Map@{Map}}
+\subsubsection[{run\-Running\-Movables}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::run\-Running\-Movables (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMap_add4f93b254f5527945ae627db3878bae}
+
+
+Main method for running movables thread. 
+
+All of the movables are asked to make the next move. If movables end their journey, they are removed from the memory and G\-U\-I. At the end, thread falls asleep for the time set in G\-U\-I const values. \hypertarget{classMap_a2cfa2043b101dfa956436a905794d9b5}{\index{Map@{Map}!set\-Camera\-Scanning\-Permission@{set\-Camera\-Scanning\-Permission}}
+\index{set\-Camera\-Scanning\-Permission@{set\-Camera\-Scanning\-Permission}!Map@{Map}}
+\subsubsection[{set\-Camera\-Scanning\-Permission}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::set\-Camera\-Scanning\-Permission (
+\begin{DoxyParamCaption}
+\item[{bool}]{permission}
+\end{DoxyParamCaption}
+)}}\label{classMap_a2cfa2043b101dfa956436a905794d9b5}
+
+
+Running new thread for cameras. 
+
+If permission is true, new thread is created, where all of the movables run. If permission is false, the thread finishes. 
+\begin{DoxyParams}{Parameters}
+{\em permission} & says if running thread has to start or stop. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classMap_afb929e0412a0a74f94221a6476647eaa}{\index{Map@{Map}!set\-Running\-Movable\-Permission@{set\-Running\-Movable\-Permission}}
+\index{set\-Running\-Movable\-Permission@{set\-Running\-Movable\-Permission}!Map@{Map}}
+\subsubsection[{set\-Running\-Movable\-Permission}]{\setlength{\rightskip}{0pt plus 5cm}void Map\-::set\-Running\-Movable\-Permission (
+\begin{DoxyParamCaption}
+\item[{bool}]{permission}
+\end{DoxyParamCaption}
+)}}\label{classMap_afb929e0412a0a74f94221a6476647eaa}
+
+
+Running new thread for movables. 
+
+If permission is true, new thread is created, where all of the movables run. If permission is false, the thread finishes. 
+\begin{DoxyParams}{Parameters}
+{\em permission} & says if running thread has to start or to stop. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{Map_8h}{Map.\-h}\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{Map_8cpp}{Map.\-cpp}\end{DoxyCompactItemize}

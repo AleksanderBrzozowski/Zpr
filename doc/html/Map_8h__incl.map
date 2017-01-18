@@ -1,0 +1,20 @@
+<map id="/home/aleksander/CLionProjects/Zpr/src/Map.h" name="/home/aleksander/CLionProjects/Zpr/src/Map.h">
+<area shape="rect" id="node2" href="$MovableFactory_8h.html" title="MovableFactory class declaration. " alt="" coords="591,96,717,123"/>
+<area shape="rect" id="node3" href="$Types_8h_source.html" title="Types.h" alt="" coords="779,320,848,347"/>
+<area shape="rect" id="node25" href="$CrossFactory_8h.html" title="CrossFactory class methods declaration. " alt="" coords="1303,171,1413,197"/>
+<area shape="rect" id="node30" href="$Building_8h_source.html" title="Building.h" alt="" coords="1199,171,1277,197"/>
+<area shape="rect" id="node32" href="$Facilities_8h_source.html" title="Facilities.h" alt="" coords="865,96,951,123"/>
+<area shape="rect" id="node7" href="$Movable_8h_source.html" title="Movable.h" alt="" coords="613,171,695,197"/>
+<area shape="rect" id="node16" href="$Cross_8h.html" title="Cross class methods declaration. " alt="" coords="953,245,1020,272"/>
+<area shape="rect" id="node17" href="$pplgui_8h_source.html" title="GUI/pplgui.h" alt="" coords="207,171,301,197"/>
+<area shape="rect" id="node8" href="$Route_8h_source.html" title="Route.h" alt="" coords="651,320,719,347"/>
+<area shape="rect" id="node13" href="$CarRoute_8h_source.html" title="CarRoute.h" alt="" coords="449,245,537,272"/>
+<area shape="rect" id="node15" href="$HumanRoute_8h_source.html" title="HumanRoute.h" alt="" coords="665,245,775,272"/>
+<area shape="rect" id="node9" href="$RouteVector_8h_source.html" title="RouteVector.h" alt="" coords="632,395,739,421"/>
+<area shape="rect" id="node10" href="$Point_8h_source.html" title="Point.h" alt="" coords="993,469,1055,496"/>
+<area shape="rect" id="node18" href="$drawable_8h_source.html" title="drawable.h" alt="" coords="5,395,91,421"/>
+<area shape="rect" id="node20" href="$gridgui_8h_source.html" title="gridgui.h" alt="" coords="405,320,475,347"/>
+<area shape="rect" id="node21" href="$roadgui_8h_source.html" title="roadgui.h" alt="" coords="197,245,271,272"/>
+<area shape="rect" id="node31" href="$LineSegment_8h_source.html" title="LineSegment.h" alt="" coords="1249,245,1359,272"/>
+<area shape="rect" id="node33" href="$Camera_8h_source.html" title="Camera.h" alt="" coords="1045,245,1123,272"/>
+</map>

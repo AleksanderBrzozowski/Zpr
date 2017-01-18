@@ -1,0 +1,120 @@
+\hypertarget{classGridGUI}{\section{Grid\-G\-U\-I Class Reference}
+\label{classGridGUI}\index{Grid\-G\-U\-I@{Grid\-G\-U\-I}}
+}
+
+
+The \hyperlink{classGridGUI}{Grid\-G\-U\-I} class.  
+
+
+
+
+{\ttfamily \#include $<$gridgui.\-h$>$}
+
+
+
+Inheritance diagram for Grid\-G\-U\-I\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{classGridGUI__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Grid\-G\-U\-I\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{classGridGUI__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGridGUI_a26a49d8e03b995f94d4ba2f962447755}{Grid\-G\-U\-I} (unsigned int width, unsigned int height)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classGridGUI_a26a49d8e03b995f94d4ba2f962447755}{Grid\-G\-U\-I\-::\-Grid\-G\-U\-I}. \end{DoxyCompactList}\item 
+void \hyperlink{classGridGUI_a733eb9089f663b943a4df35bd0deb0e9}{draw} (Q\-Painter \&painter) const override
+\begin{DoxyCompactList}\small\item\em \hyperlink{classGridGUI_a733eb9089f663b943a4df35bd0deb0e9}{Grid\-G\-U\-I\-::draw}. \end{DoxyCompactList}\item 
+\hypertarget{classGridGUI_a5a766544081b2b32622599271b8fdac3}{void {\bfseries set\-To} (unsigned int x, unsigned int y) override}\label{classGridGUI_a5a766544081b2b32622599271b8fdac3}
+
+\item 
+\hypertarget{classGridGUI_ad39aea9c016151e90c8809878a89ed0d}{bool {\bfseries intersects} (Q\-Rect \&rectangle) const override}\label{classGridGUI_ad39aea9c016151e90c8809878a89ed0d}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const Q\-Pen \hyperlink{classGridGUI_a0bdab0ceaf6c0009b26b344bb20e75a4}{P\-E\-N}
+\item 
+\hypertarget{classGridGUI_ae526a7b1f11279b5ec1515eb4e19c250}{static const int {\bfseries S\-I\-Z\-E} = 32}\label{classGridGUI_ae526a7b1f11279b5ec1515eb4e19c250}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classGridGUI}{Grid\-G\-U\-I} class. 
+
+Class represents grid drawn on the screen. most of objects are snapped to this grid. It implements all necessary functions to be drawn. It also contains all variables thet define look of the grid. \begin{DoxyAuthor}{Author}
+Pawel Rybak 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classGridGUI_a26a49d8e03b995f94d4ba2f962447755}{\index{Grid\-G\-U\-I@{Grid\-G\-U\-I}!Grid\-G\-U\-I@{Grid\-G\-U\-I}}
+\index{Grid\-G\-U\-I@{Grid\-G\-U\-I}!GridGUI@{Grid\-G\-U\-I}}
+\subsubsection[{Grid\-G\-U\-I}]{\setlength{\rightskip}{0pt plus 5cm}Grid\-G\-U\-I\-::\-Grid\-G\-U\-I (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{width, }
+\item[{unsigned int}]{height}
+\end{DoxyParamCaption}
+)}}\label{classGridGUI_a26a49d8e03b995f94d4ba2f962447755}
+
+
+\hyperlink{classGridGUI_a26a49d8e03b995f94d4ba2f962447755}{Grid\-G\-U\-I\-::\-Grid\-G\-U\-I}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & -\/ Width of the grid. \\
+\hline
+{\em height} & -\/ Height of the grid.\\
+\hline
+\end{DoxyParams}
+Creates grid with given size. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classGridGUI_a733eb9089f663b943a4df35bd0deb0e9}{\index{Grid\-G\-U\-I@{Grid\-G\-U\-I}!draw@{draw}}
+\index{draw@{draw}!GridGUI@{Grid\-G\-U\-I}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void Grid\-G\-U\-I\-::draw (
+\begin{DoxyParamCaption}
+\item[{Q\-Painter \&}]{painter}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}}\label{classGridGUI_a733eb9089f663b943a4df35bd0deb0e9}
+
+
+\hyperlink{classGridGUI_a733eb9089f663b943a4df35bd0deb0e9}{Grid\-G\-U\-I\-::draw}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em painter} & -\/ Reference to painter object.\\
+\hline
+\end{DoxyParams}
+Function draws lines using painter given as argument. Lines, both vertical and horizontal, starts at 0, and are drawn with equal spacing until next line would be further than size of grid. 
+
+Implements \hyperlink{classDrawable}{Drawable}.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classGridGUI_a0bdab0ceaf6c0009b26b344bb20e75a4}{\index{Grid\-G\-U\-I@{Grid\-G\-U\-I}!P\-E\-N@{P\-E\-N}}
+\index{P\-E\-N@{P\-E\-N}!GridGUI@{Grid\-G\-U\-I}}
+\subsubsection[{P\-E\-N}]{\setlength{\rightskip}{0pt plus 5cm}const Q\-Pen Grid\-G\-U\-I\-::\-P\-E\-N\hspace{0.3cm}{\ttfamily [static]}}}\label{classGridGUI_a0bdab0ceaf6c0009b26b344bb20e75a4}
+P\-R\-O\-P\-E\-R\-T\-I\-E\-S
+
+I\-N\-I\-T\-I\-A\-L\-I\-Z\-E P\-R\-O\-P\-E\-R\-T\-I\-E\-S 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/gridgui.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\-G\-U\-I/gridgui.\-cpp\end{DoxyCompactItemize}

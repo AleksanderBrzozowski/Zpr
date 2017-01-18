@@ -1,0 +1,133 @@
+\hypertarget{classCamera}{\section{Camera Class Reference}
+\label{classCamera}\index{Camera@{Camera}}
+}
+
+
+{\ttfamily \#include $<$Camera.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCamera_abe130756ff92b7d9a49eac7a7cbcdbf0}{Camera} (const \hyperlink{classPoint}{Point} \&start\-Point, const \hyperlink{classPoint}{Point} \&end\-Point, double angle, int accuracy)
+\item 
+bool \hyperlink{classCamera_aca2c02d0712f8e4348ccf1cabac7d582}{is\-In\-Range} (const \hyperlink{classPoint}{Point} \&point)
+\item 
+bool \hyperlink{classCamera_a8a061df42fe0c6307fbc82e49d85fdff}{is\-In\-Angle} (const \hyperlink{classPoint}{Point} \&point)
+\item 
+void \hyperlink{classCamera_ac1ec1097de9c1e28283e25b4ca65a2ad}{add\-Seen\-Car} (Ptr\-Const\-Car car)
+\item 
+\hypertarget{classCamera_a45075ec37bddba6d49c1b38b048ca0ef}{const std\-::vector\\*
+$<$ Ptr\-To\-Const\-Point $>$ \& {\bfseries get\-Seen\-Cars} () const }\label{classCamera_a45075ec37bddba6d49c1b38b048ca0ef}
+
+\item 
+void \hyperlink{classCamera_a64ea66b871f4dc6408e759f26a4c5267}{add\-Seen\-Human} (Ptr\-Const\-Human human)
+\item 
+\hypertarget{classCamera_afb7072d894f391afc99595d3590e390d}{const std\-::vector\\*
+$<$ Ptr\-To\-Const\-Point $>$ \& {\bfseries get\-Seen\-Humans} () const }\label{classCamera_afb7072d894f391afc99595d3590e390d}
+
+\item 
+\hypertarget{classCamera_a174cb7954685f7230bedc91b45d3abc6}{const \hyperlink{classPoint}{Point} \& {\bfseries get\-Start\-Point} () const }\label{classCamera_a174cb7954685f7230bedc91b45d3abc6}
+
+\item 
+void \hyperlink{classCamera_ad42a7ec70d41ae24b3ee9d3cd5fad837}{clear\-Seen\-Movables} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class represents \hyperlink{classCamera}{Camera} as point, angle and ray. \hyperlink{classCamera}{Camera} stores seen cars and humans. \begin{DoxyAuthor}{Author}
+Aleksander Brzozowski 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classCamera_abe130756ff92b7d9a49eac7a7cbcdbf0}{\index{Camera@{Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!Camera@{Camera}}
+\subsubsection[{Camera}]{\setlength{\rightskip}{0pt plus 5cm}Camera\-::\-Camera (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{start\-Point, }
+\item[{const {\bf Point} \&}]{end\-Point, }
+\item[{double}]{angle, }
+\item[{int}]{accuracy}
+\end{DoxyParamCaption}
+)}}\label{classCamera_abe130756ff92b7d9a49eac7a7cbcdbf0}
+Constructs camera. 
+\begin{DoxyParams}{Parameters}
+{\em start\-Point} & \hyperlink{classPoint}{Point} where camera stands \\
+\hline
+{\em end\-Point} & \\
+\hline
+{\em angle} & Visible angle \\
+\hline
+{\em accuracy} & \hyperlink{classCamera}{Camera}'s accuracy, higher accuracy generates preciser visible points \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classCamera_ac1ec1097de9c1e28283e25b4ca65a2ad}{\index{Camera@{Camera}!add\-Seen\-Car@{add\-Seen\-Car}}
+\index{add\-Seen\-Car@{add\-Seen\-Car}!Camera@{Camera}}
+\subsubsection[{add\-Seen\-Car}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::add\-Seen\-Car (
+\begin{DoxyParamCaption}
+\item[{Ptr\-Const\-Car}]{car}
+\end{DoxyParamCaption}
+)}}\label{classCamera_ac1ec1097de9c1e28283e25b4ca65a2ad}
+Adds car to camera's seen cars. 
+\begin{DoxyParams}{Parameters}
+{\em car} & \hyperlink{classCar}{Car} to be added \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCamera_a64ea66b871f4dc6408e759f26a4c5267}{\index{Camera@{Camera}!add\-Seen\-Human@{add\-Seen\-Human}}
+\index{add\-Seen\-Human@{add\-Seen\-Human}!Camera@{Camera}}
+\subsubsection[{add\-Seen\-Human}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::add\-Seen\-Human (
+\begin{DoxyParamCaption}
+\item[{Ptr\-Const\-Human}]{human}
+\end{DoxyParamCaption}
+)}}\label{classCamera_a64ea66b871f4dc6408e759f26a4c5267}
+Adds human to camera's seen humans. 
+\begin{DoxyParams}{Parameters}
+{\em human} & \hyperlink{classHuman}{Human} to be added \\
+\hline
+\end{DoxyParams}
+\hypertarget{classCamera_ad42a7ec70d41ae24b3ee9d3cd5fad837}{\index{Camera@{Camera}!clear\-Seen\-Movables@{clear\-Seen\-Movables}}
+\index{clear\-Seen\-Movables@{clear\-Seen\-Movables}!Camera@{Camera}}
+\subsubsection[{clear\-Seen\-Movables}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\-::clear\-Seen\-Movables (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classCamera_ad42a7ec70d41ae24b3ee9d3cd5fad837}
+Clears all seen cars and humans by camera. \hypertarget{classCamera_a8a061df42fe0c6307fbc82e49d85fdff}{\index{Camera@{Camera}!is\-In\-Angle@{is\-In\-Angle}}
+\index{is\-In\-Angle@{is\-In\-Angle}!Camera@{Camera}}
+\subsubsection[{is\-In\-Angle}]{\setlength{\rightskip}{0pt plus 5cm}bool Camera\-::is\-In\-Angle (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+)}}\label{classCamera_a8a061df42fe0c6307fbc82e49d85fdff}
+Checks whether a point is in camera's angle. 
+\begin{DoxyParams}{Parameters}
+{\em point} & Checked point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Is in camera angle 
+\end{DoxyReturn}
+\hypertarget{classCamera_aca2c02d0712f8e4348ccf1cabac7d582}{\index{Camera@{Camera}!is\-In\-Range@{is\-In\-Range}}
+\index{is\-In\-Range@{is\-In\-Range}!Camera@{Camera}}
+\subsubsection[{is\-In\-Range}]{\setlength{\rightskip}{0pt plus 5cm}bool Camera\-::is\-In\-Range (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{point}
+\end{DoxyParamCaption}
+)}}\label{classCamera_aca2c02d0712f8e4348ccf1cabac7d582}
+Checks whether a point is in camera's range. 
+\begin{DoxyParams}{Parameters}
+{\em point} & Checked point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Is in camera range 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Camera.\-h\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/Camera.\-cpp\end{DoxyCompactItemize}

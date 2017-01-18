@@ -1,0 +1,222 @@
+\hypertarget{classMovableFactory}{\section{Movable\-Factory Class Reference}
+\label{classMovableFactory}\index{Movable\-Factory@{Movable\-Factory}}
+}
+
+
+Factory of movables (cars and humans) with algorithms to finding routes.  
+
+
+
+
+{\ttfamily \#include $<$Movable\-Factory.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classMovableFactory_a38bfc032a4e526e24b6dc186cda1382e}{find\-Route} (Ptr\-To\-Const\-Point, Ptr\-To\-Const\-Point, std\-::vector$<$ Ptr\-To\-Const\-Point $>$ \&, std\-::vector$<$ Ptr\-Cross $>$ \&)
+\begin{DoxyCompactList}\small\item\em Finds route between two points on the map. \end{DoxyCompactList}\item 
+void \hyperlink{classMovableFactory_addc3e4721ec280bafebd41332ef16a54}{prepare\-Route\-Finding} (std\-::vector$<$ Ptr\-Cross $>$ \&)
+\begin{DoxyCompactList}\small\item\em Prepare crosses for running finding route algorithm. \end{DoxyCompactList}\item 
+bool \hyperlink{classMovableFactory_a9f12c7d5c0cc67b8ad9a58a574b8427c}{point\-Meets\-Cross} (Ptr\-To\-Const\-Point, Ptr\-Cross) const 
+\begin{DoxyCompactList}\small\item\em Checking if given point directly \char`\"{}sees\char`\"{} the given cross. \end{DoxyCompactList}\item 
+Ptr\-Cross \hyperlink{classMovableFactory_a510b583ce682dec2d4e2988029b0c9ac}{find\-Nearest\-Cross} (Ptr\-To\-Const\-Point, const std\-::vector$<$ Ptr\-Cross $>$ \&) const 
+\begin{DoxyCompactList}\small\item\em Looking for a cross that directly \char`\"{}sees\char`\"{} the given point. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classMovableFactory_a3e6a2b041b143eee4b139001c0efb233}{get\-Movable\-Id} ()
+\begin{DoxyCompactList}\small\item\em Get unique id for new movable. \end{DoxyCompactList}\item 
+bool \hyperlink{classMovableFactory_a7947ef24e338a9c06145eb1665666ea3}{create\-Car} (Ptr\-To\-Const\-Point, Ptr\-To\-Const\-Point, int, std\-::vector$<$ Ptr\-Cross $>$ \&)
+\begin{DoxyCompactList}\small\item\em Creating new car running from point to point at set speed. \end{DoxyCompactList}\item 
+bool \hyperlink{classMovableFactory_a218fc6471b2d6d17c7d00697160f9d02}{create\-Human} (Ptr\-To\-Const\-Point, Ptr\-To\-Const\-Point, int, std\-::vector$<$ Ptr\-Cross $>$ \&)
+\begin{DoxyCompactList}\small\item\em Creating new human running from point to point at set speed. \end{DoxyCompactList}\item 
+void \hyperlink{classMovableFactory_a56b1d3085a535d40cfe4e6ef1f3ecf6e}{move\-Humans\-On\-Sidewalks} (std\-::vector$<$ Ptr\-To\-Const\-Point $>$ \&)
+\begin{DoxyCompactList}\small\item\em Transforming found route for humans to be set on sidewalks. \end{DoxyCompactList}\item 
+\hypertarget{classMovableFactory_a792ef3b707099931bfab7dddbd0b776b}{std\-::list$<$ Ptr\-Car $>$ \& {\bfseries get\-Cars} ()}\label{classMovableFactory_a792ef3b707099931bfab7dddbd0b776b}
+
+\item 
+\hypertarget{classMovableFactory_ae8c900bfd2548d7fd0e8f96f81fa7412}{std\-::list$<$ Ptr\-Human $>$ \& {\bfseries get\-Humans} ()}\label{classMovableFactory_ae8c900bfd2548d7fd0e8f96f81fa7412}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Factory of movables (cars and humans) with algorithms to finding routes. 
+
+The factory prepares proper routes between given points for cars and humans. Cars have to run on streets. Humans have to walk on sidewalks. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classMovableFactory_a7947ef24e338a9c06145eb1665666ea3}{\index{Movable\-Factory@{Movable\-Factory}!create\-Car@{create\-Car}}
+\index{create\-Car@{create\-Car}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{create\-Car}]{\setlength{\rightskip}{0pt plus 5cm}bool Movable\-Factory\-::create\-Car (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{src, }
+\item[{Ptr\-To\-Const\-Point}]{dst, }
+\item[{int}]{speed, }
+\item[{std\-::vector$<$ Ptr\-Cross $>$ \&}]{crosses}
+\end{DoxyParamCaption}
+)}}\label{classMovableFactory_a7947ef24e338a9c06145eb1665666ea3}
+
+
+Creating new car running from point to point at set speed. 
+
+Method at first looks for a route between starting and ending points. If route was found, creates car and includes it to the simulation. 
+\begin{DoxyParams}{Parameters}
+{\em src} & as shared\-\_\-ptr to const \hyperlink{classPoint}{Point} type object, starting point of the car's route. \\
+\hline
+{\em dst} & as shared\-\_\-ptr to const \hyperlink{classPoint}{Point} type object, ending point of the car's route. \\
+\hline
+{\em speed} & integer argument, speed of car. \\
+\hline
+{\em crosses} & vector of shared\-\_\-ptr to Crosses type objects, needed to make routes for cars. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if route between starting and ending points was found and car was created. 
+\end{DoxyReturn}
+\hypertarget{classMovableFactory_a218fc6471b2d6d17c7d00697160f9d02}{\index{Movable\-Factory@{Movable\-Factory}!create\-Human@{create\-Human}}
+\index{create\-Human@{create\-Human}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{create\-Human}]{\setlength{\rightskip}{0pt plus 5cm}bool Movable\-Factory\-::create\-Human (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{src, }
+\item[{Ptr\-To\-Const\-Point}]{dst, }
+\item[{int}]{speed, }
+\item[{std\-::vector$<$ Ptr\-Cross $>$ \&}]{crosses}
+\end{DoxyParamCaption}
+)}}\label{classMovableFactory_a218fc6471b2d6d17c7d00697160f9d02}
+
+
+Creating new human running from point to point at set speed. 
+
+Method at first looks for a route between starting and ending points. If route was found, creates human and includes it to the simulation. 
+\begin{DoxyParams}{Parameters}
+{\em src} & as shared\-\_\-ptr to const \hyperlink{classPoint}{Point} type object, starting point of the human's route. \\
+\hline
+{\em dst} & as shared\-\_\-ptr to const \hyperlink{classPoint}{Point} type object, ending point of the human's route. \\
+\hline
+{\em speed} & integer argument, speed of human. \\
+\hline
+{\em crosses} & vector of shared\-\_\-ptr to Crosses type objects, needed to make routes for humans. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if route between starting and ending points was found and human was created. 
+\end{DoxyReturn}
+\hypertarget{classMovableFactory_a510b583ce682dec2d4e2988029b0c9ac}{\index{Movable\-Factory@{Movable\-Factory}!find\-Nearest\-Cross@{find\-Nearest\-Cross}}
+\index{find\-Nearest\-Cross@{find\-Nearest\-Cross}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{find\-Nearest\-Cross}]{\setlength{\rightskip}{0pt plus 5cm}Ptr\-Cross Movable\-Factory\-::find\-Nearest\-Cross (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{point, }
+\item[{const std\-::vector$<$ Ptr\-Cross $>$ \&}]{crosses}
+\end{DoxyParamCaption}
+) const}}\label{classMovableFactory_a510b583ce682dec2d4e2988029b0c9ac}
+
+
+Looking for a cross that directly \char`\"{}sees\char`\"{} the given point. 
+
+Finds the cross that has direct route to the given point. 
+\begin{DoxyParams}{Parameters}
+{\em point} & as shared\-\_\-ptr$<$\-Point$>$, given point. \\
+\hline
+{\em crosses} & as vector of shared\-\_\-ptr$<$\-Cross$>$ consisting of every existing crosses. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+shared\-\_\-ptr$<$\-Cross$>$ of the cross that directly \char`\"{}sees\char`\"{} the given point. 
+\end{DoxyReturn}
+\hypertarget{classMovableFactory_a38bfc032a4e526e24b6dc186cda1382e}{\index{Movable\-Factory@{Movable\-Factory}!find\-Route@{find\-Route}}
+\index{find\-Route@{find\-Route}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{find\-Route}]{\setlength{\rightskip}{0pt plus 5cm}void Movable\-Factory\-::find\-Route (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{src, }
+\item[{Ptr\-To\-Const\-Point}]{dst, }
+\item[{std\-::vector$<$ Ptr\-To\-Const\-Point $>$ \&}]{ready\-Route, }
+\item[{std\-::vector$<$ Ptr\-Cross $>$ \&}]{crosses}
+\end{DoxyParamCaption}
+)}}\label{classMovableFactory_a38bfc032a4e526e24b6dc186cda1382e}
+
+
+Finds route between two points on the map. 
+
+Finding route between starting point and ending point. Finding route algorithm runs similar to the D\-F\-S algorithm in graph (map). 
+\begin{DoxyParams}{Parameters}
+{\em src} & starting point as shared\-\_\-ptr$<$\-Point$>$. \\
+\hline
+{\em dst} & endign point as shared\-\_\-ptr$<$\-Point$>$. \\
+\hline
+{\em ready\-Route} & vector to which new points will be written. \\
+\hline
+{\em crosses} & vector of crosses to find route. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classMovableFactory_a3e6a2b041b143eee4b139001c0efb233}{\index{Movable\-Factory@{Movable\-Factory}!get\-Movable\-Id@{get\-Movable\-Id}}
+\index{get\-Movable\-Id@{get\-Movable\-Id}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{get\-Movable\-Id}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Movable\-Factory\-::get\-Movable\-Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classMovableFactory_a3e6a2b041b143eee4b139001c0efb233}
+
+
+Get unique id for new movable. 
+
+\begin{DoxyReturn}{Returns}
+new Id for movables. 
+\end{DoxyReturn}
+\hypertarget{classMovableFactory_a56b1d3085a535d40cfe4e6ef1f3ecf6e}{\index{Movable\-Factory@{Movable\-Factory}!move\-Humans\-On\-Sidewalks@{move\-Humans\-On\-Sidewalks}}
+\index{move\-Humans\-On\-Sidewalks@{move\-Humans\-On\-Sidewalks}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{move\-Humans\-On\-Sidewalks}]{\setlength{\rightskip}{0pt plus 5cm}void Movable\-Factory\-::move\-Humans\-On\-Sidewalks (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ Ptr\-To\-Const\-Point $>$ \&}]{route}
+\end{DoxyParamCaption}
+)}}\label{classMovableFactory_a56b1d3085a535d40cfe4e6ef1f3ecf6e}
+
+
+Transforming found route for humans to be set on sidewalks. 
+
+Adding offset between the street and sidewalk to every point in the found route to make humans walking on the sidewalks. 
+\begin{DoxyParams}{Parameters}
+{\em route} & as vector of shared\-\_\-ptr to const \hyperlink{classPoint}{Point} type objects to add to each point offset between street and sidewalk. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classMovableFactory_a9f12c7d5c0cc67b8ad9a58a574b8427c}{\index{Movable\-Factory@{Movable\-Factory}!point\-Meets\-Cross@{point\-Meets\-Cross}}
+\index{point\-Meets\-Cross@{point\-Meets\-Cross}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{point\-Meets\-Cross}]{\setlength{\rightskip}{0pt plus 5cm}bool Movable\-Factory\-::point\-Meets\-Cross (
+\begin{DoxyParamCaption}
+\item[{Ptr\-To\-Const\-Point}]{point, }
+\item[{Ptr\-Cross}]{cross}
+\end{DoxyParamCaption}
+) const}}\label{classMovableFactory_a9f12c7d5c0cc67b8ad9a58a574b8427c}
+
+
+Checking if given point directly \char`\"{}sees\char`\"{} the given cross. 
+
+Checking if point has direct route to the given cross (without any crosses (on the way). 
+\begin{DoxyParams}{Parameters}
+{\em point} & as shared\-\_\-ptr$<$\-Point$>$, which point we want to check. \\
+\hline
+{\em cross} & as shared\-\_\-ptr$<$\-Cross$>$, which cross we want to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if given point has direct route to given cross. 
+\end{DoxyReturn}
+\hypertarget{classMovableFactory_addc3e4721ec280bafebd41332ef16a54}{\index{Movable\-Factory@{Movable\-Factory}!prepare\-Route\-Finding@{prepare\-Route\-Finding}}
+\index{prepare\-Route\-Finding@{prepare\-Route\-Finding}!MovableFactory@{Movable\-Factory}}
+\subsubsection[{prepare\-Route\-Finding}]{\setlength{\rightskip}{0pt plus 5cm}void Movable\-Factory\-::prepare\-Route\-Finding (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ Ptr\-Cross $>$ \&}]{crosses}
+\end{DoxyParamCaption}
+)}}\label{classMovableFactory_addc3e4721ec280bafebd41332ef16a54}
+
+
+Prepare crosses for running finding route algorithm. 
+
+Preparing crosses to be used by the finding route algorithm. 
+\begin{DoxyParams}{Parameters}
+{\em crosses} & to change crosses parameter. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{MovableFactory_8h}{Movable\-Factory.\-h}\item 
+/home/aleksander/\-C\-Lion\-Projects/\-Zpr/src/\hyperlink{MovableFactory_8cpp}{Movable\-Factory.\-cpp}\end{DoxyCompactItemize}
