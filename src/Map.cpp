@@ -9,6 +9,11 @@
 #include "Map.h"
 #include <GUI/mainwindow.h>
 
+Map::Map() {
+    runningMovablePermission = false;
+    cameraScanningPermission = false;
+}
+
 /**
  * @brief Calls creating methods in object of MovableFactory type.
  * @param startingPoint as shared_ptr to Point.
@@ -35,9 +40,13 @@ void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, 
 
 bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
     criticalSection.lock();
-    StraightLine straightLine(*begin, *end);
+    if(*begin == *end) {
+        criticalSection.unlock();
+        return false;
+    }
+    LineSegment lineSegment(*begin, *end);
     for (const PtrBuilding &building : facilities.getBuildings()) {
-        if(building->isCommonPointInsideBuilding(straightLine)){
+        if(building->hasIntersection(lineSegment)){
             criticalSection.unlock();
             return false;
         }
@@ -86,8 +95,8 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
         PtrToConstPoint startPoint = cross->getPosition();
         PtrCross south = cross->getSouthNeighbour();
         PtrCross east = cross->getEastNeighbour();
-        if (east != nullptr && building.isCommonPointInsideBuilding(StraightLine(*startPoint, *(east->getPosition()))) ||
-            south != nullptr && building.isCommonPointInsideBuilding(StraightLine(*startPoint, *(south->getPosition())))){
+        if (east != nullptr && building.hasIntersection(LineSegment(*startPoint, *(east->getPosition()))) ||
+            south != nullptr && building.hasIntersection(LineSegment(*startPoint, *(south->getPosition())))){
             criticalSection.unlock();
             return false;
         }
@@ -120,7 +129,8 @@ void Map::runRunningMovables(){
                 MainWindow::getInstance().setCar(
                         (*cars_iter)->getId(),
                         static_cast<unsigned int>((*cars_iter)->getActualPoint().getX()),
-                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getY()));
+                        static_cast<unsigned int>((*cars_iter)->getActualPoint().getY()),
+                        (*cars_iter)->isFast());
                 ++cars_iter;
             }
         }
@@ -143,9 +153,11 @@ void Map::runRunningMovables(){
         }
         criticalSection.unlock();
         MainWindow::getInstance().refresh();
+
         std::this_thread::sleep_for (MainWindow::getInstance().REFRESH_TIME);
     }
 }
+
 
 /**
  * @brief Calls creating methods in object of MovableFactory type.
@@ -160,7 +172,6 @@ void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
     criticalSection.unlock();
 }
 
-
 void Map::runCamerasScanning() {
     while (cameraScanningPermission) {
         criticalSection.lock();
@@ -168,7 +179,13 @@ void Map::runCamerasScanning() {
         std::vector<PtrConstHuman> humans(movableFactory.getHumans().begin(), movableFactory.getHumans().end());
         facilities.scan(cars, humans);
         criticalSection.unlock();
-        std::this_thread::sleep_for (MainWindow::getInstance().CAMERA_SCAN_FREQ);
+        for (const PtrCamera &camera : facilities.getCameras()) {
+            for(const PtrToConstPoint &point : camera->getSeenCars())
+                std::cout << "I see car: " << *point << std::endl;
+            for(const PtrToConstPoint &point : camera->getSeenHumans())
+                std::cout << "I see human: " << *point << std::endl;
+        }
+        std::this_thread::sleep_for (MainWindow::CAMERA_SCAN_FREQ);
     }
 }
 

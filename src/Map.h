@@ -23,7 +23,7 @@
  * @class Map
  * @brief Class allowing to create map and simulate traffics.
  * @details Contains crosses and movables factories allowing
- * GUI eassily creating map and threads to run the simulation
+ * GUI eassily creating map and threads to run the simulation.
  */
 
 class Map {
@@ -46,7 +46,20 @@ public:
     void createCar(PtrToConstPoint, PtrToConstPoint, int);
 
     void createHuman(PtrToConstPoint, PtrToConstPoint, int);
+    /*!
+     * Adds Building represented by arguments of function.
+     * @param upperLeft     Point in the upper left of building
+     * @param lowerRight    Point in the lower right of building
+     * @return              Is building created
+     */
     bool createBuilding(const Point &upperLeft, const Point &lowerRight);
+    /*!
+     * Adds Camera represented by arguments of function.
+     * @param startPoint    Camera's start point
+     * @param endPoint      Camera's end point
+     * @param angle         Camera's angle
+     * @param accuracy      Camera's accuracy
+     */
     void createCamera(const Point &startPoint, const Point &endPoint, double angle);
 
 

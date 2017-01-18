@@ -1,10 +1,19 @@
 #ifndef CAMERAGUI_H
 #define CAMERAGUI_H
+#define _USE_MATH_DEFINES
 
 #include "drawable.h"
 #include <Point.h>
 #include <cmath>
 
+/*!
+ * \brief The CameraGUI class. Class holds info about look of camera in GUI.
+ * \details Class holds information necessary to draw camera in GUI. It
+ * implements virtual function from base class, so it wil be drawn poperly.
+ * It has also function that allows io move it and differ its range of sight.
+ * Function holds all information about the look of the camera on screen.
+ * \author Pawel Rybak
+ */
 class CameraGUI : public Drawable
 {
 public:

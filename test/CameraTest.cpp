@@ -75,9 +75,9 @@ TEST(CameraTest, putMovables) {
     camera.addSeenCar(movable1);
     camera.addSeenCar(movable2);
 
-    std::vector<PtrConstCar> movables = camera.getSeenCars();
+    std::vector<PtrToConstPoint> cars = camera.getSeenCars();
 
-    ASSERT_EQ(movable, movables[0]);
-    ASSERT_EQ(movable1, movables[1]);
-    ASSERT_EQ(movable2, movables[2]);
+    ASSERT_EQ(movable->getActualPoint(), *cars[0]);
+    ASSERT_EQ(movable1->getActualPoint(), *cars[1]);
+    ASSERT_EQ(movable2->getActualPoint(), *cars[2]);
 }

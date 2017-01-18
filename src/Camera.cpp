@@ -5,6 +5,7 @@
 #define _USE_MATH_DEFINES
 #include <cstdlib>
 #include <cmath>
+#include "Movable.h"
 #include "Camera.h"
 
 Camera::Camera(const Point &startPoint, const Point &endPoint, double angle, int accuracy) :
@@ -38,11 +39,7 @@ bool Camera::isInAngle(const Point &point) {
 }
 
 void Camera::addSeenCar(PtrConstCar car) {
-    seenCars.push_back(car);
-}
-
-const std::vector<PtrConstCar> &Camera::getSeenCars() const {
-    return seenCars;
+    seenCars.push_back(PtrToConstPoint(new Point(car->getActualPoint())));
 }
 
 const Point &Camera::getStartPoint() const {
@@ -50,15 +47,19 @@ const Point &Camera::getStartPoint() const {
 }
 
 void Camera::addSeenHuman(PtrConstHuman human) {
-    seenHumans.push_back(human);
-}
-
-const std::vector<PtrConstHuman> &Camera::getSeenHumans() const {
-    return seenHumans;
+    seenHumans.push_back(PtrToConstPoint(new Point(human->getActualPoint())));
 }
 
 void Camera::clearSeenMovables() {
     seenHumans.clear();
     seenCars.clear();
+}
+
+const std::vector<PtrToConstPoint> &Camera::getSeenHumans() const {
+    return seenHumans;
+}
+
+const std::vector<PtrToConstPoint> &Camera::getSeenCars() const {
+    return seenCars;
 }
 
