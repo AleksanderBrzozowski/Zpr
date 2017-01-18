@@ -8,13 +8,29 @@
 
 #include <ostream>
 
+/*!
+ * Represents 2-D point.
+ * @author Aleksander Brzozowski
+ */
 class Point {
 
 private:
     int x,y;
 public:
+    /*!
+     * Constructs point using passed x and y (x, y).
+     * @param x Point's x
+     * @param y Point's y
+     */
     Point(int x, int y);
+    /*!
+     * Constructs point (0, 0)
+     */
     Point();
+    /*!
+     * Constructs shallow copy of passed point.
+     * @param point Used point to create copy
+     */
     Point(const Point &point);
 
     int getX() const;

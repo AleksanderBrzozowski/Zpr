@@ -12,8 +12,14 @@
 #include "Building.h"
 #include "Movable.h"
 
+/*!
+ * Class stores buildings and cameras. Provides operations to add building, camera and scan cameras.
+ */
 class Facilities {
 public:
+    /*!
+     * Empty constructor
+     */
     Facilities();
 
     PtrBuilding addBuilding(const Point &upperLeft, const Point &lowerRight);
