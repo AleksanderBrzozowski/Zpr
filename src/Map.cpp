@@ -117,6 +117,13 @@ void Map::runCamerasScanning() {
         std::vector<PtrConstHuman> humans(movableFactory.getHumans().begin(), movableFactory.getHumans().end());
         facilities.scan(cars, humans);
         criticalSection.unlock();
+        for (const PtrCamera &camera : facilities.getCameras()) {
+            for(const PtrConstCar &car : camera->getSeenCars())
+                std::cout << "I see car: " << car->getActualPoint() << std::endl;
+            for(const PtrConstHuman &human : camera->getSeenHumans())
+                std::cout << "I see human: " << human->getActualPoint() << std::endl;
+        }
+        std::this_thread::sleep_for (std::chrono::seconds(1));
     }
 }
 
