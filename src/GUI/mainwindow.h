@@ -14,6 +14,15 @@ namespace Ui {
 class MainWindow;
 }
 
+/*!
+ * \class MainWindow mainwindow.h.
+ * \brief The MainWindow class.
+ * \details Class is a facade for classes that models
+ * out project. It provides methods to set objects to
+ * pointed position, remove them and refresh the rendered
+ * area. Class is singleton, so only way to access it is
+ * through appropriate method.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

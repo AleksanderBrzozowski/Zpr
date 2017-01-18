@@ -18,7 +18,15 @@
 #include "../Map.h"
 
 
-
+/*!
+ * \brief The MapArea class. Object responsible for drawing objects on screen.
+ * \details Object represents main widget in application. It is sandbox that
+ * intercepts user actions and draw everything that has graphical representation.
+ * It is mainly operated with mouse. Due to that all mouse movements and clicks
+ * are intercepted by object. Apart from that also keys 'escape', and arrows
+ * left and right are intercepted. Rest of keyboard events are sent to base class
+ * QWidget.
+ */
 class MapArea : public QWidget
 {
     Q_OBJECT
