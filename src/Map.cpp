@@ -92,8 +92,8 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
         PtrToConstPoint startPoint = cross->getPosition();
         PtrCross south = cross->getSouthNeighbour();
         PtrCross east = cross->getEastNeighbour();
-        if (east != nullptr && building.hasIntersection(LineSegment(*startPoint, *(east->getPosition()))) ||
-            south != nullptr && building.hasIntersection(LineSegment(*startPoint, *(south->getPosition())))){
+        if ((east != nullptr && building.hasIntersection(LineSegment(*startPoint, *(east->getPosition())))) ||
+                (south != nullptr && building.hasIntersection(LineSegment(*startPoint, *(south->getPosition()))))){
             criticalSection.unlock();
             return false;
         }
