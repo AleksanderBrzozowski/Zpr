@@ -7,20 +7,19 @@
 
 
 #include "Point.h"
-#include "StraightLine.h"
+#include "LineSegment.h"
 
 class Building {
 
 public:
     Building(const Point &upperLeft, const Point &lowerRight);
 
-    bool isCommonPointInsideBuilding(const StraightLine &straightLine) const;
+    bool hasIntersection(const LineSegment &straightLine) const;
 private:
-    StraightLine firstDiagonal, secondDiagonal;
+    LineSegment firstDiagonal, secondDiagonal;
     int upperX, lowerX;
     int upperY, lowerY;
 
-    bool isPointInsideBuilding(const std::pair<float, float> &point) const;
 };
 
 

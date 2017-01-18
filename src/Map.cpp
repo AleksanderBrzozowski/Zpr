@@ -14,9 +14,9 @@ void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, 
 
 bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
     criticalSection.lock();
-    StraightLine straightLine(*begin, *end);
+    LineSegment straightLine(*begin, *end);
     for (const PtrBuilding &building : facilities.getBuildings()) {
-        if(building->isCommonPointInsideBuilding(straightLine)){
+        if(building->hasIntersection(straightLine)){
             criticalSection.unlock();
             return false;
         }
@@ -51,8 +51,8 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
         PtrToConstPoint startPoint = cross->getPosition();
         PtrCross south = cross->getSouthNeighbour();
         PtrCross east = cross->getEastNeighbour();
-        if (east != nullptr && building.isCommonPointInsideBuilding(StraightLine(*startPoint, *(east->getPosition()))) ||
-            south != nullptr && building.isCommonPointInsideBuilding(StraightLine(*startPoint, *(south->getPosition())))){
+        if (east != nullptr && building.hasIntersection(LineSegment(*startPoint, *(east->getPosition()))) ||
+            south != nullptr && building.hasIntersection(LineSegment(*startPoint, *(south->getPosition())))){
             criticalSection.unlock();
             return false;
         }
