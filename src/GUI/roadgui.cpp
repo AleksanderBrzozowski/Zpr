@@ -126,9 +126,6 @@ void RoadGUI::adjustPoints(Point& first, Point& second) {
  * \details Function sets temporary ghost road in point given as argument.
  */
 void RoadGUI::setRectangle(Point point) {
-    if (!isGhost()) {
-        throw std::exception();
-    }
     roadRect = QRect(QPoint(point.getX() - (GridGUI::SIZE/2 - SIDEWALK_WIDTH),
                             point.getY() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH)),
                      QPoint(point.getX() + (GridGUI::SIZE/2 - SIDEWALK_WIDTH),
