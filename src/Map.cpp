@@ -10,10 +10,10 @@
 #include <GUI/mainwindow.h>
 
 /**
- * Calls creating methods in object of MovableFactory type.
- * @param startingPoint as shared_ptr to Point
- * @param endingPoint as shared_ptr to Point
- * @param speed  as integer argument
+ * @brief Calls creating methods in object of MovableFactory type.
+ * @param startingPoint as shared_ptr to Point.
+ * @param endingPoint as shared_ptr to Point.
+ * @param speed  as integer argument.
  */
 
 
@@ -24,11 +24,12 @@ void Map::createCar(PtrToConstPoint startingPoint, PtrToConstPoint endingPoint, 
 }
 
 /**
- * Checking if road may be created (for example checking if none of buildings
+ * @brief Creating new road and crosses from starting to ending point.
+ * @details Checking if road may be created (for example checking if none of buildings
  * is between these two points). If not -> method returns false.
  * In other case: calling crosses creating methods from object of CrossFactory type.
- * @param begin as shared_ptr to Point
- * @param end as shared_ptr to Point
+ * @param begin as shared_ptr to Point.
+ * @param end as shared_ptr to Point.
  * @return bool value. If true -> new road was created.
  */
 
@@ -47,7 +48,8 @@ bool Map::createRoad(PtrToConstPoint begin, PtrToConstPoint end) {
 }
 
 /**
- * If permission is true, new thread is created, where all of the movables
+ * @brief Running new thread for movables.
+ * @details If permission is true, new thread is created, where all of the movables
  * run. If permission is false, the thread finishes.
  * @param permission says if running thread has to start or to stop.
  */
@@ -62,7 +64,8 @@ void Map::setRunningMovablePermission(bool permission) {
 }
 
 /**
- * If permission is true, new thread is created, where all of the movables
+ * @brief Running new thread for cameras.
+ * @details If permission is true, new thread is created, where all of the movables
  * run. If permission is false, the thread finishes.
  * @param permission says if running thread has to start or stop.
  */
@@ -95,7 +98,8 @@ bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
 }
 
 /**
- * All of the movables are asked to make the next move.
+ * @brief Main method for running movables thread.
+ * @details All of the movables are asked to make the next move.
  * If movables end their journey, they are removed from the memory and GUI.
  * At the end, thread falls asleep for the time set in GUI const values.
  *
@@ -144,10 +148,10 @@ void Map::runRunningMovables(){
 }
 
 /**
- * Calls creating methods in object of MovableFactory type.
- * @param src as shared_ptr on Point type object
- * @param dst as shared_ptr on Point type object
- * @param speed as integer argument
+ * @brief Calls creating methods in object of MovableFactory type.
+ * @param src as shared_ptr on Point type object, starting point.
+ * @param dst as shared_ptr on Point type object, ending point.
+ * @param speed as integer argument, speed of human.
  */
 
 void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){

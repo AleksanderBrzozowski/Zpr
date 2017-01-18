@@ -1,5 +1,5 @@
 /**
- * @file Map.h
+ * @file MovableFactory.h
  * @Author PiotrKuc (piotr.kuc29@gmail.com)
  * @date January, 2017
  * @brief MovableFactory class declaration
@@ -31,29 +31,19 @@ private:
     std::list<PtrCar> cars;         ///<list of cars
 public:
 
-    ///Finds route betweend two points on the map.
     void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&, std::vector<PtrCross>&);
-
-    ///Prepare crosses for running finding route algorithm.
     void prepareRouteFinding(std::vector<PtrCross>&);
-
-    ///Checking if given point directly "sees" the given cross.
     bool pointMeetsCross(PtrToConstPoint, PtrCross) const;
 
-    ///Looking for a cross that directly "sees" the given point.
     PtrCross findNearestCross(PtrToConstPoint, const std::vector<PtrCross>&)const;
 
 
-    ///Get unique id for new movable.
     unsigned int getMovableId();
 
-    ///Creating new car running from point to point at set speed.
-    bool createCar(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
 
-    ///Creating new human running from point to point at set speed.
+    bool createCar(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
     bool createHuman(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
 
-    ///Transforming found route for humans to be set on sidewalks.
     void moveHumansOnSidewalks(std::vector<PtrToConstPoint>&);
 
     std::list<PtrCar>& getCars();

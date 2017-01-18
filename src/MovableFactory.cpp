@@ -1,5 +1,5 @@
 /**
- * @file Map.cpp
+ * @file MovableFactory.cpp
  * @Author PiotrKuc (piotr.kuc29@gmail.com)
  * @date January, 2017
  * @brief MovableFactory class methods implementation
@@ -11,8 +11,8 @@
 #include "MovableFactory.h"
 
 /**
- * Method creating new ID for movables.
- * @return new Id for movables
+ * @brief Get unique id for new movable.
+ * @return new Id for movables.
  */
 
 unsigned int MovableFactory::getMovableId() {
@@ -35,13 +35,14 @@ std::list<PtrHuman>& MovableFactory::getHumans(){
 }
 
 /**
- * Method at first looks for a route between starting and ending points.
+ * @brief Creating new car running from point to point at set speed.
+ * @details Method at first looks for a route between starting and ending points.
  * If route was found, creates car and includes it to the simulation.
- * @param src as shared_ptr to const Point type object, starting point of the car's route
- * @param dst as shared_ptr to const Point type object, ending point of the car's route
- * @param speed integer argument, speed of car
- * @param crosses vector of shared_ptr to Crosses type objects, needed to make route for car
- * @return true if route betweend starting and ending points was found and car was created
+ * @param src as shared_ptr to const Point type object, starting point of the car's route.
+ * @param dst as shared_ptr to const Point type object, ending point of the car's route.
+ * @param speed integer argument, speed of car.
+ * @param crosses vector of shared_ptr to Crosses type objects, needed to make routes for cars.
+ * @return true if route between starting and ending points was found and car was created.
  */
 
 bool MovableFactory::createCar(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector<PtrCross> &crosses){
@@ -58,13 +59,14 @@ bool MovableFactory::createCar(PtrToConstPoint src, PtrToConstPoint dst, int spe
 }
 
 /**
- * Method at first looks for a route between starting and ending points.
+ * @brief Creating new human running from point to point at set speed.
+ * @details Method at first looks for a route between starting and ending points.
  * If route was found, creates human and includes it to the simulation.
- * @param src as shared_ptr to const Point type object, starting point of the human's route
- * @param dst as shared_ptr to const Point type object, ending point of the human's route
- * @param speed integer argument, speed of human
- * @param crosses vector of shared_ptr to Crosses type objects, needed to make route for human
- * @return true if route betweend starting and ending points was found and human was created
+ * @param src as shared_ptr to const Point type object, starting point of the human's route.
+ * @param dst as shared_ptr to const Point type object, ending point of the human's route.
+ * @param speed integer argument, speed of human.
+ * @param crosses vector of shared_ptr to Crosses type objects, needed to make routes for humans.
+ * @return true if route between starting and ending points was found and human was created.
  */
 
 bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed, std::vector<PtrCross> &crosses) {
@@ -82,9 +84,10 @@ bool MovableFactory::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int s
 }
 
 /**
- * Adding offset between the street and sidewalk to every point in the found route to
+ * @brief Transforming found route for humans to be set on sidewalks.
+ * @details Adding offset between the street and sidewalk to every point in the found route to
  * make humans walking on the sidewalks.
- * @param route as vector of shared_ptr to const Point type objects to add to each point offset between streets and sidewalks
+ * @param route as vector of shared_ptr to const Point type objects to add to each point offset between street and sidewalk.
  */
 
 void MovableFactory::moveHumansOnSidewalks(std::vector<PtrToConstPoint> & route) {
@@ -97,12 +100,13 @@ void MovableFactory::moveHumansOnSidewalks(std::vector<PtrToConstPoint> & route)
 }
 
 /**
- * Finding route between starting point and ending point.
- * Finding route algorith runs similar to the DFS algorith in graphs.
- * @param src starting point as shared_ptr<Point>
- * @param dst endign point as shared_ptr<Point>
- * @param readyRoute vector to which new points will be written
- * @param crosses vector of crosses to find route
+ * @brief Finds route between two points on the map.
+ * @details Finding route between starting point and ending point.
+ * Finding route algorithm runs similar to the DFS algorithm in graph (map).
+ * @param src starting point as shared_ptr<Point>.
+ * @param dst endign point as shared_ptr<Point>.
+ * @param readyRoute vector to which new points will be written.
+ * @param crosses vector of crosses to find route.
  */
 
 void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::vector<PtrToConstPoint>&readyRoute, std::vector<PtrCross> &crosses) {
@@ -145,8 +149,9 @@ void MovableFactory::findRoute(PtrToConstPoint src, PtrToConstPoint dst, std::ve
 }
 
 /**
- * Preparing crosses to be used by the finding route algorith.
- * @param crosses to change crosses parametr
+ * @brief Prepare crosses for running finding route algorithm.
+ * @details Preparing crosses to be used by the finding route algorithm.
+ * @param crosses to change crosses parameter.
  */
 
 void MovableFactory::prepareRouteFinding(std::vector<PtrCross> &crosses) {
@@ -157,10 +162,11 @@ void MovableFactory::prepareRouteFinding(std::vector<PtrCross> &crosses) {
 }
 
 /**
- * Checking if point has direct route to the given cross (without any crosses (on the way)
- * @param point as shared_ptr<Point>, which point we want to check
- * @param cross as shared_ptr<Cross>, wchoch cross we want to check
- * @return true if given point has direct route to given cross
+ * @brief Checking if given point directly "sees" the given cross.
+ * @details Checking if point has direct route to the given cross (without any crosses (on the way).
+ * @param point as shared_ptr<Point>, which point we want to check.
+ * @param cross as shared_ptr<Cross>, which cross we want to check.
+ * @return true if given point has direct route to given cross.
  */
 
 bool MovableFactory::pointMeetsCross(PtrToConstPoint point, PtrCross cross) const{
@@ -195,10 +201,11 @@ bool MovableFactory::pointMeetsCross(PtrToConstPoint point, PtrCross cross) cons
 }
 
 /**
- * Finds the cross that has direct route to the given point.
- * @param point as shared_ptr<Point>, given point
- * @param crosses as vector of shared_ptr<Cross> consisting of every existing crosses
- * @return shared_ptr<Cross> of the cross that directly "sees" the given point
+ * @brief Looking for a cross that directly "sees" the given point.
+ * @details Finds the cross that has direct route to the given point.
+ * @param point as shared_ptr<Point>, given point.
+ * @param crosses as vector of shared_ptr<Cross> consisting of every existing crosses.
+ * @return shared_ptr<Cross> of the cross that directly "sees" the given point.
  */
 
 PtrCross MovableFactory::findNearestCross(PtrToConstPoint point, const std::vector<PtrCross> &crosses) const{
