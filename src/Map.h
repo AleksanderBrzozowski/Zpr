@@ -1,6 +1,10 @@
-//
-// Created by kuco on 12.01.17.
-//
+/**
+ * @file Map.h
+ * @Author PiotrKuc (piotr.kuc29@gmail.com)
+ * @date January, 2017
+ * @brief Map class declaration
+ *
+ */
 
 #ifndef ZPR_MAP_H
 #define ZPR_MAP_H
@@ -15,27 +19,46 @@
 #include "Building.h"
 #include "Facilities.h"
 
+/**
+ * @class Map
+ * @brief Class allowing to create map and simulate traffics.
+ * @details Contains crosses and movables factories allowing
+ * GUI eassily creating map and threads to run the simulation
+ * @class Map
+ */
+
 class Map {
 
 private:
 
-    MovableFactory movableFactory;
-    CrossFactory crossFactory;
-    Facilities facilities;
-    std::thread runningMovables;
-    std::thread camerasScanning;
-    bool runningMovablePermission;
-    bool cameraScanningPermission;
-    std::mutex criticalSection;
+    MovableFactory movableFactory;      ///<Object to make movables(humans and cars)
+    CrossFactory crossFactory;          ///<Object to make crosses
+    Facilities facilities;              ///<Object to make facilities(buildings and cameras)
+    std::thread runningMovables;        ///<thread refreshing movables; positions
+    std::thread camerasScanning;        ///<thread allowing cameras scanning
+    bool runningMovablePermission;      ///<permision for running the thread of movables moving
+    bool cameraScanningPermission;      ///<permision for cameras scanning
+    std::mutex criticalSection;         ///<mutex to make thread-safe methods
 
 public:
+    ///Creats new crosses between two points.
     bool createRoad(PtrToConstPoint, PtrToConstPoint);
+
+    ///Creating new car in simulation.
     void createCar(PtrToConstPoint, PtrToConstPoint, int);
+
+    ///Creating new human in simulation.
     void createHuman(PtrToConstPoint, PtrToConstPoint, int);
     bool createBuilding(const Point &upperLeft, const Point &lowerRight);
     void createCamera(const Point &startPoint, const Point &endPoint, double angle);
+
+    ///Method runs cars and humans in new thread.
     void setRunningMovablePermission(bool);
+
+    ///Method runs cameras scanning in new thread.
     void setCameraScanningPermission(bool);
+
+    ///Movables' running in new thread.
     void runRunningMovables();
     void runCamerasScanning();
 
