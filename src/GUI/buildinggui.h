@@ -5,8 +5,11 @@
 #include "gridgui.h"
 /*!
  * \brief The BuildingGUI class. Class holds info about look of building in GUI.
- * \details Function holds information necessary to draw building in GUI. It implements
- * virtual functions from base class, so it will be drawn properly.
+ * \details Class holds information necessary to draw building in GUI. It implements
+ * virtual functions from base class, so it will be drawn properly. It also impements function
+ * for moving object and checking if it intersects with other object. Apart from that it contains
+ * all varialbes that decides about look of building in GUI.
+ * \author Pawel Rybak
  */
 class BuildingGUI : public Drawable
 {
