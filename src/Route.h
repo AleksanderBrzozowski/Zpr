@@ -1,7 +1,3 @@
-//
-// Created by Aleksander on 12.12.2016.
-//
-
 #ifndef ZPR_ROUTE2_H
 #define ZPR_ROUTE2_H
 

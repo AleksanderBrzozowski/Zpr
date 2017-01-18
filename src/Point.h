@@ -1,7 +1,3 @@
-//
-// Created by Aleksander on 29.10.2016.
-//
-
 #ifndef ZPR_POINT_H
 #define ZPR_POINT_H
 

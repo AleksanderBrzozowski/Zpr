@@ -1,7 +1,3 @@
-//
-// Created by Aleksander on 29.10.2016.
-//
-
 #ifndef ZPR_VECTOR_H
 #define ZPR_VECTOR_H
 
@@ -11,6 +7,7 @@
 
 /*!
  * Represents vector.
+ * @author Aleksander Brzozowski
  */
 class RouteVector{
 

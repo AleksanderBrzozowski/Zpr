@@ -1,7 +1,3 @@
-//
-// Created by aleksander on 06.01.17.
-//
-
 #ifndef ZPR_STRAIGHTLINE_H
 #define ZPR_STRAIGHTLINE_H
 

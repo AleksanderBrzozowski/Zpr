@@ -1,7 +1,3 @@
-//
-// Created by Aleksander on 23.12.2016.
-//
-
 #ifndef ZPR_CAMERA_H
 #define ZPR_CAMERA_H
 
