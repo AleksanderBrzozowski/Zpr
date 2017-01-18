@@ -75,10 +75,7 @@ void Cross::addNeighbour(PtrCross cr) {
             eastNeighbour = cr;
 }
 
-
 ///@return Returns true if two crosses have the same position.
-
-
 bool Cross::operator==(const Cross &rhs) const{
     return *this->position.get() == *rhs.position.get();
 }

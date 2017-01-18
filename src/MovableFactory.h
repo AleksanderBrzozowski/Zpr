@@ -31,17 +31,19 @@ private:
     std::list<PtrCar> cars;         ///<list of cars
 public:
 
+
     void findRoute(PtrToConstPoint, PtrToConstPoint, std::vector<PtrToConstPoint>&, std::vector<PtrCross>&);
+
     void prepareRouteFinding(std::vector<PtrCross>&);
+
     bool pointMeetsCross(PtrToConstPoint, PtrCross) const;
 
     PtrCross findNearestCross(PtrToConstPoint, const std::vector<PtrCross>&)const;
 
-
     unsigned int getMovableId();
 
-
     bool createCar(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
+
     bool createHuman(PtrToConstPoint, PtrToConstPoint, int, std::vector<PtrCross>&);
 
     void moveHumansOnSidewalks(std::vector<PtrToConstPoint>&);

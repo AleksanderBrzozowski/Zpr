@@ -88,6 +88,13 @@ void Map::setCameraScanningPermission(bool permission) {
         camerasScanning.join();
 }
 
+/*!
+     * Adds Building represented by arguments of function.
+     * @param upperLeft     Point in the upper left of building
+     * @param lowerRight    Point in the lower right of building
+     * @return              Is building created
+     */
+
 bool Map::createBuilding(const Point &upperLeft, const Point &lowerRight) {
     criticalSection.lock();
     Building building(upperLeft, lowerRight);
@@ -172,6 +179,10 @@ void Map::createHuman(PtrToConstPoint src, PtrToConstPoint dst, int speed){
     criticalSection.unlock();
 }
 
+/**
+ * @brief Method runs cameras scanning in new thread.
+ */
+
 void Map::runCamerasScanning() {
     while (cameraScanningPermission) {
         criticalSection.lock();
@@ -188,6 +199,15 @@ void Map::runCamerasScanning() {
         std::this_thread::sleep_for (MainWindow::CAMERA_SCAN_FREQ);
     }
 }
+
+/*!
+     * Adds Camera represented by arguments of function.
+     * @param startPoint    Camera's start point
+     * @param endPoint      Camera's end point
+     * @param angle         Camera's angle
+     * @param accuracy      Camera's accuracy
+     */
+
 
 void Map::createCamera(const Point &startPoint, const Point &endPoint, double angle) {
     criticalSection.lock();
