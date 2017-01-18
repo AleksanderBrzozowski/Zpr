@@ -6,12 +6,12 @@
 #include <LineSegment.h>
 
 
-TEST(StraightLineTest, ThrowExceptionWhenPointsSameInCtor) {
+TEST(LineSegmentTest, ThrowExceptionWhenPointsSameInCtor) {
     ASSERT_THROW(LineSegment(Point(1, 1), Point(1, 1)), std::invalid_argument);
 }
 
 
-TEST(StraightLineTest, OneSolutionWhenNotParralelLines) {
+TEST(LineSegmentTest, OneSolutionWhenNotParralelLines) {
     LineSegment first(Point(1, 1), Point(2, 2));
     LineSegment second(Point(2, 0), Point(0, 2));
 
@@ -19,7 +19,7 @@ TEST(StraightLineTest, OneSolutionWhenNotParralelLines) {
     ASSERT_TRUE(second.hasIntersection(first));
 }
 
-TEST(StraightLineTest, NoIntersect) {
+TEST(LineSegmentTest, NoIntersect) {
     LineSegment first(Point(1, 1), Point(2, 2));
     LineSegment second(Point(-1, 0), Point(2, -1));
 
@@ -27,7 +27,7 @@ TEST(StraightLineTest, NoIntersect) {
     ASSERT_FALSE(second.hasIntersection(first));
 }
 
-TEST(StraightLineTest, ThrowExceptionWhenNoneSolutionsInIntersectMethod) {
+TEST(LineSegmentTest, ThrowExceptionWhenNonIntersect) {
     LineSegment first(Point(-2, 1), Point(-3, 5));
     LineSegment second(Point(-3, 0), Point(-4, 4));
 
@@ -35,7 +35,7 @@ TEST(StraightLineTest, ThrowExceptionWhenNoneSolutionsInIntersectMethod) {
     ASSERT_THROW(second.intersectionPoint(first), std::invalid_argument);
 }
 
-TEST(StraightLineTest, ThrowExceptionWhenManySolutionsInIntersectMethod) {
+TEST(LineSegmentTest, ThrowExceptionWhenManyIntersect) {
     LineSegment first(Point(-1, -1), Point(5, 5));
     LineSegment second(Point(1, 1), Point(2, 2));
 
@@ -43,7 +43,7 @@ TEST(StraightLineTest, ThrowExceptionWhenManySolutionsInIntersectMethod) {
     ASSERT_THROW(second.intersectionPoint(first), std::invalid_argument);
 }
 
-TEST(StraightLineTest, CommonPointOkWhenOneSolution) {
+TEST(LineSegmentTest, intersectionWhenOneSolution) {
     LineSegment first(Point(1, 1), Point(2, 2));
     LineSegment second(Point(5, 5), Point(5, 11));
     LineSegment third(Point(6, -1), Point(10, -1));
@@ -58,7 +58,7 @@ TEST(StraightLineTest, CommonPointOkWhenOneSolution) {
     ASSERT_EQ((std::pair<float, float>(5, -1)), second.intersectionPoint(third));
 }
 
-TEST(StraightLineTest, parralelLinesIntersect) {
+TEST(LineSegmentTest, parralelLinesIntersect) {
     LineSegment first(Point(1, 1), Point(2, 2));
     LineSegment second(Point(0, 0), Point(3, 3));
 
@@ -72,7 +72,7 @@ TEST(StraightLineTest, parralelLinesIntersect) {
     ASSERT_TRUE(fourth.hasIntersection(third));
 }
 
-TEST(StraightLineTest, parralelLinesNotIntersect) {
+TEST(LineSegmentTest, parralelLinesNotIntersect) {
     LineSegment first(Point(1, 1), Point(2, 2));
     LineSegment second(Point(3, 3), Point(4, 4));
 

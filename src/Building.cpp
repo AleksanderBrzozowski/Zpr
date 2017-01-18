@@ -14,8 +14,8 @@ Building::Building(const Point &upperLeft, const Point &lowerRight) :
         upperX(lowerRight.getX()), lowerX(upperLeft.getX()), upperY(upperLeft.getY()), lowerY(lowerRight.getY())
 {}
 
-bool Building::hasIntersection(const LineSegment &straightLine) const{
-    return firstDiagonal.hasIntersection(straightLine) || secondDiagonal.hasIntersection(straightLine);
+bool Building::hasIntersection(const LineSegment &lineSegment) const{
+    return firstDiagonal.hasIntersection(lineSegment) || secondDiagonal.hasIntersection(lineSegment);
 }
 
 

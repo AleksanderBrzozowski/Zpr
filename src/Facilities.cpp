@@ -32,9 +32,9 @@ bool Facilities::isMovableSeen(const Point &carPoint, PtrCamera &camera) {
 }
 
 bool Facilities::isMovableHiddenByBuilding(PtrCamera &camera, const Point &movablePoint) {
-    LineSegment straightLine(camera->getStartPoint(), movablePoint);
+    LineSegment lineSegment(camera->getStartPoint(), movablePoint);
     for (PtrBuilding &building : buildings) {
-        if (building->hasIntersection(straightLine))
+        if (building->hasIntersection(lineSegment))
             return true;
     }
     return false;

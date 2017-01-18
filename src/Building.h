@@ -14,7 +14,7 @@ class Building {
 public:
     Building(const Point &upperLeft, const Point &lowerRight);
 
-    bool hasIntersection(const LineSegment &straightLine) const;
+    bool hasIntersection(const LineSegment &lineSegment) const;
 private:
     LineSegment firstDiagonal, secondDiagonal;
     int upperX, lowerX;
