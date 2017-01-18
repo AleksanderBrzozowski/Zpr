@@ -3,7 +3,13 @@
 
 #include "drawable.h"
 
-
+/*!
+ * \brief The CarGUI class
+ * \details Class holds all necessary information to draw car object on screen.
+ * It implements functions from base class thar defines how car will look. It also
+ * holds all variables that define look of the both types of car object on screen.
+ * \author Pawel Rybak
+ */
 class CarGUI : public Drawable {
 public:
     CarGUI(QRect carRect, bool fast = false, bool ghost = false);
@@ -16,6 +22,8 @@ public:
     /**PROPERTIES**/
     static const int WIDTH;
     static const int HEIGHT;
+    static const int FAST_WIDTH;
+    static const int FAST_HEIGHT;
 
     static const int PEN_WIDTH;
     static const Qt::PenStyle PEN_STYLE;

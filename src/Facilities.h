@@ -1,7 +1,3 @@
-//
-// Created by aleksander on 09.01.17.
-//
-
 #ifndef ZPR_FACILITIES_H
 #define ZPR_FACILITIES_H
 
@@ -12,8 +8,15 @@
 #include "Building.h"
 #include "Movable.h"
 
+/*!
+ * Class stores buildings and cameras. Provides operations to add building, camera and scan cameras.
+ * @author Aleksander Brzozowski
+ */
 class Facilities {
 public:
+    /*!
+     * Empty constructor
+     */
     Facilities();
 
     PtrBuilding addBuilding(const Point &upperLeft, const Point &lowerRight);

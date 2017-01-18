@@ -1,9 +1,9 @@
 #include "mainwindow.h"
 
 ///\brief MainWindow::REFRESH_TIME. Time between cars movement.
-const std::chrono::milliseconds 	 MainWindow::REFRESH_TIME = std::chrono::milliseconds(50);
+const std::chrono::milliseconds MainWindow::REFRESH_TIME = std::chrono::milliseconds(50);
 ///\brief MainWindow::CAMERA_SCAN_FREQ. Time between camera scans
-const std::chrono::seconds  MainWindow::CAMERA_SCAN_FREQ = std::chrono::seconds(1);
+const std::chrono::seconds MainWindow::CAMERA_SCAN_FREQ = std::chrono::seconds(1);
 
 /*!
  * \brief MainWindow::getInstance.

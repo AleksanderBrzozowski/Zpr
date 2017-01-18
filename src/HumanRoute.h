@@ -1,7 +1,3 @@
-//
-// Created by Aleksander on 12.12.2016.
-//
-
 #ifndef ZPR_HUMANROUTE_H
 #define ZPR_HUMANROUTE_H
 
@@ -10,8 +6,16 @@
 #include "Route.h"
 #include "Types.h"
 
+/*!
+ * Represents route for human
+ * @author Aleksander Brzozowski
+ */
 class HumanRoute : public Route{
 public:
+    /*!
+     * Constructs HumanRoute.
+     * @param points Points to fallow by route.
+     */
     HumanRoute(const std::vector<PtrToConstPoint> &points);
     virtual ~HumanRoute();
 

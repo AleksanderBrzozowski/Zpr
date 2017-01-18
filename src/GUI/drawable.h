@@ -3,6 +3,14 @@
 
 #include <QPainter>
 
+/*!
+ * \brief The Drawable class.
+ * \details Base class for all the objects that represents objects drawn
+ * on screen. It has three purely virtual classes that needs to be implemented.
+ * Its main purpouse is to create common interface of drawing all objects that
+ * can be drawn.
+ * \author Pawel Rybak
+ */
 class Drawable
 {
 public:
