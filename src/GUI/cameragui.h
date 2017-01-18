@@ -5,14 +5,22 @@
 #include <Point.h>
 #include <cmath>
 
+/*!
+ * \brief The CameraGUI class. Class holds info about look of camera in GUI.
+ * \details Class holds information necessary to draw camera in GUI. It
+ * implements virtual function from base class, so it wil be drawn poperly.
+ * It has also function that allows io move it and differ its range of sight.
+ * Function holds all information about the look of the camera on screen.
+ * \author Pawel Rybak
+ */
 class CameraGUI : public Drawable
 {
 public:
-    CameraGUI(unsigned int layer, unsigned int x, unsigned int y,
+    CameraGUI(unsigned int x, unsigned int y,
               unsigned int span, int angle, unsigned int range,
               bool ghost = false);
-    CameraGUI(unsigned int layer, Point position, Point range, int span, bool ghost = false);
-    CameraGUI(unsigned int layer, Point position);
+    CameraGUI(Point position, Point range, int span, bool ghost = false);
+    CameraGUI(Point position);
 
     void setRectangle(Point point);
     void setRectangle(Point first, Point second);

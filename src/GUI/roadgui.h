@@ -8,12 +8,21 @@
 #include <math.h>
 #include <iostream>
 
+/*!
+ * \brief The RoadGUI class. Class holds info about look of roads in GUI.
+ * \details Class holds information necessary to draw road object on screen.
+ * It implements virtual function draw. It additionally has function drawSidewalk,
+ * so sidewalks can be drawn below all roads. Without caling this function, sidewalks
+ * won't appear. It also holds all information about how roads and sidewalks are supposed
+ * to look.
+ * \author Pawel Rybak
+ */
 class RoadGUI : public Drawable {
 public:
     static void adjustPoints(Point& first, Point& second);
 
-    RoadGUI(unsigned int layer, Point begin, Point end, bool ghost = false);
-    RoadGUI(unsigned int layer, Point point);
+    RoadGUI(Point begin, Point end, bool ghost = false);
+    RoadGUI(Point point);
     ~RoadGUI();
     void draw(QPainter &) const override;
     void setTo(unsigned int x, unsigned int y) override;
@@ -24,10 +33,6 @@ public:
 
     bool isVertical() const;
     std::tuple<Point, Point> getEnds() const;
-
-    bool coincides(const RoadGUI&) const;
-    bool intersects(const RoadGUI&) const;
-    bool adjoins(const RoadGUI&) const;
 
     /**PROPERTIES**/
     static const int PEN_WIDTH;

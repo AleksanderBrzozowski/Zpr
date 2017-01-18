@@ -14,6 +14,15 @@ namespace Ui {
 class MainWindow;
 }
 
+/*!
+ * \class MainWindow mainwindow.h.
+ * \brief The MainWindow class.
+ * \details Class is a facade for GUI part of project.
+ * It provides methods to set objects to
+ * pointed position, remove them and refresh the rendered
+ * area. Class is singleton, so only way to access it is
+ * through appropriate method.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -32,6 +41,8 @@ public:
     void refresh();
     void resetLabel();
 
+    static const auto REFRESH_TIME;
+    static const auto CAMERA_SCAN_FREQ;
 private:
     explicit MainWindow(QWidget *parent = 0);
     MainWindow(const MainWindow &) = delete;

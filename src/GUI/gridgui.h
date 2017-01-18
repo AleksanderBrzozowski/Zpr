@@ -3,9 +3,16 @@
 
 #include "drawable.h"
 
+/*!
+ * \brief The GridGUI class.
+ * \details Class represents grid drawn on the screen. most of objects are snapped to
+ * this grid. It implements all necessary functions to be drawn. It also contains all
+ * variables thet define look of the grid.
+ * \author Pawel Rybak
+ */
 class GridGUI : public Drawable {
 public:
-    GridGUI(unsigned int layer, unsigned int width, unsigned int height);
+    GridGUI(unsigned int width, unsigned int height);
     ~GridGUI();
     void draw(QPainter &painter) const override;
     void setTo(unsigned int x, unsigned int y) override;

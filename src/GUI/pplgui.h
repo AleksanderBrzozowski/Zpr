@@ -5,10 +5,17 @@
 #include "gridgui.h"
 #include "roadgui.h"
 
+/*!
+ * \brief The PplGUI class.
+ * \details Class holds all necessary information to draw Human object on screen.
+ * It implements functions from base class thar defines how Human will look. It also
+ * holds all variables that define look of the Human object on screen.
+ * \author Pawel Rybak
+ */
 class PplGUI : public Drawable {
 public:
-    PplGUI(unsigned int layer, QRect pplRect, bool ghost = false);
-    PplGUI(unsigned int layer, unsigned int x, unsigned int y, bool ghost = false);
+    PplGUI(QRect pplRect, bool ghost = false);
+    PplGUI(unsigned int x, unsigned int y, bool ghost = false);
     ~PplGUI();
     void draw(QPainter &painter) const override;
     void setTo(unsigned int x, unsigned int y) override;
