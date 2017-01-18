@@ -3,12 +3,16 @@
 
 #include "drawable.h"
 #include "gridgui.h"
-
+/*!
+ * \brief The BuildingGUI class. Class holds info about look of building in GUI.
+ * \details Function holds information necessary to draw building in GUI. It implements
+ * virtual functions from base class, so it will be drawn properly.
+ */
 class BuildingGUI : public Drawable
 {
 public:
-    BuildingGUI(unsigned int layer, QRect buildingRect,  bool ghost = false);
-    BuildingGUI(unsigned int layer, unsigned int x, unsigned int y,
+    BuildingGUI(QRect buildingRect,  bool ghost = false);
+    BuildingGUI(unsigned int x, unsigned int y,
                 unsigned int width = GridGUI::SIZE, unsigned int height = GridGUI::SIZE,
                 bool ghost = false);
     ~BuildingGUI();

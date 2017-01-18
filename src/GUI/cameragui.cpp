@@ -51,20 +51,20 @@ const QColor CameraGUI::GHOST_RNG_BRUSH_COLOR = QColor(177, 156, 217, 64);
 const QBrush CameraGUI::RNG_BRUSH(RNG_BRUSH_COLOR, RNG_BRUSH_STYLE);
 const QBrush CameraGUI::GHOST_RNG_BRUSH(GHOST_RNG_BRUSH_COLOR, RNG_BRUSH_STYLE);
 
-CameraGUI::CameraGUI(unsigned int layer, unsigned int x, unsigned int y,
+CameraGUI::CameraGUI(unsigned int x, unsigned int y,
                      unsigned int span, int angle, unsigned int range,
-                     bool ghost) : Drawable(layer, ghost), span(16*span), angle(16*angle),
+                     bool ghost) : Drawable(ghost), span(16*span), angle(16*angle),
                      camRect(x - CAM_RADIUS/2, y - CAM_RADIUS/2, CAM_RADIUS, CAM_RADIUS),
                      rngRect(x - range, y - range, 2*range, 2*range) {
 
 }
 
-CameraGUI::CameraGUI(unsigned int layer, Point position) : Drawable(layer, true) {
+CameraGUI::CameraGUI(Point position) : Drawable(true) {
     setRectangle(position);
 }
 
-CameraGUI::CameraGUI(unsigned int layer, Point position, Point range, int span, bool ghost) :
-    Drawable(layer, ghost), span(span) {
+CameraGUI::CameraGUI(Point position, Point range, int span, bool ghost) :
+    Drawable(ghost), span(span) {
     setRectangle(position, range);
 }
 
@@ -160,8 +160,10 @@ void CameraGUI::setTo(unsigned int x, unsigned int y) {
 }
 
 void CameraGUI::setRectangle(Point point) {
-    camRect.moveTo(point.getX() - CAM_RADIUS/2, point.getY() - CAM_RADIUS/2);
-    rngRect.moveTo(point.getX() - rngRect.width()/2, point.getY() - rngRect.height()/2);
+    camRect.setCoords(point.getX() - CAM_RADIUS/2, point.getY() - CAM_RADIUS/2,
+                      point.getX() + CAM_RADIUS/2, point.getY() + CAM_RADIUS/2);
+    rngRect.setCoords(point.getX() - CAM_RADIUS/2, point.getY() - CAM_RADIUS/2,
+                      point.getX() + CAM_RADIUS/2, point.getY() + CAM_RADIUS/2);
 }
 
 void CameraGUI::setRectangle(Point first, Point second) {

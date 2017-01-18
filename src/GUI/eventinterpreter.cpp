@@ -1,10 +1,24 @@
 #include "eventinterpreter.h"
 #include "mainwindow.h"
 
+/*!
+ * \brief EventInterpreter::EventInterpreter.
+ * \details Constructor. Initiats object's fields.
+ */
 EventInterpreter::EventInterpreter() : currentOption(Option::doNothing), anchorValid(false) {
 
 }
 
+/*!
+ * \brief EventInterpreter::setCurrentOption.
+ * \param option - Option to be set. Its type is EventInterpreter::Option.
+ * \return Shared pointer to appropriate ghost object to be drawn.
+ * \details Object will set current option unless there isn't valid pointer
+ * to map object. If pointer to map is invalid it won't take any effect.
+ * Function also sets pointer to appropriate ghost object, so it can be changed
+ * due to mouse/keyboard events. It also returns this ghost object as shared pointer
+ * casted Drawable object, so MapArea object can draw it.
+ */
 std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
     if (map == nullptr)
         currentOption = Option::doNothing;
@@ -14,30 +28,30 @@ std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
     anchorValid = false;
     switch(option) {
     case Option::setRoad:
-        ghostRoad = std::shared_ptr<RoadGUI>(new RoadGUI(0, Point(0, 0)));
+        ghostRoad = std::shared_ptr<RoadGUI>(new RoadGUI(Point(-50, -50)));
         return ghostRoad;
         break;
     case Option::setCar:
-        ghostObject = std::shared_ptr<Drawable>(new CarGUI(0, 0, 0, false, true));
+        ghostObject = std::shared_ptr<Drawable>(new CarGUI(-50, -50, false, true));
         return ghostObject;
         break;
     case Option::setFastCar:
-        ghostObject = std::shared_ptr<Drawable>(new CarGUI(0, 0, 0, true, true));
+        ghostObject = std::shared_ptr<Drawable>(new CarGUI(-50, -50, true, true));
         return ghostObject;
         break;
     case Option::setBuilding:
-        ghostObject = std::shared_ptr<Drawable>(new BuildingGUI(0, 0, 0, GridGUI::SIZE,
+        ghostObject = std::shared_ptr<Drawable>(new BuildingGUI(-50, -50, GridGUI::SIZE,
                                                                GridGUI::SIZE, true));
         return ghostObject;
         break;
     case Option::setCamera:
-        ghostCamera = std::shared_ptr<CameraGUI>(new CameraGUI(0, 0, 0, CameraGUI::DEFAULT_SPAN,
+        ghostCamera = std::shared_ptr<CameraGUI>(new CameraGUI(-50, -50, CameraGUI::DEFAULT_SPAN,
                                                               CameraGUI::DEFAULT_ANGLE,
-                                                              CameraGUI::DEFAULT_RANGE, true));
+                                                              0, true));
         return ghostCamera;
         break;
     case Option::setHuman:
-        ghostObject = std::shared_ptr<Drawable>(new PplGUI(0, 0, 0, true));
+        ghostObject = std::shared_ptr<Drawable>(new PplGUI(-50, -50, true));
         return ghostObject;
         break;
     case Option::doNothing:
@@ -51,10 +65,23 @@ std::shared_ptr<Drawable> EventInterpreter::setCurrentOption(Option option) {
     }
 }
 
+/*!
+ * \brief EventInterpreter::getCurrentOption.
+ * \return Returns current option.
+ */
 EventInterpreter::Option EventInterpreter::getCurrentOption() {
     return currentOption;
 }
 
+/*!
+ * \brief EventInterpreter::mouseClicked.
+ * \param x - mouse position X.
+ * \param y - mouse position Y.
+ * \details Interprets mouse click events. It is based on current option and whether
+ * anchor point is valid. Unless current tool needs only one point to be created,
+ * first click sets anchor field, and second calls function to construct object that
+ * takes two points in constructor.
+ */
 void EventInterpreter::mouseClicked(int x, int y) {
     Point point(x, y);
     switch(currentOption) {
@@ -68,7 +95,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             if (map->createRoad(srcPtr, dstPtr))
-                emit roadCreated(new RoadGUI(3, anchor, point));
+                emit roadCreated(new RoadGUI(anchor, point));
             anchorValid = false;
         }
         break;
@@ -78,7 +105,6 @@ void EventInterpreter::mouseClicked(int x, int y) {
             anchor = point;
             anchorValid = true;
         } else {
-            //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             map->createCar(srcPtr, dstPtr, CarGUI::CAR_SPEED);
@@ -92,7 +118,6 @@ void EventInterpreter::mouseClicked(int x, int y) {
             anchor = point;
             anchorValid = true;
         } else {
-            //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             map->createCar(srcPtr, dstPtr, CarGUI::FAST_CAR_SPEED);
@@ -103,7 +128,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
         snapToGridCenter(point);
         if (map->createBuilding(Point(point.getX() - GridGUI::SIZE/2, point.getY() + GridGUI::SIZE/2),
                             Point(point.getX() + GridGUI::SIZE/2, point.getY() - GridGUI::SIZE/2)))
-            emit drawableCreated(new BuildingGUI(1, point.getX(), point.getY()));
+            emit drawableCreated(new BuildingGUI(point.getX(), point.getY()));
         anchorValid = false;
         break;
     case Option::setHuman:
@@ -112,7 +137,6 @@ void EventInterpreter::mouseClicked(int x, int y) {
             anchor = point;
             anchorValid = true;
         } else {
-            //emit drawableCreated(new CarGUI(2, anchor.getX(), anchor.getY()));
             PtrToConstPoint srcPtr = std::make_shared<Point>(anchor.getX(), anchor.getY());
             PtrToConstPoint dstPtr = std::make_shared<Point>(point.getX(), point.getY());
             map->createHuman(srcPtr, dstPtr, PplGUI::SPEED);
@@ -126,7 +150,7 @@ void EventInterpreter::mouseClicked(int x, int y) {
             anchorValid = true;
         } else {
             map->createCamera(anchor, point, ghostCamera->getSpan()/16);
-            emit cameraCreated(new CameraGUI(0, anchor, point, ghostCamera->getSpan()));
+            emit cameraCreated(new CameraGUI(anchor, point, ghostCamera->getSpan()));
             anchorValid = false;
         }
         break;
@@ -153,7 +177,12 @@ void EventInterpreter::steerCamera(int keyCode) {
     }
 }
 
-
+/*!
+ * \brief EventInterpreter::snapToGridCenter.
+ * \param point - point to be snapped.
+ * \details Function takes reference to point as an argument and modifies
+ * it so it will be in the center of the grid piece point is in.
+ */
 void EventInterpreter::snapToGridCenter(Point &point) const {
     int x = point.getX() / GridGUI::SIZE;
     int y = point.getY() / GridGUI::SIZE;
@@ -161,6 +190,12 @@ void EventInterpreter::snapToGridCenter(Point &point) const {
     point.setY(y * GridGUI::SIZE + GridGUI::SIZE/2);
 }
 
+/*!
+ * \brief EventInterpreter::snapToGridIntersect.
+ * \param point - point to be snapped.
+ * \details Function takes reference to point as an argument and modifies
+ * it so it will be on the closest intersect of grid lines.
+ */
 void EventInterpreter::snapToGridIntersect(Point &point) const {
     double x = static_cast<double>(point.getX()) / static_cast<double>(GridGUI::SIZE);
     double y = static_cast<double>(point.getY()) / static_cast<double>(GridGUI::SIZE);
@@ -168,6 +203,15 @@ void EventInterpreter::snapToGridIntersect(Point &point) const {
     point.setY(round(y) * GridGUI::SIZE);
 }
 
+/*!
+ * \brief EventInterpreter::mouseMoved.
+ * \param x - mouse position X.
+ * \param y - mouse position Y.
+ * \details Function called when mouse is moved. It takes current mouse position as
+ * arguments. Depending on current option and validity of anchor point. It modifies
+ * currently shown ghost object, so it will look the same as would object when mouse
+ * is clicked now.
+ */
 void EventInterpreter::mouseMoved(int x, int y) {
     Point point(x, y);
     switch(currentOption) {
@@ -218,6 +262,13 @@ void EventInterpreter::mouseMoved(int x, int y) {
 
 }
 
+/*!
+ * \brief EventInterpreter::setMap.
+ * \param map - shared pointer to map object.
+ * \details Function sets object's pointer to map object. Map is used to notify
+ * app's model about user input. Without it any input won't change anything, but
+ * objects can still be drawn on map area by calling appropriate functions.
+ */
 void EventInterpreter::setMap(std::shared_ptr<Map> map) {
     this->map = map;
 }

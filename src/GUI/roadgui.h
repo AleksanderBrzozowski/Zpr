@@ -12,8 +12,8 @@ class RoadGUI : public Drawable {
 public:
     static void adjustPoints(Point& first, Point& second);
 
-    RoadGUI(unsigned int layer, Point begin, Point end, bool ghost = false);
-    RoadGUI(unsigned int layer, Point point);
+    RoadGUI(Point begin, Point end, bool ghost = false);
+    RoadGUI(Point point);
     ~RoadGUI();
     void draw(QPainter &) const override;
     void setTo(unsigned int x, unsigned int y) override;

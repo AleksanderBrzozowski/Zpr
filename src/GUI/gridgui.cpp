@@ -4,8 +4,8 @@
 const QPen GridGUI::PEN(QColor(255, 255, 255, 80));
 const int GridGUI::SIZE = 32;
 
-GridGUI::GridGUI(unsigned int layer, unsigned int width, unsigned int height) :
-    Drawable(layer, false), height(height), width(width) {
+GridGUI::GridGUI(unsigned int width, unsigned int height) :
+    Drawable(false), height(height), width(width) {
 }
 
 GridGUI::~GridGUI() {

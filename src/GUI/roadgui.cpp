@@ -25,12 +25,12 @@ const unsigned int RoadGUI::SIDEWALK_WIDTH = 8;
 const QColor RoadGUI::SIDEWALK_BRUSH_COLOR = QColor(155, 155, 132);
 const QBrush RoadGUI::SIDEWALK_BRUSH(SIDEWALK_BRUSH_COLOR, BRUSH_STYLE);
 
-RoadGUI::RoadGUI(unsigned int layer, Point firstPoint, Point secondPoint, bool ghost):
-    Drawable(layer, ghost) {
+RoadGUI::RoadGUI(Point firstPoint, Point secondPoint, bool ghost):
+    Drawable(ghost) {
     setRectangle(firstPoint, secondPoint);
 }
 
-RoadGUI::RoadGUI(unsigned int layer, Point point) : Drawable(layer, true) {
+RoadGUI::RoadGUI(Point point) : Drawable(true) {
     setRectangle(point);
 }
 

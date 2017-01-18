@@ -7,17 +7,15 @@ class Drawable
 {
 public:
 public:
-    Drawable(unsigned int, bool);
+    Drawable(bool);
     virtual ~Drawable() = 0;
 
     virtual void draw(QPainter &) const = 0;
     virtual void setTo(unsigned int x, unsigned int y) = 0;
     virtual bool intersects(QRect& rectangle) const = 0;
-    int getLayer() const;
     bool isGhost() const;
 
 private:
-    unsigned int layer;
     bool ghost;
 };
 

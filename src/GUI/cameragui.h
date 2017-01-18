@@ -8,11 +8,11 @@
 class CameraGUI : public Drawable
 {
 public:
-    CameraGUI(unsigned int layer, unsigned int x, unsigned int y,
+    CameraGUI(unsigned int x, unsigned int y,
               unsigned int span, int angle, unsigned int range,
               bool ghost = false);
-    CameraGUI(unsigned int layer, Point position, Point range, int span, bool ghost = false);
-    CameraGUI(unsigned int layer, Point position);
+    CameraGUI(Point position, Point range, int span, bool ghost = false);
+    CameraGUI(Point position);
 
     void setRectangle(Point point);
     void setRectangle(Point first, Point second);

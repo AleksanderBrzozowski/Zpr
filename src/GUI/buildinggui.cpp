@@ -21,14 +21,14 @@ const QColor BuildingGUI::GHOST_BRUSH_COLOR = QColor(255, 179, 71, 127);
 const QBrush BuildingGUI::BRUSH(BRUSH_COLOR, BRUSH_STYLE);
 const QBrush BuildingGUI::GHOST_BRUSH(GHOST_BRUSH_COLOR, BRUSH_STYLE);
 
-BuildingGUI::BuildingGUI(unsigned int layer, QRect buildingRect, bool ghost) :
-    Drawable(layer, ghost), buildingRect(buildingRect) {
+BuildingGUI::BuildingGUI(QRect buildingRect, bool ghost) :
+    Drawable(ghost), buildingRect(buildingRect) {
 
 }
 
-BuildingGUI::BuildingGUI(unsigned int layer, unsigned int x, unsigned int y,
+BuildingGUI::BuildingGUI(unsigned int x, unsigned int y,
                          unsigned int width, unsigned int height, bool ghost) :
-    Drawable(layer, ghost), buildingRect(x - GridGUI::SIZE/2, y - GridGUI::SIZE/2, width, height) {
+    Drawable(ghost), buildingRect(x - GridGUI::SIZE/2, y - GridGUI::SIZE/2, width, height) {
 
 }
 
@@ -48,8 +48,6 @@ void BuildingGUI::draw(QPainter &painter) const {
 }
 
 void BuildingGUI::setTo(unsigned int x, unsigned int y) {
-//    buildingRect.setCoords(x - buildingRect.width()/2, y - buildingRect.height()/2,
-//                           x + buildingRect.width()/2, y + buildingRect.height()/2);
     buildingRect.moveTo(x - GridGUI::SIZE/2, y - GridGUI::SIZE/2);
 }
 

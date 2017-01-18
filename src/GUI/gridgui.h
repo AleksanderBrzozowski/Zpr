@@ -5,7 +5,7 @@
 
 class GridGUI : public Drawable {
 public:
-    GridGUI(unsigned int layer, unsigned int width, unsigned int height);
+    GridGUI(unsigned int width, unsigned int height);
     ~GridGUI();
     void draw(QPainter &painter) const override;
     void setTo(unsigned int x, unsigned int y) override;
