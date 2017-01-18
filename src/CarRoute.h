@@ -8,14 +8,14 @@
 #include "Types.h"
 
 /*!
- * Represents route for car
+ * Represents route for car.
  * @author Aleksander Brzozowski
  */
 class CarRoute : public Route {
 public:
     /*!
     * Constructs HumanRoute.
-    * @param points Points to fallow by route.
+    * @param points Points to fallow by route
     */
     CarRoute(const std::vector<PtrToConstPoint> &points);
     virtual ~CarRoute();

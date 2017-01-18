@@ -43,7 +43,7 @@ private:
 
 public:
     /*!
-     * Constructs Car
+     * Constructs Car.
      * @param startPoint    Point in which car will start
      * @param points        Points to follow by car
      * @param speed         Car's speed
@@ -64,7 +64,7 @@ private:
 
 public:
     /*!
-    * Constructs Human
+    * Constructs Human.
     * @param startPoint    Point in which human will start
     * @param points        Points to follow by human
     * @param speed         Human's speed

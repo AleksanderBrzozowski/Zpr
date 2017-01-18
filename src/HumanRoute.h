@@ -7,7 +7,7 @@
 #include "Types.h"
 
 /*!
- * Represents route for human
+ * Represents route for Human.
  * @author Aleksander Brzozowski
  */
 class HumanRoute : public Route{
